@@ -22,6 +22,8 @@ from dotenv import load_dotenv
 from vnstock import *  # Import vnstock library
 import matplotlib.pyplot as plt
 import mplfinance as mpf
+import traceback
+#from vnstock_ta import Indicator, Plotter, DataSource
 warnings.filterwarnings('ignore')
 
 # ======================
@@ -328,9 +330,10 @@ def plot_stock_analysis(df, symbol):
     
     # Price and Volume Chart
     plt.subplot(4, 1, 1)
+    print(df)
     plt.plot(df.index, df['close'], label='Close Price', color='b')
-    plt.plot(df.index, df['SMA_20'], label='20-day SMA', color='orange', alpha=0.7)
-    plt.plot(df.index, df['EMA_50'], label='50-day EMA', color='purple', alpha=0.7)
+    plt.plot(df.index, df['MA_10'], label='10-day SMA', color='orange', alpha=0.7)
+    plt.plot(df.index, df['MA_50'], label='50-day EMA', color='purple', alpha=0.7)
     plt.title(f'{symbol} Stock Analysis')
     plt.ylabel('Price')
     plt.legend()
@@ -562,7 +565,7 @@ def analyze_stock(symbol):
     
     # Tạo phân tích kỹ thuật và dự báo
     print(f"\nĐang tạo biểu đồ phân tích cho mã {symbol}...")
-    forecast_dates, forecast_values = plot_stock_analysis(symbol, df_features, model, scaler, feature_names)
+    forecast_dates, forecast_values = plot_stock_analysis(df,symbol)
     
     # Tạo tín hiệu giao dịch
     print(f"\nĐang tạo tín hiệu giao dịch cho mã {symbol}...")
@@ -697,14 +700,15 @@ if __name__ == "__main__":
     print("1. Phân tích một mã cụ thể")
     print("2. Quét và phân tích danh sách mã")
     
-    choice = input("\nNhập lựa chọn của bạn (1/2): ")
+    analyze_stock("ACB")
+    # choice = input("\nNhập lựa chọn của bạn (1/2): ")
     
-    if choice == "1":
-        symbol = input("Nhập mã chứng khoán cần phân tích (ví dụ: VNM, VCB): ").strip().upper()
-        analyze_stock(symbol)
-    elif choice == "2":
-        screen_stocks()
-    else:
-        print("Lựa chọn không hợp lệ!")
+    # if choice == "1":
+    #     symbol = input("Nhập mã chứng khoán cần phân tích (ví dụ: VNM, VCB): ").strip().upper()
+    #     analyze_stock(symbol)
+    # elif choice == "2":
+    #     screen_stocks()
+    # else:
+    #     print("Lựa chọn không hợp lệ!")
     
     print("\nHoàn thành phân tích. Các báo cáo đã được lưu trong thư mục 'vnstocks_data/'.")
