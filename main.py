@@ -637,7 +637,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 last_signal = "BÁN (RSI quá mua + Giá dưới SMA50)"
                 
             print(f"\nTÍN HIỆU GIAO DỊCH CUỐI CÙNG ({df.index[-1].strftime('%d/%m/%Y')}):")
-            print(f"- Giá đóng cửa: {current_price:,.2} VND")
+            print(f"- Giá đóng cửa: {current_price:,.2f} VND")
             print(f"- RSI: {rsi_value:.2f}")
             print(f"- MACD: {df['MACD'].iloc[-1]:.2f} | Signal: {df['MACD_Signal'].iloc[-1]:.2f}")
             print(f"- SMA20/SMA50: {ma20_value:,.2f} / {ma50_value:,.2f} VND")
@@ -803,7 +803,7 @@ def analyze_stock(symbol):
     
     # Sửa lỗi kiểm tra điều kiện cho forecast
     if len(forecast_dates) > 0 and len(forecast_values) > 0:
-        print(f"\nDỰ BÁO GIÁ CHO {len(forecast_dates)} NGÀY TIẾP THEO:")
+        print(f"\nDỰ BÁO GIÁ CHO {len(forecast_dates):,.2} NGÀY TIẾP THEO:")
         for i, (date, price) in enumerate(zip(forecast_dates, forecast_values)):
             change = ((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
             print(f"Ngày {i+1} ({date.date()}): {price:,.0f} VND ({change:+.2f}%)")
