@@ -1,6 +1,6 @@
 {
     "symbol": "ACB",
-    "timestamp": "2025-08-14 15:35:27",
+    "timestamp": "2025-08-14 16:01:32",
     "current_price": 26.2,
     "signal": "TRUNG LẬP",
     "recommendation": "GIỮ",
@@ -11,29 +11,29 @@
     "forecast": [
         {
             "date": "2025-08-15",
-            "price": 23.744857788085938,
-            "change_percent": -9.370771801198709
+            "price": 23.154052734375,
+            "change_percent": -11.625752922232822
         },
         {
             "date": "2025-08-16",
-            "price": 23.83662223815918,
-            "change_percent": -9.020525808552748
+            "price": 23.232147216796875,
+            "change_percent": -11.32768237863788
         },
         {
             "date": "2025-08-17",
-            "price": 23.836685180664062,
-            "change_percent": -9.020285569984491
+            "price": 23.25025177001953,
+            "change_percent": -11.258581030459801
         },
         {
             "date": "2025-08-18",
-            "price": 23.78032684326172,
-            "change_percent": -9.235393728008704
+            "price": 23.227304458618164,
+            "change_percent": -11.346166188480288
         },
         {
             "date": "2025-08-19",
-            "price": 23.6899471282959,
-            "change_percent": -9.580354472153058
+            "price": 23.177494049072266,
+            "change_percent": -11.536282255449365
         }
     ],
-    "gemini_analysis": "Không thể tạo phân tích bằng Gemini sau 3 lần thử. Lỗi: 400 API key not valid. Please pass a valid API key. [reason: \"API_KEY_INVALID\"\ndomain: \"googleapis.com\"\nmetadata {\n  key: \"service\"\n  value: \"generativelanguage.googleapis.com\"\n}\n, locale: \"en-US\"\nmessage: \"API key not valid. Please pass a valid API key.\"\n]"
+    "gemini_analysis": "Kính gửi Quý nhà đầu tư,\n\nChúng tôi xin gửi đến phân tích chuyên sâu về cổ phiếu ACB dựa trên dữ liệu hiện có, tập trung vào các tín hiệu kỹ thuật và dự báo giá trong ngắn hạn.\n\n---\n\n**Phân tích Cổ phiếu ACB: Cảnh báo từ chỉ báo kỹ thuật và dự báo giá**\n\n**1. Tóm tắt Đánh giá:**\nTín hiệu tổng thể từ hệ thống của chúng tôi đối với ACB đang ở mức **TRUNG LẬP**, với điểm phân tích khá thấp là **34.94/100**. Mặc dù giá hiện tại (26 VND) đang duy trì trên các đường trung bình động (MA20: 24 VND, MA50: 22 VND), cho thấy xu hướng tăng giá ngắn và trung hạn, nhưng điều này bị đối trọng mạnh mẽ bởi chỉ số Sức mạnh Tương đối (RSI) và dự báo giá trong 5 ngày tới.\n\n**2. Phân tích Kỹ thuật:**\n*   **Giá và Xu hướng:** Giá ACB hiện tại là 26 VND, cao hơn đáng kể so với MA20 (24 VND) và MA50 (22 VND). Điều này cho thấy đà tăng giá vẫn đang được duy trì trong ngắn và trung hạn.\n*   **Chỉ số RSI (82.53):** Đây là điểm cực kỳ đáng lưu ý. Với RSI ở mức 82.53, ACB đang ở trạng thái **quá mua trầm trọng**. Mức RSI trên 70 thường báo hiệu cổ phiếu có thể sẽ điều chỉnh giảm trong thời gian tới để về vùng giá cân bằng hơn.\n*   **Dự báo giá 5 ngày tới:** Dự báo cho thấy một kịch bản tiêu cực rõ ràng. Giá ACB được dự báo sẽ giảm mạnh về mức 23 VND trong vòng 5 ngày tới (tức giảm khoảng 11.5% so với giá hiện tại). Điều này củng cố cảnh báo từ chỉ số RSI.\n*   **Điểm phân tích (34.94/100):** Mức điểm thấp cho thấy dù có đà tăng giá, các yếu tố khác (có thể là khối lượng giao dịch, mô hình nến, v.v.) không ủng hộ một xu hướng tăng bền vững, hoặc tiềm ẩn rủi ro lớn.\n\n**3. Đánh giá Sức mạnh Tài chính:**\n*   **Hạn chế:** Chúng tôi **không có dữ liệu báo cáo tài chính chi tiết (BCTC)** của ACB trong phân tích này. Do đó, chúng tôi không thể đưa ra đánh giá toàn diện về sức khỏe tài chính, khả năng sinh lời, hiệu quả hoạt động hay định giá của doanh nghiệp. Đây là một rủi ro lớn đối với nhà đầu tư khi đưa ra quyết định mua.\n\n**4. Nhận định Rủi ro Tiềm ẩn:**\n*   **Rủi ro điều chỉnh giá:** Rủi ro cao nhất hiện tại là khả năng điều chỉnh giá mạnh do cổ phiếu đang quá mua và dự báo giá giảm tiêu cực.\n*   **Rủi ro thông tin:** Thiếu dữ liệu BCTC chi tiết ngăn cản việc đánh giá giá trị nội tại, tăng rủi ro cho quyết định đầu tư.\n*   **Biến động thị trường chung:** Trong bối cảnh thị trường chứng khoán Việt Nam có thể xuất hiện các nhịp điều chỉnh, áp lực bán có thể gia tăng, khiến ACB khó tránh khỏi xu hướng chung.\n\n**5. Dự báo Triển vọng Ngắn hạn và Trung hạn:**\n*   **Ngắn hạn (1-5 ngày):** Triển vọng tiêu cực. Khả năng cao ACB sẽ trải qua một nhịp điều chỉnh giảm mạnh về vùng giá 23 VND như dự báo.\n*   **Trung hạn (Vài tuần/Tháng):** Rất khó xác định rõ ràng do thiếu dữ liệu tài chính cơ bản. Nếu sự điều chỉnh diễn ra, cần quan sát liệu 23 VND có trở thành vùng hỗ trợ vững chắc hay không, và liệu ACB có tìm lại được động lực tăng trưởng sau đó dựa trên các yếu tố cơ bản mà chúng ta chưa thể đánh giá.\n\n**6. Khuyến nghị Đầu tư:**\n\nDựa trên phân tích các tín hiệu kỹ thuật và dự báo giá, cùng với sự thiếu hụt thông tin tài chính cơ bản:\n\n**Khuyến nghị: CÂN NHẮC BÁN/TRÁNH MUA**\n\n**Lý do cụ thể:**\n1.  **Chỉ báo RSI quá mua cực độ (82.53):** Đây là tín hiệu cảnh báo mạnh nhất về một đợt điều chỉnh giá sắp tới.\n2.  **Dự báo giá tiêu cực:** Dự báo giảm hơn 11% về 23 VND trong 5 ngày tới củng cố kịch bản điều chỉnh.\n3.  **Điểm phân tích thấp và tín hiệu Trung lập:** Mặc dù giá đang trên MA, tổng thể các chỉ báo khác không ủng hộ đà tăng bền vững.\n4.  **Thiếu thông tin cơ bản:** Không có BCTC chi tiết là một rủi ro lớn, khiến nhà đầu tư không thể đánh giá giá trị thực và tiềm năng tăng trưởng dài hạn của ACB.\n\nChúng tôi khuyến nghị nhà đầu tư **cân nhắc chốt lời** đối với các vị thế hiện có hoặc **tránh mở vị thế mua mới** vào thời điểm hiện tại. Nên chờ đợi tín hiệu RSI hạ nhiệt và có thêm thông tin tài chính rõ ràng hơn trước khi xem xét đầu tư vào ACB.\n\nTrân trọng,\nChuyên gia phân tích Chứng khoán Việt Nam"
 }

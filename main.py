@@ -21,7 +21,7 @@ from dotenv import load_dotenv
 from vnstock import *
 import traceback
 from vnstock.explorer.vci import Quote, Finance
-
+from google import genai
 warnings.filterwarnings('ignore')
 
 # ======================
@@ -35,7 +35,7 @@ if not GOOGLE_API_KEY:
     print("Không tìm thấy khóa API Gemini. Vui lòng kiểm tra file .env")
     exit()
 
-genai.configure(api_key=GOOGLE_API_KEY)
+client = genai.Client(api_key= GOOGLE_API_KEY)
 
 # Tạo thư mục lưu trữ dữ liệu
 if not os.path.exists('vnstocks_data'):
@@ -48,7 +48,6 @@ if not os.path.exists('vnstocks_data'):
 def get_vnstocks_list():
     """Lấy danh sách tất cả các mã chứng khoán trên thị trường Việt Nam sử dụng vnstock v2"""
     try:
-        # Sử dụng vnstock v2 để lấy danh sách công ty niêm yết
         df = listing_companies()
         
         if df is not None and not df.empty:
@@ -765,8 +764,9 @@ Kết quả phân tích cần:
 """
         
         # Sử dụng Gemini Pro để phân tích
-        model = genai.GenerativeModel('gemini-2.5-pro')
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+        model="gemini-2.5-flash", contents= prompt
+)       
         
         return response.text
     
