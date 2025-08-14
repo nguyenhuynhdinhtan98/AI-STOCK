@@ -20,7 +20,7 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 from vnstock import *
 import traceback
-from vnstock.explorer.vci import  Quote, Finance
+from vnstock.explorer.vci import Quote, Finance
 
 warnings.filterwarnings('ignore')
 
@@ -127,7 +127,7 @@ def get_market_data():
     """Lấy dữ liệu thị trường tổng thể sử dụng vnstock v2"""
     try:
         # Lấy dữ liệu VN-Index
-        quoteVNI = Quote(symbol= 'VNINDEX')
+        quoteVNI = Quote(symbol='VNINDEX')
         vnindex = quoteVNI.history(start='2012-01-01', end='2030-1-1', interval='1D')
         if vnindex is not None and not vnindex.empty:
             vnindex.rename(columns={
@@ -144,7 +144,7 @@ def get_market_data():
             vnindex.to_csv('vnstocks_data/vnindex_data.csv')
         
         # Lấy dữ liệu VN30-Index
-        quoteVN30 = Quote(symbol= 'VN30')
+        quoteVN30 = Quote(symbol='VN30')
         vn30 = quoteVN30.history(start='2012-01-01', end='2030-1-1', interval='1D')
         if vn30 is not None and not vn30.empty:
             vn30.rename(columns={
@@ -258,12 +258,36 @@ def train_stock_model(df, target='Close', time_steps=60, test_size=0.2, epochs=5
     Huấn luyện mô hình LSTM để dự báo giá cổ phiếu
     """
     try:
-        # Chuẩn bị dữ liệu
+        # Kiểm tra dữ liệu đầu vào
+        if df is None or len(df) < time_steps:
+            print("Dữ liệu không đủ để huấn luyện mô hình")
+            return None, None, None, None, None
+        
+        if target not in df.columns:
+            print(f"Cột {target} không tồn tại trong dữ liệu")
+            return None, None, None, None, None
+            
         data = df[[target]].values
+        
+        # Kiểm tra dữ liệu có hợp lệ không
+        if len(data) == 0:
+            print("Dữ liệu rỗng")
+            return None, None, None, None, None
+        
+        # Loại bỏ các giá trị NaN/inf
+        data = data[np.isfinite(data)].reshape(-1, 1)
+        if len(data) == 0:
+            print("Không có dữ liệu hợp lệ sau khi loại bỏ NaN/inf")
+            return None, None, None, None, None
         
         # Chuẩn hóa dữ liệu
         scaler = MinMaxScaler(feature_range=(0, 1))
         scaled_data = scaler.fit_transform(data)
+        
+        # Kiểm tra đủ dữ liệu để tạo chuỗi thời gian
+        if len(scaled_data) <= time_steps:
+            print("Không đủ dữ liệu để tạo chuỗi thời gian")
+            return None, None, None, None, None
         
         # Tạo dataset theo chuỗi thời gian
         X, y = [], []
@@ -271,84 +295,126 @@ def train_stock_model(df, target='Close', time_steps=60, test_size=0.2, epochs=5
             X.append(scaled_data[i-time_steps:i, 0])
             y.append(scaled_data[i, 0])
         
+        if len(X) == 0 or len(y) == 0:
+            print("Không tạo được dữ liệu huấn luyện")
+            return None, None, None, None, None
+            
         X, y = np.array(X), np.array(y)
         X = np.reshape(X, (X.shape[0], X.shape[1], 1))
         
+        # Kiểm tra kích thước dữ liệu
+        if X.shape[0] < 10:  # Cần ít nhất 10 mẫu để chia train/test
+            print("Dữ liệu quá ít để huấn luyện")
+            return None, None, None, None, None
+        
         # Chia dữ liệu train/test
-        split_index = int(len(X) * (1 - test_size))
+        split_index = max(1, int(len(X) * (1 - test_size)))
+        if split_index >= len(X):
+            split_index = len(X) - 1
+            
         X_train, X_test = X[:split_index], X[split_index:]
         y_train, y_test = y[:split_index], y[split_index:]
         
+        # Kiểm tra dữ liệu train có hợp lệ không
+        if len(X_train) == 0 or len(y_train) == 0:
+            print("Dữ liệu train rỗng")
+            return None, None, None, None, None
+        
         # Xây dựng mô hình LSTM
         model = Sequential()
-        model.add(LSTM(units=100, return_sequences=True, input_shape=(X_train.shape[1], 1)))
-        model.add(Dropout(0.3))
-        model.add(LSTM(units=100, return_sequences=True))
-        model.add(Dropout(0.3))
-        model.add(LSTM(units=50))
-        model.add(Dropout(0.3))
+        model.add(LSTM(units=50, return_sequences=True, input_shape=(X_train.shape[1], 1)))
+        model.add(Dropout(0.2))
+        model.add(LSTM(units=50, return_sequences=False))
+        model.add(Dropout(0.2))
+        model.add(Dense(units=25))
         model.add(Dense(units=1))
         
         model.compile(optimizer='adam', loss='mean_squared_error')
         
-        # Huấn luyện mô hình
-        early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
-        history = model.fit(
-            X_train, y_train,
-            epochs=epochs,
-            batch_size=batch_size,
-            validation_split=0.1,
-            callbacks=[early_stopping],
-            verbose=1
-        )
+        # Huấn luyện mô hình với kiểm tra lỗi
+        try:
+            early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
+            history = model.fit(
+                X_train, y_train,
+                epochs=epochs,
+                batch_size=batch_size,
+                validation_split=0.1,
+                callbacks=[early_stopping],
+                verbose=1
+            )
+        except Exception as e:
+            print(f"Lỗi khi huấn luyện mô hình: {str(e)}")
+            # Thử với ít epochs hơn
+            history = model.fit(
+                X_train, y_train,
+                epochs=10,
+                batch_size=batch_size,
+                validation_split=0.1,
+                verbose=1
+            )
         
-        # Dự báo
-        y_pred = model.predict(X_test)
+        # Dự báo với kiểm tra lỗi
+        try:
+            y_pred = model.predict(X_test)
+        except Exception as e:
+            print(f"Lỗi khi dự báo: {str(e)}")
+            return None, None, None, None, None
         
         # Chuyển đổi về giá gốc
         y_test = scaler.inverse_transform(y_test.reshape(-1, 1))
         y_pred = scaler.inverse_transform(y_pred)
         
         # Vẽ biểu đồ quá trình huấn luyện
-        plt.figure(figsize=(12, 6))
-        plt.plot(history.history['loss'], label='Training Loss')
-        plt.plot(history.history['val_loss'], label='Validation Loss')
-        plt.title('Lịch sử huấn luyện mô hình')
-        plt.ylabel('Loss')
-        plt.xlabel('Epoch')
-        plt.legend()
-        plt.grid(True)
-        plt.savefig('training_history.png')
-        plt.close()
+        try:
+            plt.figure(figsize=(12, 6))
+            plt.plot(history.history['loss'], label='Training Loss')
+            if 'val_loss' in history.history:
+                plt.plot(history.history['val_loss'], label='Validation Loss')
+            plt.title('Lịch sử huấn luyện mô hình')
+            plt.ylabel('Loss')
+            plt.xlabel('Epoch')
+            plt.legend()
+            plt.grid(True)
+            plt.savefig('training_history.png')
+            plt.close()
+        except Exception as e:
+            print(f"Lỗi khi vẽ biểu đồ huấn luyện: {str(e)}")
         
         # Vẽ biểu đồ dự báo vs thực tế
-        plt.figure(figsize=(12, 6))
-        plt.plot(y_test, label='Giá thực tế', color='blue')
-        plt.plot(y_pred, label='Dự báo', color='red', linestyle='--')
-        plt.title('So sánh giá thực tế và dự báo')
-        plt.xlabel('Thời gian')
-        plt.ylabel('Giá cổ phiếu')
-        plt.legend()
-        plt.grid(True)
-        plt.savefig('forecast_vs_actual.png')
-        plt.close()
+        try:
+            plt.figure(figsize=(12, 6))
+            plt.plot(y_test, label='Giá thực tế', color='blue')
+            plt.plot(y_pred, label='Dự báo', color='red', linestyle='--')
+            plt.title('So sánh giá thực tế và dự báo')
+            plt.xlabel('Thời gian')
+            plt.ylabel('Giá cổ phiếu')
+            plt.legend()
+            plt.grid(True)
+            plt.savefig('forecast_vs_actual.png')
+            plt.close()
+        except Exception as e:
+            print(f"Lỗi khi vẽ biểu đồ dự báo: {str(e)}")
         
         # Tính toán các chỉ số đánh giá
-        mse = mean_squared_error(y_test, y_pred)
-        rmse = np.sqrt(mse)
-        mae = mean_absolute_error(y_test, y_pred)
-        r2 = r2_score(y_test, y_pred)
-        
-        print("\nĐÁNH GIÁ MÔ HÌNH:")
-        print(f"MSE: {mse:.2f}")
-        print(f"RMSE: {rmse:.2f}")
-        print(f"MAE: {mae:.2f}")
-        print(f"R2: {r2:.2f}")
+        try:
+            mse = mean_squared_error(y_test, y_pred)
+            rmse = np.sqrt(mse)
+            mae = mean_absolute_error(y_test, y_pred)
+            r2 = r2_score(y_test, y_pred)
+            
+            print("\nĐÁNH GIÁ MÔ HÌNH:")
+            print(f"MSE: {mse:.2f}")
+            print(f"RMSE: {rmse:.2f}")
+            print(f"MAE: {mae:.2f}")
+            print(f"R2: {r2:.2f}")
+        except Exception as e:
+            print(f"Lỗi khi tính toán đánh giá: {str(e)}")
+            mse, rmse, mae, r2 = 0, 0, 0, 0
         
         return model, scaler, X_test, y_test, y_pred
         
     except Exception as e:
-        print(f"Lỗi khi huấn luyện mô hình: {str(e)}")
+        print(f"Lỗi nghiêm trọng khi huấn luyện mô hình: {str(e)}")
         traceback.print_exc()
         return None, None, None, None, None
 
@@ -360,15 +426,15 @@ def predict_next_days(model, scaler, df, target='Close', time_steps=60, n_days=5
         # Kiểm tra đầu vào
         if model is None or scaler is None or df is None:
             print("Dữ liệu đầu vào không hợp lệ")
-            return [], []
+            return np.array([]), np.array([])
         
         if target not in df.columns:
             print(f"Cột {target} không tồn tại")
-            return [], []
+            return np.array([]), np.array([])
         
         if len(df) < time_steps:
             print("Không đủ dữ liệu để dự báo")
-            return [], []
+            return np.array([]), np.array([])
         
         # Lấy dữ liệu cuối cùng
         last_data = df[target].values[-time_steps:]
@@ -376,20 +442,20 @@ def predict_next_days(model, scaler, df, target='Close', time_steps=60, n_days=5
         # Kiểm tra dữ liệu có hợp lệ không
         if len(last_data) == 0:
             print("Dữ liệu dự báo rỗng")
-            return [], []
+            return np.array([]), np.array([])
         
         # Loại bỏ NaN/inf
         last_data = last_data[np.isfinite(last_data)]
         if len(last_data) < time_steps:
             print("Dữ liệu không đủ sau khi loại bỏ NaN")
-            return [], []
+            return np.array([]), np.array([])
         
         # Chuẩn hóa dữ liệu
         try:
             last_data_scaled = scaler.transform(last_data.reshape(-1, 1))
         except Exception as e:
             print(f"Lỗi khi chuẩn hóa dữ liệu dự báo: {str(e)}")
-            return [], []
+            return np.array([]), np.array([])
         
         # Tạo dữ liệu đầu vào
         X = last_data_scaled.reshape(1, time_steps, 1)
@@ -406,25 +472,25 @@ def predict_next_days(model, scaler, df, target='Close', time_steps=60, n_days=5
                 X = np.append(X[:, 1:, :], pred.reshape(1, 1, 1), axis=1)
         except Exception as e:
             print(f"Lỗi khi dự báo từng ngày: {str(e)}")
-            return [], []
+            return np.array([]), np.array([])
         
         # Chuyển đổi về giá gốc
         try:
             forecast = scaler.inverse_transform(np.array(forecast_scaled).reshape(-1, 1))
         except Exception as e:
             print(f"Lỗi khi chuyển đổi giá gốc: {str(e)}")
-            return [], []
+            return np.array([]), np.array([])
         
         # Tạo ngày dự báo
         last_date = df.index[-1]
         forecast_dates = [last_date + timedelta(days=i+1) for i in range(n_days)]
         
-        return forecast_dates, forecast.flatten()
+        return np.array(forecast_dates), forecast.flatten()
     
     except Exception as e:
         print(f"Lỗi nghiêm trọng khi dự báo: {str(e)}")
         traceback.print_exc()
-        return [], []
+        return np.array([]), np.array([])
 
 # ======================
 # PHẦN 4: PHÂN TÍCH KỸ THUẬT
@@ -435,6 +501,19 @@ def plot_stock_analysis(symbol, df, period="1y", show_volume=True):
     Phân tích kỹ thuật và vẽ biểu đồ cho mã chứng khoán
     """
     try:
+        # Kiểm tra dữ liệu đầu vào
+        if df is None or len(df) == 0:
+            print("Dữ liệu phân tích rỗng")
+            return {
+                'signal': 'LỖI',
+                'score': 50,
+                'current_price': 0,
+                'rsi_value': 0,
+                'ma20': 0,
+                'ma50': 0,
+                'recommendation': 'KHÔNG XÁC ĐỊNH'
+            }
+        
         # Tính toán chỉ báo kỹ thuật
         # 1. Đường trung bình
         df['SMA_20'] = ta.trend.sma_indicator(df['Close'], window=20)
@@ -455,103 +534,140 @@ def plot_stock_analysis(symbol, df, period="1y", show_volume=True):
         df['BB_Upper'] = bollinger.bollinger_hband()
         df['BB_Lower'] = bollinger.bollinger_lband()
         
+        # Kiểm tra dữ liệu sau khi tính toán
+        if len(df.dropna()) < 20:  # Cần ít nhất 20 điểm dữ liệu hợp lệ
+            print("Không đủ dữ liệu hợp lệ để phân tích kỹ thuật")
+            return {
+                'signal': 'LỖI',
+                'score': 50,
+                'current_price': df['Close'].iloc[-1] if len(df) > 0 else 0,
+                'rsi_value': 50,
+                'ma20': df['Close'].iloc[-1] if len(df) > 0 else 0,
+                'ma50': df['Close'].iloc[-1] if len(df) > 0 else 0,
+                'recommendation': 'KHÔNG XÁC ĐỊNH'
+            }
+        
+        # Lọc dữ liệu hợp lệ
+        df = df.dropna()
+        
         # Tạo layout biểu đồ
-        plt.figure(figsize=(16, 12))
-        grid = plt.GridSpec(4, 1, hspace=0.2, height_ratios=[3, 1, 1, 1])
-        
-        # Biểu đồ 1: Giá và Bollinger Bands
-        ax1 = plt.subplot(grid[0])
-        plt.plot(df.index, df['Close'], label='Giá đóng cửa', color='#1f77b4')
-        plt.plot(df.index, df['SMA_20'], label='SMA 20', color='orange', alpha=0.8, linewidth=1.5)
-        plt.plot(df.index, df['SMA_50'], label='SMA 50', color='green', alpha=0.8, linewidth=1.5)
-        plt.plot(df.index, df['SMA_200'], label='SMA 200', color='purple', alpha=0.8, linewidth=1.5)
-        plt.plot(df.index, df['BB_Upper'], label='BB Upper', color='red', alpha=0.5, linestyle='--')
-        plt.plot(df.index, df['BB_Lower'], label='BB Lower', color='green', alpha=0.5, linestyle='--')
-        plt.fill_between(df.index, df['BB_Lower'], df['BB_Upper'], color='gray', alpha=0.1)
-        
-        # Đánh dấu điểm giao nhau quan trọng
-        cross_above = df[df['SMA_20'] > df['SMA_50']].index
-        cross_below = df[df['SMA_20'] < df['SMA_50']].index
-        
-        if len(cross_above) > 0:
-            plt.scatter(cross_above, df.loc[cross_above, 'SMA_20'], 
-                       marker='^', color='green', s=80, label='SMA20 > SMA50')
-        if len(cross_below) > 0:
-            plt.scatter(cross_below, df.loc[cross_below, 'SMA_20'], 
-                       marker='v', color='red', s=80, label='SMA20 < SMA50')
-        
-        plt.title(f'Phân tích kỹ thuật {symbol} - Giá và Chỉ báo', fontsize=14)
-        plt.ylabel('Giá (VND)', fontsize=12)
-        plt.legend(loc='upper left')
-        plt.grid(True, alpha=0.3)
-        
-        # Biểu đồ 2: RSI
-        ax2 = plt.subplot(grid[1], sharex=ax1)
-        plt.plot(df.index, df['RSI'], label='RSI', color='purple')
-        plt.axhline(70, linestyle='--', color='red', alpha=0.7)
-        plt.axhline(30, linestyle='--', color='green', alpha=0.7)
-        plt.fill_between(df.index, 30, 70, color='gray', alpha=0.1)
-        plt.title('Chỉ số Sức mạnh Tương đối (RSI)', fontsize=12)
-        plt.ylim(0, 100)
-        plt.ylabel('RSI', fontsize=10)
-        plt.grid(True, alpha=0.3)
-        
-        # Biểu đồ 3: MACD
-        ax3 = plt.subplot(grid[2], sharex=ax1)
-        plt.plot(df.index, df['MACD'], label='MACD', color='blue')
-        plt.plot(df.index, df['MACD_Signal'], label='Signal Line', color='red')
-        plt.bar(df.index, df['MACD_Hist'], 
-                color=np.where(df['MACD_Hist'] > 0, 'green', 'red'), 
-                alpha=0.5, label='Histogram')
-        plt.title('MACD (Moving Average Convergence Divergence)', fontsize=12)
-        plt.ylabel('MACD', fontsize=10)
-        plt.legend()
-        plt.grid(True, alpha=0.3)
-        
-        # Biểu đồ 4: Khối lượng
-        ax4 = plt.subplot(grid[3], sharex=ax1)
-        if show_volume:
-            plt.bar(df.index, df['Volume'], 
-                   color=np.where(df['Close'] > df['Open'], 'green', 'red'), 
-                   alpha=0.7)
-            plt.title('Khối lượng giao dịch', fontsize=12)
-            plt.ylabel('Khối lượng', fontsize=10)
+        try:
+            plt.figure(figsize=(16, 12))
+            grid = plt.GridSpec(4, 1, hspace=0.2, height_ratios=[3, 1, 1, 1])
+            
+            # Biểu đồ 1: Giá và Bollinger Bands
+            ax1 = plt.subplot(grid[0])
+            plt.plot(df.index, df['Close'], label='Giá đóng cửa', color='#1f77b4')
+            plt.plot(df.index, df['SMA_20'], label='SMA 20', color='orange', alpha=0.8, linewidth=1.5)
+            plt.plot(df.index, df['SMA_50'], label='SMA 50', color='green', alpha=0.8, linewidth=1.5)
+            plt.plot(df.index, df['SMA_200'], label='SMA 200', color='purple', alpha=0.8, linewidth=1.5)
+            plt.plot(df.index, df['BB_Upper'], label='BB Upper', color='red', alpha=0.5, linestyle='--')
+            plt.plot(df.index, df['BB_Lower'], label='BB Lower', color='green', alpha=0.5, linestyle='--')
+            plt.fill_between(df.index, df['BB_Lower'], df['BB_Upper'], color='gray', alpha=0.1)
+            
+            # Đánh dấu điểm giao nhau quan trọng
+            cross_above = df[df['SMA_20'] > df['SMA_50']].index
+            cross_below = df[df['SMA_20'] < df['SMA_50']].index
+            
+            if len(cross_above) > 0:
+                plt.scatter(cross_above, df.loc[cross_above, 'SMA_20'], 
+                           marker='^', color='green', s=80, label='SMA20 > SMA50')
+            if len(cross_below) > 0:
+                plt.scatter(cross_below, df.loc[cross_below, 'SMA_20'], 
+                           marker='v', color='red', s=80, label='SMA20 < SMA50')
+            
+            plt.title(f'Phân tích kỹ thuật {symbol} - Giá và Chỉ báo', fontsize=14)
+            plt.ylabel('Giá (VND)', fontsize=12)
+            plt.legend(loc='upper left')
             plt.grid(True, alpha=0.3)
-        
-        # Định dạng trục x
-        plt.gcf().autofmt_xdate()
-        
-        # Lưu biểu đồ
-        plt.tight_layout()
-        plt.savefig(f'vnstocks_data/{symbol}_technical_analysis.png', dpi=300, bbox_inches='tight')
-        print(f"Đã lưu biểu đồ phân tích kỹ thuật vào vnstocks_data/{symbol}_technical_analysis.png")
+            
+            # Biểu đồ 2: RSI
+            ax2 = plt.subplot(grid[1], sharex=ax1)
+            plt.plot(df.index, df['RSI'], label='RSI', color='purple')
+            plt.axhline(70, linestyle='--', color='red', alpha=0.7)
+            plt.axhline(30, linestyle='--', color='green', alpha=0.7)
+            plt.fill_between(df.index, 30, 70, color='gray', alpha=0.1)
+            plt.title('Chỉ số Sức mạnh Tương đối (RSI)', fontsize=12)
+            plt.ylim(0, 100)
+            plt.ylabel('RSI', fontsize=10)
+            plt.grid(True, alpha=0.3)
+            
+            # Biểu đồ 3: MACD
+            ax3 = plt.subplot(grid[2], sharex=ax1)
+            plt.plot(df.index, df['MACD'], label='MACD', color='blue')
+            plt.plot(df.index, df['MACD_Signal'], label='Signal Line', color='red')
+            plt.bar(df.index, df['MACD_Hist'], 
+                    color=np.where(df['MACD_Hist'] > 0, 'green', 'red'), 
+                    alpha=0.5, label='Histogram')
+            plt.title('MACD (Moving Average Convergence Divergence)', fontsize=12)
+            plt.ylabel('MACD', fontsize=10)
+            plt.legend()
+            plt.grid(True, alpha=0.3)
+            
+            # Biểu đồ 4: Khối lượng
+            ax4 = plt.subplot(grid[3], sharex=ax1)
+            if show_volume and 'Volume' in df.columns:
+                plt.bar(df.index, df['Volume'], 
+                       color=np.where(df['Close'] > df['Open'], 'green', 'red'), 
+                       alpha=0.7)
+                plt.title('Khối lượng giao dịch', fontsize=12)
+                plt.ylabel('Khối lượng', fontsize=10)
+                plt.grid(True, alpha=0.3)
+            
+            # Định dạng trục x
+            plt.gcf().autofmt_xdate()
+            
+            # Lưu biểu đồ
+            plt.tight_layout()
+            plt.savefig(f'vnstocks_data/{symbol}_technical_analysis.png', dpi=300, bbox_inches='tight')
+            plt.close()
+            print(f"Đã lưu biểu đồ phân tích kỹ thuật vào vnstocks_data/{symbol}_technical_analysis.png")
+        except Exception as e:
+            print(f"Lỗi khi vẽ biểu đồ phân tích: {str(e)}")
         
         # Hiển thị tín hiệu giao dịch cuối
-        last_signal = "TRUNG LẬP"
-        if df['RSI'].iloc[-1] < 30 and df['Close'].iloc[-1] > df['SMA_50'].iloc[-1]:
-            last_signal = "MUA (RSI quá bán + Giá trên SMA50)"
-        elif df['RSI'].iloc[-1] > 70 and df['Close'].iloc[-1] < df['SMA_50'].iloc[-1]:
-            last_signal = "BÁN (RSI quá mua + Giá dưới SMA50)"
+        try:
+            last_signal = "TRUNG LẬP"
+            current_price = df['Close'].iloc[-1]
+            rsi_value = df['RSI'].iloc[-1] if not pd.isna(df['RSI'].iloc[-1]) else 50
+            ma20_value = df['SMA_20'].iloc[-1] if not pd.isna(df['SMA_20'].iloc[-1]) else current_price
+            ma50_value = df['SMA_50'].iloc[-1] if not pd.isna(df['SMA_50'].iloc[-1]) else current_price
             
-        print(f"\nTÍN HIỆU GIAO DỊCH CUỐI CÙNG ({df.index[-1].strftime('%d/%m/%Y')}):")
-        print(f"- Giá đóng cửa: {df['Close'].iloc[-1]:,.0f} VND")
-        print(f"- RSI: {df['RSI'].iloc[-1]:.2f}")
-        print(f"- MACD: {df['MACD'].iloc[-1]:.2f} | Signal: {df['MACD_Signal'].iloc[-1]:.2f}")
-        print(f"- SMA20/SMA50: {df['SMA_20'].iloc[-1]:,.0f} / {df['SMA_50'].iloc[-1]:,.0f} VND")
-        print(f"- Đề xuất: {last_signal}")
-        
-        return {
-            'signal': 'MUA' if last_signal.startswith("MUA") else 'BÁN' if last_signal.startswith("BÁN") else 'TRUNG LẬP',
-            'score': 100 - abs(df['RSI'].iloc[-1] - 50) * 2,  # Điểm từ 0-100
-            'current_price': df['Close'].iloc[-1],
-            'rsi_value': df['RSI'].iloc[-1],
-            'ma20': df['SMA_20'].iloc[-1],
-            'ma50': df['SMA_50'].iloc[-1],
-            'recommendation': 'MUA MẠNH' if last_signal.startswith("MUA") else 'BÁN MẠNH' if last_signal.startswith("BÁN") else 'GIỮ'
-        }
+            if rsi_value < 30 and current_price > ma50_value:
+                last_signal = "MUA (RSI quá bán + Giá trên SMA50)"
+            elif rsi_value > 70 and current_price < ma50_value:
+                last_signal = "BÁN (RSI quá mua + Giá dưới SMA50)"
+                
+            print(f"\nTÍN HIỆU GIAO DỊCH CUỐI CÙNG ({df.index[-1].strftime('%d/%m/%Y')}):")
+            print(f"- Giá đóng cửa: {current_price:,.0f} VND")
+            print(f"- RSI: {rsi_value:.2f}")
+            print(f"- MACD: {df['MACD'].iloc[-1]:.2f} | Signal: {df['MACD_Signal'].iloc[-1]:.2f}")
+            print(f"- SMA20/SMA50: {ma20_value:,.0f} / {ma50_value:,.0f} VND")
+            print(f"- Đề xuất: {last_signal}")
+            
+            return {
+                'signal': 'MUA' if last_signal.startswith("MUA") else 'BÁN' if last_signal.startswith("BÁN") else 'TRUNG LẬP',
+                'score': 100 - abs(rsi_value - 50) * 2,  # Điểm từ 0-100
+                'current_price': current_price,
+                'rsi_value': rsi_value,
+                'ma20': ma20_value,
+                'ma50': ma50_value,
+                'recommendation': 'MUA MẠNH' if last_signal.startswith("MUA") else 'BÁN MẠNH' if last_signal.startswith("BÁN") else 'GIỮ'
+            }
+        except Exception as e:
+            print(f"Lỗi khi tạo tín hiệu giao dịch: {str(e)}")
+            return {
+                'signal': 'LỖI',
+                'score': 50,
+                'current_price': df['Close'].iloc[-1] if len(df) > 0 else 0,
+                'rsi_value': 50,
+                'ma20': df['Close'].iloc[-1] if len(df) > 0 else 0,
+                'ma50': df['Close'].iloc[-1] if len(df) > 0 else 0,
+                'recommendation': 'KHÔNG XÁC ĐỊNH'
+            }
     
     except Exception as e:
-        print(f"Lỗi khi phân tích kỹ thuật: {str(e)}")
+        print(f"Lỗi nghiêm trọng khi phân tích kỹ thuật: {str(e)}")
         traceback.print_exc()
         return {
             'signal': 'LỖI',
@@ -584,7 +700,8 @@ Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. P
 
 2. Dự báo giá trong 5 ngày tới:
 """
-        if forecast[0] and forecast[1]:
+        # Sửa lỗi kiểm tra điều kiện cho forecast
+        if len(forecast[0]) > 0 and len(forecast[1]) > 0:
             for i, (date, price) in enumerate(zip(forecast[0], forecast[1])):
                 change = ((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
                 prompt += f"   - Ngày {i+1} ({date.strftime('%d/%m/%Y')}): {price:,.0f} VND ({change:+.2f}%)\n"
@@ -593,16 +710,40 @@ Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. P
 
         if financial_data is not None and not financial_data.empty:
             prompt += "\n3. Dữ liệu tài chính (BCTC) gần nhất:\n"
-            # Lấy quý gần nhất
-            financial_data_sorted = financial_data.sort_values('year', ascending=False)
-            if not financial_data_sorted.empty:
-                latest_data = financial_data_sorted.iloc[0]
-                prompt += f"   - Năm: {latest_data.get('year', 'N/A')}\n"
-                # Thêm các chỉ số tài chính nếu có
-                for col in financial_data.columns:
-                    if col not in ['symbol', 'year', 'quarter'] and pd.notna(latest_data[col]):
-                        prompt += f"   - {col}: {latest_data[col]:.4f}\n"
-            else:
+            # Kiểm tra và xử lý cột 'year' một cách an toàn
+            try:
+                # Lấy quý gần nhất
+                financial_data_sorted = financial_data.copy()
+                
+                # Kiểm tra các cột có thể dùng để sắp xếp
+                sort_column = None
+                for col in ['year', 'Year', 'period', 'Period', 'date', 'Date']:
+                    if col in financial_data_sorted.columns:
+                        sort_column = col
+                        break
+                
+                if sort_column:
+                    financial_data_sorted = financial_data_sorted.sort_values(sort_column, ascending=False)
+                
+                if not financial_data_sorted.empty:
+                    latest_data = financial_data_sorted.iloc[0]
+                    # Thử lấy thông tin năm/quý nếu có
+                    year_info = latest_data.get('year') or latest_data.get('Year') or 'N/A'
+                    prompt += f"   - Năm: {year_info}\n"
+                    
+                    # Thêm các chỉ số tài chính nếu có
+                    financial_columns = [col for col in financial_data.columns 
+                                       if col not in ['symbol', 'year', 'Year', 'quarter', 'Quarter', 'period', 'Period', 'date', 'Date'] 
+                                       and pd.notna(latest_data[col])]
+                    
+                    for col in financial_columns[:10]:  # Giới hạn 10 chỉ số để tránh quá dài
+                        value = latest_data[col]
+                        if pd.notna(value):
+                            prompt += f"   - {col}: {value:.4f}\n"
+                else:
+                    prompt += "   - Không có dữ liệu tài chính chi tiết\n"
+            except Exception as e:
+                print(f"Lỗi khi xử lý dữ liệu tài chính: {str(e)}")
                 prompt += "   - Không có dữ liệu tài chính chi tiết\n"
         else:
             prompt += "\n3. Không có dữ liệu tài chính\n"
@@ -624,7 +765,7 @@ Kết quả phân tích cần:
 """
         
         # Sử dụng Gemini Pro để phân tích
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-2.5-pro')
         response = model.generate_content(prompt)
         
         return response.text
@@ -661,6 +802,11 @@ def analyze_stock(symbol):
     # Tạo đặc trưng
     df_features = create_features(df_processed)
     
+    # Kiểm tra dữ liệu sau khi tạo đặc trưng
+    if len(df_features) < 100:  # Cần ít nhất 100 điểm dữ liệu
+        print(f"Dữ liệu cho mã {symbol} quá ít để phân tích ({len(df_features)} điểm)")
+        return None
+    
     # Huấn luyện mô hình AI
     print(f"\nĐang huấn luyện mô hình AI cho mã {symbol}...")
     model, scaler, X_test, y_test, y_pred = train_stock_model(df_features)
@@ -684,11 +830,14 @@ def analyze_stock(symbol):
     print(f"Đề xuất: {trading_signal['recommendation']}")
     print(f"Điểm phân tích: {trading_signal['score']:.1f}/100")
     
-    if forecast_dates and forecast_values:
+    # Sửa lỗi kiểm tra điều kiện cho forecast
+    if len(forecast_dates) > 0 and len(forecast_values) > 0:
         print(f"\nDỰ BÁO GIÁ CHO {len(forecast_dates)} NGÀY TIẾP THEO:")
         for i, (date, price) in enumerate(zip(forecast_dates, forecast_values)):
             change = ((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
             print(f"Ngày {i+1} ({date.date()}): {price:,.0f} VND ({change:+.2f}%)")
+    else:
+        print("\nKhông có dự báo giá do lỗi trong quá trình huấn luyện mô hình")
     
     print(f"\nPHÂN TÍCH TỔNG HỢP TỪ GEMINI:")
     print(gemini_analysis)
@@ -713,7 +862,7 @@ def analyze_stock(symbol):
             forecast_values, 
             [((price - trading_signal['current_price']) / trading_signal['current_price']) * 100 
              for price in forecast_values]
-        )] if forecast_dates and forecast_values else [],
+        )] if len(forecast_dates) > 0 and len(forecast_values) > 0 else [],
         'gemini_analysis': gemini_analysis
     }
     
@@ -774,13 +923,16 @@ def screen_stocks():
         print(df_results[['Mã', 'Giá', 'Điểm', 'Tín hiệu', 'Đề xuất']])
         
         # Vẽ biểu đồ so sánh
-        plt.figure(figsize=(12, 6))
-        sns.barplot(x='Mã', y='Điểm', data=df_results, palette='viridis')
-        plt.title('Điểm phân tích các mã chứng khoán')
-        plt.xticks(rotation=45)
-        plt.tight_layout()
-        plt.savefig('vnstocks_data/stock_screening_comparison.png')
-        plt.close()
+        try:
+            plt.figure(figsize=(12, 6))
+            sns.barplot(x='Mã', y='Điểm', data=df_results, palette='viridis')
+            plt.title('Điểm phân tích các mã chứng khoán')
+            plt.xticks(rotation=45)
+            plt.tight_layout()
+            plt.savefig('vnstocks_data/stock_screening_comparison.png')
+            plt.close()
+        except Exception as e:
+            print(f"Lỗi khi vẽ biểu đồ so sánh: {str(e)}")
         
         print(f"\nĐã lưu báo cáo tổng hợp vào file 'vnstocks_data/stock_screening_report.csv'")
         print("Đã tạo biểu đồ so sánh các mã")

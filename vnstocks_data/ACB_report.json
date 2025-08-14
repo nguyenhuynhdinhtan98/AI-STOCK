@@ -1,6 +1,6 @@
 {
     "symbol": "ACB",
-    "timestamp": "2025-08-14 15:07:47",
+    "timestamp": "2025-08-14 15:35:27",
     "current_price": 26.2,
     "signal": "TRUNG LẬP",
     "recommendation": "GIỮ",
@@ -8,6 +8,32 @@
     "rsi": 82.52783154359975,
     "ma20": 23.6375,
     "ma50": 22.419,
-    "forecast": [],
-    "gemini_analysis": "Không thể tạo phân tích bằng Gemini tại thời điểm này."
+    "forecast": [
+        {
+            "date": "2025-08-15",
+            "price": 23.744857788085938,
+            "change_percent": -9.370771801198709
+        },
+        {
+            "date": "2025-08-16",
+            "price": 23.83662223815918,
+            "change_percent": -9.020525808552748
+        },
+        {
+            "date": "2025-08-17",
+            "price": 23.836685180664062,
+            "change_percent": -9.020285569984491
+        },
+        {
+            "date": "2025-08-18",
+            "price": 23.78032684326172,
+            "change_percent": -9.235393728008704
+        },
+        {
+            "date": "2025-08-19",
+            "price": 23.6899471282959,
+            "change_percent": -9.580354472153058
+        }
+    ],
+    "gemini_analysis": "Không thể tạo phân tích bằng Gemini sau 3 lần thử. Lỗi: 400 API key not valid. Please pass a valid API key. [reason: \"API_KEY_INVALID\"\ndomain: \"googleapis.com\"\nmetadata {\n  key: \"service\"\n  value: \"generativelanguage.googleapis.com\"\n}\n, locale: \"en-US\"\nmessage: \"API key not valid. Please pass a valid API key.\"\n]"
 }
