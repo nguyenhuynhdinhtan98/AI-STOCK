@@ -734,10 +734,11 @@ Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. P
                                        if col not in ['symbol', 'year', 'Year', 'quarter', 'Quarter', 'period', 'Period', 'date', 'Date'] 
                                        and pd.notna(latest_data[col])]
                     
-                    for col in financial_columns[:10]:  # Giới hạn 10 chỉ số để tránh quá dài
+                    for col in financial_columns:  # Giới hạn 10 chỉ số để tránh quá dài
                         value = latest_data[col]
                         if pd.notna(value):
-                            prompt += f"   - {col}: {value:.4f}\n"
+                          prompt += f"   - {col}: {str(value)}\n"
+                          print(f"prompt: {str(value)}")
                 else:
                     prompt += "   - Không có dữ liệu tài chính chi tiết\n"
             except Exception as e:
