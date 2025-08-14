@@ -1,0 +1,13 @@
+{
+    "symbol": "ACB",
+    "timestamp": "2025-08-14 15:07:47",
+    "current_price": 26.2,
+    "signal": "TRUNG LẬP",
+    "recommendation": "GIỮ",
+    "score": 34.94433691280051,
+    "rsi": 82.52783154359975,
+    "ma20": 23.6375,
+    "ma50": 22.419,
+    "forecast": [],
+    "gemini_analysis": "Không thể tạo phân tích bằng Gemini tại thời điểm này."
+}
