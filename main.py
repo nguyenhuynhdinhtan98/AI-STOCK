@@ -806,7 +806,7 @@ def analyze_stock(symbol):
         print(f"\nDỰ BÁO GIÁ CHO {len(forecast_dates):,.2} NGÀY TIẾP THEO:")
         for i, (date, price) in enumerate(zip(forecast_dates, forecast_values)):
             change = ((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
-            print(f"Ngày {i+1} ({date.date()}): {price:,.0f} VND ({change:+.2f}%)")
+            print(f"Ngày {i+1} ({date.date()}): {price:,.2f} VND ({change:+.2f}%)")
     else:
         print("\nKhông có dự báo giá do lỗi trong quá trình huấn luyện mô hình")
     
