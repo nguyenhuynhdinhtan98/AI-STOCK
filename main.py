@@ -110,7 +110,7 @@ def get_financial_data(symbol):
     try:
         # Lấy dữ liệu báo cáo tài chính theo quý - CÚ PHÁP MỚI
         financial_obj = Finance(symbol=symbol)
-        financial_data = financial_obj.ratio(period='quarter', lang='vi', flatten_columns=True)
+        financial_data = financial_obj.ratio(period='quarter', lang='en', flatten_columns=True)
         print(financial_data)
         if financial_data is not None and not financial_data.empty:
             # Lưu dữ liệu
@@ -738,7 +738,7 @@ Kết quả phân tích cần:
         
         # Sử dụng Gemini Pro để phân tích
         response = client.models.generate_content(
-        model="gemini-2.5-flash", contents= prompt
+        model="gemini-2.5-pro", contents= prompt
 )       
         
         return response.text
@@ -928,6 +928,6 @@ if __name__ == "__main__":
     market_data = get_market_data()
     
     # Test với mã ACB
-    analyze_stock('ACB')
+    analyze_stock('DBC')
     
     print("\nHoàn thành phân tích. Các báo cáo đã được lưu trong thư mục 'vnstocks_data/'.")
