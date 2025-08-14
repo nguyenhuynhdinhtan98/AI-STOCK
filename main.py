@@ -110,7 +110,8 @@ def get_financial_data(symbol):
     try:
         # Lấy dữ liệu báo cáo tài chính theo quý - CÚ PHÁP MỚI
         financial_obj = Finance(symbol=symbol)
-        financial_data = financial_obj.ratio(period='quarter', lang='en', flatten_columns=True, drop_levels=[0], dropna=True).head()
+        financial_data = financial_obj.ratio(period='quarter', lang='vi', flatten_columns=True)
+        print(financial_data)
         if financial_data is not None and not financial_data.empty:
             # Lưu dữ liệu
             financial_data.to_csv(f'vnstocks_data/{symbol}_financial.csv', index=False)
@@ -709,38 +710,10 @@ Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. P
          
         if financial_data is not None and not financial_data.empty:
             prompt += "\n3. Dữ liệu tài chính (BCTC) gần nhất:\n"
-            # Kiểm tra và xử lý cột 'year' một cách an toàn
             try:
                 # Lấy quý gần nhất
                 financial_data_sorted = financial_data.copy()
-                
-                # Kiểm tra các cột có thể dùng để sắp xếp
-                sort_column = None
-                for col in ['year', 'Year', 'period', 'Period', 'date', 'Date']:
-                    if col in financial_data_sorted.columns:
-                        sort_column = col
-                        break
-                
-                if sort_column:
-                    financial_data_sorted = financial_data_sorted.sort_values(sort_column, ascending=False)
-                print(f"financial_data_sorted {financial_data_sorted}")
-                if not financial_data_sorted.empty:
-                    latest_data = financial_data_sorted.iloc[0]
-                    # Thử lấy thông tin năm/quý nếu có
-                    year_info = latest_data.get('yearReport') or latest_data.get('year') or 'N/A'
-                    prompt += f"   - Năm: {year_info}\n"
-                    # Thêm các chỉ số tài chính nếu có
-                    financial_columns = [col for col in financial_data.columns 
-                                       if col not in ['symbol', 'year', 'Year', 'quarter', 'Quarter', 'period', 'Period', 'date', 'Date'] 
-                                       and pd.notna(latest_data[col])]
-                    
-                    for col in financial_columns:  # Giới hạn 10 chỉ số để tránh quá dài
-                        value = latest_data[col]
-                        if pd.notna(value):
-                          prompt += f"   - {col}: {str(value)}\n"
-                          print(f"prompt: {str(value)}")
-                else:
-                    prompt += "   - Không có dữ liệu tài chính chi tiết\n"
+                prompt += f"{financial_data_sorted}"
             except Exception as e:
                 print(f"Lỗi khi xử lý dữ liệu tài chính: {str(e)}")
                 prompt += "   - Không có dữ liệu tài chính chi tiết\n"
