@@ -803,7 +803,7 @@ def analyze_stock(symbol):
     
     # Sửa lỗi kiểm tra điều kiện cho forecast
     if len(forecast_dates) > 0 and len(forecast_values) > 0:
-        print(f"\nDỰ BÁO GIÁ CHO {len(forecast_dates):,.2} NGÀY TIẾP THEO:")
+        print(f"\nDỰ BÁO GIÁ CHO {len(forecast_dates)} NGÀY TIẾP THEO:")
         for i, (date, price) in enumerate(zip(forecast_dates, forecast_values)):
             change = ((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
             print(f"Ngày {i+1} ({date.date()}): {price:,.2f} VND ({change:+.2f}%)")
