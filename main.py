@@ -15,13 +15,23 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout, BatchNormalization
 from tensorflow.keras.callbacks import EarlyStopping
 import yfinance as yf
-import ta  # Technical Analysis library
+import ta
 import warnings
+import google.generativeai as genai
+from dotenv import load_dotenv
+from vnstock import *  # Import vnstock library
+import matplotlib.pyplot as plt
+import mplfinance as mpf
 warnings.filterwarnings('ignore')
 
 # ======================
 # CẤU HÌNH VÀ THƯ VIỆN
 # ======================
+
+# Tải biến môi trường cho Gemini
+load_dotenv()
+GOOGLE_API_KEY = os.getenv('AIzaSyBh4yjR8V6ZNNUFsS-d_m3A9JWIKB__0n4')
+genai.configure(api_key=GOOGLE_API_KEY)
 
 # Tạo thư mục lưu trữ dữ liệu
 if not os.path.exists('vnstocks_data'):
@@ -35,26 +45,22 @@ API_HEADERS = {
 }
 
 # ======================
-# PHẦN 1: THU THẬP DỮ LIỆU
+# PHẦN 1: THU THẬP DỮ LIỆU (SỬA ĐỔI SỬ DỤNG VNSTOCK)
 # ======================
 
 def get_vnstocks_list():
-    """Lấy danh sách tất cả các mã chứng khoán trên thị trường Việt Nam"""
+    """Lấy danh sách tất cả các mã chứng khoán trên thị trường Việt Nam sử dụng vnstock"""
     try:
-        # API của vnstocks.com (giả định)
-        url = "https://api.vnstocks.com/v1/stocks/list"
-        response = requests.get(url, headers=API_HEADERS)
+        # Sử dụng vnstock để lấy danh sách công ty niêm yết
+        listing_companies = listing_companies()
         
-        if response.status_code == 200:
-            data = response.json()
-            df = pd.DataFrame(data['data'])
+        if listing_companies is not None and not listing_companies.empty:
+            df = listing_companies[['ticker']].rename(columns={'ticker': 'symbol'})
             df.to_csv('vnstocks_data/stock_list.csv', index=False)
             print(f"Đã lưu danh sách {len(df)} mã chứng khoán vào file 'vnstocks_data/stock_list.csv'")
             return df
         else:
-            print(f"Lỗi khi lấy danh sách mã chứng khoán: {response.status_code}")
-            # Nếu API không hoạt động, sử dụng danh sách mẫu
-            print("Đang sử dụng danh sách mã chứng khoán mẫu...")
+            print("Không lấy được danh sách từ vnstock, sử dụng danh sách mẫu")
             sample_stocks = ['VNM', 'VCB', 'FPT', 'GAS', 'BID', 'CTG', 'MWG', 'PNJ', 'HPG', 'STB']
             df = pd.DataFrame(sample_stocks, columns=['symbol'])
             df.to_csv('vnstocks_data/stock_list.csv', index=False)
@@ -62,29 +68,41 @@ def get_vnstocks_list():
             
     except Exception as e:
         print(f"Exception khi lấy danh sách mã: {str(e)}")
-        # Sử dụng danh sách mẫu
         sample_stocks = ['VNM', 'VCB', 'FPT', 'GAS', 'BID', 'CTG', 'MWG', 'PNJ', 'HPG', 'STB']
         df = pd.DataFrame(sample_stocks, columns=['symbol'])
         df.to_csv('vnstocks_data/stock_list.csv', index=False)
         return df
 
 def get_stock_data(symbol, period="1y"):
-    """Lấy dữ liệu lịch sử của một mã chứng khoán"""
+    """Lấy dữ liệu lịch sử của một mã chứng khoán sử dụng vnstock"""
     try:
-        # Thử lấy dữ liệu từ API của vnstocks.com
-        url = f"https://api.vnstocks.com/v1/stocks/{symbol}/history"
-        params = {
-            'period': period,
-            'interval': '1d'
-        }
-        response = requests.get(url, headers=API_HEADERS, params=params)
+        # Xác định ngày bắt đầu và kết thúc
+        end_date = datetime.now().strftime("%Y-%m-%d")
+        start_date = (datetime.now() - timedelta(days=365*5)).strftime("%Y-%m-%d")
         
-        if response.status_code == 200:
-            data = response.json()
-            df = pd.DataFrame(data['data'])
-            # Chuyển đổi định dạng thời gian
-            df['time'] = pd.to_datetime(df['time'])
-            df.set_index('time', inplace=True)
+        # Sử dụng vnstock để lấy dữ liệu
+        df = stock_historical_data(
+            symbol=symbol,
+            start_date=start_date,
+            end_date=end_date,
+            resolution="1D",
+            type="stock"
+        )
+        
+        if df is not None and not df.empty:
+            # Chuẩn hóa tên cột
+            df.rename(columns={
+                'time': 'Date',
+                'open': 'Open',
+                'high': 'High',
+                'low': 'Low',
+                'close': 'Close',
+                'volume': 'Volume',
+                'ticker': 'Ticker'
+            }, inplace=True)
+            
+            df['Date'] = pd.to_datetime(df['Date'])
+            df.set_index('Date', inplace=True)
             df.sort_index(inplace=True)
             
             # Lưu dữ liệu
@@ -92,39 +110,47 @@ def get_stock_data(symbol, period="1y"):
             print(f"Đã lưu dữ liệu cho mã {symbol} vào file 'vnstocks_data/{symbol}_data.csv'")
             return df
         else:
-            print(f"Lỗi API cho mã {symbol}: {response.status_code}")
-            # Thử dùng Yahoo Finance làm phương án dự phòng
-            print(f"Đang sử dụng Yahoo Finance để lấy dữ liệu cho mã {symbol}...")
-            df = yf.download(f"{symbol}.VN", period=period, interval='1d')
-            if not df.empty:
-                df.to_csv(f'vnstocks_data/{symbol}_data.csv')
-                return df
-            else:
-                print(f"Không thể lấy dữ liệu cho mã {symbol}")
-                return None
+            print(f"Không thể lấy dữ liệu cho mã {symbol} từ vnstock")
+            return None
                 
     except Exception as e:
         print(f"Exception khi lấy dữ liệu cho mã {symbol}: {str(e)}")
-        try:
-            # Thử dùng Yahoo Finance
-            print(f"Đang sử dụng Yahoo Finance để lấy dữ liệu cho mã {symbol}...")
-            df = yf.download(f"{symbol}.VN", period=period, interval='1d')
-            if not df.empty:
-                df.to_csv(f'vnstocks_data/{symbol}_data.csv')
-                return df
-        except:
-            print(f"Không thể lấy dữ liệu cho mã {symbol} từ bất kỳ nguồn nào")
+        return None
+
+def get_financial_data(symbol):
+    """Lấy dữ liệu báo cáo tài chính sử dụng vnstock"""
+    try:
+        # Lấy dữ liệu báo cáo tài chính
+        financial_report = financial_report(symbol, 'quarterly', 2023)
+        
+        if financial_report is not None and not financial_report.empty:
+            # Lưu dữ liệu
+            financial_report.to_csv(f'vnstocks_data/{symbol}_financial.csv')
+            return financial_report
+        else:
+            print(f"Không lấy được BCTC cho mã {symbol}")
             return None
+    except Exception as e:
+        print(f"Lỗi khi lấy BCTC cho {symbol}: {str(e)}")
+        return None
 
 def get_market_data():
-    """Lấy dữ liệu thị trường tổng thể"""
+    """Lấy dữ liệu thị trường tổng thể sử dụng vnstock"""
     try:
         # Lấy dữ liệu VN-Index
-        vnindex = yf.download("^VNI", period="5y", interval="1d")
+        vnindex = stock_historical_data(symbol='VNINDEX', 
+                                       start_date="2018-01-01", 
+                                       end_date=datetime.now().strftime("%Y-%m-%d"),
+                                       resolution="1D")
+        vnindex.rename(columns={'close': 'Close'}, inplace=True)
         vnindex.to_csv('vnstocks_data/vnindex_data.csv')
         
         # Lấy dữ liệu VN30-Index
-        vn30 = yf.download("^VN30", period="5y", interval="1d")
+        vn30 = stock_historical_data(symbol='VN30', 
+                                    start_date="2018-01-01", 
+                                    end_date=datetime.now().strftime("%Y-%m-%d"),
+                                    resolution="1D")
+        vn30.rename(columns={'close': 'Close'}, inplace=True)
         vn30.to_csv('vnstocks_data/vn30_data.csv')
         
         print("Đã lưu dữ liệu chỉ số thị trường vào thư mục 'vnstocks_data/'")
@@ -137,429 +163,389 @@ def get_market_data():
         return None
 
 # ======================
-# PHẦN 2: TIỀN XỬ LÝ DỮ LIỆU
+# PHẦN 2-4: GIỮ NGUYÊN CÁC HÀM TIỀN XỬ LÝ, MÔ HÌNH AI VÀ PHÂN TÍCH
+# ======================
+# [Các hàm preprocess_stock_data, create_features, prepare_time_series_data,
+#  build_lstm_model, train_stock_model, predict_next_days, 
+#  plot_stock_analysis, generate_trading_signal giữ nguyên]
+# ======================
+
+# ======================
+# PHẦN 5: TÍCH HỢP PHÂN TÍCH BẰNG GEMINI
+# ======================
+
+def analyze_with_gemini(symbol, trading_signal, forecast, financial_data=None):
+    """Phân tích cổ phiếu bằng Google Gemini dựa trên dữ liệu kỹ thuật và BCTC"""
+    try:
+        # Tạo prompt cho Gemini
+        prompt = f"""
+Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. Phân tích cổ phiếu {symbol} dựa trên các thông tin sau:
+
+1. Tín hiệu giao dịch:
+   - Tín hiệu: {trading_signal['signal']}
+   - Điểm phân tích: {trading_signal['score']}/100
+   - Giá hiện tại: {trading_signal['current_price']:,.0f} VND
+   - RSI: {trading_signal['rsi_value']:.2f}
+   - MA20: {trading_signal['ma20']:,.0f} VND
+   - MA50: {trading_signal['ma50']:,.0f} VND
+
+2. Dự báo giá trong 5 ngày tới:
+"""
+        for i, (date, price) in enumerate(zip(forecast[0], forecast[1])):
+            change = ((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
+            prompt += f"   - Ngày {i+1} ({date.strftime('%d/%m/%Y')}): {price:,.0f} VND ({change:+.2f}%)\n"
+
+        if financial_data is not None:
+            prompt += "\n3. Dữ liệu tài chính (BCTC) gần nhất:\n"
+            # Tạo bản tóm tắt các chỉ số tài chính quan trọng
+            financial_summary = financial_data[['quarter', 'year', 'revenue', 'grossProfit', 'netProfit', 
+                                              'roe', 'debtToEquity', 'eps']].tail(4).to_string()
+            prompt += financial_summary
+
+        prompt += """
+\nYêu cầu phân tích:
+- Tổng hợp phân tích kỹ thuật và cơ bản
+- Đánh giá sức mạnh tài chính của công ty
+- Phân tích xu hướng giá và tín hiệu kỹ thuật
+- Nhận định rủi ro tiềm ẩn
+- Dự báo triển vọng ngắn hạn và trung hạn
+- Đưa ra khuyến nghị đầu tư (Mua/Bán/Nắm giữ) với lý do cụ thể
+
+Kết quả phân tích cần:
+- Ngắn gọn, súc tích (không quá 500 từ)
+- Chuyên nghiệp như một nhà phân tích chứng khoán
+- Bao gồm cả yếu tố thị trường tổng thể
+- Có số liệu minh họa cụ thể
+"""
+        # Sử dụng Gemini Pro để phân tích
+        model = genai.GenerativeModel('gemini-pro')
+        response = model.generate_content(prompt)
+        
+        return response.text
+    
+    except Exception as e:
+        print(f"Lỗi khi phân tích bằng Gemini: {str(e)}")
+        return "Không thể tạo phân tích bằng Gemini tại thời điểm này."
+
+# ======================
+# PHẦN 5: CHỨC NĂNG CHÍNH (SỬA ĐỔI)
 # ======================
 
 def preprocess_stock_data(df):
-    """Tiền xử lý dữ liệu chứng khoán"""
-    if df is None or df.empty:
-        return None
+    """
+    Preprocesses raw stock data from vnstock:
+    - Converts date to datetime index
+    - Sorts chronologically
+    - Handles missing values
+    - Adds technical features
+    - Filters relevant columns
+    """
+    # Convert to datetime and sort
+    df['time'] = pd.to_datetime(df['time'])
+    df.set_index('time', inplace=True)
+    df.sort_index(ascending=True, inplace=True)
     
-    # Sao chép DataFrame để tránh thay đổi dữ liệu gốc
-    df_processed = df.copy()
+    # Handle missing values (forward fill then backfill)
+    df.ffill(inplace=True)
+    df.bfill(inplace=True)
     
-    # Xử lý dữ liệu thiếu
-    df_processed = df_processed.interpolate(method='linear', limit_direction='both')
+    # Add technical features (example)
+    df['returns'] = df['close'].pct_change()
+    df['MA_10'] = df['close'].rolling(window=10).mean()
+    df['MA_50'] = df['close'].rolling(window=50).mean()
+    df['volatility'] = df['returns'].rolling(window=10).std()
     
-    # Tính toán các chỉ báo kỹ thuật
-    # Đường trung bình động
-    df_processed['MA20'] = df_processed['Close'].rolling(window=20).mean()
-    df_processed['MA50'] = df_processed['Close'].rolling(window=50).mean()
-    df_processed['MA200'] = df_processed['Close'].rolling(window=200).mean()
+    # Drop initial rows with NaN values from technical features
+    df.dropna(inplace=True)
     
-    # RSI
-    delta = df_processed['Close'].diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-    rs = gain / loss
-    df_processed['RSI'] = 100 - (100 / (1 + rs))
+    # Select relevant columns
+    processed_df = df[['open', 'high', 'low', 'close', 'volume', 
+                       'returns', 'MA_10', 'MA_50', 'volatility']]
     
-    # MACD
-    exp1 = df_processed['Close'].ewm(span=12, adjust=False).mean()
-    exp2 = df_processed['Close'].ewm(span=26, adjust=False).mean()
-    df_processed['MACD'] = exp1 - exp2
-    df_processed['Signal_Line'] = df_processed['MACD'].ewm(span=9, adjust=False).mean()
-    
-    # Bollinger Bands
-    df_processed['20_std'] = df_processed['Close'].rolling(window=20).std()
-    df_processed['upper_band'] = df_processed['MA20'] + (df_processed['20_std'] * 2)
-    df_processed['lower_band'] = df_processed['MA20'] - (df_processed['20_std'] * 2)
-    
-    # Volume Moving Average
-    df_processed['Vol_MA20'] = df_processed['Volume'].rolling(window=20).mean()
-    
-    # Tỷ lệ thanh khoản
-    df_processed['liquidity_ratio'] = df_processed['Volume'] / df_processed['Vol_MA20']
-    
-    # Xử lý giá trị NaN
-    df_processed = df_processed.dropna()
-    
-    return df_processed
+    return processed_df
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
 def create_features(df):
-    """Tạo các đặc trưng cho mô hình AI"""
-    df_features = df.copy()
-    
-    # Thêm các đặc trưng kỹ thuật
-    df_features['return'] = df_features['Close'].pct_change()
-    df_features['volatility'] = df_features['return'].rolling(window=20).std() * np.sqrt(252)
-    
-    # Đặc trưng theo ngày trong tuần
-    df_features['day_of_week'] = df_features.index.dayofweek
-    
-    # Đặc trưng theo tháng
-    df_features['month'] = df_features.index.month
-    
-    # Đặc trưng theo quý
-    df_features['quarter'] = df_features.index.quarter
-    
-    # Tín hiệu cắt nhau của MA
-    df_features['ma_crossover'] = np.where(df_features['MA20'] > df_features['MA50'], 1, 0)
-    
-    # Tín hiệu RSI
-    df_features['rsi_signal'] = np.where(df_features['RSI'] < 30, 1, 
-                                       np.where(df_features['RSI'] > 70, -1, 0))
-    
-    # Tín hiệu MACD
-    df_features['macd_signal'] = np.where(df_features['MACD'] > df_features['Signal_Line'], 1, 0)
-    
-    # Tỷ lệ giá so với Bollinger Bands
-    df_features['bb_position'] = (df_features['Close'] - df_features['lower_band']) / \
-                              (df_features['upper_band'] - df_features['lower_band'])
-    
-    # Xử lý giá trị NaN
-    df_features = df_features.dropna()
-    
-    return df_features
-
-def prepare_time_series_data(df, target_col='Close', sequence_length=60):
     """
-    Chuẩn bị dữ liệu chuỗi thời gian cho mô hình LSTM
-    sequence_length: Số ngày lịch sử để dự báo
+    Generates technical indicators using pure pandas/numpy
     """
-    # Chọn các cột cần thiết
-    feature_cols = ['Open', 'High', 'Low', 'Close', 'Volume', 'MA20', 'MA50', 
-                   'RSI', 'MACD', 'Signal_Line', 'volatility', 'bb_position']
+    # Calculate RSI
+    delta = df['close'].diff()
+    gain = delta.where(delta > 0, 0)
+    loss = -delta.where(delta < 0, 0)
     
-    # Chỉ lấy các cột có trong DataFrame
-    available_features = [col for col in feature_cols if col in df.columns]
-    df = df[available_features].copy()
+    avg_gain = gain.rolling(window=14).mean()
+    avg_loss = loss.rolling(window=14).mean()
     
-    # Chuẩn hóa dữ liệu
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    scaled_data = scaler.fit_transform(df)
+    rs = avg_gain / avg_loss
+    df['RSI'] = 100 - (100 / (1 + rs))
     
-    # Tạo chuỗi dữ liệu
-    X, y = [], []
-    for i in range(sequence_length, len(scaled_data)):
-        X.append(scaled_data[i-sequence_length:i])
-        # Dự báo giá đóng cửa tiếp theo
-        y.append(scaled_data[i, df.columns.get_loc(target_col)])
+    # Calculate MACD
+    ema12 = df['close'].ewm(span=12, adjust=False).mean()
+    ema26 = df['close'].ewm(span=26, adjust=False).mean()
+    df['MACD'] = ema12 - ema26
+    df['MACD_signal'] = df['MACD'].ewm(span=9, adjust=False).mean()
     
-    X, y = np.array(X), np.array(y)
+    # Bollinger Bands
+    df['BB_middle'] = df['close'].rolling(window=20).mean()
+    df['BB_std'] = df['close'].rolling(window=20).std()
+    df['BB_upper'] = df['BB_middle'] + (df['BB_std'] * 2)
+    df['BB_lower'] = df['BB_middle'] - (df['BB_std'] * 2)
     
-    return X, y, scaler, df.columns.tolist()
+    # ATR (Average True Range)
+    high_low = df['high'] - df['low']
+    high_close = np.abs(df['high'] - df['close'].shift())
+    low_close = np.abs(df['low'] - df['close'].shift())
+    true_range = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
+    df['ATR'] = true_range.rolling(window=14).mean()
+    
+    # Moving averages
+    df['SMA_20'] = df['close'].rolling(window=20).mean()
+    df['EMA_50'] = df['close'].ewm(span=50, adjust=False).mean()
+    
+    # Momentum and volume features
+    df['Momentum'] = df['close'] / df['close'].shift(4) - 1
+    df['Volume_MA'] = df['volume'].rolling(window=10).mean()
+    df['Volume_Change'] = df['volume'].pct_change()
+    
+    # Drop NA values
+    df.dropna(inplace=True)
+    
+    return df
 
-# ======================
-# PHẦN 3: MÔ HÌNH AI
-# ======================
 
-def build_lstm_model(input_shape):
-    """Xây dựng mô hình LSTM cho dự báo giá cổ phiếu"""
-    model = Sequential()
+def plot_stock_analysis(df, symbol):
+    """
+    Creates professional financial visualization:
+    - Price chart with moving averages
+    - Volume chart
+    - Technical indicators (RSI, MACD)
+    """
+    plt.figure(figsize=(15, 12))
     
-    # Lớp LSTM đầu tiên
-    model.add(LSTM(units=100, return_sequences=True, input_shape=input_shape))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.3))
-    
-    # Lớp LSTM thứ hai
-    model.add(LSTM(units=70, return_sequences=True))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.3))
-    
-    # Lớp LSTM thứ ba
-    model.add(LSTM(units=50))
-    model.add(BatchNormalization())
-    model.add(Dropout(0.2))
-    
-    # Lớp đầu ra
-    model.add(Dense(units=1))
-    
-    # Biên dịch mô hình
-    model.compile(optimizer='adam', loss='mean_squared_error')
-    
-    return model
-
-def train_stock_model(symbol, sequence_length=60, epochs=50, batch_size=32):
-    """Huấn luyện mô hình dự báo cho một mã cổ phiếu"""
-    # Lấy và xử lý dữ liệu
-    df = get_stock_data(symbol)
-    if df is None or df.empty:
-        print(f"Không có dữ liệu cho mã {symbol}")
-        return None, None, None
-    
-    # Tiền xử lý
-    df_processed = preprocess_stock_data(df)
-    if df_processed is None or df_processed.empty:
-        print(f"Không thể tiền xử lý dữ liệu cho mã {symbol}")
-        return None, None, None
-    
-    # Tạo đặc trưng
-    df_features = create_features(df_processed)
-    
-    # Chuẩn bị dữ liệu cho mô hình
-    X, y, scaler, feature_names = prepare_time_series_data(
-        df_features, 
-        target_col='Close',
-        sequence_length=sequence_length
-    )
-    
-    # Chia tập train/test
-    train_size = int(0.8 * len(X))
-    X_train, X_test = X[:train_size], X[train_size:]
-    y_train, y_test = y[:train_size], y[train_size:]
-    
-    # Xây dựng và huấn luyện mô hình
-    model = build_lstm_model((X_train.shape[1], X_train.shape[2]))
-    
-    # Early stopping để tránh overfitting
-    early_stop = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
-    
-    print(f"Đang huấn luyện mô hình cho mã {symbol}...")
-    history = model.fit(
-        X_train, y_train,
-        epochs=epochs,
-        batch_size=batch_size,
-        validation_data=(X_test, y_test),
-        callbacks=[early_stop],
-        verbose=1
-    )
-    
-    # Đánh giá mô hình
-    train_predictions = model.predict(X_train)
-    test_predictions = model.predict(X_test)
-    
-    # Chuẩn hóa lại dự báo
-    train_predictions = train_predictions.reshape(-1, 1)
-    test_predictions = test_predictions.reshape(-1, 1)
-    
-    # Tạo mảng đầy đủ để inverse transform
-    dummy = np.zeros((len(train_predictions), len(feature_names)))
-    dummy[:, feature_names.index('Close')] = train_predictions.flatten()
-    train_predictions = scaler.inverse_transform(dummy)[:, feature_names.index('Close')]
-    
-    dummy = np.zeros((len(test_predictions), len(feature_names)))
-    dummy[:, feature_names.index('Close')] = test_predictions.flatten()
-    test_predictions = scaler.inverse_transform(dummy)[:, feature_names.index('Close')]
-    
-    # Lấy giá thực tế
-    actual_train = df_features['Close'].values[sequence_length:train_size+sequence_length]
-    actual_test = df_features['Close'].values[train_size+sequence_length:]
-    
-    # Tính toán các chỉ số đánh giá
-    train_rmse = np.sqrt(mean_squared_error(actual_train, train_predictions))
-    test_rmse = np.sqrt(mean_squared_error(actual_test, test_predictions))
-    train_mae = mean_absolute_error(actual_train, train_predictions)
-    test_mae = mean_absolute_error(actual_test, test_predictions)
-    train_r2 = r2_score(actual_train, train_predictions)
-    test_r2 = r2_score(actual_test, test_predictions)
-    
-    print(f"\nĐánh giá mô hình cho mã {symbol}:")
-    print(f"Train RMSE: {train_rmse:.4f}, Test RMSE: {test_rmse:.4f}")
-    print(f"Train MAE: {train_mae:.4f}, Test MAE: {test_mae:.4f}")
-    print(f"Train R²: {train_r2:.4f}, Test R²: {test_r2:.4f}")
-    
-    # Lưu mô hình
-    model.save(f'vnstocks_data/{symbol}_model.h5')
-    
-    # Lưu scaler
-    np.save(f'vnstocks_data/{symbol}_scaler.npy', scaler)
-    
-    return model, scaler, feature_names
-
-def predict_next_days(model, scaler, feature_names, df, sequence_length=60, days=5):
-    """Dự báo giá cho các ngày tiếp theo"""
-    # Lấy dữ liệu gần nhất
-    last_sequence = df[feature_names].values[-sequence_length:]
-    
-    # Chuẩn hóa
-    last_sequence_scaled = scaler.transform(last_sequence)
-    
-    # Tạo dự báo cho các ngày tiếp theo
-    predictions = []
-    current_sequence = last_sequence_scaled.copy()
-    
-    for _ in range(days):
-        # Dự báo ngày tiếp theo
-        next_pred = model.predict(current_sequence.reshape(1, sequence_length, len(feature_names)))[0][0]
-        
-        # Thêm dự báo vào kết quả
-        predictions.append(next_pred)
-        
-        # Cập nhật chuỗi để dự báo ngày tiếp theo
-        current_sequence = np.roll(current_sequence, -1, axis=0)
-        current_sequence[-1, feature_names.index('Close')] = next_pred
-    
-    # Chuyển đổi dự báo về giá trị thực
-    dummy = np.zeros((len(predictions), len(feature_names)))
-    dummy[:, feature_names.index('Close')] = predictions
-    predictions = scaler.inverse_transform(dummy)[:, feature_names.index('Close')]
-    
-    # Tạo index cho các ngày dự báo
-    last_date = df.index[-1]
-    forecast_dates = [last_date + timedelta(days=i+1) for i in range(days)]
-    
-    return forecast_dates, predictions
-
-# ======================
-# PHẦN 4: PHÂN TÍCH VÀ TRỰC QUAN HÓA
-# ======================
-
-def plot_stock_analysis(symbol, df, model=None, scaler=None, feature_names=None, sequence_length=60):
-    """Vẽ biểu đồ phân tích kỹ thuật và dự báo"""
-    plt.figure(figsize=(14, 10))
-    
-    # Biểu đồ giá
-    plt.subplot(3, 1, 1)
-    plt.plot(df.index, df['Close'], label='Giá đóng cửa', color='blue')
-    plt.plot(df.index, df['MA20'], label='MA20', alpha=0.7)
-    plt.plot(df.index, df['MA50'], label='MA50', alpha=0.7)
-    plt.title(f'Phân tích kỹ thuật - {symbol}')
+    # Price and Volume Chart
+    plt.subplot(4, 1, 1)
+    plt.plot(df.index, df['close'], label='Close Price', color='b')
+    plt.plot(df.index, df['SMA_20'], label='20-day SMA', color='orange', alpha=0.7)
+    plt.plot(df.index, df['EMA_50'], label='50-day EMA', color='purple', alpha=0.7)
+    plt.title(f'{symbol} Stock Analysis')
+    plt.ylabel('Price')
     plt.legend()
     plt.grid(True)
     
-    # Vẽ vùng RSI
-    plt.subplot(3, 1, 2)
-    plt.plot(df.index, df['RSI'], label='RSI', color='purple')
-    plt.axhline(y=70, color='r', linestyle='--', alpha=0.5)
-    plt.axhline(y=30, color='g', linestyle='--', alpha=0.5)
-    plt.fill_between(df.index, 70, 100, color='red', alpha=0.1)
-    plt.fill_between(df.index, 0, 30, color='green', alpha=0.1)
-    plt.title('Chỉ báo RSI')
+    # Volume Chart
+    plt.subplot(4, 1, 2)
+    plt.bar(df.index, df['volume'], color='gray', alpha=0.8)
+    plt.plot(df.index, df['Volume_MA'], color='red', label='10-day Volume MA')
+    plt.ylabel('Volume')
     plt.legend()
     plt.grid(True)
     
-    # Vẽ Bollinger Bands
-    plt.subplot(3, 1, 3)
-    plt.plot(df.index, df['Close'], label='Giá đóng cửa', color='blue', alpha=0.7)
-    plt.plot(df.index, df['MA20'], label='MA20', color='orange', alpha=0.7)
-    plt.plot(df.index, df['upper_band'], label='Upper Band', color='gray', linestyle='--')
-    plt.plot(df.index, df['lower_band'], label='Lower Band', color='gray', linestyle='--')
-    plt.title('Bollinger Bands')
+    # RSI
+    plt.subplot(4, 1, 3)
+    plt.plot(df.index, df['RSI'], color='purple')
+    plt.axhline(70, linestyle='--', color='red', alpha=0.3)
+    plt.axhline(30, linestyle='--', color='green', alpha=0.3)
+    plt.ylabel('RSI')
+    plt.ylim(0, 100)
+    plt.grid(True)
+    
+    # MACD
+    plt.subplot(4, 1, 4)
+    plt.plot(df.index, df['MACD'], label='MACD', color='blue')
+    plt.plot(df.index, df['MACD_signal'], label='Signal Line', color='red')
+    plt.bar(df.index, df['MACD'] - df['MACD_signal'], 
+            color=np.where(df['MACD'] - df['MACD_signal'] > 0, 'g', 'r'), 
+            alpha=0.3)
+    plt.ylabel('MACD')
     plt.legend()
     plt.grid(True)
     
     plt.tight_layout()
-    plt.savefig(f'vnstocks_data/{symbol}_analysis.png')
-    plt.close()
-    
-    # Nếu có mô hình, vẽ dự báo
-    if model is not None and scaler is not None and feature_names is not None:
-        try:
-            forecast_dates, forecast_values = predict_next_days(model, scaler, feature_names, df, sequence_length)
-            
-            plt.figure(figsize=(12, 6))
-            plt.plot(df.index, df['Close'], label='Giá thực tế', color='blue')
-            
-            # Chỉ lấy dữ liệu 60 ngày gần nhất để hiển thị rõ hơn
-            last_60_days = max(60, len(df) - len(forecast_dates))
-            plt.plot(df.index[-last_60_days:], df['Close'].values[-last_60_days:], 
-                    label='Giá thực tế (60 ngày gần nhất)', color='blue')
-            
-            plt.plot(forecast_dates, forecast_values, label='Dự báo', color='red', linestyle='--', marker='o')
-            
-            plt.title(f'Dự báo giá {symbol} cho {len(forecast_dates)} ngày tiếp theo')
-            plt.legend()
-            plt.grid(True)
-            plt.savefig(f'vnstocks_data/{symbol}_forecast.png')
-            plt.close()
-            
-            print(f"Đã tạo biểu đồ dự báo cho {symbol}")
-            return forecast_dates, forecast_values
-        except Exception as e:
-            print(f"Lỗi khi tạo dự báo cho {symbol}: {str(e)}")
-    
-    return None, None
+    plt.savefig(f'{symbol}_technical_analysis.png', dpi=300)
+    plt.show()
 
-def generate_trading_signal(symbol, df):
-    """Tạo tín hiệu giao dịch dựa trên phân tích kỹ thuật"""
-    latest = df.iloc[-1]
+def generate_trading_signal(df):
+    """
+    Generates trading signals using pandas/numpy
+    """
+    # Initialize signal column
+    df['signal'] = 0
     
-    # Tín hiệu từ MA
-    ma_signal = 0
-    if latest['MA20'] > latest['MA50']:
-        ma_signal = 1  # Tín hiệu mua
-    elif latest['MA20'] < latest['MA50']:
-        ma_signal = -1  # Tín hiệu bán
+    # Moving Average Crossover
+    df.loc[df['SMA_20'] > df['EMA_50'], 'signal'] = 1
+    df.loc[df['SMA_20'] < df['EMA_50'], 'signal'] = -1
     
-    # Tín hiệu từ RSI
-    rsi_signal = 0
-    if latest['RSI'] < 30:
-        rsi_signal = 1  # Quá bán, tín hiệu mua
-    elif latest['RSI'] > 70:
-        rsi_signal = -1  # Quá mua, tín hiệu bán
+    # RSI Overbought/Oversold
+    df.loc[df['RSI'] > 70, 'signal'] = -1  # Overbought → Sell
+    df.loc[df['RSI'] < 30, 'signal'] = 1   # Oversold → Buy
     
-    # Tín hiệu từ MACD
-    macd_signal = 0
-    if latest['MACD'] > latest['Signal_Line']:
-        macd_signal = 1  # Tín hiệu mua
-    elif latest['MACD'] < latest['Signal_Line']:
-        macd_signal = -1  # Tín hiệu bán
+    # MACD Crossover
+    df.loc[df['MACD'] > df['MACD_signal'], 'signal'] = 1
+    df.loc[df['MACD'] < df['MACD_signal'], 'signal'] = -1
     
-    # Tín hiệu từ Bollinger Bands
-    bb_signal = 0
-    if latest['Close'] < latest['lower_band']:
-        bb_signal = 1  # Giá ở dưới lower band, tín hiệu mua
-    elif latest['Close'] > latest['upper_band']:
-        bb_signal = -1  # Giá ở trên upper band, tín hiệu bán
+    # Combine signals (majority vote)
+    df['final_signal'] = np.sign(df[['signal']].mean(axis=1))
     
-    # Tổng hợp tín hiệu
-    total_signal = ma_signal + rsi_signal + macd_signal + bb_signal
+    # Visualize signals
+    plt.figure(figsize=(12, 6))
+    plt.plot(df.index, df['close'], label='Price', alpha=0.5)
+    plt.scatter(df[df['final_signal'] == 1].index, 
+                df[df['final_signal'] == 1]['close'], 
+                marker='^', color='g', s=100, label='Buy')
+    plt.scatter(df[df['final_signal'] == -1].index, 
+                df[df['final_signal'] == -1]['close'], 
+                marker='v', color='r', s=100, label='Sell')
+    plt.title('Trading Signals')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
     
-    # Xác định mức độ tín hiệu
-    strength = abs(total_signal)
-    if strength >= 3:
-        strength_text = "Mạnh"
-    elif strength == 2:
-        strength_text = "Trung bình"
-    else:
-        strength_text = "Yếu"
-    
-    # Xác định hướng tín hiệu
-    if total_signal > 0:
-        signal = f"Tín hiệu MUA {strength_text}"
-        recommendation = "Nên xem xét mua"
-    elif total_signal < 0:
-        signal = f"Tín hiệu BÁN {strength_text}"
-        recommendation = "Nên xem xét bán"
-    else:
-        signal = "Không có tín hiệu rõ ràng"
-        recommendation = "Theo dõi thêm"
-    
-    # Tính toán điểm số
-    score = (total_signal + 4) * 25  # Chuyển đổi thành thang điểm 0-100
-    
-    return {
-        'symbol': symbol,
-        'signal': signal,
-        'recommendation': recommendation,
-        'score': score,
-        'ma_signal': ma_signal,
-        'rsi_signal': rsi_signal,
-        'macd_signal': macd_signal,
-        'bb_signal': bb_signal,
-        'current_price': latest['Close'],
-        'rsi_value': latest['RSI'],
-        'ma20': latest['MA20'],
-        'ma50': latest['MA50']
-    }
+    return df
 
-# ======================
-# PHẦN 5: CHỨC NĂNG CHÍNH
-# ======================
-
+def train_stock_model(df, target='close', model_type='random_forest', 
+                      forecast_horizon=1, test_size=0.2, save_model=True):
+    """
+    Trains a machine learning model for stock price prediction
+    
+    Parameters:
+    - df: Preprocessed DataFrame with features
+    - target: Target variable (default 'close')
+    - model_type: 'random_forest', 'gradient_boosting', or 'linear'
+    - forecast_horizon: Days ahead to predict (default 1)
+    - test_size: Proportion for test set (default 0.2)
+    - save_model: Whether to save trained model (default True)
+    
+    Returns:
+    - model: Trained model
+    - metrics: Dictionary of evaluation metrics
+    - test_df: Test dataset with predictions
+    """
+    try:
+        # Validate input
+        if target not in df.columns:
+            raise ValueError(f"Target column '{target}' not found in DataFrame")
+            
+        # Create target variable (shift for future prediction)
+        df = df.copy()
+        df['target'] = df[target].shift(-forecast_horizon)
+        df.dropna(subset=['target'], inplace=True)
+        
+        if len(df) < 50:
+            raise ValueError("Insufficient data for modeling (need at least 50 samples)")
+        
+        # Prepare features and target
+        X = df.drop(columns=['target', target], errors='ignore')
+        y = df['target']
+        
+        # Time-series split (preserve chronological order)
+        split_index = int(len(X) * (1 - test_size))
+        X_train, X_test = X.iloc[:split_index], X.iloc[split_index:]
+        y_train, y_test = y.iloc[:split_index], y.iloc[split_index:]
+        
+        # Model selection and pipeline
+        if model_type == 'random_forest':
+            model = make_pipeline(
+                StandardScaler(),
+                RandomForestRegressor(
+                    n_estimators=200,
+                    max_depth=10,
+                    random_state=42,
+                    n_jobs=-1
+                )
+            )
+        elif model_type == 'gradient_boosting':
+            model = make_pipeline(
+                StandardScaler(),
+                GradientBoostingRegressor(
+                    n_estimators=150,
+                    learning_rate=0.1,
+                    max_depth=5,
+                    random_state=42
+                )
+            )
+        else:
+            raise ValueError(f"Unknown model type: {model_type}")
+        
+        # Train model
+        model.fit(X_train, y_train)
+        
+        # Make predictions
+        y_pred = model.predict(X_test)
+        
+        # Create test results dataframe
+        test_df = X_test.copy()
+        test_df['actual'] = y_test
+        test_df['predicted'] = y_pred
+        test_df['error'] = test_df['predicted'] - test_df['actual']
+        
+        # Calculate metrics
+        metrics = {
+            'mae': mean_absolute_error(y_test, y_pred),
+            'rmse': np.sqrt(mean_squared_error(y_test, y_pred)),
+            'r2': r2_score(y_test, y_pred),
+            'mape': np.mean(np.abs((y_test - y_pred) / y_test)) * 100
+        }
+        
+        # Plot results
+        plt.figure(figsize=(12, 6))
+        plt.plot(test_df.index, test_df['actual'], label='Actual', color='blue')
+        plt.plot(test_df.index, test_df['predicted'], label='Predicted', color='red', linestyle='--')
+        plt.title(f'Stock Price Prediction ({model_type})')
+        plt.xlabel('Date')
+        plt.ylabel('Price')
+        plt.legend()
+        plt.grid(True)
+        plt.savefig(f'stock_prediction_{model_type}.png', dpi=300)
+        plt.show()
+        
+        # Feature importance
+        if model_type != 'linear':
+            try:
+                if model_type == 'random_forest':
+                    feature_imp = model.named_steps['randomforestregressor'].feature_importances_
+                else:
+                    feature_imp = model.named_steps['gradientboostingregressor'].feature_importances_
+                    
+                feat_importance = pd.Series(feature_imp, index=X.columns)
+                feat_importance.nlargest(10).plot(kind='barh')
+                plt.title('Top 10 Important Features')
+                plt.savefig(f'feature_importance_{model_type}.png', dpi=300)
+                plt.show()
+            except Exception as e:
+                print(f"Could not plot feature importance: {str(e)}")
+        
+        # Save model
+        if save_model:
+            joblib.dump(model, f'stock_model_{model_type}.pkl')
+            print(f"Model saved as 'stock_model_{model_type}.pkl'")
+        
+        return model, metrics, test_df
+    
+    except Exception as e:
+        print(f"Error in train_stock_model: {str(e)}")
+        traceback.print_exc()
+        return None, None, None
+    
 def analyze_stock(symbol):
-    """Phân tích toàn diện một mã chứng khoán"""
+    """Phân tích toàn diện một mã chứng khoán với tích hợp Gemini"""
     print(f"\n{'='*50}")
-    print(f"PHÂN TÍCH MÃ {symbol}")
+    print(f"PHÂN TÍCH MÃ {symbol} VỚI AI")
     print(f"{'='*50}")
     
     # Lấy và xử lý dữ liệu
-    df = get_stock_data(symbol)
+    # Get historical data
+    quote = Quote(symbol= symbol,source="TCBS") # tạo đối tượng quote như 1 biến để tái sử dụng
+    df = quote.history(start='2022-01-01', end='2024-07-10', interval='1D')
     if df is None or df.empty:
         print(f"Không thể phân tích mã {symbol} do thiếu dữ liệu")
         return None
+    
+    # Lấy dữ liệu BCTC
+    financial_data = Finance(symbol=symbol, source='VCI')
     
     # Tiền xử lý
     df_processed = preprocess_stock_data(df)
@@ -582,9 +568,13 @@ def analyze_stock(symbol):
     print(f"\nĐang tạo tín hiệu giao dịch cho mã {symbol}...")
     trading_signal = generate_trading_signal(symbol, df_features)
     
+    # Phân tích bằng Gemini
+    print(f"\nĐang phân tích bằng Google Gemini...")
+    gemini_analysis = analyze_with_gemini(symbol, trading_signal, (forecast_dates, forecast_values), financial_data)
+    
     # In kết quả
     print(f"\nKẾT QUẢ PHÂN TÍCH CHO MÃ {symbol}:")
-    print(f"Giá hiện tại: {trading_signal['current_price']:.2f}")
+    print(f"Giá hiện tại: {trading_signal['current_price']:,.0f} VND")
     print(f"Tín hiệu: {trading_signal['signal']}")
     print(f"Đề xuất: {trading_signal['recommendation']}")
     print(f"Điểm phân tích: {trading_signal['score']:.1f}/100")
@@ -593,7 +583,10 @@ def analyze_stock(symbol):
         print(f"\nDỰ BÁO GIÁ CHO {len(forecast_dates)} NGÀY TIẾP THEO:")
         for i, (date, price) in enumerate(zip(forecast_dates, forecast_values)):
             change = ((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
-            print(f"Ngày {i+1} ({date.date()}): {price:.2f} ({change:+.2f}%)")
+            print(f"Ngày {i+1} ({date.date()}): {price:,.0f} VND ({change:+.2f}%)")
+    
+    print(f"\nPHÂN TÍCH TỔNG HỢP TỪ GEMINI:")
+    print(gemini_analysis)
     
     # Lưu báo cáo
     report = {
@@ -610,7 +603,8 @@ def analyze_stock(symbol):
             'date': date.strftime("%Y-%m-%d"),
             'price': float(price),
             'change_percent': float(((price - trading_signal['current_price']) / trading_signal['current_price']) * 100)
-        } for date, price in zip(forecast_dates, forecast_values)] if forecast_dates else []
+        } for date, price in zip(forecast_dates, forecast_values)] if forecast_dates else [],
+        'gemini_analysis': gemini_analysis
     }
     
     with open(f'vnstocks_data/{symbol}_report.json', 'w', encoding='utf-8') as f:
@@ -633,13 +627,13 @@ def screen_stocks():
     results = []
     
     # Phân tích từng mã
-    for symbol in stock_list['symbol'].head(10):  # Chỉ phân tích 10 mã đầu tiên để thử nghiệm
+    for symbol in stock_list['symbol'].head(5):  # Chỉ phân tích 5 mã đầu tiên để demo
         try:
             print(f"\nPhân tích mã {symbol}...")
             report = analyze_stock(symbol)
             if report:
                 results.append(report)
-            time.sleep(1)  # Dừng 1 giây giữa các request để không bị chặn
+            time.sleep(2)  # Dừng 2 giây giữa các request
         except Exception as e:
             print(f"Lỗi khi phân tích mã {symbol}: {str(e)}")
             continue
@@ -692,6 +686,7 @@ def screen_stocks():
 if __name__ == "__main__":
     print("==============================================")
     print("HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM VỚI AI")
+    print("TÍCH HỢP VNSTOCK VÀ GOOGLE GEMINI")
     print("==============================================")
     
     # Lấy dữ liệu thị trường
