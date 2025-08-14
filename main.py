@@ -111,7 +111,6 @@ def get_financial_data(symbol):
         # Lấy dữ liệu báo cáo tài chính theo quý - CÚ PHÁP MỚI
         financial_obj = Finance(symbol=symbol)
         financial_data = financial_obj.ratio(period='quarter', lang='en', flatten_columns=True)
-        print(financial_data)
         if financial_data is not None and not financial_data.empty:
             # Lưu dữ liệu
             financial_data.to_csv(f'vnstocks_data/{symbol}_financial.csv', index=False)
