@@ -706,7 +706,7 @@ Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. P
                 prompt += f"   - Ngày {i+1} ({date.strftime('%d/%m/%Y')}): {price:,.0f} VND ({change:+.2f}%)\n"
         else:
             prompt += "   - Không có dự báo\n"
-
+         
         if financial_data is not None and not financial_data.empty:
             prompt += "\n3. Dữ liệu tài chính (BCTC) gần nhất:\n"
             # Kiểm tra và xử lý cột 'year' một cách an toàn
@@ -723,13 +723,12 @@ Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. P
                 
                 if sort_column:
                     financial_data_sorted = financial_data_sorted.sort_values(sort_column, ascending=False)
-                
+                print(f"financial_data_sorted {financial_data_sorted}")
                 if not financial_data_sorted.empty:
                     latest_data = financial_data_sorted.iloc[0]
                     # Thử lấy thông tin năm/quý nếu có
-                    year_info = latest_data.get('year') or latest_data.get('Year') or 'N/A'
+                    year_info = latest_data.get('yearReport') or latest_data.get('year') or 'N/A'
                     prompt += f"   - Năm: {year_info}\n"
-                    
                     # Thêm các chỉ số tài chính nếu có
                     financial_columns = [col for col in financial_data.columns 
                                        if col not in ['symbol', 'year', 'Year', 'quarter', 'Quarter', 'period', 'Period', 'date', 'Date'] 
