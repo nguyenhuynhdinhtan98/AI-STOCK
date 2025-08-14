@@ -796,10 +796,10 @@ def analyze_stock(symbol):
     
     # In kết quả
     print(f"\nKẾT QUẢ PHÂN TÍCH CHO MÃ {symbol}:")
-    print(f"Giá hiện tại: {trading_signal['current_price']:.2} VND")
+    print(f"Giá hiện tại: {trading_signal['current_price']:.2f} VND")
     print(f"Tín hiệu: {trading_signal['signal']}")
     print(f"Đề xuất: {trading_signal['recommendation']}")
-    print(f"Điểm phân tích: {trading_signal['score']:.2}/100")
+    print(f"Điểm phân tích: {trading_signal['score']:.2f}/100")
     
     # Sửa lỗi kiểm tra điều kiện cho forecast
     if len(forecast_dates) > 0 and len(forecast_values) > 0:
@@ -925,7 +925,7 @@ if __name__ == "__main__":
     # Lấy dữ liệu thị trường
     market_data = get_market_data()
     
-    # Test với mã ACB
-    analyze_stock('DBC')
+
+    analyze_stock('DRI')
     
     print("\nHoàn thành phân tích. Các báo cáo đã được lưu trong thư mục 'vnstocks_data/'.")
