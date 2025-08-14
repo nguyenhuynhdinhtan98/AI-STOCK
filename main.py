@@ -553,7 +553,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
         try:
             plt.figure(figsize=(16, 12))
             grid = plt.GridSpec(4, 1, hspace=0.2, height_ratios=[3, 1, 1, 1])
-            
             # Biểu đồ 1: Giá và Bollinger Bands
             ax1 = plt.subplot(grid[0])
             plt.plot(df.index, df['Close'], label='Giá đóng cửa', color='#1f77b4')
@@ -638,10 +637,10 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 last_signal = "BÁN (RSI quá mua + Giá dưới SMA50)"
                 
             print(f"\nTÍN HIỆU GIAO DỊCH CUỐI CÙNG ({df.index[-1].strftime('%d/%m/%Y')}):")
-            print(f"- Giá đóng cửa: {current_price:,.0f} VND")
+            print(f"- Giá đóng cửa: {current_price:,.2} VND")
             print(f"- RSI: {rsi_value:.2f}")
             print(f"- MACD: {df['MACD'].iloc[-1]:.2f} | Signal: {df['MACD_Signal'].iloc[-1]:.2f}")
-            print(f"- SMA20/SMA50: {ma20_value:,.0f} / {ma50_value:,.0f} VND")
+            print(f"- SMA20/SMA50: {ma20_value:,.2f} / {ma50_value:,.2f} VND")
             print(f"- Đề xuất: {last_signal}")
             
             return {
