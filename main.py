@@ -357,27 +357,63 @@ def predict_next_days(model, scaler, df, target='Close', time_steps=60, n_days=5
     Dự báo giá trong n ngày tiếp theo
     """
     try:
+        # Kiểm tra đầu vào
+        if model is None or scaler is None or df is None:
+            print("Dữ liệu đầu vào không hợp lệ")
+            return [], []
+        
+        if target not in df.columns:
+            print(f"Cột {target} không tồn tại")
+            return [], []
+        
+        if len(df) < time_steps:
+            print("Không đủ dữ liệu để dự báo")
+            return [], []
+        
         # Lấy dữ liệu cuối cùng
         last_data = df[target].values[-time_steps:]
-        last_data_scaled = scaler.transform(last_data.reshape(-1, 1))
+        
+        # Kiểm tra dữ liệu có hợp lệ không
+        if len(last_data) == 0:
+            print("Dữ liệu dự báo rỗng")
+            return [], []
+        
+        # Loại bỏ NaN/inf
+        last_data = last_data[np.isfinite(last_data)]
+        if len(last_data) < time_steps:
+            print("Dữ liệu không đủ sau khi loại bỏ NaN")
+            return [], []
+        
+        # Chuẩn hóa dữ liệu
+        try:
+            last_data_scaled = scaler.transform(last_data.reshape(-1, 1))
+        except Exception as e:
+            print(f"Lỗi khi chuẩn hóa dữ liệu dự báo: {str(e)}")
+            return [], []
         
         # Tạo dữ liệu đầu vào
-        X = []
-        X.append(last_data_scaled.reshape(1, -1))
-        X = np.array(X)
+        X = last_data_scaled.reshape(1, time_steps, 1)
         
-        # Dự báo
+        # Dự báo với kiểm tra lỗi
         forecast_scaled = []
-        for _ in range(n_days):
-            # Dự báo giá tiếp theo
-            pred = model.predict(X)
-            forecast_scaled.append(pred[0, 0])
-            
-            # Cập nhật dữ liệu đầu vào
-            X = np.append(X[:, 1:, :], pred.reshape(1, 1, 1), axis=1)
+        try:
+            for _ in range(n_days):
+                # Dự báo giá tiếp theo
+                pred = model.predict(X, verbose=0)
+                forecast_scaled.append(pred[0, 0])
+                
+                # Cập nhật dữ liệu đầu vào
+                X = np.append(X[:, 1:, :], pred.reshape(1, 1, 1), axis=1)
+        except Exception as e:
+            print(f"Lỗi khi dự báo từng ngày: {str(e)}")
+            return [], []
         
         # Chuyển đổi về giá gốc
-        forecast = scaler.inverse_transform(np.array(forecast_scaled).reshape(-1, 1))
+        try:
+            forecast = scaler.inverse_transform(np.array(forecast_scaled).reshape(-1, 1))
+        except Exception as e:
+            print(f"Lỗi khi chuyển đổi giá gốc: {str(e)}")
+            return [], []
         
         # Tạo ngày dự báo
         last_date = df.index[-1]
@@ -386,7 +422,8 @@ def predict_next_days(model, scaler, df, target='Close', time_steps=60, n_days=5
         return forecast_dates, forecast.flatten()
     
     except Exception as e:
-        print(f"Lỗi khi dự báo: {str(e)}")
+        print(f"Lỗi nghiêm trọng khi dự báo: {str(e)}")
+        traceback.print_exc()
         return [], []
 
 # ======================
