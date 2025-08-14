@@ -71,7 +71,7 @@ def get_vnstocks_list():
         df.to_csv('vnstocks_data/stock_list.csv', index=False)
         return df
 
-def get_stock_data(symbol, period="5Y"):
+def get_stock_data(symbol):
     """Lấy dữ liệu lịch sử của một mã chứng khoán sử dụng vnstock v2 mới theo tài liệu"""
     try:
         # Sử dụng cú pháp mới theo tài liệu: stock(symbol, period).price()
@@ -496,7 +496,7 @@ def predict_next_days(model, scaler, df, target='Close', time_steps=60, n_days=5
 # PHẦN 4: PHÂN TÍCH KỸ THUẬT
 # ======================
 
-def plot_stock_analysis(symbol, df, period="1y", show_volume=True):
+def plot_stock_analysis(symbol, df, show_volume=True):
     """
     Phân tích kỹ thuật và vẽ biểu đồ cho mã chứng khoán
     """
