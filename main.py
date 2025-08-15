@@ -738,12 +738,25 @@ def plot_stock_analysis(symbol, df, show_volume=True):
 
         # --- BƯỚC 4: Vẽ biểu đồ (CẬP NHẬT) ---
         try:
+            plot_configs = [
+                "price_sma",
+                "ichimoku",
+                "rsi",
+                "macd",
+                "rs",
+                "rs_point",
+                "volume",
+            ]
+            num_subplots = len(plot_configs)  # hoặc đếm số biểu đồ
+            height_per_subplot = 2.5
+            width = 16
+            height = num_subplots * height_per_subplot
 
-            plt.figure(figsize=(16, 20))  # Tăng chiều cao để thêm biểu đồ
+            plt.figure(figsize=(width, height), constrained_layout=True)
 
             # Điều chỉnh GridSpec - GIỮ NGUYÊN 8 HÀNG, TĂNG HSPACE
             grid = plt.GridSpec(
-                8, 1, hspace=0.4, height_ratios=[3, 3, 1, 1, 1, 1, 1, 1]
+                8, 1, hspace=0.4, height_ratios=[1, 1, 1, 1, 1, 1, 1, 1]
             )
 
             # === Biểu đồ 1: Giá và các đường trung bình ===
