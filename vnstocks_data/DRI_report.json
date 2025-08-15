@@ -1,45 +1,19 @@
 {
     "symbol": "DRI",
-    "timestamp": "2025-08-15 07:21:45",
-    "current_price": 12.8,
+    "timestamp": "2025-08-15 11:39:13",
+    "current_price": 12.6,
     "signal": "BÁN",
     "recommendation": "BÁN",
-    "score": 23.401191135563465,
-    "rsi": 48.87160066107198,
-    "ma10": 12.85,
-    "ma20": 13.027000000000001,
-    "ma50": 12.644199999999998,
-    "ma200": 12.37015,
+    "score": 19.537569329311545,
+    "rsi_value": 44.09142673969841,
+    "ma10": 12.84,
+    "ma20": 12.996500000000001,
+    "ma50": 12.6456,
+    "ma200": 12.37755,
     "rs": 1.0,
     "rs_point": 0.0,
-    "forecast": [
-        {
-            "date": "2025-08-15",
-            "price": 12.628885269165039,
-            "change_percent": -1.3368338346481379
-        },
-        {
-            "date": "2025-08-16",
-            "price": 12.59959602355957,
-            "change_percent": -1.5656560659408625
-        },
-        {
-            "date": "2025-08-17",
-            "price": 12.553457260131836,
-            "change_percent": -1.9261151552200373
-        },
-        {
-            "date": "2025-08-18",
-            "price": 12.49787425994873,
-            "change_percent": -2.3603573441505485
-        },
-        {
-            "date": "2025-08-19",
-            "price": 12.436935424804688,
-            "change_percent": -2.8364419937133842
-        }
-    ],
-    "ai_recommendation": "N-BEATS hoặc LSTM tăng cường",
-    "ai_reason": "Dữ liệu có 1992 điểm > 1000, N-BEATS có thể hiệu quả hơn.",
+    "forecast": [],
+    "ai_recommendation": "CNN-LSTM hoặc TabNet/LightGBM",
+    "ai_reason": "Dữ liệu có 1993 điểm > 1000, phù hợp cho mô hình kết hợp không gian và chuỗi hoặc tree-based.",
     "gemini_analysis": "Không thể tạo phân tích bằng Qwen tại thời điểm này."
 }
