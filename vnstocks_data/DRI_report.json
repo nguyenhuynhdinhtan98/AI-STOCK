@@ -1,0 +1,69 @@
+{
+    "symbol": "DRI",
+    "timestamp": "2025-08-15 16:39:37",
+    "current_price": 12.6,
+    "signal": "BÁN",
+    "recommendation": "BÁN",
+    "score": 24.537569329311545,
+    "rsi_value": 44.09142673969841,
+    "ma10": 12.84,
+    "ma20": 12.996500000000001,
+    "ma50": 12.6456,
+    "ma200": 12.37755,
+    "rs": 0.007730061349693252,
+    "rs_point": 1316.747401773724,
+    "forecast": [
+        {
+            "date": "2025-08-16",
+            "price": 12.58195686340332,
+            "change_percent": -0.1432025283575058
+        },
+        {
+            "date": "2025-08-17",
+            "price": 12.583181381225586,
+            "change_percent": -0.1334841251373291
+        },
+        {
+            "date": "2025-08-18",
+            "price": 12.53480052947998,
+            "change_percent": -0.5174590945243835
+        },
+        {
+            "date": "2025-08-19",
+            "price": 12.452668190002441,
+            "change_percent": -1.169303059577942
+        },
+        {
+            "date": "2025-08-20",
+            "price": 12.353033065795898,
+            "change_percent": -1.9600579738616943
+        }
+    ],
+    "ai_recommendation": "LSTM TĂNG CƯỜNG",
+    "ai_reason": "Dữ liệu có 1993 điểm > 1000, LSTM TĂNG CƯỜNG hiệu quả cho chuỗi dài.",
+    "gemini_analysis": "Chào quý nhà đầu tư,\n\nDưới đây là phân tích chi tiết về cổ phiếu DRI của Công ty Cổ phần Cao su Đắk Lắk dựa trên các dữ liệu cung cấp:\n\n**TỔNG QUAN:**\nCổ phiếu DRI đang nhận tín hiệu **BÁN** mạnh từ phân tích kỹ thuật với điểm đánh giá rất thấp **24.5/100**, cho thấy một bức tranh kỹ thuật tiêu cực đáng lo ngại. Mặc dù dữ liệu tài chính gần đây và dự phóng cho thấy những cải thiện về hoạt động kinh doanh, sự suy yếu về mặt kỹ thuật đang chi phối.\n\n**1. PHÂN TÍCH KỸ THUẬT:**\n*   **Tín hiệu & Điểm số:** Hệ thống khuyến nghị **BÁN** với điểm 24.5/100, xác nhận xu hướng tiêu cực và rủi ro cao.\n*   **Xu hướng giá & Đường trung bình (MA):** Giá hiện tại 13 VND đang đi ngang quanh các đường MA10, MA20, MA50 (cùng 13 VND). MA200 ở 12 VND, cho thấy giá đang duy trì trên nền tảng dài hạn nhưng thiếu động lực tăng trưởng rõ rệt. Sự hội tụ của các đường MA cho thấy trạng thái tích lũy/đi ngang kéo dài với thanh khoản có thể thấp.\n*   **Bollinger Bands:** Giá 13 VND nằm trong biên độ BB Upper (13.52) và BB Lower (12.47), xác nhận xu hướng đi ngang và biên độ dao động hẹp, thể hiện sự thiếu biến động và có thể là thiếu dòng tiền.\n*   **Sức mạnh tương đối (RS so với VNINDEX):** Chỉ số RS là 0.008, cực kỳ thấp, cho thấy DRI đang **rất yếu kém** so với thị trường chung VNINDEX. Các đường RS_SMA_10/20/50/200 đều ở mức thấp (0.008-0.009) và có xu hướng giảm nhẹ ở các kỳ dài hơn (RS_SMA_200 cao hơn RS hiện tại), củng cố nhận định về sự kém hấp dẫn dòng tiền của cổ phiếu này so với phần còn lại của thị trường.\n*   **Động lượng dài hạn (RS_Point):** RS_Point là 1316.75. Các đường RS_Point_SMA_10 (1706.50) và RS_Point_SMA_20 (1818.77) cao hơn RS_Point hiện tại, trong khi RS_Point_SMA_50 (919.92) lại thấp. Điều này cho thấy động lượng giá trong ngắn và trung hạn gần đây có dấu hiệu suy yếu so với giai đoạn trước đó, mặc dù động lượng dài hạn (SMA_200: 1812.06) vẫn được duy trì ở mức cao. Điều này tạo ra sự mâu thuẫn và cho thấy biến động trong động lượng.\n*   **Ichimoku Cloud:** Giá 13 VND đang nằm dưới Kijun-sen (13.17) nhưng trên Tenkan-sen (12.85). Mây Ichimoku (Senkou Span A 12.46, Senkou Span B 11.81) cho thấy mây đang **mỏng và nằm thấp**, dù Senkou Span A vẫn trên Senkou Span B (đám mây vẫn mang tín hiệu tăng), nhưng sự mỏng manh này cho thấy hỗ trợ yếu và xu hướng tăng không bền vững.\n\n**2. PHÂN TÍCH TÀI CHÍNH (BCTC gần nhất):**\n*   **Cơ cấu nguồn vốn & Thanh khoản:** Tỷ lệ nợ/vốn chủ sở hữu (Debt/Equity) và nợ ngắn hạn + dài hạn/vốn chủ sở hữu đều ở mức hợp lý và có xu hướng giảm trong các kỳ gần đây (đặc biệt Q1/2025 chỉ 0.07). Các chỉ số thanh khoản như Current Ratio (Q1/2025: 4.30; Q2/2025: 1.73) và Quick Ratio đều rất tốt, cho thấy khả năng thanh toán cao và tình hình tài chính lành mạnh.\n*   **Hiệu quả hoạt động & Khả năng sinh lời:** Đây là điểm sáng của DRI. Biên lợi nhuận (Gross Profit Margin, Net Profit Margin) có sự cải thiện đáng kể qua các quý của 2024 và trong dự phóng 2025. Đặc biệt, **EPS dự kiến tăng mạnh** từ mức thấp trong 2022-2023 lên 525.03 VND (Q4/2024) và đạt 764.32 VND (Q1/2025) và 287.15 VND (Q2/2025) theo các dự phóng, cho thấy sự tăng trưởng lợi nhuận rõ rệt. ROE, ROA cũng có xu hướng tăng trở lại, đạt mức tốt trong các dự phóng 2025 (ROE 25-27%).\n*   **Định giá:** Với sự cải thiện của EPS, các chỉ số định giá như P/E (Q1/2025: 6.58; Q2/2025: 5.96) và P/B (Q1/2025: 1.41; Q2/2025: 1.43) trở nên hấp dẫn hơn đáng kể so với quá khứ. BVPS cũng tăng trưởng ổn định.\n\n**NHẬN ĐỊNH CHUNG & RỦI RO TIỀM ẨN:**\nCó sự **mâu thuẫn lớn** giữa tín hiệu kỹ thuật rất tiêu cực và bức tranh tài chính có triển vọng cải thiện. Kỹ thuật cho thấy DRI đang mất đi sức hút dòng tiền, kém hấp dẫn so với thị trường và có nguy cơ giảm giá. Trong khi đó, các con số tài chính lại chỉ ra một doanh nghiệp đang dần cải thiện hiệu quả kinh doanh và có tiềm năng tăng trưởng lợi nhuận trong tương lai gần.\n**Rủi ro chính:** Mặc dù cơ bản có thể đang tốt lên, thị trường dường như chưa phản ánh điều này vào giá cổ phiếu. Tín hiệu BÁN kỹ thuật mạnh cho thấy áp lực bán tiềm tàng hoặc sự thiếu quan tâm của nhà đầu tư, khiến cổ phiếu khó có thể tăng giá bền vững trong ngắn hạn. Khả năng các dự phóng tài chính không đạt được cũng là một rủi ro.\n\n**DỰ BÁO TRIỂN VỌNG:**\n*   **Ngắn hạn (1-2 tuần):** Triển vọng tiêu cực. Với tín hiệu BÁN mạnh và sức mạnh tương đối yếu, DRI khó có thể bứt phá. Áp lực bán có thể gia tăng hoặc giá tiếp tục đi ngang trong biên độ hẹp.\n*   **Trung hạn (1-3 tháng):** Triển vọng trung lập đến thận trọng. Nếu kết quả kinh doanh thực tế tiếp tục cải thiện và vượt kỳ vọng, thị trường có thể bắt đầu định giá lại cổ phiếu. Tuy nhiên, sự kém hấp dẫn về sức mạnh tương đối so với VNINDEX sẽ là rào cản lớn.\n\n**KHUYẾN NGHỊ ĐẦU TƯ:**\nDựa trên phân tích tổng hợp, dù DRI có những dấu hiệu cải thiện về mặt tài chính (đặc biệt là EPS dự phóng), nhưng tín hiệu kỹ thuật lại cực kỳ tiêu cực, cho thấy rủi ro rất cao trong việc nắm giữ hoặc mua mới cổ phiếu này. Trong bối cảnh thị trường chứng khoán Việt Nam luôn tiềm ẩn rủi ro, việc bảo toàn vốn là ưu tiên hàng đầu.\n\n**Khuyến nghị: BÁN hoặc Hạn chế giao dịch.**\n**Lý do:**\n1.  **Tín hiệu Kỹ thuật BÁN mạnh (điểm 24.5/100):** Rủi ro giảm giá cao.\n2.  **Sức mạnh tương đối rất yếu (RS 0.008):** Dòng tiền không ưu tiên DRI so với các cổ phiếu khác trên thị trường.\n3.  **Thiếu động lực tăng giá:** Giá đi ngang, các đường MA hội tụ, Bollinger Bands hẹp.\nNhà đầu tư nên chờ đợi các tín hiệu kỹ thuật tích cực hơn (ví dụ: giá vượt lên trên Kijun-sen một cách rõ ràng, RS cải thiện, hoặc tín hiệu MUA từ hệ thống) và xác nhận sự cải thiện của dòng tiền trước khi xem xét vị thế.",
+    "open": 12.8,
+    "high": 12.8,
+    "low": 12.5,
+    "volume": 1064300.0,
+    "macd": 0.04030468157056255,
+    "macd_signal": 0.09562960358570569,
+    "macd_hist": -0.055324922015143135,
+    "bb_upper": 13.51804673807899,
+    "bb_lower": 12.474953261921012,
+    "volume_sma_20": 1522923.3,
+    "volume_sma_50": 1387199.82,
+    "ichimoku_tenkan_sen": 12.850000000000001,
+    "ichimoku_kijun_sen": 13.17,
+    "ichimoku_senkou_span_a": 12.465,
+    "ichimoku_senkou_span_b": 11.815,
+    "ichimoku_chikou_span": null,
+    "rs_sma_10": 0.00807690831235465,
+    "rs_sma_20": 0.008389323159822408,
+    "rs_sma_50": 0.008730819001042622,
+    "rs_sma_200": 0.00942411518827822,
+    "rs_point_sma_10": 1706.5030487399351,
+    "rs_point_sma_20": 1818.7702208796698,
+    "rs_point_sma_50": 919.9163750347534,
+    "rs_point_sma_200": 1812.0586450005378
+}
