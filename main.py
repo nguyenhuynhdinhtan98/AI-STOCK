@@ -241,7 +241,6 @@ def create_features(df):
 def train_stock_model(df, target='Close', time_steps=60, test_size=0.2, epochs=100, batch_size=32):
     """Huấn luyện mô hình LSTM để dự báo giá cổ phiếu."""
     try:
-        from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau # Đảm bảo import ở đây nếu chưa có ở đầu file
 
         # Kiểm tra dữ liệu đầu vào
         if df is None or len(df) < time_steps:
