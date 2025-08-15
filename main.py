@@ -8,18 +8,25 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime, timedelta
 from sklearn.preprocessing import MinMaxScaler
-# from sklearn.model_selection import train_test_split # Không dùng trong LSTM cơ bản này
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 import ta
 import warnings
-# SDK cho Google Qwen
 import google.generativeai as genai
 from dotenv import load_dotenv
-# Giả sử vnstock và các module con đã được cài đặt và import đúng cách
 from vnstock import *
 import traceback
 from vnstock.explorer.vci import Quote, Finance
 import matplotlib.dates as mdates
+# Thêm import cho N-BEATS
+import torch
+from darts import TimeSeries
+from darts.models import NBEATSModel
+from darts.dataprocessing.transformers import Scaler
+from darts.metrics import rmse, mae
 
 warnings.filterwarnings('ignore')
 
@@ -226,6 +233,363 @@ def create_features(df):
     return df
 
 # ======================
+# PHẦN 3: MÔ HÌNH AI - CẢI TIẾN
+# ======================
+
+# --- CẬP NHẬT HÀM LSTM (LSTM TĂNG CƯỜNG) ---
+def train_stock_model(df, target='Close', time_steps=60, test_size=0.2, epochs=50, batch_size=32):
+    """
+    Huấn luyện mô hình LSTM TĂNG CƯỜNG để dự báo giá cổ phiếu.
+    """
+    try:
+        # Kiểm tra dữ liệu đầu vào
+        if df is None or len(df) < time_steps:
+            print("Dữ liệu không đủ để huấn luyện mô hình")
+            return None, None, None, None, None
+        if target not in df.columns:
+            print(f"Cột {target} không tồn tại trong dữ liệu")
+            return None, None, None, None, None
+        data = df[[target]].values
+        if len(data) == 0:
+            print("Dữ liệu rỗng")
+            return None, None, None, None, None
+        data = data[np.isfinite(data)].reshape(-1, 1)
+        if len(data) == 0:
+            print("Không có dữ liệu hợp lệ sau khi loại bỏ NaN/inf")
+            return None, None, None, None, None
+        scaler = MinMaxScaler(feature_range=(0, 1))
+        scaled_data = scaler.fit_transform(data)
+        if len(scaled_data) <= time_steps:
+            print("Không đủ dữ liệu để tạo chuỗi thời gian")
+            return None, None, None, None, None
+        X, y = [], []
+        for i in range(time_steps, len(scaled_data)):
+            X.append(scaled_data[i-time_steps:i, 0])
+            y.append(scaled_data[i, 0])
+        if len(X) == 0 or len(y) == 0:
+            print("Không tạo được dữ liệu huấn luyện")
+            return None, None, None, None, None
+        X, y = np.array(X), np.array(y)
+        X = np.reshape(X, (X.shape[0], X.shape[1], 1))
+        if X.shape[0] < 10:
+            print("Dữ liệu quá ít để huấn luyện")
+            return None, None, None, None, None
+        split_index = max(1, int(len(X) * (1 - test_size)))
+        if split_index >= len(X):
+            split_index = len(X) - 1
+        X_train, X_test = X[:split_index], X[split_index:]
+        y_train, y_test = y[:split_index], y[split_index:]
+        if len(X_train) == 0 or len(y_train) == 0:
+            print("Dữ liệu train rỗng")
+            return None, None, None, None, None
+
+        # --- LSTM TĂNG CƯỜNG ---
+        model = Sequential()
+        # Thêm nhiều lớp LSTM với dropout
+        model.add(LSTM(units=100, return_sequences=True, input_shape=(X_train.shape[1], 1)))
+        model.add(Dropout(0.2))
+        model.add(LSTM(units=100, return_sequences=True)) # Thêm lớp LSTM
+        model.add(Dropout(0.2))
+        model.add(LSTM(units=50, return_sequences=False)) # Giảm units ở lớp cuối
+        model.add(Dropout(0.2))
+        model.add(Dense(units=50)) # Tăng units cho Dense
+        model.add(Dropout(0.2)) # Thêm dropout cho Dense
+        model.add(Dense(units=1))
+        model.compile(optimizer='adam', loss='mean_squared_error')
+
+        early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True) # Tăng patience
+        reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=1e-7, verbose=1)
+        history = model.fit(
+            X_train, y_train,
+            epochs=epochs,
+            batch_size=batch_size,
+            validation_split=0.1,
+            callbacks=[early_stopping, reduce_lr], # Thêm ReduceLROnPlateau
+            verbose=1
+        )
+        # --- KẾT THÚC LSTM TĂNG CƯỜNG ---
+
+        y_pred = model.predict(X_test)
+        y_test = scaler.inverse_transform(y_test.reshape(-1, 1))
+        y_pred = scaler.inverse_transform(y_pred)
+
+        # Vẽ biểu đồ
+        try:
+            plt.figure(figsize=(12, 6))
+            plt.plot(history.history['loss'], label='Training Loss')
+            if 'val_loss' in history.history:
+                plt.plot(history.history['val_loss'], label='Validation Loss')
+            plt.title('Lịch sử huấn luyện mô hình LSTM TĂNG CƯỜNG')
+            plt.ylabel('Loss')
+            plt.xlabel('Epoch')
+            plt.legend()
+            plt.grid(True)
+            plt.savefig('vnstocks_data/lstm_enhanced_training_history.png')
+            plt.close()
+        except Exception as e:
+            print(f"Lỗi khi vẽ biểu đồ huấn luyện LSTM: {str(e)}")
+
+        try:
+            plt.figure(figsize=(12, 6))
+            plt.plot(y_test, label='Giá thực tế', color='blue')
+            plt.plot(y_pred, label='Dự báo LSTM TĂNG CƯỜNG', color='red', linestyle='--')
+            plt.title('So sánh giá thực tế và dự báo LSTM TĂNG CƯỜNG')
+            plt.xlabel('Thời gian')
+            plt.ylabel('Giá cổ phiếu')
+            plt.legend()
+            plt.grid(True)
+            plt.savefig('vnstocks_data/lstm_enhanced_forecast_vs_actual.png')
+            plt.close()
+        except Exception as e:
+            print(f"Lỗi khi vẽ biểu đồ dự báo LSTM: {str(e)}")
+
+        try:
+            mse = mean_squared_error(y_test, y_pred)
+            rmse_val = np.sqrt(mse)
+            mae_val = mean_absolute_error(y_test, y_pred)
+            r2 = r2_score(y_test, y_pred)
+            print("\nĐÁNH GIÁ MÔ HÌNH LSTM TĂNG CƯỜNG:")
+            print(f"MSE: {mse:.2f}")
+            print(f"RMSE: {rmse_val:.2f}")
+            print(f"MAE: {mae_val:.2f}")
+            print(f"R2: {r2:.2f}")
+        except Exception as e:
+            print(f"Lỗi khi tính toán đánh giá LSTM: {str(e)}")
+            mse, rmse_val, mae_val, r2 = 0, 0, 0, 0
+
+        return model, scaler, X_test, y_test, y_pred
+    except Exception as e:
+        print(f"Lỗi nghiêm trọng khi huấn luyện mô hình LSTM: {str(e)}")
+        traceback.print_exc()
+        return None, None, None, None, None
+
+def predict_next_days(model, scaler, df, target='Close', time_steps=60, n_days=5):
+    """
+    Dự báo giá trong n ngày tiếp theo (cho LSTM)
+    """
+    try:
+        # Kiểm tra đầu vào
+        if model is None or scaler is None or df is None:
+            print("Dữ liệu đầu vào không hợp lệ")
+            return np.array([]), np.array([])
+        if target not in df.columns:
+            print(f"Cột {target} không tồn tại")
+            return np.array([]), np.array([])
+        if len(df) < time_steps:
+            print("Không đủ dữ liệu để dự báo")
+            return np.array([]), np.array([])
+        # Lấy dữ liệu cuối cùng
+        last_data = df[target].values[-time_steps:]
+        # Kiểm tra dữ liệu có hợp lệ không
+        if len(last_data) == 0:
+            print("Dữ liệu dự báo rỗng")
+            return np.array([]), np.array([])
+        # Loại bỏ NaN/inf
+        last_data = last_data[np.isfinite(last_data)]
+        if len(last_data) < time_steps:
+            print("Dữ liệu không đủ sau khi loại bỏ NaN")
+            return np.array([]), np.array([])
+        # Chuẩn hóa dữ liệu
+        try:
+            last_data_scaled = scaler.transform(last_data.reshape(-1, 1))
+        except Exception as e:
+            print(f"Lỗi khi chuẩn hóa dữ liệu dự báo: {str(e)}")
+            return np.array([]), np.array([])
+        # Tạo dữ liệu đầu vào
+        X = last_data_scaled.reshape(1, time_steps, 1)
+        # Dự báo với kiểm tra lỗi
+        forecast_scaled = []
+        try:
+            for _ in range(n_days):
+                # Dự báo giá tiếp theo
+                pred = model.predict(X, verbose=0)
+                forecast_scaled.append(pred[0, 0])
+                # Cập nhật dữ liệu đầu vào
+                X = np.append(X[:, 1:, :], pred.reshape(1, 1, 1), axis=1)
+        except Exception as e:
+            print(f"Lỗi khi dự báo từng ngày: {str(e)}")
+            return np.array([]), np.array([])
+        # Chuyển đổi về giá gốc
+        try:
+            forecast = scaler.inverse_transform(np.array(forecast_scaled).reshape(-1, 1))
+        except Exception as e:
+            print(f"Lỗi khi chuyển đổi giá gốc: {str(e)}")
+            return np.array([]), np.array([])
+        # Tạo ngày dự báo
+        last_date = df.index[-1]
+        forecast_dates = [last_date + timedelta(days=i+1) for i in range(n_days)]
+        return np.array(forecast_dates), forecast.flatten()
+    except Exception as e:
+        print(f"Lỗi nghiêm trọng khi dự báo: {str(e)}")
+        traceback.print_exc()
+        return np.array([]), np.array([])
+
+# --- THÊM HÀM N-BEATS ---
+def train_nbeats_model(df, target='Close', input_chunk_length=50, output_chunk_length=5, val_split=0.2, epochs=100):
+    """
+    Huấn luyện mô hình N-BEATS để dự báo giá cổ phiếu sử dụng darts.
+    """
+    try:
+        if df is None or len(df) < input_chunk_length:
+            print("Dữ liệu không đủ để huấn luyện mô hình N-BEATS")
+            return None, None, None, None, None
+        if target not in df.columns:
+            print(f"Cột {target} không tồn tại trong dữ liệu")
+            return None, None, None, None, None
+
+        data = df[[target]]
+        series = TimeSeries.from_dataframe(data, value_cols=[target])
+        train_size = int(len(series) * (1 - val_split))
+        if train_size <= input_chunk_length:
+             print("Dữ liệu quá ít để chia train/val cho N-BEATS")
+             return None, None, None, None, None
+
+        train_series = series[:train_size]
+        val_series = series[train_size:]
+        scaler = Scaler()
+        train_series_scaled = scaler.fit_transform(train_series)
+        val_series_scaled = scaler.transform(val_series)
+        series_scaled = scaler.transform(series)
+
+        # Cấu hình N-BEATS cải tiến hơn
+        model = NBEATSModel(
+            input_chunk_length=input_chunk_length,
+            output_chunk_length=output_chunk_length,
+            generic_architecture=True,
+            num_stacks=30, # Mặc định
+            num_blocks=1,
+            num_layers=4,
+            layer_widths=512,
+            n_epochs=epochs,
+            nr_epochs_val_period=1,
+            batch_size=32,
+            model_name="nbeats_model_enhanced",
+            force_reset=True,
+            save_checkpoints=False,
+            optimizer_kwargs={"lr": 1e-3},
+            loss_fn=torch.nn.MSELoss(),
+            # torch_device_str="cuda" if torch.cuda.is_available() else "cpu" # Dùng GPU nếu có
+        )
+
+        print("Đang huấn luyện mô hình N-BEATS...")
+        model.fit(series=train_series_scaled, val_series=val_series_scaled, verbose=True)
+        print("Huấn luyện N-BEATS hoàn tất.")
+
+        if len(val_series_scaled) > output_chunk_length:
+            forecasts_scaled = model.historical_forecasts(
+                series_scaled,
+                start=train_size + output_chunk_length - 1,
+                forecast_horizon=output_chunk_length,
+                stride=output_chunk_length,
+                retrain=False,
+                verbose=True
+            )
+
+            if forecasts_scaled is not None:
+                val_actual_scaled = val_series_scaled[-len(forecasts_scaled):]
+                val_actual = scaler.inverse_transform(val_actual_scaled)
+                forecasts = scaler.inverse_transform(forecasts_scaled)
+
+                plt.figure(figsize=(12, 6))
+                val_actual.pd_dataframe()[target].plot(label='Giá thực tế (Validation)')
+                forecasts.pd_dataframe()[target].plot(label='Dự báo N-BEATS', linestyle='--')
+                plt.title('So sánh giá thực tế và dự báo N-BEATS (Validation)')
+                plt.xlabel('Thời gian')
+                plt.ylabel('Giá cổ phiếu')
+                plt.legend()
+                plt.grid(True)
+                plt.savefig('vnstocks_data/nbeats_forecast_vs_actual.png')
+                plt.close()
+                print("Đã lưu biểu đồ so sánh N-BEATS vào 'vnstocks_data/nbeats_forecast_vs_actual.png'")
+
+                try:
+                    eval_rmse = rmse(val_actual, forecasts)
+                    eval_mae = mae(val_actual, forecasts)
+                    print("\nĐÁNH GIÁ MÔ HÌNH N-BEATS (Validation):")
+                    print(f"RMSE: {eval_rmse:.2f}")
+                    print(f"MAE: {eval_mae:.2f}")
+                    return model, scaler, val_actual.pd_dataframe()[target].values, forecasts.pd_dataframe()[target].values, forecasts.time_index
+                except Exception as e:
+                    print(f"Lỗi khi tính toán đánh giá N-BEATS: {str(e)}")
+            else:
+                 print("Không thể tạo dự báo để đánh giá.")
+        else:
+             print("Tập validation quá ngắn để đánh giá.")
+
+        return model, scaler, series_scaled, None, series.time_index
+
+    except Exception as e:
+        print(f"Lỗi nghiêm trọng khi huấn luyện mô hình N-BEATS: {str(e)}")
+        traceback.print_exc()
+        return None, None, None, None, None
+
+def predict_next_days_nbeats(model, scaler, df, target='Close', input_chunk_length=50, n_days=5):
+    """
+    Dự báo giá trong n ngày tiếp theo bằng mô hình N-BEATS.
+    """
+    try:
+        if model is None or scaler is None or df is None:
+            print("Dữ liệu đầu vào không hợp lệ cho N-BEATS")
+            return np.array([]), np.array([])
+        if target not in df.columns:
+            print(f"Cột {target} không tồn tại")
+            return np.array([]), np.array([])
+
+        data = df[[target]]
+        series = TimeSeries.from_dataframe(data, value_cols=[target])
+        series_scaled = scaler.transform(series)
+
+        print(f"Đang dự báo {n_days} ngày tiếp theo bằng N-BEATS...")
+        forecast_scaled = model.predict(n=n_days, series=series_scaled)
+        forecast = scaler.inverse_transform(forecast_scaled)
+
+        forecast_dates = forecast.time_index
+        forecast_values = forecast.pd_dataframe()[target].values
+
+        return np.array(forecast_dates), forecast_values
+
+    except Exception as e:
+        print(f"Lỗi nghiêm trọng khi dự báo bằng N-BEATS: {str(e)}")
+        traceback.print_exc()
+        return np.array([]), np.array([])
+
+# --- CẬP NHẬT HÀM ĐÁNH GIÁ DỮ LIỆU ---
+def evaluate_data_for_ai(df_features, symbol):
+    """
+    Đánh giá dữ liệu để đề xuất mô hình AI phù hợp.
+    """
+    if df_features is None or len(df_features) == 0:
+        print(f"❌ Không có dữ liệu để đánh giá cho mã {symbol}.")
+        return "Không xác định", "Không có dữ liệu đầu vào."
+
+    num_points = len(df_features)
+    num_features = len(df_features.columns)
+
+    print(f"\n--- ĐÁNH GIÁ DỮ LIỆU CHO MÃ {symbol} ---")
+    print(f"Số điểm dữ liệu: {num_points}")
+    print(f"Số lượng đặc trưng: {num_features}")
+
+    # Cập nhật logic đề xuất
+    if num_points > 2000:
+        recommendation = "Time Series Transformer hoặc Informer"
+        reason = f"Dữ liệu có {num_points} điểm > 2000, phù hợp cho mô hình Transformer hiệu suất cao."
+    elif num_points > 1000: # Ưu tiên N-BEATS cho dữ liệu dài
+        recommendation = "N-BEATS"
+        reason = f"Dữ liệu có {num_points} điểm > 1000, N-BEATS hiệu quả cho chuỗi dài."
+    elif num_features > 50:
+        recommendation = "CNN-LSTM hoặc TabNet/LightGBM"
+        reason = f"Dữ liệu có {num_features} đặc trưng > 50, phù hợp cho mô hình kết hợp không gian và chuỗi hoặc tree-based."
+    else: # Dữ liệu trung bình/trung bình dưới
+        recommendation = "LSTM TĂNG CƯỜNG"
+        reason = f"Dữ liệu có {num_points} điểm và {num_features} đặc trưng, LSTM TĂNG CƯỜNG là lựa chọn tốt."
+
+    print(f"💡 Đề xuất mô hình AI: {recommendation}")
+    print(f"❓ Lý do: {reason}")
+    print("--- HẾT ĐÁNH GIÁ ---\n")
+
+    return recommendation, reason
+
+# ======================
 # PHẦN 4: PHÂN TÍCH KỸ THUẬT CẢI TIẾN
 # ======================
 def plot_stock_analysis(symbol, df, show_volume=True):
@@ -237,6 +601,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
         # Kiểm tra dữ liệu đầu vào
         if df is None or len(df) == 0:
             print("Dữ liệu phân tích rỗng")
+            # Đảm bảo trả về đầy đủ các khóa
             return {
                 'signal': 'LỖI',
                 'score': 50,
@@ -245,9 +610,9 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 'ma10': 0,
                 'ma20': 0,
                 'ma50': 0,
-                'ma200': 0, # Thêm ma200
-                'rs': 1.0,  # Thêm rs
-                'rs_point': 0, # Thêm rs_point
+                'ma200': 0,
+                'rs': 1.0,
+                'rs_point': 0,
                 'recommendation': 'KHÔNG XÁC ĐỊNH'
             }
 
@@ -376,6 +741,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
         df = df.dropna(subset=['Close', 'SMA_10', 'SMA_20', 'SMA_50'], how='all')
         if len(df) < 20:
             print("Không đủ dữ liệu hợp lệ để phân tích")
+            # Đảm bảo trả về đầy đủ các khóa với giá trị mặc định hoặc từ df nếu có
             return {
                 'signal': 'LỖI',
                 'score': 50,
@@ -676,24 +1042,24 @@ def plot_stock_analysis(symbol, df, show_volume=True):
 
             print(f"  - Đề xuất: {recommendation} (Điểm: {score:.1f})")
 
-            # --- Đảm bảo trả về đầy đủ các khóa ---
             return {
                 'signal': signal,
                 'score': score,
                 'current_price': current_price,
-                'rsi_value': rsi_value, # Đảm bảo có khóa rsi_value
-                'ma10': ma10_value,      # Đảm bảo có khóa ma10
-                'ma20': ma20_value,      # Đảm bảo có khóa ma20
-                'ma50': ma50_value,      # Đảm bảo có khóa ma50
-                'ma200': ma200_value,    # Đảm bảo có khóa ma200
-                'rs': rs_value,          # Đảm bảo có khóa rs
-                'rs_point': rs_point_value, # Đảm bảo có khóa rs_point
+                'rsi_value': rsi_value,
+                'ma10': ma10_value,
+                'ma20': ma20_value,
+                'ma50': ma50_value,
+                'ma200': ma200_value,
+                'rs': rs_value,
+                'rs_point': rs_point_value,
                 'recommendation': recommendation
             }
 
         except Exception as e:
             print(f"❌ Lỗi khi tạo tín hiệu: {str(e)}")
             traceback.print_exc() # In traceback đầy đủ để debug
+            # Đảm bảo trả về đầy đủ các khóa với giá trị mặc định hoặc từ df nếu có
             return {
                 'signal': 'LỖI',
                 'score': 50,
@@ -702,15 +1068,16 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 'ma10': df['Close'].iloc[-1] if len(df) > 0 and 'SMA_10' in df.columns else 0, # An toàn hơn
                 'ma20': df['Close'].iloc[-1] if len(df) > 0 and 'SMA_20' in df.columns else 0, # An toàn hơn
                 'ma50': df['Close'].iloc[-1] if len(df) > 0 and 'SMA_50' in df.columns else 0, # An toàn hơn
-                'ma200': df['Close'].iloc[-1] if len(df) > 0 and 'SMA_200' in df.columns else 0, # An toàn hơn, đảm bảo có khóa ma200
-                'rs': 1.0, # Mặc định nếu lỗi tính RS, đảm bảo có khóa rs
-                'rs_point': 0, # Mặc định nếu lỗi tính RS_Point, đảm bảo có khóa rs_point
+                'ma200': df['Close'].iloc[-1] if len(df) > 0 and 'SMA_200' in df.columns else 0, # An toàn hơn
+                'rs': 1.0, # Mặc định nếu lỗi tính RS
+                'rs_point': 0, # Mặc định nếu lỗi tính RS_Point
                 'recommendation': 'KHÔNG XÁC ĐỊNH'
             }
 
     except Exception as e:
-        print(f"❌ Lỗi nghiêm trọng: {str(e)}")
+        print(f"❌ Lỗi nghiêm trọng trong phân tích kỹ thuật: {str(e)}")
         traceback.print_exc() # In traceback đầy đủ để debug
+        # Đảm bảo trả về đầy đủ các khóa với giá trị mặc định khi lỗi toàn cục
         return {
             'signal': 'LỖI',
             'score': 50,
@@ -719,36 +1086,43 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             'ma10': 0,
             'ma20': 0,
             'ma50': 0,
-            'ma200': 0, # Đảm bảo có khóa ma200
-            'rs': 1.0,  # Đảm bảo có khóa rs
-            'rs_point': 0, # Đảm bảo có khóa rs_point
+            'ma200': 0,
+            'rs': 1.0,
+            'rs_point': 0,
             'recommendation': 'KHÔNG XÁC ĐỊNH'
         }
 
 # ======================
 # PHẦN 5: TÍCH HỢP PHÂN TÍCH BẰNG QWEN
 # ======================
-def analyze_with_gemini(symbol, trading_signal, financial_data=None):
+def analyze_with_gemini(symbol, trading_signal, forecast, financial_data=None):
     """Phân tích cổ phiếu bằng Google Qwen dựa trên dữ liệu kỹ thuật và BCTC"""
     try:
-        # --- Cập nhật Prompt với đầy đủ thông tin ---
+        # Tạo prompt cho Qwen
         prompt = f"""
 Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. Phân tích cổ phiếu {symbol} dựa trên các thông tin sau:
 1. Tín hiệu giao dịch:
    - Tín hiệu: {trading_signal['signal']}
    - Điểm phân tích: {trading_signal['score']}/100
    - Giá hiện tại: {trading_signal['current_price']:,.0f} VND
-   - RSI: {trading_signal['rsi_value']:.2f} # Sử dụng đúng khóa
-   - MA10: {trading_signal['ma10']:,.0f} VND # Sử dụng đúng khóa
-   - MA20: {trading_signal['ma20']:,.0f} VND # Sử dụng đúng khóa
-   - MA50: {trading_signal['ma50']:,.0f} VND # Sử dụng đúng khóa
-   - MA200: {trading_signal['ma200']:,.0f} VND # Sử dụng đúng khóa
-   - RS (so với VNINDEX): {trading_signal['rs']:.3f} # Sử dụng đúng khóa
-   - RS_Point: {trading_signal['rs_point']:.2f} # Sử dụng đúng khóa
-2. Không có dự báo giá từ mô hình AI (đã loại bỏ LSTM/N-BEATS theo yêu cầu)
-3. Dữ liệu tài chính (BCTC) gần nhất:
+   - RSI: {trading_signal['rsi_value']:.2f}
+   - MA10: {trading_signal['ma10']:,.0f} VND
+   - MA20: {trading_signal['ma20']:,.0f} VND
+   - MA50: {trading_signal['ma50']:,.0f} VND
+   - MA200: {trading_signal['ma200']:,.0f} VND
+   - RS (so với VNINDEX): {trading_signal['rs']:.3f}
+   - RS_Point: {trading_signal['rs_point']:.2f}
+2. Dự báo giá trong 5 ngày tới:
 """
+        # Kiểm tra điều kiện cho forecast
+        if len(forecast[0]) > 0 and len(forecast[1]) > 0:
+            for i, (date, price) in enumerate(zip(forecast[0], forecast[1])):
+                change = ((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
+                prompt += f"   - Ngày {i+1} ({date.strftime('%d/%m/%Y')}): {price:,.0f} VND ({change:+.2f}%)\n"
+        else:
+            prompt += "   - Không có dự báo\n"
         if financial_data is not None and not financial_data.empty:
+            prompt += "\n3. Dữ liệu tài chính (BCTC) gần nhất:\n"
             try:
                 # Lấy quý gần nhất
                 financial_data_sorted = financial_data.copy()
@@ -758,12 +1132,12 @@ Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. P
                 print(f"Lỗi khi xử lý dữ liệu tài chính: {str(e)}")
                 prompt += "   - Không có dữ liệu tài chính chi tiết\n"
         else:
-            prompt += "   - Không có dữ liệu tài chính\n"
+            prompt += "\n3. Không có dữ liệu tài chính\n"
         prompt += """
 Yêu cầu phân tích:
 - Tổng hợp phân tích kỹ thuật và cơ bản
 - Đánh giá sức mạnh tài chính của công ty
-- Phân tích xu hướng giá và tín hiệu kỹ thuật (bao gồm RS, RS_Point, Ichimoku, RSI, Bollinger Bands, các đường trung bình nếu có)
+- Phân tích xu hướng giá và tín hiệu kỹ thuật (bao gồm RS, RS_Point, Ichimoku nếu có)
 - Nhận định rủi ro tiềm ẩn
 - Dự báo triển vọng ngắn hạn và trung hạn
 - Đưa ra khuyến nghị đầu tư (Mua/Bán/Nắm giữ) với lý do cụ thể
@@ -782,10 +1156,10 @@ Kết quả phân tích cần:
         return "Không thể tạo phân tích bằng Qwen tại thời điểm này."
 
 # ======================
-# PHẦN 6: CHỨC NĂNG CHÍNH
+# PHẦN 6: CHỨC NĂNG CHÍNH - CẢI TIẾN
 # ======================
 def analyze_stock(symbol):
-    """Phân tích toàn diện một mã chứng khoán với tích hợp Qwen (đã loại bỏ LSTM)"""
+    """Phân tích toàn diện một mã chứng khoán với tích hợp Qwen và lựa chọn mô hình AI phù hợp"""
     print(f"\n{'='*50}")
     print(f"PHÂN TÍCH MÃ {symbol} VỚI AI")
     print(f"{'='*50}")
@@ -799,14 +1173,61 @@ def analyze_stock(symbol):
         print(f"Không thể tiền xử lý dữ liệu cho mã {symbol}")
         return None
     df_features = create_features(df_processed)
-    if len(df_features) < 100:  # Cần ít nhất 100 điểm dữ liệu
+    if len(df_features) < 100:
         print(f"Dữ liệu cho mã {symbol} quá ít để phân tích ({len(df_features)} điểm)")
         return None
 
+    # --- ĐÁNH GIÁ DỮ LIỆU VÀ ĐỀ XUẤT MÔ HÌNH AI ---
+    ai_recommendation, ai_reason = evaluate_data_for_ai(df_features, symbol)
+
+    model, scaler = None, None
+    X_test_or_actual, y_test_or_pred, forecast_source = None, None, None
+    forecast_dates, forecast_values = np.array([]), np.array([])
+
+    # --- HUẤN LUYỆN MÔ HÌNH DỰA TRÊN ĐỀ XUẤT ---
+    if len(df_features) < 100:
+        print(f"Cảnh báo: Dữ liệu cho mã {symbol} quá ít ({len(df_features)} điểm) để huấn luyện mô hình AI hiệu quả.")
+    else:
+        print(f"\n🔔 ĐỀ XUẤT MỞ RỘNG: {ai_recommendation}")
+        print(f"   Lý do: {ai_reason}")
+
+        if "N-BEATS" in ai_recommendation:
+            print(f"\nĐang huấn luyện mô hình AI (N-BEATS) cho mã {symbol}...")
+            model, scaler, X_test_or_actual, y_test_or_pred, forecast_source = train_nbeats_model(df_features)
+            if model is not None:
+                print(f"\nĐang dự báo giá cho 5 ngày tới bằng N-BEATS...")
+                forecast_dates, forecast_values = predict_next_days_nbeats(model, scaler, df_features)
+            else:
+                print("\n⚠️ Không thể huấn luyện mô hình N-BEATS.")
+
+        elif "LSTM TĂNG CƯỜNG" in ai_recommendation or "LSTM tăng cường" in ai_recommendation:
+            print(f"\nĐang huấn luyện mô hình AI (LSTM TĂNG CƯỜNG) cho mã {symbol}...")
+            model, scaler, X_test, y_test, y_pred = train_stock_model(df_features)
+            if model is not None:
+                X_test_or_actual = y_test
+                y_test_or_pred = y_pred
+                print(f"\nĐang dự báo giá cho 5 ngày tới bằng LSTM TĂNG CƯỜNG...")
+                forecast_dates, forecast_values = predict_next_days(model, scaler, df_features)
+            else:
+                print("\n⚠️ Không thể huấn luyện mô hình LSTM TĂNG CƯỜNG.")
+
+        else:
+            # Mặc định hoặc các mô hình khác dùng LSTM cơ bản
+            print(f"\nĐang huấn luyện mô hình AI (LSTM cơ bản) cho mã {symbol}...")
+            model, scaler, X_test, y_test, y_pred = train_stock_model(df_features) # Dùng phiên bản cải tiến
+            if model is not None:
+                X_test_or_actual = y_test
+                y_test_or_pred = y_pred
+                print(f"\nĐang dự báo giá cho 5 ngày tới bằng LSTM cơ bản...")
+                forecast_dates, forecast_values = predict_next_days(model, scaler, df_features)
+            else:
+                print("\n⚠️ Không thể huấn luyện mô hình LSTM cơ bản.")
+
+    # --- KẾT THÚC PHẦN ĐÁNH GIÁ VÀ AI ---
     print(f"\nĐang phân tích kỹ thuật cho mã {symbol}...")
     trading_signal = plot_stock_analysis(symbol, df_features)
     print(f"\nĐang phân tích bằng Google Qwen...")
-    gemini_analysis = analyze_with_gemini(symbol, trading_signal, financial_data)
+    gemini_analysis = analyze_with_gemini(symbol, trading_signal, (forecast_dates, forecast_values), financial_data)
 
     # In kết quả
     print(f"\nKẾT QUẢ PHÂN TÍCH CHO MÃ {symbol}:")
@@ -814,10 +1235,19 @@ def analyze_stock(symbol):
     print(f"Tín hiệu: {trading_signal['signal']}")
     print(f"Đề xuất: {trading_signal['recommendation']}")
     print(f"Điểm phân tích: {trading_signal['score']:.2f}/100")
+
+    # Kiểm tra điều kiện cho forecast
+    if len(forecast_dates) > 0 and len(forecast_values) > 0:
+        print(f"\nDỰ BÁO GIÁ CHO {len(forecast_dates)} NGÀY TIẾP THEO:")
+        for i, (date, price) in enumerate(zip(forecast_dates, forecast_values)):
+            change = ((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
+            print(f"Ngày {i+1} ({date.date()}): {price:,.2f} VND ({change:+.2f}%)")
+    else:
+        print("\nKhông có dự báo giá do lỗi trong quá trình huấn luyện mô hình")
     print(f"\nPHÂN TÍCH TỔNG HỢP TỪ QWEN:")
     print(gemini_analysis)
 
-    # --- Đảm bảo report có đầy đủ các khóa ---
+    # Lưu báo cáo
     report = {
         'symbol': symbol,
         'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -825,14 +1255,25 @@ def analyze_stock(symbol):
         'signal': trading_signal['signal'],
         'recommendation': trading_signal['recommendation'],
         'score': float(trading_signal['score']),
-        'rsi_value': float(trading_signal['rsi_value']), # Sử dụng đúng khóa
-        'ma10': float(trading_signal['ma10']),          # Sử dụng đúng khóa
-        'ma20': float(trading_signal['ma20']),          # Sử dụng đúng khóa
-        'ma50': float(trading_signal['ma50']),          # Sử dụng đúng khóa
-        'ma200': float(trading_signal['ma200']),        # Sử dụng đúng khóa
-        'rs': float(trading_signal['rs']),              # Sử dụng đúng khóa
-        'rs_point': float(trading_signal['rs_point']),  # Sử dụng đúng khóa
-        'forecast': [], # Không có dự báo từ mô hình
+        'rsi_value': float(trading_signal['rsi_value']), # Đảm bảo tên khóa nhất quán
+        'ma10': float(trading_signal['ma10']),
+        'ma20': float(trading_signal['ma20']),
+        'ma50': float(trading_signal['ma50']),
+        'ma200': float(trading_signal['ma200']),
+        'rs': float(trading_signal['rs']),
+        'rs_point': float(trading_signal['rs_point']),
+        'forecast': [{
+            'date': date.strftime("%Y-%m-%d"),
+            'price': float(price),
+            'change_percent': float(change)
+        } for date, price, change in zip(
+            forecast_dates,
+            forecast_values,
+            [((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
+             for price in forecast_values]
+        )] if len(forecast_dates) > 0 and len(forecast_values) > 0 else [],
+        'ai_recommendation': ai_recommendation,
+        'ai_reason': ai_reason,
         'gemini_analysis': gemini_analysis
     }
     with open(f'vnstocks_data/{symbol}_report.json', 'w', encoding='utf-8') as f:
@@ -865,26 +1306,27 @@ def screen_stocks():
     if results:
         # Sắp xếp theo điểm phân tích
         results.sort(key=lambda x: x['score'], reverse=True)
-        # Tạo DataFrame - Đảm bảo tên cột khớp với khóa trong report
+        # Tạo DataFrame - Đảm bảo các khóa trong dict `r` khớp với tên cột
         df_results = pd.DataFrame([{
             'Mã': r['symbol'],
             'Giá': r['current_price'],
             'Điểm': r['score'],
             'Tín hiệu': r['signal'],
             'Đề xuất': r['recommendation'],
-            'RSI': r['rsi_value'],     # Sử dụng đúng khóa
-            'MA10': r['ma10'],         # Sử dụng đúng khóa
-            'MA20': r['ma20'],         # Sử dụng đúng khóa
-            'MA50': r['ma50'],         # Sử dụng đúng khóa
-            'MA200': r['ma200'],       # Sử dụng đúng khóa
-            'RS': r['rs'],             # Sử dụng đúng khóa
-            'RS_Point': r['rs_point']  # Sử dụng đúng khóa
+            'RSI': r['rsi_value'], # Sử dụng khóa đúng từ report
+            'MA10': r['ma10'],
+            'MA20': r['ma20'],
+            'MA50': r['ma50'],
+            'MA200': r['ma200'],
+            'RS': r['rs'],
+            'RS_Point': r['rs_point']
         } for r in results])
         # Lưu báo cáo tổng hợp
         df_results.to_csv('vnstocks_data/stock_screening_report.csv', index=False)
         print(f"\n{'='*50}")
         print("KẾT QUẢ QUÉT MÃ")
         print(f"{'='*50}")
+        # In bảng kết quả rút gọn
         print(df_results[['Mã', 'Giá', 'Điểm', 'Tín hiệu', 'Đề xuất']])
         # Vẽ biểu đồ so sánh
         try:
