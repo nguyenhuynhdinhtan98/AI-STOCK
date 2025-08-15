@@ -1,6 +1,6 @@
 {
     "symbol": "DRI",
-    "timestamp": "2025-08-15 11:47:34",
+    "timestamp": "2025-08-15 12:14:52",
     "current_price": 12.6,
     "signal": "BÁN",
     "recommendation": "BÁN",
@@ -12,8 +12,34 @@
     "ma200": 12.37755,
     "rs": 1.0,
     "rs_point": 0.0,
-    "forecast": [],
-    "ai_recommendation": "CNN-LSTM hoặc TabNet/LightGBM",
-    "ai_reason": "Dữ liệu có 1993 điểm > 1000, phù hợp cho mô hình kết hợp không gian và chuỗi hoặc tree-based.",
+    "forecast": [
+        {
+            "date": "2025-08-16",
+            "price": 12.564224243164062,
+            "change_percent": -0.2839345780629932
+        },
+        {
+            "date": "2025-08-17",
+            "price": 12.565801620483398,
+            "change_percent": -0.2714157104492159
+        },
+        {
+            "date": "2025-08-18",
+            "price": 12.535715103149414,
+            "change_percent": -0.5101975940522666
+        },
+        {
+            "date": "2025-08-19",
+            "price": 12.482662200927734,
+            "change_percent": -0.9312523735894069
+        },
+        {
+            "date": "2025-08-20",
+            "price": 12.41524887084961,
+            "change_percent": -1.466278802780875
+        }
+    ],
+    "ai_recommendation": "LSTM TĂNG CƯỜNG",
+    "ai_reason": "Dữ liệu có 1993 điểm > 1000, LSTM TĂNG CƯỜNG hiệu quả cho chuỗi dài.",
     "gemini_analysis": "Không thể tạo phân tích bằng Qwen tại thời điểm này."
 }
