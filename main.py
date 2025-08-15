@@ -1593,17 +1593,17 @@ def analyze_with_gemini(symbol, trading_signal, forecast, financial_data=None):
 Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. Phân tích cổ phiếu {symbol} dựa trên các thông tin sau:
 
 1. Phân tích kỹ thuật:
-    - Giá hiện tại: {trading_signal['current_price']:,.0f} VND
+    - Giá hiện tại: {trading_signal['current_price']:,.2f} VND
     - RSI: {trading_signal['rsi_value']:.2f}
-    - MA10: {trading_signal['ma10']:,.0f} VND
-    - MA20: {trading_signal['ma20']:,.0f} VND
-    - MA50: {trading_signal['ma50']:,.0f} VND
-    - MA200: {trading_signal['ma200']:,.0f} VND
+    - MA10: {trading_signal['ma10']:,.2f} VND
+    - MA20: {trading_signal['ma20']:,.2f} VND
+    - MA50: {trading_signal['ma50']:,.2f} VND
+    - MA200: {trading_signal['ma200']:,.2f} VND
     --- Thông tin Bollinger Bands ---
     - BB Upper (Band trên): {safe_format(trading_signal.get('bb_upper'))}
     - BB Lower (Band dưới): {safe_format(trading_signal.get('bb_lower'))}
     --- Thông tin RS & RS_Point ---
-    - RS (so với VNINDEX): {rs_val:.3f}
+    - RS (so với VNINDEX): {rs_val}
         * So sánh sức mạnh tương đối của cổ phiếu với chỉ số VNINDEX.
         * RS_SMA_10: {rs_sma10_val}
         * RS_SMA_20: {rs_sma20_val}
