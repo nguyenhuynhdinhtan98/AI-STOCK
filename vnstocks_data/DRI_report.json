@@ -1,45 +1,69 @@
 {
     "symbol": "DRI",
-    "timestamp": "2025-08-15 12:14:52",
+    "timestamp": "2025-08-15 16:30:50",
     "current_price": 12.6,
     "signal": "BÁN",
     "recommendation": "BÁN",
-    "score": 19.537569329311545,
+    "score": 24.537569329311545,
     "rsi_value": 44.09142673969841,
     "ma10": 12.84,
     "ma20": 12.996500000000001,
     "ma50": 12.6456,
     "ma200": 12.37755,
-    "rs": 1.0,
-    "rs_point": 0.0,
+    "rs": 0.007730061349693252,
+    "rs_point": 1316.747401773724,
     "forecast": [
         {
             "date": "2025-08-16",
-            "price": 12.564224243164062,
-            "change_percent": -0.2839345780629932
+            "price": 12.894058227539062,
+            "change_percent": 2.333792209625244
         },
         {
             "date": "2025-08-17",
-            "price": 12.565801620483398,
-            "change_percent": -0.2714157104492159
+            "price": 12.885619163513184,
+            "change_percent": 2.266815662384033
         },
         {
             "date": "2025-08-18",
-            "price": 12.535715103149414,
-            "change_percent": -0.5101975940522666
+            "price": 12.877164840698242,
+            "change_percent": 2.1997177600860596
         },
         {
             "date": "2025-08-19",
-            "price": 12.482662200927734,
-            "change_percent": -0.9312523735894069
+            "price": 12.869142532348633,
+            "change_percent": 2.1360487937927246
         },
         {
             "date": "2025-08-20",
-            "price": 12.41524887084961,
-            "change_percent": -1.466278802780875
+            "price": 12.861771583557129,
+            "change_percent": 2.0775492191314697
         }
     ],
     "ai_recommendation": "LSTM TĂNG CƯỜNG",
     "ai_reason": "Dữ liệu có 1993 điểm > 1000, LSTM TĂNG CƯỜNG hiệu quả cho chuỗi dài.",
-    "gemini_analysis": "Không thể tạo phân tích bằng Qwen tại thời điểm này."
+    "gemini_analysis": "Chào quý nhà đầu tư,\n\nDưới đây là phân tích chi tiết về cổ phiếu DRI của Công ty Cổ phần Cao su Đắk Lắk, dựa trên các dữ liệu kỹ thuật và tài chính được cung cấp:\n\n**1. Tổng quan & Nhận định ban đầu:**\nDựa trên tín hiệu kỹ thuật tổng hợp, DRI đang cho thấy tín hiệu **BÁN** mạnh mẽ với điểm phân tích rất thấp (24.5/100). Điều này cảnh báo về triển vọng tiêu cực của cổ phiếu trong ngắn và trung hạn. Các dữ liệu cơ bản cũng cho thấy nhiều điểm yếu cốt lõi.\n\n**2. Phân tích kỹ thuật:**\n*   **Tín hiệu & Giá:** Tín hiệu BÁN, Đề xuất BÁN, điểm số rất thấp 24.5/100. Giá hiện tại 13 VND. Điều này cho thấy rủi ro giảm giá cao và thiếu động lực tăng.\n*   **Đường trung bình động (MA):** MA10, MA20, MA50 đều đang ở mức 13 VND, cho thấy giá cổ phiếu đang đi ngang, tích lũy trong biên độ hẹp, hoặc thiếu xu hướng rõ ràng trong ngắn và trung hạn. Tuy nhiên, việc giá bằng các MA ngắn hạn cho thấy sự lưỡng lự. MA200 ở 12 VND, giá hiện tại cao hơn MA200, nhưng khoảng cách không đáng kể, không tạo được động lực hỗ trợ mạnh mẽ.\n*   **Chỉ số RSI:** Ở mức 44.09, RSI đang nằm ở vùng trung lập, không quá mua cũng không quá bán, nhưng nghiêng về phía tiêu cực một chút, cho thấy áp lực bán có thể đang hình thành hoặc duy trì.\n*   **Bollinger Bands:** Giá 13 VND nằm giữa dải Bollinger Bands (Upper: 13.52, Lower: 12.47), cho thấy cổ phiếu đang trong giai đoạn biến động thấp hoặc sideway. Dải băng hẹp không gợi ý một xu hướng rõ ràng, nhưng cũng có thể là dấu hiệu của sự chuẩn bị cho một biến động lớn hơn.\n*   **Relative Strength (RS) so với VNINDEX:** Chỉ số RS của DRI so với VNINDEX là **0.008** - một con số cực kỳ thấp. Các đường trung bình của RS (RS_SMA_10, 20, 50, 200 đều rất thấp) xác nhận rằng DRI đã và đang có hiệu suất kém cỏi nghiêm trọng so với thị trường chung trong dài hạn. Điều này cho thấy ngay cả khi VNINDEX tăng, DRI cũng khó có thể hưởng lợi.\n*   **RS_Point:** Mặc dù RS_Point hiện tại là 1316.75 (khá cao, thể hiện động lượng giá dài hạn trước đây), tuy nhiên RS_Point_SMA_50 (919.92) thấp hơn đáng kể so với RS_Point_SMA_10 (1706.50) và RS_Point_SMA_20 (1818.77) cho thấy động lượng dài hạn gần đây đang có dấu hiệu suy yếu rõ rệt.\n*   **Ichimoku Cloud:** Tenkan-sen (12.85) thấp hơn Kijun-sen (13.17) là một tín hiệu bán ngắn hạn. Giá (13 VND) nằm giữa Tenkan và Kijun, cho thấy sự thiếu quyết đoán. Chikou Span không có dữ liệu. Senkou Span A (12.46) và Senkou Span B (11.81) nằm dưới giá, điều này thường là tín hiệu hỗ trợ từ mây, nhưng với các tín hiệu khác kém tích cực, độ tin cậy của hỗ trợ này bị giảm sút.\n\n**3. Phân tích cơ bản (Dữ liệu tài chính):**\n*   **Hiệu quả hoạt động:** Các chỉ số sinh lời (Net Profit Margin, ROE, ROIC, ROA) của DRI trong các quý gần nhất (từ 2024-2025) dù có cải thiện nhẹ nhưng vẫn ở mức rất thấp (Net Profit Margin dưới 0.4%, ROE quanh 0.15-0.27%). Điều này cho thấy khả năng tạo ra lợi nhuận từ doanh thu và tài sản của công ty rất kém.\n*   **Cơ cấu nguồn vốn & Khả năng thanh toán:** Tỷ lệ Debt/Equity ở mức chấp nhận được (quanh 0.1-0.25). Tuy nhiên, chỉ số **Interest Coverage** liên tục âm sâu trong các quý gần nhất (từ -15 đến -217 trong năm 2024-2025) là **ĐIỂM YẾU CỐT LÕI VÀ CỰC KỲ NGHIÊM TRỌNG**. Điều này có nghĩa là lợi nhuận hoạt động (EBIT) của công ty không đủ để trang trải chi phí lãi vay, tiềm ẩn rủi ro lớn về khả năng thanh toán nợ và duy trì hoạt động trong dài hạn.\n*   **Chỉ số định giá:** P/E (5.9-11.9) và P/B (1.4-1.8) cho thấy định giá không quá rẻ so với hiệu quả sinh lời kém cỏi. EPS rất thấp, chỉ vài trăm đồng mỗi cổ phiếu. BVPS quanh 7000-9000 VND, giá hiện tại 13 VND cao hơn đáng kể so với giá trị sổ sách.\n\n**4. Rủi ro tiềm ẩn & Bối cảnh thị trường:**\n*   **Rủi ro tài chính:** Khả năng trang trải chi phí lãi vay kém là rủi ro lớn nhất, có thể ảnh hưởng đến dòng tiền và khả năng phát triển của công ty.\n*   **Rủi ro kinh doanh:** Hiệu suất hoạt động thấp, vòng quay hàng tồn kho và các khoản phải thu cao cho thấy hiệu quả quản lý kém.\n*   **Rủi ro thị trường:** Với sức mạnh tương đối (RS) cực kỳ thấp so với VNINDEX, DRI rất dễ bị bỏ lại phía sau ngay cả khi thị trường chung có xu hướng tích cực.\n\n**5. Dự báo triển vọng:**\n*   **Ngắn hạn (1-2 tuần):** DRI khả năng tiếp tục tích lũy trong biên độ hẹp quanh 13 VND, nhưng với áp lực bán tiềm ẩn do tín hiệu kỹ thuật tiêu cực và các điểm yếu cơ bản. Khả năng bứt phá lên là rất thấp.\n*   **Trung hạn (1-3 tháng):** Triển vọng tiêu cực. Để có thể đảo chiều xu hướng, DRI cần phải có những cải thiện đáng kể về khả năng sinh lời và quan trọng nhất là khắc phục tình trạng không thể chi trả lãi vay. Nếu không có thay đổi cơ bản, cổ phiếu này nhiều khả năng sẽ tiếp tục đi ngang hoặc giảm nhẹ, duy trì hiệu suất kém hơn thị trường.\n\n**6. Khuyến nghị đầu tư:**\n**Khuyến nghị: BÁN MẠNH / TRÁNH XA**\n\n**Lý do:**\n1.  **Tín hiệu Kỹ thuật Tiêu cực:** Hệ thống phân tích kỹ thuật cho tín hiệu BÁN với điểm số rất thấp (24.5/100). Các đường MA đang hội tụ, RSI trung lập nghiêng tiêu cực, và tín hiệu Ichimoku cho thấy xu hướng ngắn hạn không rõ ràng nhưng có dấu hiệu suy yếu.\n2.  **Sức mạnh tương đối kém cỏi:** Chỉ số RS so với VNINDEX cực kỳ thấp (0.008), cho thấy cổ phiếu này đã và đang underperform mạnh mẽ so với thị trường chung. Đây là dấu hiệu cảnh báo mạnh mẽ cho nhà đầu tư.\n3.  **Nền tảng tài chính yếu kém:** Khả năng sinh lời ở mức rất thấp và đặc biệt, chỉ số **Interest Coverage Ratio âm liên tục** là một điểm yếu tài chính nghiêm trọng, cho thấy công ty đang gặp khó khăn trong việc tạo ra đủ lợi nhuận để chi trả lãi vay. Điều này là rủi ro lớn nhất cho nhà đầu tư.\n\n**Lời khuyên:** Nhà đầu tư nên cân nhắc thoái vốn khỏi DRI và tìm kiếm các cơ hội khác có nền tảng cơ bản vững chắc và động lực kỹ thuật tích cực hơn.\n\n*Lưu ý: Phân tích này dựa trên dữ liệu được cung cấp và chỉ mang tính chất tham khảo. Quyết định đầu tư cuối cùng thuộc về nhà đầu tư.*",
+    "open": 12.8,
+    "high": 12.8,
+    "low": 12.5,
+    "volume": 1064300.0,
+    "macd": 0.04030468157056255,
+    "macd_signal": 0.09562960358570569,
+    "macd_hist": -0.055324922015143135,
+    "bb_upper": 13.51804673807899,
+    "bb_lower": 12.474953261921012,
+    "volume_sma_20": 1522923.3,
+    "volume_sma_50": 1387199.82,
+    "ichimoku_tenkan_sen": 12.850000000000001,
+    "ichimoku_kijun_sen": 13.17,
+    "ichimoku_senkou_span_a": 12.465,
+    "ichimoku_senkou_span_b": 11.815,
+    "ichimoku_chikou_span": null,
+    "rs_sma_10": 0.00807690831235465,
+    "rs_sma_20": 0.008389323159822408,
+    "rs_sma_50": 0.008730819001042622,
+    "rs_sma_200": 0.00942411518827822,
+    "rs_point_sma_10": 1706.5030487399351,
+    "rs_point_sma_20": 1818.7702208796698,
+    "rs_point_sma_50": 919.9163750347534,
+    "rs_point_sma_200": 1812.0586450005378
 }

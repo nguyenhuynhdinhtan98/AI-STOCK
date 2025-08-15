@@ -22,20 +22,21 @@ from vnstock import *
 import traceback
 from vnstock.explorer.vci import Quote, Finance
 import matplotlib.dates as mdates
+import mplfinance as mpf
 
 warnings.filterwarnings('ignore')
 
 # ======================
 # CẤU HÌNH VÀ THƯ VIỆN
 # ======================
-# Tải biến môi trường cho Qwen
+# Tải biến môi trường cho Google
 load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 if not GOOGLE_API_KEY:
-    print("Không tìm thấy khóa API Qwen. Vui lòng kiểm tra file .env")
+    print("Không tìm thấy khóa API Google. Vui lòng kiểm tra file .env")
     exit()
 
-# Cấu hình API client cho Qwen
+# Cấu hình API client cho Google
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Tạo thư mục lưu trữ dữ liệu
@@ -232,11 +233,16 @@ def create_features(df):
 # ======================
 
 # --- HÀM LSTM (LSTM TĂNG CƯỜNG HOẶC CƠ BẢN) ---
-def train_stock_model(df, target='Close', time_steps=60, test_size=0.2, epochs=50, batch_size=32):
-    """
-    Huấn luyện mô hình LSTM để dự báo giá cổ phiếu.
-    """
+# ======================
+# PHẦN 3: MÔ HÌNH AI - LSTM TĂNG CƯỜNG
+# ======================
+
+# - HÀM LSTM (LSTM TĂNG CƯỜNG HOẶC CƠ BẢN) -
+def train_stock_model(df, target='Close', time_steps=60, test_size=0.2, epochs=100, batch_size=32):
+    """Huấn luyện mô hình LSTM để dự báo giá cổ phiếu."""
     try:
+        from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau # Đảm bảo import ở đây nếu chưa có ở đầu file
+
         # Kiểm tra dữ liệu đầu vào
         if df is None or len(df) < time_steps:
             print("Dữ liệu không đủ để huấn luyện mô hình")
@@ -244,117 +250,134 @@ def train_stock_model(df, target='Close', time_steps=60, test_size=0.2, epochs=5
         if target not in df.columns:
             print(f"Cột {target} không tồn tại trong dữ liệu")
             return None, None, None, None, None
+
         data = df[[target]].values
         if len(data) == 0:
             print("Dữ liệu rỗng")
             return None, None, None, None, None
+
+        # Loại bỏ NaN/inf
         data = data[np.isfinite(data)].reshape(-1, 1)
         if len(data) == 0:
             print("Không có dữ liệu hợp lệ sau khi loại bỏ NaN/inf")
             return None, None, None, None, None
+
+        # Chuẩn hóa dữ liệu
+        from sklearn.preprocessing import MinMaxScaler # Đảm bảo import ở đây nếu chưa có ở đầu file
         scaler = MinMaxScaler(feature_range=(0, 1))
         scaled_data = scaler.fit_transform(data)
+
+        # Tạo dataset cho chuỗi thời gian
         if len(scaled_data) <= time_steps:
             print("Không đủ dữ liệu để tạo chuỗi thời gian")
             return None, None, None, None, None
+
         X, y = [], []
         for i in range(time_steps, len(scaled_data)):
             X.append(scaled_data[i-time_steps:i, 0])
             y.append(scaled_data[i, 0])
+
         if len(X) == 0 or len(y) == 0:
             print("Không tạo được dữ liệu huấn luyện")
             return None, None, None, None, None
+
         X, y = np.array(X), np.array(y)
+
+        # Reshape input để phù hợp với LSTM [samples, time steps, features]
         X = np.reshape(X, (X.shape[0], X.shape[1], 1))
+
         if X.shape[0] < 10:
             print("Dữ liệu quá ít để huấn luyện")
             return None, None, None, None, None
+
+        # Chia train/test
         split_index = max(1, int(len(X) * (1 - test_size)))
         if split_index >= len(X):
+            # Nếu test_size quá lớn, đặt split_index ở cuối dữ liệu huấn luyện
             split_index = len(X) - 1
+
         X_train, X_test = X[:split_index], X[split_index:]
         y_train, y_test = y[:split_index], y[split_index:]
+
         if len(X_train) == 0 or len(y_train) == 0:
             print("Dữ liệu train rỗng")
             return None, None, None, None, None
 
-        # --- LSTM TĂNG CƯỜNG ---
+        # - LSTM TĂNG CƯỜNG (KÍCH THƯỚC LỚN HƠN) -
+        from tensorflow.keras.models import Sequential # Đảm bảo import ở đây nếu chưa có ở đầu file
+        from tensorflow.keras.layers import LSTM, Dense, Dropout # Đảm bảo import ở đây nếu chưa có ở đầu file
+
         model = Sequential()
-        # Thêm nhiều lớp LSTM với dropout
-        model.add(LSTM(units=100, return_sequences=True, input_shape=(X_train.shape[1], 1)))
+
+        # Thêm nhiều lớp LSTM với dropout và tăng units
+        # Lớp 1: 150 units
+        model.add(LSTM(units=150, return_sequences=True, input_shape=(X_train.shape[1], 1)))
         model.add(Dropout(0.2))
-        model.add(LSTM(units=100, return_sequences=True)) # Thêm lớp LSTM
+        # Lớp 2: 150 units
+        model.add(LSTM(units=150, return_sequences=True))
         model.add(Dropout(0.2))
-        model.add(LSTM(units=50, return_sequences=False)) # Giảm units ở lớp cuối
+        # Lớp 3: 100 units
+        model.add(LSTM(units=100, return_sequences=True))
         model.add(Dropout(0.2))
-        model.add(Dense(units=50)) # Tăng units cho Dense
-        model.add(Dropout(0.2)) # Thêm dropout cho Dense
+        # Lớp 4: 100 units (return_sequences=False cho lớp cuối cùng trước Dense)
+        model.add(LSTM(units=100, return_sequences=False))
+        model.add(Dropout(0.2))
+
+        # Thêm lớp Dense ẩn với nhiều units hơn và dropout
+        model.add(Dense(units=75))
+        model.add(Dropout(0.2))
+
+        # Lớp đầu ra
         model.add(Dense(units=1))
+
         model.compile(optimizer='adam', loss='mean_squared_error')
 
-        early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True) # Tăng patience
-        reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=1e-7, verbose=1)
+        # Callbacks để cải thiện huấn luyện
+        early_stopping = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True) # Tăng patience
+        reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=8, min_lr=1e-7, verbose=1) # Tăng patience
+
+        print(f"Bắt đầu huấn luyện mô hình LSTM với {epochs} epochs...")
         history = model.fit(
             X_train, y_train,
             epochs=epochs,
             batch_size=batch_size,
             validation_split=0.1,
-            callbacks=[early_stopping, reduce_lr], # Thêm ReduceLROnPlateau
+            callbacks=[early_stopping, reduce_lr],
             verbose=1
         )
-        # --- KẾT THÚC LSTM TĂNG CƯỜNG ---
+        print("✅ Huấn luyện mô hình LSTM hoàn tất")
 
+        # - KẾT THÚC LSTM TĂNG CƯỜNG (KÍCH THƯỚC LỚN HƠN) -
+
+        # Dự báo trên tập test
         y_pred = model.predict(X_test)
+        # Chuyển đổi kết quả về giá trị thực
         y_test = scaler.inverse_transform(y_test.reshape(-1, 1))
         y_pred = scaler.inverse_transform(y_pred)
 
-        # Vẽ biểu đồ
+        # --- ĐÁNH GIÁ MÔ HÌNH ---
         try:
-            plt.figure(figsize=(12, 6))
-            plt.plot(history.history['loss'], label='Training Loss')
-            if 'val_loss' in history.history:
-                plt.plot(history.history['val_loss'], label='Validation Loss')
-            plt.title('Lịch sử huấn luyện mô hình LSTM')
-            plt.ylabel('Loss')
-            plt.xlabel('Epoch')
-            plt.legend()
-            plt.grid(True)
-            plt.savefig('vnstocks_data/lstm_training_history.png')
-            plt.close()
-        except Exception as e:
-            print(f"Lỗi khi vẽ biểu đồ huấn luyện LSTM: {str(e)}")
-
-        try:
-            plt.figure(figsize=(12, 6))
-            plt.plot(y_test, label='Giá thực tế', color='blue')
-            plt.plot(y_pred, label='Dự báo LSTM', color='red', linestyle='--')
-            plt.title('So sánh giá thực tế và dự báo LSTM')
-            plt.xlabel('Thời gian')
-            plt.ylabel('Giá cổ phiếu')
-            plt.legend()
-            plt.grid(True)
-            plt.savefig('vnstocks_data/lstm_forecast_vs_actual.png')
-            plt.close()
-        except Exception as e:
-            print(f"Lỗi khi vẽ biểu đồ dự báo LSTM: {str(e)}")
-
-        try:
+            from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
             mse = mean_squared_error(y_test, y_pred)
             rmse_val = np.sqrt(mse)
             mae_val = mean_absolute_error(y_test, y_pred)
+            # Tính R2 cho dự báo (so với giá trị thực tế)
             r2 = r2_score(y_test, y_pred)
-            print("\nĐÁNH GIÁ MÔ HÌNH LSTM:")
-            print(f"MSE: {mse:.2f}")
+            print("\n--- ĐÁNH GIÁ MÔ HÌNH DỰ BÁO ---")
             print(f"RMSE: {rmse_val:.2f}")
             print(f"MAE: {mae_val:.2f}")
             print(f"R2: {r2:.2f}")
+            print("--- HẾT ĐÁNH GIÁ ---\n")
         except Exception as e:
             print(f"Lỗi khi tính toán đánh giá LSTM: {str(e)}")
             mse, rmse_val, mae_val, r2 = 0, 0, 0, 0
+        # --- HẾT ĐÁNH GIÁ ---
 
         return model, scaler, X_test, y_test, y_pred
+
     except Exception as e:
         print(f"Lỗi nghiêm trọng khi huấn luyện mô hình LSTM: {str(e)}")
+        import traceback
         traceback.print_exc()
         return None, None, None, None, None
 
@@ -458,7 +481,6 @@ def evaluate_data_for_ai(df_features, symbol):
 # ======================
 # PHẦN 4: PHÂN TÍCH KỸ THUẬT CẢI TIẾN
 # ======================
-# ... (phần này giữ nguyên từ file trước, không thay đổi)
 def plot_stock_analysis(symbol, df, show_volume=True):
     """
     Phân tích kỹ thuật và vẽ biểu đồ cho mã chứng khoán
@@ -484,7 +506,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
 
         # Sắp xếp theo ngày tăng dần để tính toán chính xác
         df = df.sort_index()
-
         # --- BƯỚC 1: Tính các chỉ báo kỹ thuật ---
         # 1. Đường trung bình
         df['SMA_10'] = ta.trend.sma_indicator(df['Close'], window=10)
@@ -540,18 +561,35 @@ def plot_stock_analysis(symbol, df, show_volume=True):
         # --- BƯỚC 2: Tính RS (Relative Strength so với VNINDEX) ---
         try:
             # Lấy dữ liệu VNINDEX trong cùng khoảng thời gian
-            start_date = df.index[0].strftime('%Y-%m-%d')
-            end_date = df.index[-1].strftime('%Y-%m-%d')
-            vnindex_df = stock_historical_data("VNINDEX", start_date, end_date, "1D")
+            quoteVNI = Quote(symbol='VNINDEX')
+            vnindex_df = quoteVNI.history(start='2012-01-01', end='2030-1-1', interval='1D')
 
             if len(vnindex_df) == 0:
                 raise ValueError("Không lấy được dữ liệu VNINDEX")
 
-            vnindex_df.set_index('TradingDate', inplace=True)
+            # Đổi tên cột trong vnindex_df để phù hợp với chuẩn
+            vnindex_df.rename(columns={
+                'time': 'Date',
+                'open': 'Open',
+                'high': 'High',
+                'low': 'Low',
+                'close': 'Close',  # <-- Đổi 'close' thành 'Close'
+                'volume': 'Volume'
+            }, inplace=True)
+
+            # Xử lý cột Date trong vnindex_df
+            vnindex_df['Date'] = pd.to_datetime(vnindex_df['Date'])
+            vnindex_df.set_index('Date', inplace=True)
             vnindex_df.sort_index(inplace=True)
 
-            # Gộp dữ liệu cổ phiếu và VNINDEX theo ngày
-            df_merged = df[['Close']].join(vnindex_df[['Close']].rename(columns={'Close': 'VNINDEX_Close'}), how='left')
+            # --- SỬA Ở ĐÂY ---
+            # Gộp dữ liệu cổ phiếu đang phân tích (df) và VNINDEX (vnindex_df) theo ngày (index)
+            # Giả sử df đã được chuẩn hóa tên cột và có index là Date
+            # Chúng ta sẽ join df[['Close']] với vnindex_df[['Close']]
+            df_merged = df[['Close']].join(
+                vnindex_df[['Close']].rename(columns={'Close': 'VNINDEX_Close'}),
+                how='left'
+            )
 
             # Nếu thiếu dữ liệu VNINDEX, không tính RS
             if df_merged['VNINDEX_Close'].isna().all():
@@ -621,11 +659,13 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 'recommendation': 'KHÔNG XÁC ĐỊNH'
             }
 
-        # --- BƯỚC 4: Vẽ biểu đồ ---
+        # --- BƯỚC 4: Vẽ biểu đồ (CẬP NHẬT) ---
         try:
-            plt.figure(figsize=(16, 16))
-            # Điều chỉnh GridSpec để thêm biểu đồ RS và RS_Point
-            grid = plt.GridSpec(6, 1, hspace=0.2, height_ratios=[3, 1, 1, 1, 1, 1])
+            plt.figure(figsize=(16, 20))  # Tăng chiều cao để thêm biểu đồ
+            # Điều chỉnh GridSpec để thêm biểu đồ RS, RS_Point và Ichimoku
+            grid = plt.GridSpec(8, 1, hspace=0.2, height_ratios=[3, 1, 1, 1, 1, 1, 1, 1])
+
+            # === Giữ nguyên các biểu đồ cũ (1-6) ===
 
             # Biểu đồ 1: Giá và các đường trung bình
             ax1 = plt.subplot(grid[0])
@@ -705,7 +745,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             # Biểu đồ 6: Khối lượng với Volume SMA
             ax6 = plt.subplot(grid[5], sharex=ax1)
             if show_volume and 'Volume' in df.columns:
-                # Vẽ Volume SMA nếu có dữ liệu
                 volume_sma_plotted = False
                 if 'Volume_SMA_20' in df.columns and not df['Volume_SMA_20'].isna().all():
                     plt.plot(df.index, df['Volume_SMA_20'], label='Vol SMA 20', color='orange', alpha=0.8, linewidth=1.5)
@@ -713,19 +752,14 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 if 'Volume_SMA_50' in df.columns and not df['Volume_SMA_50'].isna().all():
                     plt.plot(df.index, df['Volume_SMA_50'], label='Vol SMA 50', color='purple', alpha=0.8, linewidth=1.5)
                     volume_sma_plotted = True
-
-                # Vẽ biểu đồ cột khối lượng
                 colors = np.where(df['Close'] > df['Open'], 'green', 'red')
                 plt.bar(df.index, df['Volume'], color=colors, alpha=0.7, label='Volume' if not volume_sma_plotted else None)
-
-                # Cập nhật legend
                 handles, labels = ax6.get_legend_handles_labels()
                 if handles:
                     by_label = dict(zip(labels, handles))
                     plt.legend(by_label.values(), by_label.keys(), loc='upper left')
                 else:
                     plt.legend(loc='upper left')
-
                 plt.title('Khối lượng giao dịch & Volume SMA', fontsize=12)
                 plt.ylabel('Khối lượng', fontsize=10)
                 plt.grid(True, alpha=0.3)
@@ -734,10 +768,65 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 plt.ylabel('Khối lượng', fontsize=10)
                 plt.grid(True, alpha=0.3)
 
-            # Định dạng trục x
-            plt.gcf().autofmt_xdate()
-            ax6.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
-            ax6.xaxis.set_major_locator(mdates.MonthLocator(interval=2))
+            # === BỔ SUNG: Biểu đồ 7 - Ichimoku Cloud ===
+            ax7 = plt.subplot(grid[6], sharex=ax1)
+
+            # Vẽ nến Nhật thủ công
+            for i in range(len(df)):
+                if i < len(df) - 1:  # Tránh lỗi index
+                    date = mdates.date2num(df.index[i])
+                    open_price = df['Open'].iloc[i] if not pd.isna(df['Open'].iloc[i]) else df['Close'].iloc[i]
+                    high_price = df['High'].iloc[i] if not pd.isna(df['High'].iloc[i]) else df['Close'].iloc[i]
+                    low_price = df['Low'].iloc[i] if not pd.isna(df['Low'].iloc[i]) else df['Close'].iloc[i]
+                    close_price = df['Close'].iloc[i] if not pd.isna(df['Close'].iloc[i]) else open_price
+                    
+                    # Tạo nến
+                    if close_price >= open_price:
+                        color = 'green'
+                        bottom = open_price
+                        height = close_price - open_price
+                    else:
+                        color = 'red'
+                        bottom = close_price
+                        height = open_price - close_price
+                    
+                    # Vẽ thân nến
+                    if height > 0:
+                        plt.bar(date, height, bottom=bottom, color=color, width=0.6, alpha=0.8)
+                    # Vẽ bấc nến
+                    plt.plot([date, date], [low_price, high_price], color='black', linewidth=0.5)
+
+            # Vẽ các đường Ichimoku
+            plt.plot(df.index, df['ichimoku_tenkan_sen'], label='Tenkan-sen', color='red', linewidth=1)
+            plt.plot(df.index, df['ichimoku_kijun_sen'], label='Kijun-sen', color='blue', linewidth=1)
+            plt.plot(df.index, df['ichimoku_senkou_span_a'], label='Senkou Span A', color='green', linewidth=1, alpha=0.7)
+            plt.plot(df.index, df['ichimoku_senkou_span_b'], label='Senkou Span B', color='purple', linewidth=1, alpha=0.7)
+            plt.plot(df.index, df['ichimoku_chikou_span'], label='Chikou Span', color='orange', linewidth=1)
+
+            # Vẽ Cloud (vùng mây)
+            valid_cloud = df['ichimoku_senkou_span_a'].notna() & df['ichimoku_senkou_span_b'].notna()
+            if valid_cloud.any():
+                plt.fill_between(df.index[valid_cloud], 
+                                df['ichimoku_senkou_span_a'][valid_cloud], 
+                                df['ichimoku_senkou_span_b'][valid_cloud],
+                                where=(df['ichimoku_senkou_span_a'][valid_cloud] >= df['ichimoku_senkou_span_b'][valid_cloud]),
+                                color='green', alpha=0.2, interpolate=True, label='Bullish Cloud')
+                plt.fill_between(df.index[valid_cloud], 
+                                df['ichimoku_senkou_span_a'][valid_cloud], 
+                                df['ichimoku_senkou_span_b'][valid_cloud],
+                                where=(df['ichimoku_senkou_span_a'][valid_cloud] < df['ichimoku_senkou_span_b'][valid_cloud]),
+                                color='red', alpha=0.2, interpolate=True, label='Bearish Cloud')
+
+            # Vẽ thêm đường giá đóng cửa để so sánh
+            plt.plot(df.index, df['Close'], label='Giá đóng cửa', color='black', linewidth=1.5, alpha=0.7)
+
+            plt.title('Ichimoku Cloud với Nến Nhật và Giá đóng cửa', fontsize=12)
+            plt.ylabel('Giá', fontsize=10)
+            plt.legend(fontsize=7, loc='upper left', ncol=2)  # 2 cột legend để tiết kiệm không gian
+            plt.grid(True, alpha=0.3)
+
+            # Cập nhật GridSpec chỉ còn 7 hàng thay vì 8
+            grid = plt.GridSpec(7, 1, hspace=0.2, height_ratios=[3, 1, 1, 1, 1, 1, 1])
 
             # Lưu biểu đồ
             plt.tight_layout()
@@ -843,7 +932,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             if rs_point_value > last_row.get('RS_Point_SMA_50', rs_point_value):
                 rs_point_score += 5
             score += rs_point_score
-
             # 8. Ichimoku Cloud - 10 điểm
             ichimoku_score = 0
             try:
@@ -892,8 +980,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             analysis_date = df.index[-1].strftime('%d/%m/%Y')
             print(f"\n📊 TÍN HIỆU GIAO DỊCH CUỐI ({analysis_date}):")
             print(f"  - Giá & Đường trung bình: Giá={current_price:,.2f} | SMA10={ma10_value:,.2f} | SMA20={ma20_value:,.2f} | SMA50={ma50_value:,.2f} | SMA200={ma200_value:,.2f}")
-            print(f"  - RS: {rs_value:.3f} (SMA10={last_row.get('RS_SMA_10', np.nan):.3f} | SMA20={last_row.get('RS_SMA_20', np.nan):.3f} | SMA50={last_row.get('RS_SMA_50', np.nan):.3f})")
-            print(f"  - RS_Point: {rs_point_value:.2f} (SMA10={last_row.get('RS_Point_SMA_10', np.nan):.2f} | SMA20={last_row.get('RS_Point_SMA_20', np.nan):.2f} | SMA50={last_row.get('RS_Point_SMA_50', np.nan):.2f})")
 
             # In thông tin Ichimoku
             try:
@@ -907,22 +993,76 @@ def plot_stock_analysis(symbol, df, show_volume=True):
 
             print(f"  - Đề xuất: {recommendation} (Điểm: {score:.1f})")
 
+            # --- BƯỚC 6: Trả về kết quả phân tích với nhiều thông tin hơn ---
+            # Hàm trợ giúp để chuyển đổi giá trị an toàn sang float hoặc None
+            def safe_float(val):
+                """Chuyển đổi giá trị sang float, xử lý NaN/None."""
+                try:
+                    if pd.isna(val):
+                        return None
+                    return float(val)
+                except (TypeError, ValueError):
+                    return None
+
+            # Trả về dictionary phong phú hơn
             return {
+                # Thông tin cơ bản (giữ nguyên)
                 'signal': signal,
-                'score': score,
-                'current_price': current_price,
-                'rsi_value': rsi_value,
-                'ma10': ma10_value,
-                'ma20': ma20_value,
-                'ma50': ma50_value,
-                'ma200': ma200_value,
-                'rs': rs_value,
-                'rs_point': rs_point_value,
-                'recommendation': recommendation
+                'score': float(score), # Đảm bảo là kiểu float
+                'current_price': float(current_price),
+                'rsi_value': float(rsi_value),
+                'ma10': float(ma10_value),
+                'ma20': float(ma20_value),
+                'ma50': float(ma50_value),
+                'ma200': float(ma200_value),
+                'rs': float(rs_value),
+                'rs_point': float(rs_point_value),
+                'recommendation': recommendation,
+                
+                # --- BẮT ĐẦU: Thêm nhiều thông tin kỹ thuật chi tiết ---
+                # Giá và Volume
+                'open': safe_float(last_row.get('Open')),
+                'high': safe_float(last_row.get('High')),
+                'low': safe_float(last_row.get('Low')),
+                'volume': safe_float(last_row.get('Volume')),
+
+                # MACD
+                'macd': safe_float(macd_value),
+                'macd_signal': safe_float(macd_signal),
+                'macd_hist': safe_float(macd_hist),
+
+                # Bollinger Bands
+                'bb_upper': safe_float(bb_upper),
+                'bb_lower': safe_float(bb_lower),
+
+                # Volume Moving Averages
+                'volume_sma_20': safe_float(last_row.get('Volume_SMA_20')),
+                'volume_sma_50': safe_float(last_row.get('Volume_SMA_50')),
+
+                # Ichimoku Cloud
+                'ichimoku_tenkan_sen': safe_float(tenkan_sen),
+                'ichimoku_kijun_sen': safe_float(kijun_sen),
+                'ichimoku_senkou_span_a': safe_float(senkou_span_a),
+                'ichimoku_senkou_span_b': safe_float(senkou_span_b),
+                'ichimoku_chikou_span': safe_float(chikou_span),
+                
+                # RS & RS_Point (đã có, nhưng có thể thêm SMA nếu cần truy cập trực tiếp)
+                'rs_sma_10': safe_float(last_row.get('RS_SMA_10')),
+                'rs_sma_20': safe_float(last_row.get('RS_SMA_20')),
+                'rs_sma_50': safe_float(last_row.get('RS_SMA_50')),
+                'rs_sma_200': safe_float(last_row.get('RS_SMA_200')),
+                
+                'rs_point_sma_10': safe_float(last_row.get('RS_Point_SMA_10')),
+                'rs_point_sma_20': safe_float(last_row.get('RS_Point_SMA_20')),
+                'rs_point_sma_50': safe_float(last_row.get('RS_Point_SMA_50')),
+                'rs_point_sma_200': safe_float(last_row.get('RS_Point_SMA_200')),
+                # --- KẾT THÚC: Thêm nhiều thông tin kỹ thuật chi tiết ---
             }
+            # --- HẾT PHẦN SỬA ĐỔI RETURN ---
 
         except Exception as e:
             print(f"❌ Lỗi khi tạo tín hiệu: {str(e)}")
+            # Trả về dictionary lỗi với các khóa mới cũng được thêm vào để đảm bảo cấu trúc nhất quán
             return {
                 'signal': 'LỖI',
                 'score': 50,
@@ -934,12 +1074,23 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 'ma200': df['Close'].iloc[-1] if len(df) > 0 else 0,
                 'rs': 1.0,
                 'rs_point': 0,
-                'recommendation': 'KHÔNG XÁC ĐỊNH'
+                'recommendation': 'KHÔNG XÁC ĐỊNH',
+                # --- Thêm None cho các khóa mới khi có lỗi ---
+                'open': None, 'high': None, 'low': None, 'volume': None,
+                'macd': None, 'macd_signal': None, 'macd_hist': None,
+                'bb_upper': None, 'bb_lower': None,
+                'volume_sma_20': None, 'volume_sma_50': None,
+                'ichimoku_tenkan_sen': None, 'ichimoku_kijun_sen': None,
+                'ichimoku_senkou_span_a': None, 'ichimoku_senkou_span_b': None, 'ichimoku_chikou_span': None,
+                'rs_sma_10': None, 'rs_sma_20': None, 'rs_sma_50': None, 'rs_sma_200': None,
+                'rs_point_sma_10': None, 'rs_point_sma_20': None, 'rs_point_sma_50': None, 'rs_point_sma_200': None
+                # --- Hết phần thêm None ---
             }
 
     except Exception as e:
         print(f"❌ Lỗi nghiêm trọng: {str(e)}")
         traceback.print_exc()
+        # Trả về dictionary lỗi với cấu trúc đầy đủ
         return {
             'signal': 'LỖI',
             'score': 50,
@@ -951,77 +1102,155 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             'ma200': 0,
             'rs': 1.0,
             'rs_point': 0,
-            'recommendation': 'KHÔNG XÁC ĐỊNH'
+            'recommendation': 'KHÔNG XÁC ĐỊNH',
+             # --- Thêm None cho các khóa mới khi có lỗi nghiêm trọng ---
+            'open': None, 'high': None, 'low': None, 'volume': None,
+            'macd': None, 'macd_signal': None, 'macd_hist': None,
+            'bb_upper': None, 'bb_lower': None,
+            'volume_sma_20': None, 'volume_sma_50': None,
+            'ichimoku_tenkan_sen': None, 'ichimoku_kijun_sen': None,
+            'ichimoku_senkou_span_a': None, 'ichimoku_senkou_span_b': None, 'ichimoku_chikou_span': None,
+            'rs_sma_10': None, 'rs_sma_20': None, 'rs_sma_50': None, 'rs_sma_200': None,
+            'rs_point_sma_10': None, 'rs_point_sma_20': None, 'rs_point_sma_50': None, 'rs_point_sma_200': None
+            # --- Hết phần thêm None ---
         }
 
+
 # ======================
-# PHẦN 5: TÍCH HỢP PHÂN TÍCH BẰNG QWEN
+# PHẦN 5: TÍCH HỢP PHÂN TÍCH BẰNG Google
 # ======================
 def analyze_with_gemini(symbol, trading_signal, forecast, financial_data=None):
     """Phân tích cổ phiếu bằng Google Qwen dựa trên dữ liệu kỹ thuật và BCTC"""
+    
     try:
+        # --- BẮT ĐẦU: Tính toán các giá trị trước để tránh lỗi định dạng ---
+        # Hàm lambda nội tuyến để định dạng an toàn
+        def safe_format(val, fmt=".2f"):
+            try:
+                if val is None:
+                    return "N/A"
+                if isinstance(val, float):
+                    if pd.isna(val) or np.isinf(val):
+                        return "N/A"
+                return f"{{:{fmt}}}".format(float(val))
+            except (ValueError, TypeError):
+                return "N/A"
+
+        # Lấy và định dạng các giá trị RS và RS_Point trước
+        rs_val = trading_signal['rs']
+        rs_sma10_val = trading_signal.get('rs_sma_10')
+        rs_sma20_val = trading_signal.get('rs_sma_20')
+        rs_sma50_val = trading_signal.get('rs_sma_50')
+        rs_sma200_val = trading_signal.get('rs_sma_200')
+
+        rs_point_val = trading_signal['rs_point']
+        rs_point_sma10_val = safe_format(trading_signal.get('rs_point_sma_10'), '.2f')
+        rs_point_sma20_val = safe_format(trading_signal.get('rs_point_sma_20'), '.2f')
+        rs_point_sma50_val = safe_format(trading_signal.get('rs_point_sma_50'), '.2f')
+        rs_point_sma200_val = safe_format(trading_signal.get('rs_point_sma_200'), '.2f')
+
+        # Lấy và định dạng các giá trị Ichimoku trước
+        tenkan_val = safe_format(trading_signal.get('ichimoku_tenkan_sen'))
+        kijun_val = safe_format(trading_signal.get('ichimoku_kijun_sen'))
+        senkou_a_val = safe_format(trading_signal.get('ichimoku_senkou_span_a'))
+        senkou_b_val = safe_format(trading_signal.get('ichimoku_senkou_span_b'))
+        chikou_val = safe_format(trading_signal.get('ichimoku_chikou_span'))
+        # --- KẾT THÚC: Tính toán các giá trị trước ---
+
         # Tạo prompt cho Qwen
         prompt = f"""
 Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. Phân tích cổ phiếu {symbol} dựa trên các thông tin sau:
-1. Tín hiệu giao dịch:
-   - Tín hiệu: {trading_signal['signal']}
-   - Điểm phân tích: {trading_signal['score']}/100
-   - Giá hiện tại: {trading_signal['current_price']:,.0f} VND
-   - RSI: {trading_signal['rsi_value']:.2f}
-   - MA10: {trading_signal['ma10']:,.0f} VND
-   - MA20: {trading_signal['ma20']:,.0f} VND
-   - MA50: {trading_signal['ma50']:,.0f} VND
-   - MA200: {trading_signal['ma200']:,.0f} VND
-   - RS (so với VNINDEX): {trading_signal['rs']:.3f}
-   - RS_Point: {trading_signal['rs_point']:.2f}
-2. Dự báo giá trong 5 ngày tới:
+
+1. Phân tích kỹ thuật:
+    - Tín hiệu: {trading_signal['signal']}
+    - Đề xuất: {trading_signal['recommendation']}
+    - Điểm phân tích: {trading_signal['score']:.1f}/100
+    - Giá hiện tại: {trading_signal['current_price']:,.0f} VND
+    - RSI: {trading_signal['rsi_value']:.2f}
+    - MA10: {trading_signal['ma10']:,.0f} VND
+    - MA20: {trading_signal['ma20']:,.0f} VND
+    - MA50: {trading_signal['ma50']:,.0f} VND
+    - MA200: {trading_signal['ma200']:,.0f} VND
+    --- Thông tin Bollinger Bands ---
+    - BB Upper (Band trên): {safe_format(trading_signal.get('bb_upper'))}
+    - BB Lower (Band dưới): {safe_format(trading_signal.get('bb_lower'))}
+    --- Thông tin RS & RS_Point ---
+    - RS (so với VNINDEX): {rs_val:.3f}
+        * So sánh sức mạnh tương đối của cổ phiếu với chỉ số VNINDEX.
+        * RS_SMA_10: {rs_sma10_val}
+        * RS_SMA_20: {rs_sma20_val}
+        * RS_SMA_50: {rs_sma50_val}
+        * RS_SMA_200: {rs_sma200_val}
+    - RS_Point: {rs_point_val:.2f}
+        * Công thức: RS_Point = (ROC_63_ngày * 0.4) + (ROC_126_ngày * 0.2) + (ROC_189_ngày * 0.2) + (ROC_252_ngày * 0.2) * 100
+        * Đo lường động lượng giá trong dài hạn.
+        * RS_Point_SMA_10: {rs_point_sma10_val}
+        * RS_Point_SMA_20: {rs_point_sma20_val}
+        * RS_Point_SMA_50: {rs_point_sma50_val}
+        * RS_Point_SMA_200: {rs_point_sma200_val}
+    --- Thông tin Ichimoku Cloud ---
+    - Tenkan-sen (Đường chuyển đổi): {tenkan_val}
+    - Kijun-sen (Đường chuẩn): {kijun_val}
+    - Senkou Span A (Leading Span A): {senkou_a_val}
+    - Senkou Span B (Leading Span B): {senkou_b_val}
+    - Chikou Span (Lagging Span): {chikou_val}
+    -----------------------------
+
 """
-        # Kiểm tra điều kiện cho forecast
-        if len(forecast[0]) > 0 and len(forecast[1]) > 0:
-            for i, (date, price) in enumerate(zip(forecast[0], forecast[1])):
-                change = ((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
-                prompt += f"   - Ngày {i+1} ({date.strftime('%d/%m/%Y')}): {price:,.0f} VND ({change:+.2f}%)\n"
-        else:
-            prompt += "   - Không có dự báo\n"
+
         if financial_data is not None and not financial_data.empty:
-            prompt += "\n3. Dữ liệu tài chính (BCTC) gần nhất:\n"
+            prompt += "\n2. Dữ liệu tài chính (BCTC) gần nhất:\n"
             try:
                 # Lấy quý gần nhất
                 financial_data_sorted = financial_data.copy()
                 # Giới hạn số cột để tránh prompt quá dài
-                prompt += f"{financial_data_sorted.head(5).to_string(index=False)}\n"
+                prompt += f"{financial_data_sorted.head(20).to_string(index=False)}\n"
             except Exception as e:
                 print(f"Lỗi khi xử lý dữ liệu tài chính: {str(e)}")
                 prompt += "   - Không có dữ liệu tài chính chi tiết\n"
         else:
-            prompt += "\n3. Không có dữ liệu tài chính\n"
+            prompt += "\n2. Không có dữ liệu tài chính\n"
+
         prompt += """
 Yêu cầu phân tích:
-- Tổng hợp phân tích kỹ thuật và cơ bản
-- Đánh giá sức mạnh tài chính của công ty
-- Phân tích xu hướng giá và tín hiệu kỹ thuật (bao gồm RS, RS_Point, Ichimoku nếu có)
-- Nhận định rủi ro tiềm ẩn
-- Dự báo triển vọng ngắn hạn và trung hạn
-- Đưa ra khuyến nghị đầu tư (Mua/Bán/Nắm giữ) với lý do cụ thể
+- Tổng hợp phân tích kỹ thuật và cơ bản dựa trên tất cả các thông tin được cung cấp.
+- Đánh giá sức mạnh tài chính của công ty dựa trên báo cáo tài chính (nếu có).
+- Phân tích xu hướng giá hiện tại và các tín hiệu kỹ thuật, đặc biệt chú ý đến:
+  * RS và các đường trung bình của nó (RS_SMA_10, RS_SMA_20, v.v.) để đánh giá sức mạnh tương đối.
+  * RS_Point và công thức tính của nó để đánh giá động lượng dài hạn.
+  * Các thành phần của Ichimoku Cloud để xác định xu hướng và vùng hỗ trợ/kháng cự.
+- Nhận định rủi ro tiềm ẩn dựa trên phân tích kỹ thuật và bối cảnh thị trường.
+- Dự báo triển vọng ngắn hạn (1-2 tuần) và trung hạn (1-3 tháng).
+- Đưa ra khuyến nghị đầu tư cụ thể (Mua/Mua mạnh/Bán/Bán mạnh/Nắm giữ) kèm theo lý do phân tích.
 Kết quả phân tích cần:
-- Ngắn gọn, súc tích (không quá 500 từ)
-- Chuyên nghiệp như một nhà phân tích chứng khoán
-- Bao gồm cả yếu tố thị trường tổng thể
-- Có số liệu minh họa cụ thể
+- Ngắn gọn, súc tích (không quá 500 từ).
+- Chuyên nghiệp như một nhà phân tích chứng khoán.
+- Bao gồm cả yếu tố thị trường tổng thể (VNINDEX).
+- Có số liệu minh họa cụ thể từ các chỉ báo được cung cấp.
 """
-        # Sử dụng Qwen Pro để phân tích
-        model = genai.GenerativeModel('gemini-pro')
+        # Sử dụng Google để phân tích
+        # print(prompt) # Bỏ comment nếu muốn xem prompt được tạo ra
+        model = genai.GenerativeModel('gemini-2.5-flash') # Hoặc model bạn đang dùng
         response = model.generate_content(prompt)
-        return response.text
+
+        if response and response.text:
+            return response.text.strip()
+        else:
+            return "Không nhận được phản hồi từ Google."
+
     except Exception as e:
+        import traceback
         print(f"Lỗi khi phân tích bằng Qwen: {str(e)}")
-        return "Không thể tạo phân tích bằng Qwen tại thời điểm này."
+        print("Chi tiết lỗi:")
+        traceback.print_exc() # In traceback đầy đủ để dễ gỡ lỗi
+        return "Không thể tạo phân tích bằng Google tại thời điểm này."
+
 
 # ======================
 # PHẦN 6: CHỨC NĂNG CHÍNH - CẢI TIẾN
 # ======================
 def analyze_stock(symbol):
-    """Phân tích toàn diện một mã chứng khoán với tích hợp Qwen và lựa chọn mô hình AI phù hợp (chỉ LSTM)"""
+    """Phân tích toàn diện một mã chứng khoán với tích hợp Google và lựa chọn mô hình AI phù hợp (chỉ LSTM)"""
     print(f"\n{'='*50}")
     print(f"PHÂN TÍCH MÃ {symbol} VỚI AI")
     print(f"{'='*50}")
@@ -1067,7 +1296,7 @@ def analyze_stock(symbol):
     # --- KẾT THÚC PHẦN ĐÁNH GIÁ VÀ AI ---
     print(f"\nĐang phân tích kỹ thuật cho mã {symbol}...")
     trading_signal = plot_stock_analysis(symbol, df_features)
-    print(f"\nĐang phân tích bằng Google Qwen...")
+    print(f"\nĐang phân tích bằng Google ...")
     gemini_analysis = analyze_with_gemini(symbol, trading_signal, (forecast_dates, forecast_values), financial_data)
 
     # In kết quả
@@ -1085,42 +1314,70 @@ def analyze_stock(symbol):
             print(f"Ngày {i+1} ({date.date()}): {price:,.2f} VND ({change:+.2f}%)")
     else:
         print("\nKhông có dự báo giá do lỗi trong quá trình huấn luyện mô hình")
-    print(f"\nPHÂN TÍCH TỔNG HỢP TỪ QWEN:")
+    print(f"\nPHÂN TÍCH TỔNG HỢP TỪ Google:")
     print(gemini_analysis)
+        # - LƯU BÁO CÁO -
+        # --- BẮT ĐẦU: Tạo báo cáo đầy đủ với nhiều dữ liệu hơn ---
+        # Hàm trợ giúp để chuyển đổi giá trị an toàn sang float hoặc None khi cần thiết cho các phần riêng lẻ
+    def safe_float(val):
+            """Chuyển đổi giá trị sang float, xử lý NaN/None."""
+            try:
+                if val is None or (isinstance(val, float) and (np.isnan(val) or np.isinf(val))):
+                    return None
+                return float(val)
+            except (TypeError, ValueError):
+                return None
 
-    # Lưu báo cáo
+        # Bắt đầu với các thông tin cơ bản và các phần khác (forecast, AI)
+        # Sau đó cập nhật/bổ sung với tất cả dữ liệu từ trading_signal
     report = {
-        'symbol': symbol,
-        'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        'current_price': float(trading_signal['current_price']),
-        'signal': trading_signal['signal'],
-        'recommendation': trading_signal['recommendation'],
-        'score': float(trading_signal['score']),
-        'rsi_value': float(trading_signal['rsi_value']), # Đảm bảo tên khóa nhất quán
-        'ma10': float(trading_signal['ma10']),
-        'ma20': float(trading_signal['ma20']),
-        'ma50': float(trading_signal['ma50']),
-        'ma200': float(trading_signal['ma200']),
-        'rs': float(trading_signal['rs']),
-        'rs_point': float(trading_signal['rs_point']),
-        'forecast': [{
-            'date': date.strftime("%Y-%m-%d"),
-            'price': float(price),
-            'change_percent': float(change)
-        } for date, price, change in zip(
-            forecast_dates,
-            forecast_values,
-            [((price - trading_signal['current_price']) / trading_signal['current_price']) * 100
-             for price in forecast_values]
-        )] if len(forecast_dates) > 0 and len(forecast_values) > 0 else [],
-        'ai_recommendation': ai_recommendation,
-        'ai_reason': ai_reason,
-        'gemini_analysis': gemini_analysis
-    }
+            'symbol': symbol,
+            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            # Các khóa cơ bản từ trading_signal (đã có)
+            # Chúng ta sẽ cập nhật chúng từ trading_signal để đảm bảo nhất quán
+            'current_price': safe_float(trading_signal.get('current_price')),
+            'signal': trading_signal.get('signal'),
+            'recommendation': trading_signal.get('recommendation'),
+            'score': safe_float(trading_signal.get('score')),
+            'rsi_value': safe_float(trading_signal.get('rsi_value')),
+            'ma10': safe_float(trading_signal.get('ma10')),
+            'ma20': safe_float(trading_signal.get('ma20')),
+            'ma50': safe_float(trading_signal.get('ma50')),
+            'ma200': safe_float(trading_signal.get('ma200')),
+            'rs': safe_float(trading_signal.get('rs')),
+            'rs_point': safe_float(trading_signal.get('rs_point')),
+            # Forecast
+            'forecast': [{
+                'date': date.strftime("%Y-%m-%d"),
+                'price': safe_float(price),
+                'change_percent': safe_float(change)
+            } for date, price, change in zip(
+                forecast_dates,
+                forecast_values,
+                [((price - (trading_signal.get('current_price') or 0)) / (trading_signal.get('current_price') or 1)) * 100
+                 for price in forecast_values]
+            )] if len(forecast_dates) > 0 and len(forecast_values) > 0 and trading_signal.get('current_price') is not None and trading_signal.get('current_price') != 0 else [],
+            # AI Analysis
+            'ai_recommendation': ai_recommendation,
+            'ai_reason': ai_reason,
+            'gemini_analysis': gemini_analysis
+        }
+
+        # --- BẮT ĐẦU: Thêm tất cả các khóa từ trading_signal vào report ---
+        # Điều này đảm bảo rằng bất kỳ khóa nào được thêm vào kết quả trả về của plot_stock_analysis
+        # (bao gồm các chỉ báo kỹ thuật chi tiết) đều được lưu vào báo cáo.
+        # Nó ghi đè lên các khóa đã được định nghĩa ở trên nếu có, đảm bảo giá trị từ trading_signal được sử dụng.
+        # Ví dụ: nếu trading_signal có khóa 'open', nó sẽ được thêm/cập nhật vào report.
+    report.update(trading_signal)
+        # --- KẾT THÚC: Thêm tất cả các khóa từ trading_signal ---
+
+        # Lưu báo cáo
     with open(f'vnstocks_data/{symbol}_report.json', 'w', encoding='utf-8') as f:
         json.dump(report, f, ensure_ascii=False, indent=4)
-    print(f"\nĐã lưu báo cáo phân tích vào file 'vnstocks_data/{symbol}_report.json'")
+    print(f"✅ Đã lưu báo cáo phân tích vào file 'vnstocks_data/{symbol}_report.json'")
+
     return report
+        # --- KẾT THÚC: Tạo báo cáo đầy đủ ---
 
 def screen_stocks():
     """Quét và phân tích nhiều mã chứng khoán"""
@@ -1132,7 +1389,10 @@ def screen_stocks():
     # Danh sách để lưu kết quả
     results = []
     # Phân tích từng mã
-    for symbol in stock_list['symbol'].head(10):  # Phân tích 10 mã đầu tiên để demo
+    # --- SỬA Ở ĐÂY: Tăng số lượng mã để quét, ví dụ lên 20 ---
+    # for symbol in stock_list['symbol'].head(10):  # Phân tích 10 mã đầu tiên để demo
+    for symbol in stock_list['symbol'].head(20):  # Phân tích 20 mã đầu tiên
+    # --- HẾT PHẦN SỬA ---
         try:
             print(f"\nPhân tích mã {symbol}...")
             report = analyze_stock(symbol) # Gọi trực tiếp hàm analyze_stock
@@ -1141,47 +1401,111 @@ def screen_stocks():
             time.sleep(1)  # Dừng 1 giây giữa các request
         except Exception as e:
             print(f"Lỗi khi phân tích mã {symbol}: {str(e)}")
-            traceback.print_exc()
+            # traceback.print_exc() # Có thể bỏ comment nếu muốn xem chi tiết lỗi
             continue
     # Tạo báo cáo tổng hợp
     if results:
         # Sắp xếp theo điểm phân tích
         results.sort(key=lambda x: x['score'], reverse=True)
-        # Tạo DataFrame
-        df_results = pd.DataFrame([{
-            'Mã': r['symbol'],
-            'Giá': r['current_price'],
-            'Điểm': r['score'],
-            'Tín hiệu': r['signal'],
-            'Đề xuất': r['recommendation'],
-            'RSI': r['rsi_value'], # Sử dụng khóa đúng từ report
-            'MA10': r['ma10'],
-            'MA20': r['ma20'],
-            'MA50': r['ma50'],
-            'MA200': r['ma200'],
-            'RS': r['rs'],
-            'RS_Point': r['rs_point']
-        } for r in results])
+        
+        # --- BẮT ĐẦU: Cập nhật phần tạo df_results để thêm thông tin Ichimoku ---
+        # Hàm trợ giúp để lấy giá trị an toàn từ report, đặc biệt là các khóa lồng nhau
+        def get_nested_value(report_dict, key_path, default=None):
+            """
+            Lấy giá trị từ dictionary lồng nhau.
+            key_path là một chuỗi với các khóa ngăn cách bởi dấu chấm, ví dụ: 'technical_data.ichimoku_tenkan_sen'
+            """
+            keys = key_path.split('.')
+            current_dict = report_dict
+            try:
+                for key in keys:
+                    # Kiểm tra nếu current_dict là dict và key tồn tại
+                    if isinstance(current_dict, dict) and key in current_dict:
+                        current_dict = current_dict[key]
+                    else:
+                        # Nếu key không tồn tại hoặc current_dict không phải dict, trả về default
+                        return default
+                # Nếu vòng lặp hoàn tất, current_dict là giá trị cuối cùng
+                # Chuyển sang float nếu có thể, nếu không trả về nguyên gốc hoặc default nếu NaN/None
+                if current_dict is None or (isinstance(current_dict, float) and (pd.isna(current_dict) or np.isinf(current_dict))):
+                     return default
+                return float(current_dict)
+            except (ValueError, TypeError):
+                # Nếu không chuyển được sang float, trả về default
+                return default
+
+        # Tạo danh sách dictionary cho DataFrame, bao gồm các chỉ báo mới
+        data_for_df = []
+        for r in results:
+            row_data = {
+                'Mã': r['symbol'],
+                'Giá': r['current_price'],
+                'Điểm': r['score'],
+                'Tín hiệu': r['signal'],
+                'Đề xuất': r['recommendation'],
+                'RSI': r['rsi_value'],
+                'MA10': r['ma10'],
+                'MA20': r['ma20'],
+                'MA50': r['ma50'],
+                'MA200': r['ma200'],
+                'RS': r['rs'],
+                'RS_Point': r['rs_point'],
+                # --- Thêm các thành phần Ichimoku ---
+                # Giả sử các giá trị Ichimoku được lưu trực tiếp trong report như các khóa riêng lẻ
+                # (đây là cách trong phiên bản code bạn cung cấp gần đây)
+                'Ichimoku_Tenkan': r.get('ichimoku_tenkan_sen'), # Truy cập trực tiếp khóa
+                'Ichimoku_Kijun': r.get('ichimoku_kijun_sen'),
+                'Ichimoku_Senkou_A': r.get('ichimoku_senkou_span_a'),
+                'Ichimoku_Senkou_B': r.get('ichimoku_senkou_span_b'),
+                'Ichimoku_Chikou': r.get('ichimoku_chikou_span'),
+                # Nếu bạn lưu chúng trong một khóa lồng như 'technical_data', dùng get_nested_value:
+                # 'Ichimoku_Tenkan': get_nested_value(r, 'technical_data.ichimoku_tenkan_sen'),
+                # 'Ichimoku_Kijun': get_nested_value(r, 'technical_data.ichimoku_kijun_sen'),
+                # 'Ichimoku_Senkou_A': get_nested_value(r, 'technical_data.ichimoku_senkou_span_a'),
+                # 'Ichimoku_Senkou_B': get_nested_value(r, 'technical_data.ichimoku_senkou_span_b'),
+                # 'Ichimoku_Chikou': get_nested_value(r, 'technical_data.ichimoku_chikou_span'),
+                # --- Thêm các chỉ báo khác nếu cần ---
+                # 'MACD': r.get('macd'),
+                # 'BB_Upper': r.get('bb_upper'),
+                # 'Volume': r.get('volume'),
+            }
+            # Áp dụng safe_float cho các cột mới nếu cần đảm bảo kiểu dữ liệu
+            # row_data['Ichimoku_Tenkan'] = get_nested_value(r, 'ichimoku_tenkan_sen') # Nếu dùng hàm trợ giúp
+            data_for_df.append(row_data)
+
+        # Tạo DataFrame từ danh sách đã cập nhật
+        df_results = pd.DataFrame(data_for_df)
+        # --- KẾT THÚC: Cập nhật phần tạo df_results ---
+
         # Lưu báo cáo tổng hợp
         df_results.to_csv('vnstocks_data/stock_screening_report.csv', index=False)
         print(f"\n{'='*50}")
         print("KẾT QUẢ QUÉT MÃ")
         print(f"{'='*50}")
-        print(df_results[['Mã', 'Giá', 'Điểm', 'Tín hiệu', 'Đề xuất']])
-        # Vẽ biểu đồ so sánh
+        # Cập nhật danh sách cột được in ra để bao gồm Ichimoku nếu muốn, hoặc giữ nguyên
+        print_cols = ['Mã', 'Giá', 'Điểm', 'Tín hiệu', 'Đề xuất'] # Có thể thêm 'Ichimoku_Tenkan', v.v.
+        print(df_results[print_cols]) # In các cột đã chọn
+        
+        # Vẽ biểu đồ so sánh (giữ nguyên)
         try:
-            plt.figure(figsize=(12, 6))
-            sns.barplot(x='Mã', y='Điểm', data=df_results.head(10), palette='viridis') # Chỉ vẽ top 10
-            plt.title('Top 10 Điểm phân tích các mã chứng khoán')
+            plt.figure(figsize=(14, 6)) # Tăng chiều rộng một chút cho 20 mã
+            # --- SỬA Ở ĐÂY: Vẽ top 20 thay vì top 10 nếu muốn ---
+            # sns.barplot(x='Mã', y='Điểm', data=df_results.head(10), palette='viridis')
+            sns.barplot(x='Mã', y='Điểm', data=df_results.head(20), palette='viridis') # Vẽ top 20
+            # --- HẾT PHẦN SỬA ---
+            plt.title('Top Điểm phân tích các mã chứng khoán')
             plt.xticks(rotation=45)
             plt.tight_layout()
             plt.savefig('vnstocks_data/stock_screening_comparison.png')
             plt.close()
         except Exception as e:
             print(f"Lỗi khi vẽ biểu đồ so sánh: {str(e)}")
+            
         print(f"\nĐã lưu báo cáo tổng hợp vào file 'vnstocks_data/stock_screening_report.csv'")
         print("Đã tạo biểu đồ so sánh các mã")
         return df_results
+    else:
+        print("\nKhông có kết quả phân tích nào để tạo báo cáo tổng hợp.")
     return None
 
 # ======================
@@ -1190,7 +1514,7 @@ def screen_stocks():
 if __name__ == "__main__":
     print("==============================================")
     print("HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM VỚI AI")
-    print("TÍCH HỢP VNSTOCK VÀ GOOGLE QWEN")
+    print("TÍCH HỢP VNSTOCK VÀ GOOGLE")
     print("==============================================")
     # Lấy dữ liệu thị trường
     market_data = get_market_data()
