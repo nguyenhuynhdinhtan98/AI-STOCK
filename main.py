@@ -303,10 +303,6 @@ def train_stock_model(df, target='Close', time_steps=60, test_size=0.2, epochs=1
             print("Dữ liệu train rỗng")
             return None, None, None, None, None
 
-        # - LSTM TĂNG CƯỜNG (KÍCH THƯỚC LỚN HƠN) -
-        from tensorflow.keras.models import Sequential # Đảm bảo import ở đây nếu chưa có ở đầu file
-        from tensorflow.keras.layers import LSTM, Dense, Dropout # Đảm bảo import ở đây nếu chưa có ở đầu file
-
         model = Sequential()
 
         # Thêm nhiều lớp LSTM với dropout và tăng units
