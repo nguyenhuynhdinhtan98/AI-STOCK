@@ -1593,9 +1593,6 @@ def analyze_with_gemini(symbol, trading_signal, forecast, financial_data=None):
 Hãy đóng vai một chuyên gia phân tích chứng khoán tại Việt Nam. Phân tích cổ phiếu {symbol} dựa trên các thông tin sau:
 
 1. Phân tích kỹ thuật:
-    - Tín hiệu: {trading_signal['signal']}
-    - Đề xuất: {trading_signal['recommendation']}
-    - Điểm phân tích: {trading_signal['score']:.1f}/100
     - Giá hiện tại: {trading_signal['current_price']:,.0f} VND
     - RSI: {trading_signal['rsi_value']:.2f}
     - MA10: {trading_signal['ma10']:,.0f} VND
