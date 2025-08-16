@@ -1,94 +1,94 @@
 {
     "symbol": "DRI",
-    "timestamp": "2025-08-16 20:22:10",
+    "timestamp": "2025-08-16 21:37:12",
     "current_price": 12.6,
-    "signal": "LỖI",
-    "recommendation": "KHÔNG XÁC ĐỊNH",
-    "score": 50,
-    "rsi_value": 50,
-    "ma10": 12.6,
-    "ma20": 12.6,
-    "ma50": 12.6,
-    "ma200": 12.6,
-    "rs": 1.0,
-    "rs_point": 0,
+    "signal": "TRUNG LẬP",
+    "recommendation": "GIỮ",
+    "score": 55.42623465752929,
+    "rsi_value": 44.09142673969841,
+    "ma10": 12.84,
+    "ma20": 12.996500000000001,
+    "ma50": 12.6456,
+    "ma200": 12.37755,
+    "rs": 0.9908308090490797,
+    "rs_point": 1316.747401773724,
     "forecast": [
         {
             "date": "2025-08-16",
-            "price": 2.842293373577011,
-            "change_percent": -77.44211608272214
+            "price": 5.173047064460865,
+            "change_percent": -58.94407091697727
         },
         {
             "date": "2025-08-17",
-            "price": 2.842293851401352,
-            "change_percent": -77.44211229046546
+            "price": 5.150540975854468,
+            "change_percent": -59.122690667821686
         },
         {
             "date": "2025-08-18",
-            "price": 2.8422902255578233,
-            "change_percent": -77.4421410670014
+            "price": 5.111518354863161,
+            "change_percent": -59.432394009022524
         },
         {
             "date": "2025-08-19",
-            "price": 2.8422783923785557,
-            "change_percent": -77.44223498112258
+            "price": 5.069063943240314,
+            "change_percent": -59.769333783807035
         },
         {
             "date": "2025-08-20",
-            "price": 2.8422585205074338,
-            "change_percent": -77.44239269438545
+            "price": 5.032504647263326,
+            "change_percent": -60.05948692648154
         },
         {
             "date": "2025-08-21",
-            "price": 2.8422334206758753,
-            "change_percent": -77.44259189939781
+            "price": 5.00608961825995,
+            "change_percent": -60.26913001380992
         },
         {
             "date": "2025-08-22",
-            "price": 2.842206100366497,
-            "change_percent": -77.44280872725002
+            "price": 4.9896958586233575,
+            "change_percent": -60.39923921727494
         },
         {
             "date": "2025-08-23",
-            "price": 2.842179342203402,
-            "change_percent": -77.4430210936238
+            "price": 4.981231284744856,
+            "change_percent": -60.46641837504082
         },
         {
             "date": "2025-08-24",
-            "price": 2.8421550855912687,
-            "change_percent": -77.4432136064185
+            "price": 4.977997819322137,
+            "change_percent": -60.49208079903066
         },
         {
             "date": "2025-08-25",
-            "price": 2.8421344829299784,
-            "change_percent": -77.44337711960334
+            "price": 4.977689538300263,
+            "change_percent": -60.49452747380744
         }
     ],
     "ai_recommendation": "LSTM PYTORCH TỐI ƯU",
     "ai_reason": "Dữ liệu ổn định (1993 điểm), LSTM PYTORCH TỐI ƯU là lựa chọn phù hợp.",
-    "gemini_analysis": "Kính gửi Quý nhà đầu tư,\n\n**1. Phân tích Kỹ thuật:**\nDữ liệu kỹ thuật của DRI được cung cấp cho thấy nhiều điểm bất thường và không đáng tin cậy. Cụ thể:\n*   **Giá và MA:** Giá 12.60 VND trùng khớp hoàn toàn với tất cả các đường MA (MA10, MA20, MA50, MA200). Điều này là cực kỳ hiếm gặp và gần như không thể xảy ra trong một thị trường giao dịch bình thường, cho thấy dữ liệu có thể bị lỗi hoặc đã bị làm tròn không chính xác.\n*   **Các chỉ báo khác:** Các chỉ báo như Bollinger Bands (BB), Relative Strength (RS), RS_Point và Ichimoku đều không có dữ liệu (N/A hoặc None/0.00).\n*   **Tín hiệu:** \"LỖI (50.0/100)\" xác nhận sự cố trong việc tạo tín hiệu kỹ thuật.\n**Kết luận về kỹ thuật:** Với dữ liệu kỹ thuật không đầy đủ và không đáng tin cậy, không thể đưa ra bất kỳ nhận định kỹ thuật nào về xu hướng giá, điểm vào/ra hay sức mạnh tương đối của cổ phiếu DRI.\n\n**2. Phân tích Tài chính:**\nDữ liệu tài chính được cung cấp cho các quý năm 2024 và dự phóng 2025.\n*   **Khả năng sinh lời:** Biên lợi nhuận ròng (Net Profit Margin) dao động từ 0.15% (2024 Q2) đến 0.27% (2025 Q1, 2024 Q3), tương đương 15-27%. Tỷ suất lợi nhuận trên vốn chủ sở hữu (ROE) và trên tổng tài sản (ROA) trong các quý gần đây và dự phóng 2025 cũng cho thấy mức độ sinh lời khá tốt (ROE quanh 25% cho 2025 Q1/Q2).\n*   **Cơ cấu vốn & Thanh khoản:** Tỷ lệ nợ trên vốn chủ sở hữu (Debt/Equity) thấp (dưới 0.26), cho thấy cơ cấu tài chính lành mạnh, ít phụ thuộc vào nợ vay. Các chỉ số thanh khoản như Current Ratio (1.55 - 4.30) và Quick Ratio (0.77 - 2.81) đều cho thấy khả năng thanh toán tốt, đặc biệt mạnh trong Q1 2025.\n*   **Định giá:** Đây là điểm cần lưu ý. Với giá hiện tại 12.60 VND (giả sử là 12,600 VND) và EPS dự phóng Q2 2025 là 287.15 VND, thì P/E dự phóng sẽ là 12,600 / (287.15 * 4) = 10.97. Tuy nhiên, dữ liệu lại cho P/E là 5.95, cho thấy sự không nhất quán giữa giá và các chỉ số định giá được tính toán trong bảng. Điều này gây khó khăn trong việc đánh giá mức độ hấp dẫn của cổ phiếu. EPS cũng biến động mạnh giữa các quý dự phóng (287 VND Q2 2025 vs 764 VND Q1 2025).\n\n**3. Kết luận & Khuyến nghị:**\nDo **lỗi nghiêm trọng trong dữ liệu kỹ thuật** và **sự không nhất quán trong các chỉ số định giá tài chính** được cung cấp, chúng tôi không thể đưa ra khuyến nghị mua bán đáng tin cậy dựa trên dữ liệu này. Mặc dù các chỉ số tài chính về khả năng sinh lời và thanh khoản **có vẻ tích cực** (nếu dữ liệu dự phóng chính xác), nhưng sự thiếu minh bạch và sai lệch dữ liệu khiến việc ra quyết định trở nên rủi ro cao.\n\n**Khuyến nghị:** **GIỮ** (với nhà đầu tư đang nắm giữ) / **QUAN SÁT** (với nhà đầu tư chưa có vị thế)\n**Lý do:** Không có cơ sở đáng tin cậy để đưa ra hành động MUA/BÁN. Cần thu thập và xác minh lại toàn bộ dữ liệu kỹ thuật và tài chính trước khi xem xét bất kỳ hành động đầu tư nào đối với DRI.\n\nTrân trọng,\nChuyên gia phân tích chứng khoán Việt Nam",
-    "open": null,
-    "high": null,
-    "low": null,
-    "volume": null,
-    "macd": null,
-    "macd_signal": null,
-    "macd_hist": null,
-    "bb_upper": null,
-    "bb_lower": null,
-    "volume_sma_20": null,
-    "volume_sma_50": null,
-    "ichimoku_tenkan_sen": null,
-    "ichimoku_kijun_sen": null,
-    "ichimoku_senkou_span_a": null,
-    "ichimoku_senkou_span_b": null,
+    "gemini_analysis": "Chào bạn,\n\nDưới đây là phân tích DRI dựa trên dữ liệu kỹ thuật cung cấp:\n\n**Phân tích DRI:**\n\nDRI hiện đang ở trạng thái kỹ thuật khá trung lập nhưng có xu hướng tiêu cực trong ngắn hạn. Giá 12.60 VND đang nằm dưới các đường trung bình động ngắn hạn (MA10: 12.84, MA20: 13.00) và cận kề MA50 (12.65 VND), cùng với việc nằm dưới Tenkan (12.85) và Kijun (13.17) của Ichimoku, cho thấy áp lực giảm điểm và xu hướng đi xuống trong ngắn và trung hạn.\n\nChỉ số RSI 44.09 thể hiện động lượng yếu nhưng chưa ở vùng quá bán mạnh để kích hoạt tín hiệu mua. Giá đang tiếp cận biên dưới Bollinger Band (12.47 VND), có thể là một vùng hỗ trợ tạm thời, và vẫn duy trì trên MA200 (12.38 VND) cho thấy xu hướng dài hạn chưa bị phá vỡ. Tuy nhiên, Sức mạnh Tương đối (RS) ở mức 0.99 cho thấy cổ phiếu không thể hiện sự vượt trội so với thị trường chung, đây là một điểm trừ.\n\nTín hiệu tổng hợp của hệ thống là TRUNG LẬP (55.4/100) càng củng cố nhận định này. Việc thiếu dữ liệu tài chính cũng là một yếu tố rủi ro lớn cần được lưu ý.\n\n**Kết luận: GIỮ**\n\n**Lý do:** Các chỉ báo kỹ thuật đưa ra tín hiệu trung lập với áp lực giảm trong ngắn hạn. Mặc dù có tiềm năng hỗ trợ từ MA200 và biên dưới BB, việc thiếu sự vượt trội về sức mạnh tương đối, xu hướng ngắn hạn tiêu cực và tín hiệu tổng hợp \"TRUNG LẬP\" khuyến nghị nhà đầu tư nên giữ vị thế hiện tại và chờ đợi tín hiệu rõ ràng hơn về động lực tăng giá. Tránh mua mới trong giai đoạn này khi rủi ro vẫn còn hiện hữu và không có động lực tăng rõ ràng.",
+    "open": 12.8,
+    "high": 12.8,
+    "low": 12.5,
+    "volume": 1064300.0,
+    "macd": 0.04030468157056255,
+    "macd_signal": 0.09562960358570569,
+    "macd_hist": -0.055324922015143135,
+    "bb_upper": 13.51804673807899,
+    "bb_lower": 12.474953261921012,
+    "volume_sma_20": 1522923.3,
+    "volume_sma_50": 1387199.82,
+    "ichimoku_tenkan_sen": 12.850000000000001,
+    "ichimoku_kijun_sen": 13.17,
+    "ichimoku_senkou_span_a": 12.465,
+    "ichimoku_senkou_span_b": 11.815,
     "ichimoku_chikou_span": null,
-    "rs_sma_10": null,
-    "rs_sma_20": null,
-    "rs_sma_50": null,
-    "rs_sma_200": null,
-    "rs_point_sma_10": null,
-    "rs_point_sma_20": null,
-    "rs_point_sma_50": null,
-    "rs_point_sma_200": null
+    "rs_sma_10": 0.9907080343013028,
+    "rs_sma_20": 0.9934732537726948,
+    "rs_sma_50": 0.9961351752244916,
+    "rs_sma_200": 0.9995839026224896,
+    "rs_point_sma_10": 1706.5030487399351,
+    "rs_point_sma_20": 1818.7702208796698,
+    "rs_point_sma_50": 919.9163750347534,
+    "rs_point_sma_200": 1812.0586450005378
 }

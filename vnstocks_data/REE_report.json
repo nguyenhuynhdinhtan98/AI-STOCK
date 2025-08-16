@@ -1,0 +1,94 @@
+{
+    "symbol": "REE",
+    "timestamp": "2025-08-16 21:26:38",
+    "current_price": 66.6,
+    "signal": "TRUNG LẬP",
+    "recommendation": "GIỮ",
+    "score": 39.58446069190188,
+    "rsi_value": 44.05436322285062,
+    "ma10": 67.50999999999999,
+    "ma20": 67.84,
+    "ma50": 67.7176,
+    "ma200": 61.17045,
+    "rs": 0.9800699063609943,
+    "rs_point": 1168.3525044116632,
+    "forecast": [
+        {
+            "date": "2025-08-16",
+            "price": 66.892578125,
+            "change_percent": 0.43930649399400257
+        },
+        {
+            "date": "2025-08-17",
+            "price": 66.94786834716797,
+            "change_percent": 0.5223248455975592
+        },
+        {
+            "date": "2025-08-18",
+            "price": 66.86442565917969,
+            "change_percent": 0.3970355242938336
+        },
+        {
+            "date": "2025-08-19",
+            "price": 66.84525299072266,
+            "change_percent": 0.36824773381781073
+        },
+        {
+            "date": "2025-08-20",
+            "price": 66.77130126953125,
+            "change_percent": 0.25720911341029384
+        },
+        {
+            "date": "2025-08-21",
+            "price": 66.7345199584961,
+            "change_percent": 0.201981919663813
+        },
+        {
+            "date": "2025-08-22",
+            "price": 66.74681091308594,
+            "change_percent": 0.22043680643535016
+        },
+        {
+            "date": "2025-08-23",
+            "price": 66.7515640258789,
+            "change_percent": 0.2275736124307987
+        },
+        {
+            "date": "2025-08-24",
+            "price": 66.79634094238281,
+            "change_percent": 0.29480621979402133
+        },
+        {
+            "date": "2025-08-25",
+            "price": 66.85356140136719,
+            "change_percent": 0.3807228248756655
+        }
+    ],
+    "ai_recommendation": "LSTM PYTORCH TỐI ƯU",
+    "ai_reason": "Dữ liệu ổn định (2431 điểm), LSTM PYTORCH TỐI ƯU là lựa chọn phù hợp.",
+    "gemini_analysis": "**Phân tích REE - Kỹ thuật (Giá: 66.60 VND)**\n\nREE đang cho thấy tín hiệu **TRUNG LẬP** với điểm số 39.6/100, cho thấy sự thiếu rõ ràng về xu hướng ngắn hạn.\n\n**Phân tích chi tiết:**\n\n1.  **Xu hướng ngắn & trung hạn (Tiêu cực):**\n    *   Giá hiện tại (66.60 VND) đang nằm dưới tất cả các đường trung bình động MA10 (67.51), MA20 (67.84) và MA50 (67.72). Điều này báo hiệu một xu hướng giảm hoặc giai đoạn điều chỉnh trong ngắn và trung hạn.\n    *   Chỉ báo Ichimoku cũng xác nhận xu hướng tiêu cực khi giá nằm dưới Tenkan (67.45), Kijun (68.00) và Senkou Span A (67.05).\n\n2.  **Động lượng & Sức mạnh tương đối (Trung lập/Tiêu cực):**\n    *   RSI ở mức 44.05 cho thấy động lượng trung tính, chưa vào vùng quá bán để có tín hiệu mua rõ ràng, đồng thời vẫn có dư địa để giảm thêm.\n    *   Chỉ số Sức mạnh tương đối (RS) ở mức 0.98 (và SMA10 là 0.99) cho thấy REE đang kém hiệu quả hơn so với thị trường chung. RS_Point giảm mạnh từ 1556.46 (SMA10) xuống 1168.35 cũng củng cố điều này.\n\n3.  **Hỗ trợ & Kháng cự (Cần theo dõi):**\n    *   Giá đang giao dịch gần biên dưới của Bollinger Band (65.48), và Senkou Span B của Ichimoku (64.92) có thể đóng vai trò là vùng hỗ trợ tiềm năng.\n    *   Ngược lại, các đường MA (MA10, MA20, MA50) sẽ là các vùng kháng cự phía trên.\n\n4.  **Xu hướng dài hạn (Tích cực):**\n    *   Điểm sáng duy nhất là giá vẫn đang nằm trên MA200 (61.17), cho thấy xu hướng tăng dài hạn của REE vẫn được duy trì, bất chấp sự điều chỉnh trong ngắn hạn.\n\n**Kết luận:**\n\nDựa trên các chỉ báo kỹ thuật, REE đang trong giai đoạn điều chỉnh ngắn hạn với động lực và sức mạnh tương đối yếu. Tuy nhiên, xu hướng dài hạn vẫn được giữ vững. Với tín hiệu tổng thể TRUNG LẬP (39.6/100) và sự thiếu vắng dữ liệu tài chính để đánh giá cơ bản, rủi ro trong ngắn hạn là đáng kể.\n\n**Khuyến nghị: GIỮ**\n\n**Lý do:**\n*   **GIỮ** đối với nhà đầu tư đang nắm giữ: Vì xu hướng dài hạn (MA200) vẫn tích cực, có thể chờ đợi sự hồi phục khi các chỉ báo ngắn hạn cải thiện, đặc biệt nếu giá giữ vững các ngưỡng hỗ trợ 65.48 - 64.92.\n*   **KHÔNG MUA MỚI:** Các tín hiệu ngắn hạn tiêu cực (giá dưới MA10, MA20, MA50, RSI trung tính, RS kém hiệu quả) không ủng hộ việc mua vào ở thời điểm hiện tại. Cần chờ đợi tín hiệu đảo chiều rõ ràng hơn hoặc giá về vùng hỗ trợ mạnh.",
+    "open": 68.4,
+    "high": 68.4,
+    "low": 66.5,
+    "volume": 1323500.0,
+    "macd": 0.06715322307115912,
+    "macd_signal": 0.10071026536305365,
+    "macd_hist": -0.03355704229189453,
+    "bb_upper": 70.19575890107497,
+    "bb_lower": 65.48424109892504,
+    "volume_sma_20": 1225850.0,
+    "volume_sma_50": 1060350.1,
+    "ichimoku_tenkan_sen": 67.44999999999999,
+    "ichimoku_kijun_sen": 68.0,
+    "ichimoku_senkou_span_a": 67.05000000000001,
+    "ichimoku_senkou_span_b": 64.915,
+    "ichimoku_chikou_span": null,
+    "rs_sma_10": 0.9931099739631856,
+    "rs_sma_20": 0.9944090634685665,
+    "rs_sma_50": 0.9956331812341702,
+    "rs_sma_200": 0.9998283674075862,
+    "rs_point_sma_10": 1556.463429069447,
+    "rs_point_sma_20": 1641.9815239820812,
+    "rs_point_sma_50": 1651.7711766278994,
+    "rs_point_sma_200": 1344.3602143099154
+}
