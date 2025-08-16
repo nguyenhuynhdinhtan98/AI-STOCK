@@ -1,69 +1,94 @@
 {
     "symbol": "DRI",
-    "timestamp": "2025-08-15 18:41:13",
+    "timestamp": "2025-08-16 20:21:34",
     "current_price": 12.6,
-    "signal": "BÁN",
-    "recommendation": "BÁN",
-    "score": 24.537569329311545,
-    "rsi_value": 44.09142673969841,
-    "ma10": 12.84,
-    "ma20": 12.996500000000001,
-    "ma50": 12.6456,
-    "ma200": 12.37755,
-    "rs": 0.007730061349693252,
-    "rs_point": 1316.747401773724,
+    "signal": "LỖI",
+    "recommendation": "KHÔNG XÁC ĐỊNH",
+    "score": 50,
+    "rsi_value": 50,
+    "ma10": 12.6,
+    "ma20": 12.6,
+    "ma50": 12.6,
+    "ma200": 12.6,
+    "rs": 1.0,
+    "rs_point": 0,
     "forecast": [
         {
             "date": "2025-08-16",
-            "price": 2.7200090885162354,
-            "change_percent": -78.41262817382812
+            "price": 1.8525117595381047,
+            "change_percent": -85.29752571795154
         },
         {
             "date": "2025-08-17",
-            "price": 2.7190184593200684,
-            "change_percent": -78.42048645019531
+            "price": 1.8524521158174247,
+            "change_percent": -85.2979990808141
         },
         {
             "date": "2025-08-18",
-            "price": 2.716130495071411,
-            "change_percent": -78.44341278076172
+            "price": 1.8523725721183089,
+            "change_percent": -85.29863038001342
         },
         {
             "date": "2025-08-19",
-            "price": 2.710764169692993,
-            "change_percent": -78.48600006103516
+            "price": 1.8523176504264105,
+            "change_percent": -85.29906626645706
         },
         {
             "date": "2025-08-20",
-            "price": 2.7027289867401123,
-            "change_percent": -78.54976654052734
+            "price": 1.8522278194503063,
+            "change_percent": -85.29977921071186
+        },
+        {
+            "date": "2025-08-21",
+            "price": 1.852167782227228,
+            "change_percent": -85.3002556966093
+        },
+        {
+            "date": "2025-08-22",
+            "price": 1.8521442282979492,
+            "change_percent": -85.30044263255596
+        },
+        {
+            "date": "2025-08-23",
+            "price": 1.8521442282979492,
+            "change_percent": -85.30044263255596
+        },
+        {
+            "date": "2025-08-24",
+            "price": 1.852156539301558,
+            "change_percent": -85.30034492617811
+        },
+        {
+            "date": "2025-08-25",
+            "price": 1.852173066402293,
+            "change_percent": -85.30021375871196
         }
     ],
-    "ai_recommendation": "LSTM TĂNG CƯỜNG",
-    "ai_reason": "Dữ liệu có 1993 điểm > 1000, LSTM TĂNG CƯỜNG hiệu quả cho chuỗi dài.",
-    "gemini_analysis": "Chào Quý nhà đầu tư,\n\nTôi xin đưa ra phân tích về cổ phiếu DRI của Công ty Cổ phần Cao su Đắk Lắk dựa trên các thông tin được cung cấp:\n\n**1. Phân tích Tổng quan:**\nDRI hiện đang cho thấy sự phân kỳ rõ rệt giữa yếu tố kỹ thuật và nền tảng cơ bản. Trong khi các chỉ báo kỹ thuật đang yếu và cho thấy xu hướng giảm ngắn hạn, dữ liệu tài chính (đặc biệt là các ước tính cho năm 2025) lại thể hiện một bức tranh tài chính khỏe mạnh và hiệu quả kinh doanh cải thiện đáng kể.\n\n**2. Phân tích Kỹ thuật:**\n*   **Xu hướng giá:** Giá hiện tại 12.60 VND đang nằm dưới các đường MA ngắn hạn (MA10: 12.84, MA20: 13.00, MA50: 12.65), cho thấy xu hướng giảm trong ngắn và trung hạn. Tuy nhiên, giá vẫn nằm trên MA200 (12.38), giữ được nền tảng hỗ trợ dài hạn, nhưng đang tiệm cận và thử thách mức này.\n*   **Chỉ báo RSI:** Ở mức 44.09, RSI nằm dưới mức 50, cho thấy động lượng giá đang yếu và thiên về xu hướng giảm, nhưng chưa đi vào vùng quá bán.\n*   **Bollinger Bands:** Giá 12.60 đang rất gần với dải dưới của Bollinger Bands (BB Lower: 12.47). Điều này có thể cho thấy giá đang ở vùng hỗ trợ động trong biên độ biến động gần đây, hoặc chuẩn bị phá vỡ hỗ trợ.\n*   **Sức mạnh tương đối (RS vs VNINDEX):** RS hiện tại là 0.00773, rất thấp và đang nằm dưới tất cả các đường trung bình RS_SMA_10, RS_SMA_20, RS_SMA_50, RS_SMA_200. Điều này cho thấy DRI đang **kém hiệu quả hơn rõ rệt so với VNINDEX** một cách nhất quán trong cả ngắn, trung và dài hạn. Đây là một tín hiệu kỹ thuật tiêu cực mạnh.\n*   **Động lượng dài hạn (RS_Point):** RS_Point ở mức 1316.75. Mặc dù cao hơn RS_Point_SMA_50 (919.92), nhưng lại thấp hơn các đường SMA ngắn hơn (10, 20) và dài hạn hơn (200). Điều này chỉ ra rằng động lượng tăng trưởng giá trong dài hạn đang có dấu hiệu suy giảm đáng kể so với các giai đoạn trước, dù vẫn duy trì trên mức trung bình 50 phiên.\n*   **Ichimoku Cloud:** Giá 12.60 nằm dưới Tenkan-sen (12.85) và Kijun-sen (13.17) – tín hiệu yếu. Tuy nhiên, giá vẫn nằm trên mây Ichimoku (Senkou Span A: 12.46, Senkou Span B: 11.81), cho thấy mây đang đóng vai trò hỗ trợ và xu hướng dài hạn có thể vẫn là tăng, nhưng đang bị thử thách mạnh mẽ ở biên trên của mây (Senkou Span A).\n\n**3. Phân tích Cơ bản (Dựa trên dữ liệu 2024 và dự phóng 2025):**\n*   **Khả năng sinh lợi:** Các chỉ số biên lợi nhuận (Gross Profit Margin, Net Profit Margin, EBIT Margin) và hiệu quả sinh lời trên vốn (ROE, ROA, ROIC) đều có xu hướng cải thiện rõ rệt từ 2024 đến các quý dự phóng 2025. Đặc biệt, Net Profit Margin ước tính đạt 18-27% và ROE ước tính đạt 21-26% vào năm 2025, cho thấy hiệu quả hoạt động kinh doanh rất tốt.\n*   **Cấu trúc tài chính & Thanh khoản:** Tỷ lệ nợ/vốn chủ sở hữu (Debt/Equity) duy trì ở mức thấp (dưới 0.3) và các chỉ số thanh khoản (Current Ratio, Quick Ratio) đều lành mạnh, đặc biệt Current Ratio ước tính trên 1.7 vào 2025Q2, cho thấy công ty có khả năng đáp ứng tốt các nghĩa vụ ngắn hạn.\n*   **Định giá:** Với P/E ước tính cho 2025 dao động quanh 5.96 - 6.58, đây là một mức định giá **rất hấp dẫn** so với tiềm năng lợi nhuận và mặt bằng chung thị trường Việt Nam. P/B cũng duy trì ở mức hợp lý khoảng 1.4x.\n\n**4. Nhận định rủi ro và Triển vọng:**\n*   **Rủi ro:** Rủi ro chính đến từ sự yếu kém về mặt kỹ thuật và việc cổ phiếu liên tục underperform VNINDEX. Điều này cho thấy dòng tiền thông minh chưa thực sự quan tâm đến DRI, hoặc thị trường còn hoài nghi về khả năng đạt được các mục tiêu lợi nhuận cao trong năm 2025. Nếu giá thủng các ngưỡng hỗ trợ quan trọng như MA200 (12.38) hoặc Senkou Span A (12.46), rủi ro giảm giá sẽ gia tăng.\n*   **Triển vọng ngắn hạn (1-2 tuần):** Giá có khả năng tiếp tục giằng co và thử thách các ngưỡng hỗ trợ quanh 12.40 - 12.60 VND. Triển vọng kỹ thuật vẫn còn yếu.\n*   **Triển vọng trung hạn (1-3 tháng):** Nếu các kết quả kinh doanh quý tiếp theo (2025Q1, 2025Q2) thực sự xác nhận xu hướng cải thiện mạnh mẽ như dự phóng và thị trường bắt đầu tin tưởng vào các con số này, giá có thể tìm thấy động lực tăng trưởng bền vững hơn. Tuy nhiên, cần thời gian để \"thông tin tốt\" này thẩm thấu vào giá.\n\n**5. Khuyến nghị đầu tư:**\nMặc dù có nền tảng cơ bản rất tốt và định giá hấp dẫn cho dài hạn, nhưng cổ phiếu DRI đang đối mặt với sự yếu kém rõ rệt về mặt kỹ thuật và underperform thị trường chung. Điều này tạo ra rủi ro trong ngắn hạn.\n\n*   **Đối với nhà đầu tư đang nắm giữ:** **NẮM GIỮ (HOLD)**. Nên tiếp tục nắm giữ nếu tin tưởng vào triển vọng kinh doanh 2025 và có tầm nhìn dài hạn. Cần quan sát chặt chẽ vùng hỗ trợ 12.38 (MA200) và 12.46 (Senkou Span A); nếu thủng các ngưỡng này với khối lượng lớn, có thể xem xét giảm tỷ trọng để quản trị rủi ro.\n*   **Đối với nhà đầu tư chưa có vị thế:** **THEO DÕI (MONITOR) / MUA TÍCH LŨY (ACCUMULATE)**. Có thể đưa DRI vào danh sách theo dõi và xem xét mua tích lũy một phần nhỏ vị thế khi giá về các vùng hỗ trợ mạnh (quanh 12.40 VND) hoặc khi có tín hiệu kỹ thuật cải thiện rõ ràng hơn (ví dụ: giá vượt lên trên các đường MA ngắn hạn kèm khối lượng giao dịch tăng, hoặc RS bắt đầu tăng trở lại). Việc mua cần đi kèm với quản trị rủi ro chặt chẽ, vì đây là một giao dịch đi ngược lại xu hướng kỹ thuật ngắn hạn.\n\n**Lưu ý:** Phân tích này dựa trên dữ liệu hiện có và giả định về các dự phóng. Luôn thực hiện nghiên cứu kỹ lưỡng của riêng bạn và tham khảo ý kiến chuyên gia tài chính trước khi đưa ra bất kỳ quyết định đầu tư nào.\n\nTrân trọng,\n[Tên Chuyên gia phân tích chứng khoán]",
-    "open": 12.8,
-    "high": 12.8,
-    "low": 12.5,
-    "volume": 1064300.0,
-    "macd": 0.04030468157056255,
-    "macd_signal": 0.09562960358570569,
-    "macd_hist": -0.055324922015143135,
-    "bb_upper": 13.51804673807899,
-    "bb_lower": 12.474953261921012,
-    "volume_sma_20": 1522923.3,
-    "volume_sma_50": 1387199.82,
-    "ichimoku_tenkan_sen": 12.850000000000001,
-    "ichimoku_kijun_sen": 13.17,
-    "ichimoku_senkou_span_a": 12.465,
-    "ichimoku_senkou_span_b": 11.815,
+    "ai_recommendation": "LSTM PYTORCH TỐI ƯU",
+    "ai_reason": "Dữ liệu ổn định (1993 điểm), LSTM PYTORCH TỐI ƯU là lựa chọn phù hợp.",
+    "gemini_analysis": "**Phân tích Mã Cổ Phiếu DRI**\n\n**1. Phân tích Kỹ thuật:**\nDữ liệu kỹ thuật cho thấy một bức tranh rất bất thường và trung lập. Giá DRI hiện tại là 12.60 VND, đồng thời tất cả các đường trung bình động (MA10, MA20, MA50, MA200) đều ở mức 12.60 VND. Điều này cho thấy cổ phiếu đã giao dịch ngang trong một thời gian dài hoặc dữ liệu đang thể hiện một giai đoạn cực kỳ ổn định, không có xu hướng rõ ràng trong ngắn hạn, trung hạn hay dài hạn. Chỉ số RSI ở mức 50.00 cũng hoàn toàn trung lập, không báo hiệu vùng quá mua hay quá bán. Các chỉ báo khác như Bollinger Bands, Ichimoku, RS (Amibroker) không có dữ liệu hoặc không đủ thông tin để phân tích.\n\n**2. Tín hiệu:**\nTín hiệu hệ thống báo \"LỖI (50.0/100)\". Đây là một cảnh báo quan trọng, cho thấy hệ thống không thể đưa ra một tín hiệu tin cậy hoặc rõ ràng, và điểm số 50/100 củng cố sự thiếu chắc chắn.\n\n**3. Phân tích Tài chính (Quý gần nhất - Lưu ý dữ liệu 2025):**\nDữ liệu tài chính được cung cấp cho \"Quý gần nhất\" lại là của năm 2025 (Quý 2 và Quý 1). Điều này rất bất thường và có thể là dữ liệu dự phóng hoặc lỗi nhập liệu, cần được xác minh. Tuy nhiên, dựa trên các con số được cung cấp:\n*   **Khả năng sinh lời:** Các chỉ số như ROE (25.17%), ROA (21.22%) và Net Profit Margin (18.55%) cho Q2/2025 đều ở mức rất cao, thể hiện hiệu quả kinh doanh xuất sắc.\n*   **Cơ cấu nguồn vốn & Thanh khoản:** Tỷ lệ nợ/Vốn chủ sở hữu (Debt/Equity: 0.258) và Tỷ lệ nợ vay/Vốn chủ sở hữu (ST+LT borrowings/Equity: 0.056) rất thấp, cho thấy cấu trúc tài chính lành mạnh và rủi ro nợ thấp. Tỷ lệ thanh toán hiện hành (Current Ratio: 1.73) ở mức khá, đảm bảo khả năng thanh toán ngắn hạn.\n*   **Định giá:** Với P/E 5.95, P/B 1.42 và EV/EBITDA 3.68, các chỉ số định giá này ở mức rất hấp dẫn nếu các số liệu tài chính 2025 là đáng tin cậy và bền vững. Tỷ suất cổ tức (Dividend Yield) 7.12% cũng rất tốt.\n\n**Kết luận:**\n\nDRI đang trong giai đoạn trung lập về mặt kỹ thuật, không có xu hướng rõ ràng và hệ thống tín hiệu báo lỗi. Mặc dù các chỉ số tài chính (nếu dữ liệu 2025 là chính xác và bền vững) cho thấy triển vọng kinh doanh và định giá rất hấp dẫn, sự thiếu vắng động lực kỹ thuật và đặc biệt là tín hiệu \"LỖI\" từ hệ thống đòi hỏi sự thận trọng.\n\nDựa trên điểm số và chỉ báo kỹ thuật chính (đặc biệt là tín hiệu LỖI và các MA nằm ngang), chúng tôi khuyến nghị: **GIỮ**\n\n**Lý do:**\nCác chỉ báo kỹ thuật hoàn toàn trung lập, không có xu hướng rõ ràng, cho thấy cổ phiếu thiếu động lực tăng giá mạnh mẽ trong ngắn hạn. Tín hiệu \"LỖI\" (50.0/100) cảnh báo sự không chắc chắn của hệ thống, ngăn cản việc đưa ra khuyến nghị MUA/BÁN mạnh. Mặc dù tài chính có vẻ rất tốt (với lưu ý về năm 2025), sự thiếu xác nhận từ khía cạnh kỹ thuật và tín hiệu rủi ro cao khiến việc mua mới trở nên rủi ro.",
+    "open": null,
+    "high": null,
+    "low": null,
+    "volume": null,
+    "macd": null,
+    "macd_signal": null,
+    "macd_hist": null,
+    "bb_upper": null,
+    "bb_lower": null,
+    "volume_sma_20": null,
+    "volume_sma_50": null,
+    "ichimoku_tenkan_sen": null,
+    "ichimoku_kijun_sen": null,
+    "ichimoku_senkou_span_a": null,
+    "ichimoku_senkou_span_b": null,
     "ichimoku_chikou_span": null,
-    "rs_sma_10": 0.00807690831235465,
-    "rs_sma_20": 0.008389323159822408,
-    "rs_sma_50": 0.008730819001042622,
-    "rs_sma_200": 0.00942411518827822,
-    "rs_point_sma_10": 1706.5030487399351,
-    "rs_point_sma_20": 1818.7702208796698,
-    "rs_point_sma_50": 919.9163750347534,
-    "rs_point_sma_200": 1812.0586450005378
+    "rs_sma_10": null,
+    "rs_sma_20": null,
+    "rs_sma_50": null,
+    "rs_sma_200": null,
+    "rs_point_sma_10": null,
+    "rs_point_sma_20": null,
+    "rs_point_sma_50": null,
+    "rs_point_sma_200": null
 }
