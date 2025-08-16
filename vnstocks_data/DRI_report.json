@@ -1,94 +1,42 @@
 {
     "symbol": "DRI",
-    "timestamp": "2025-08-16 21:44:18",
-    "current_price": 12.6,
-    "signal": "TRUNG LẬP",
-    "recommendation": "GIỮ",
-    "score": 55.42623465752929,
-    "rsi_value": 44.09142673969841,
-    "ma10": 12.84,
-    "ma20": 12.996500000000001,
-    "ma50": 12.6456,
-    "ma200": 12.37755,
-    "rs": 0.9908308090490797,
-    "rs_point": 1316.747401773724,
-    "forecast": [
-        {
-            "date": "2025-08-16",
-            "price": 3.8803181568077827,
-            "change_percent": -69.20382415231919
-        },
-        {
-            "date": "2025-08-17",
-            "price": 3.858826404955342,
-            "change_percent": -69.37439361146554
-        },
-        {
-            "date": "2025-08-18",
-            "price": 3.8163686204547944,
-            "change_percent": -69.71136015512069
-        },
-        {
-            "date": "2025-08-19",
-            "price": 3.7638169372876353,
-            "change_percent": -70.1284370056537
-        },
-        {
-            "date": "2025-08-20",
-            "price": 3.713757361024509,
-            "change_percent": -70.52573522996421
-        },
-        {
-            "date": "2025-08-21",
-            "price": 3.6718905046971817,
-            "change_percent": -70.85801186748269
-        },
-        {
-            "date": "2025-08-22",
-            "price": 3.640354323051078,
-            "change_percent": -71.10829902340414
-        },
-        {
-            "date": "2025-08-23",
-            "price": 3.6191535381149795,
-            "change_percent": -71.27655922130968
-        },
-        {
-            "date": "2025-08-24",
-            "price": 3.6057013775507105,
-            "change_percent": -71.38332240039118
-        },
-        {
-            "date": "2025-08-25",
-            "price": 3.5979491554426666,
-            "change_percent": -71.44484797267725
-        }
-    ],
-    "ai_recommendation": "LSTM PYTORCH TỐI ƯU",
-    "ai_reason": "Dữ liệu ổn định (1993 điểm), LSTM PYTORCH TỐI ƯU là lựa chọn phù hợp.",
-    "gemini_analysis": "**Phân tích DRI - Ngày [Ngày phân tích]**\n\nGiá DRI hiện tại 12.60 VND đang cho thấy tín hiệu kỹ thuật khá phức tạp, phản ánh một giai đoạn điều chỉnh/tích lũy.\n\n**1. Phân tích Kỹ thuật:**\n*   **Xu hướng ngắn hạn:** Giá đang nằm dưới các đường MA10 (12.84) và MA20 (13.00), cùng với việc nằm dưới Tenkan (12.85) và Kijun (13.17) của Ichimoku, cho thấy áp lực giảm điểm và xu hướng yếu trong ngắn hạn.\n*   **Xu hướng dài hạn & Hỗ trợ:** Tuy nhiên, giá vẫn giữ được trên MA50 (12.65) và đặc biệt là MA200 (12.38), cho thấy xu hướng dài hạn vẫn đang được duy trì. Giá hiện đang tiệm cận dải Bollinger Band dưới (12.47) và Senkou Span A (12.46) của Ichimoku, đây có thể là các vùng hỗ trợ tạm thời.\n*   **Động lượng & Sức mạnh tương đối:** RSI ở mức 44.09 cho thấy cổ phiếu không quá mua cũng không quá bán, duy trì ở vùng trung tính. Chỉ số RS Amibroker (0.99) và RS_Point (1316.75, giảm so với SMA10) cho thấy sức mạnh tương đối của DRI so với thị trường đang ở mức trung bình và có dấu hiệu suy yếu nhẹ trong ngắn hạn.\n\n**2. Tín hiệu tổng thể:**\nTín hiệu tổng hợp là **TRUNG LẬP** (55.4/100), củng cố quan điểm về một giai đoạn không rõ ràng về xu hướng ngắn hạn. Cổ phiếu đang tìm điểm cân bằng quanh các ngưỡng hỗ trợ quan trọng sau nhịp điều chỉnh.\n\n**Kết luận:** **GIỮ**\n\n**Lý do:**\nCác chỉ báo kỹ thuật cho thấy DRI đang trong giai đoạn điều chỉnh hoặc tích lũy. Mặc dù có áp lực giảm trong ngắn hạn khi giá nằm dưới các MA ngắn hạn và các đường Ichimoku Tenkan/Kijun, nhưng xu hướng dài hạn vẫn được duy trì (trên MA200). Giá cũng đang tìm thấy hỗ trợ quanh các vùng Bollinger Band dưới và Senkou Span A. Tín hiệu \"Trung Lập\" cho thấy không có đủ động lực mạnh mẽ để mua mới hay bán tháo ở thời điểm hiện tại. Nhà đầu tư nên tiếp tục nắm giữ và quan sát chặt chẽ diễn biến giá tại các ngưỡng hỗ trợ quan trọng này.",
-    "open": 12.8,
-    "high": 12.8,
-    "low": 12.5,
-    "volume": 1064300.0,
-    "macd": 0.04030468157056255,
-    "macd_signal": 0.09562960358570569,
-    "macd_hist": -0.055324922015143135,
-    "bb_upper": 13.51804673807899,
-    "bb_lower": 12.474953261921012,
-    "volume_sma_20": 1522923.3,
-    "volume_sma_50": 1387199.82,
-    "ichimoku_tenkan_sen": 12.850000000000001,
-    "ichimoku_kijun_sen": 13.17,
-    "ichimoku_senkou_span_a": 12.465,
-    "ichimoku_senkou_span_b": 11.815,
-    "ichimoku_chikou_span": null,
-    "rs_sma_10": 0.9907080343013028,
-    "rs_sma_20": 0.9934732537726948,
-    "rs_sma_50": 0.9961351752244916,
-    "rs_sma_200": 0.9995839026224896,
-    "rs_point_sma_10": 1706.5030487399351,
-    "rs_point_sma_20": 1818.7702208796698,
-    "rs_point_sma_50": 919.9163750347534,
-    "rs_point_sma_200": 1812.0586450005378
+    "timestamp": "2025-08-16 22:53:57",
+    "current_price": 12.63,
+    "signal": "MUA MẠNH",
+    "recommendation": "MUA MẠNH",
+    "score": 100.0,
+    "rsi_value": 59.7624531073276,
+    "ma10": 12.544,
+    "ma20": 12.38,
+    "ma50": 11.879000000000001,
+    "ma200": 12.149450000000002,
+    "rs": 0.997996143198384,
+    "rs_point": 24.409284770376765,
+    "forecast": [],
+    "ai_recommendation": "Không có",
+    "ai_reason": "Không chạy mô hình AI",
+    "gemini_analysis": "Chào bạn, là chuyên gia phân tích chứng khoán Việt Nam, tôi xin đưa ra nhận định về cổ phiếu DRI dựa trên dữ liệu kỹ thuật được cung cấp:\n\n**Phân tích DRI:**\n\nDựa trên các chỉ báo kỹ thuật, DRI đang cho thấy một bức tranh cực kỳ tích cực:\n\n1.  **Xu hướng giá:** Giá hiện tại (12.63 VND) đang giao dịch trên tất cả các đường trung bình động quan trọng (MA10: 12.54, MA20: 12.38, MA50: 11.88, MA200: 12.15). Đặc biệt, các đường MA ngắn hạn đều nằm trên các đường MA dài hạn (MA10 > MA20 > MA50 > MA200), xác nhận một xu hướng tăng giá mạnh mẽ và bền vững trong ngắn và trung hạn.\n2.  **Sức mạnh tương đối (RS):** Chỉ báo RS của Amibroker là 1.00 và RS_Point cao (24.41) cho thấy DRI đang thể hiện sức mạnh vượt trội so với thị trường chung, một dấu hiệu rất tích cực cho đà tăng giá.\n3.  **Chỉ báo động lượng (RSI):** RSI ở mức 59.76 cho thấy động lượng tăng giá lành mạnh, chưa đi vào vùng quá mua, còn nhiều dư địa để giá tiếp tục đi lên.\n4.  **Bollinger Bands (BB):** Giá đang nằm gần biên trên của dải Bollinger Band (12.63 so với 12.88), cho thấy cổ phiếu đang có động lực tăng giá mạnh mẽ và bám sát dải trên, một tín hiệu của xu hướng uptrend mạnh.\n5.  **Ichimoku:** Các tín hiệu Ichimoku cũng rất ủng hộ đà tăng: Tenkan (12.63) và Kijun (12.29) đều nằm dưới giá và Tenkan nằm trên Kijun. Giá cũng đang nằm trên mây Kumo (A:11.36, B:11.52) và Chikou Span (12.60) nằm trên giá, tất cả đều xác nhận một cấu trúc tăng giá rất mạnh mẽ.\n6.  **Tín hiệu tổng hợp:** Hệ thống phân tích tự động cũng đưa ra tín hiệu **MUA MẠNH** với điểm số tuyệt đối (100.0/100).\n\n**Lưu ý:** Phân tích này hoàn toàn dựa trên dữ liệu kỹ thuật. Việc thiếu dữ liệu tài chính khiến chúng ta không thể đánh giá sức khỏe nội tại của doanh nghiệp.\n\n**Kết luận:**\n\nDựa trên toàn bộ các chỉ báo kỹ thuật đều cho tín hiệu rất tích cực và nhất quán, cùng với tín hiệu \"MUA MẠNH\" từ hệ thống.\n\n**Hành động: MUA MẠNH**",
+    "open": 12.53,
+    "high": 12.63,
+    "low": 12.44,
+    "volume": 1153140.0,
+    "macd": 0.1909974133826271,
+    "macd_signal": 0.20872223866966613,
+    "macd_hist": -0.01772482528703903,
+    "bb_upper": 12.877554017168816,
+    "bb_lower": 11.882445982831186,
+    "volume_ma": 1296892.9,
+    "ichimoku_tenkan_sen": 12.635,
+    "ichimoku_kijun_sen": 12.295,
+    "ichimoku_senkou_span_a": 11.3575,
+    "ichimoku_senkou_span_b": 11.52,
+    "ichimoku_chikou_span": 12.6,
+    "rs_sma_10": 0.9952019252263031,
+    "rs_sma_20": 0.9976130448491538,
+    "rs_sma_50": 1.000177974746157,
+    "rs_sma_200": 1.0004465376748335,
+    "rs_point_sma_10": 6.008880323610437,
+    "rs_point_sma_20": 0.7042782145992292,
+    "rs_point_sma_50": -1.6142225207413605,
+    "rs_point_sma_200": 19.338955904434496
 }
