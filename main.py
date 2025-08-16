@@ -26,10 +26,6 @@ import traceback
 from vnstock.explorer.vci import Quote, Finance
 import matplotlib.dates as mdates
 import mplfinance as mpf
-# Thêm import cho chạy song song
-import asyncio
-import concurrent.futures
-from functools import partial
 warnings.filterwarnings("ignore")
 # ======================
 # CẤU HÌNH VÀ THƯ VIỆN
@@ -345,10 +341,10 @@ def train_stock_model_pytorch_optimized(df, target="Close", time_steps=60, test_
         return None, None, None, None, None
 # --- HẾT CẢI TIẾN 4 ---
 # --- CẢI TIẾN 5: Hàm dự báo PyTorch tối ưu (ĐÃ SỬA) ---
-def predict_next_days_pytorch_optimized(model, scaler, df, target="Close", time_steps=60, n_days=GLOBAL_PREDICTION_DAYS, device=None):
+def predict_next_days_pytorch_optimized(model, scaler, df, target="Close", time_steps=60, n_days=GLOBAL_PREDICTION_DAYS):
     """Dự báo giá trong n ngày tiếp theo (cho LSTM PyTorch tối ưu)"""
     try:
-        if model is None or scaler is None or df is None or device is None:
+        if model is None or scaler is None or df is None:
             print("Dữ liệu đầu vào không hợp lệ cho PyTorch predict")
             return np.array([]), np.array([])
         if target not in df.columns:
@@ -389,6 +385,7 @@ def predict_next_days_pytorch_optimized(model, scaler, df, target="Close", time_
         # --- BƯỚC 3: DỰ BÁO ---
         forecast_scaled = []
         model.eval()
+        device = next(model.parameters()).device # Lấy thiết bị từ model
         with torch.no_grad():
             # Chuẩn bị input tensor (1 batch, time_steps, 1 feature)
             x_input = torch.tensor(last_data_scaled_flat.reshape(1, time_steps, 1), dtype=torch.float32).to(device)
@@ -717,10 +714,10 @@ def train_stock_model_nbeats(df, target="Close", time_steps=60, test_size=0.2, e
 # --- HẾT THÊM: Hàm huấn luyện N-BEATS ---
 
 # --- THÊM: Hàm dự báo N-BEATS ---
-def predict_next_days_nbeats(model, scaler, df, target="Close", time_steps=60, n_days=GLOBAL_PREDICTION_DAYS, device=None):
+def predict_next_days_nbeats(model, scaler, df, target="Close", time_steps=60, n_days=GLOBAL_PREDICTION_DAYS):
     """Dự báo giá trong n ngày tiếp theo (cho N-BEATS)"""
     try:
-        if model is None or scaler is None or df is None or device is None:
+        if model is None or scaler is None or df is None:
             print("Dữ liệu đầu vào không hợp lệ cho N-BEATS predict")
             return np.array([]), np.array([])
         if target not in df.columns:
@@ -740,6 +737,7 @@ def predict_next_days_nbeats(model, scaler, df, target="Close", time_steps=60, n
             print(f"Lỗi khi chuẩn hóa dữ liệu dự báo N-BEATS: {str(e)}")
             return np.array([]), np.array([])
         model.eval()
+        device = next(model.parameters()).device # Lấy thiết bị từ model
         with torch.no_grad():
             x_input = torch.tensor(last_data_scaled.reshape(1, time_steps), dtype=torch.float32).to(device)
             with torch.cuda.amp.autocast(enabled=(device.type == 'cuda')):
@@ -1259,49 +1257,9 @@ def plot_actual_vs_forecast(symbol, df, forecast_dates, forecast_values):
         print(f"✅ Đã lưu biểu đồ Actual vs Forecast vào {filename}")
     except Exception as e:
         print(f"Lỗi khi vẽ biểu đồ Actual vs Forecast cho {symbol}: {e}")
-# --- Hàm bất đồng bộ cho train và predict PyTorch tối ưu ---
-async def train_stock_model_async_pytorch_optimized(df, target="Close", time_steps=60, test_size=0.2, epochs=GLOBAL_EPOCHS, batch_size=GLOBAL_BATCH_SIZE):
-    """Huấn luyện mô hình LSTM PyTorch tối ưu bất đồng bộ."""
-    loop = asyncio.get_event_loop()
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        train_func = partial(train_stock_model_pytorch_optimized, df, target, time_steps, test_size, epochs, batch_size)
-        result = await loop.run_in_executor(executor, train_func)
-        return result
-async def predict_next_days_async_pytorch_optimized(model, scaler, df, target="Close", time_steps=60, n_days=GLOBAL_PREDICTION_DAYS):
-    """Dự báo giá bất đồng bộ PyTorch tối ưu."""
-    loop = asyncio.get_event_loop()
-    if model:
-         device = next(model.parameters()).device
-    else:
-         device = torch.device("cpu")
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        predict_func = partial(predict_next_days_pytorch_optimized, model, scaler, df, target, time_steps, n_days, device)
-        result = await loop.run_in_executor(executor, predict_func)
-        return result
-# --- THÊM: Hàm bất đồng bộ cho train và predict N-BEATS (tương tự như LSTM) ---
-async def train_stock_model_async_nbeats(df, target="Close", time_steps=60, test_size=0.2, epochs=GLOBAL_EPOCHS, batch_size=GLOBAL_BATCH_SIZE):
-    """Huấn luyện mô hình N-BEATS bất đồng bộ."""
-    loop = asyncio.get_event_loop()
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        train_func = partial(train_stock_model_nbeats, df, target, time_steps, test_size, epochs, batch_size)
-        result = await loop.run_in_executor(executor, train_func)
-        return result
-
-async def predict_next_days_async_nbeats(model, scaler, df, target="Close", time_steps=60, n_days=GLOBAL_PREDICTION_DAYS):
-    """Dự báo giá bất đồng bộ N-BEATS."""
-    loop = asyncio.get_event_loop()
-    if model:
-         device = next(model.parameters()).device
-    else:
-         device = torch.device("cpu")
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        predict_func = partial(predict_next_days_nbeats, model, scaler, df, target, time_steps, n_days, device)
-        result = await loop.run_in_executor(executor, predict_func)
-        return result
-# --- HẾT THÊM ---
 
 # --- CẬP NHẬT: Logic lựa chọn mô hình trong analyze_stock ---
-async def analyze_stock(symbol):
+def analyze_stock(symbol):
     """Phân tích toàn diện một mã chứng khoán với tích hợp Google và lựa chọn mô hình AI phù hợp (LSTM hoặc N-BEATS)"""
     print(f"\n{'='*50}")
     print(f"PHÂN TÍCH MÃ {symbol} VỚI AI")
@@ -1338,13 +1296,13 @@ async def analyze_stock(symbol):
             print(f"\n🔔 ĐỀ XUẤT MỞ RỘNG: {ai_recommendation_nbeats}")
             print(f"   Lý do: {ai_reason_nbeats}")
             print(f"\nĐang huấn luyện mô hình AI (N-BEATS) cho mã {symbol}...")
-            model, scaler, X_test, y_test_full, y_pred_full = await train_stock_model_async_nbeats(df_features) # Cần tạo async wrapper tương tự
+            model, scaler, X_test, y_test_full, y_pred_full = train_stock_model_nbeats(df_features) # Gọi trực tiếp
             if model is not None:
                  # Lấy giá trị cuối cùng để vẽ biểu đồ so sánh (hoặc có thể lấy toàn bộ)
                  X_test_or_actual = y_test_full[:, -1] if y_test_full.ndim > 1 else y_test_full # Giá trị thực tế ngày cuối
                  y_test_or_pred = y_pred_full[:, -1] if y_pred_full.ndim > 1 else y_pred_full # Dự báo ngày cuối
                  print(f"\nĐang dự báo giá cho {GLOBAL_PREDICTION_DAYS} ngày tới bằng N-BEATS...")
-                 forecast_dates, forecast_values = await predict_next_days_async_nbeats(model, scaler, df_features) # Cần tạo async wrapper tương tự
+                 forecast_dates, forecast_values = predict_next_days_nbeats(model, scaler, df_features) # Gọi trực tiếp
                  if len(forecast_dates) > 0 and len(forecast_values) > 0:
                       plot_actual_vs_forecast(symbol, df_features, forecast_dates, forecast_values)
             else:
@@ -1354,12 +1312,12 @@ async def analyze_stock(symbol):
             print(f"\n🔔 ĐỀ XUẤT MỞ RỘNG: {ai_recommendation}")
             print(f"   Lý do: {ai_reason}")
             print(f"\nĐang huấn luyện mô hình AI (LSTM PyTorch tối ưu) cho mã {symbol}...")
-            model, scaler, X_test, y_test, y_pred = await train_stock_model_async_pytorch_optimized(df_features)
+            model, scaler, X_test, y_test, y_pred = train_stock_model_pytorch_optimized(df_features)
             if model is not None:
                 X_test_or_actual = y_test
                 y_test_or_pred = y_pred
                 print(f"\nĐang dự báo giá cho {GLOBAL_PREDICTION_DAYS} ngày tới bằng LSTM PyTorch tối ưu...")
-                forecast_dates, forecast_values = await predict_next_days_async_pytorch_optimized(model, scaler, df_features)
+                forecast_dates, forecast_values = predict_next_days_pytorch_optimized(model, scaler, df_features)
                 if len(forecast_dates) > 0 and len(forecast_values) > 0:
                      plot_actual_vs_forecast(symbol, df_features, forecast_dates, forecast_values)
             else:
@@ -1410,26 +1368,28 @@ async def analyze_stock(symbol):
         json.dump(report, f, ensure_ascii=False, indent=4)
     print(f"✅ Đã lưu báo cáo phân tích vào file 'vnstocks_data/{symbol}_report.json'")
     return report
-# --- HẾT CẬP NHẬT ---
 
-async def screen_stocks_parallel_async(max_workers=4):
-    """Quét và phân tích nhiều mã chứng khoán song song (async)."""
+def screen_stocks_parallel():
+    """Quét và phân tích nhiều mã chứng khoán tuần tự (sync)."""
     print(f"\n{'='*50}")
-    print("QUÉT VÀ PHÂN TÍCH DANH SÁCH MÃ CHỨNG KHOÁN (SONG SONG - ASYNC)")
+    print("QUÉT VÀ PHÂN TÍCH DANH SÁCH MÃ CHỨNG KHOÁN (TUẦN TỰ - SYNC)")
     print(f"{'='*50}")
     stock_list = get_vnstocks_list()
     symbols_to_analyze = stock_list["symbol"].head(20)
     results = []
-    tasks = [analyze_stock(symbol) for symbol in symbols_to_analyze]
-    raw_results = await asyncio.gather(*tasks, return_exceptions=True)
-    for symbol, result in zip(symbols_to_analyze, raw_results):
-        if isinstance(result, Exception):
-            print(f"Lỗi khi phân tích mã {symbol} (song song - async): {result}")
-        elif result and result["signal"] != "LỖI":
-            results.append(result)
-            print(f"✅ Phân tích mã {symbol} hoàn tất (song song - async).")
-        else:
-            print(f"⚠️ Phân tích mã {symbol} thất bại hoặc có lỗi (song song - async).")
+    for symbol in symbols_to_analyze: # Thay vì chạy song song, chạy tuần tự
+        try:
+            result = analyze_stock(symbol)
+            if result and result["signal"] != "LỖI":
+                results.append(result)
+                print(f"✅ Phân tích mã {symbol} hoàn tất (tuần tự - sync).")
+            else:
+                print(f"⚠️ Phân tích mã {symbol} thất bại hoặc có lỗi (tuần tự - sync).")
+        except Exception as e:
+            print(f"Lỗi khi phân tích mã {symbol} (tuần tự - sync): {e}")
+            import traceback
+            traceback.print_exc()
+
     if results:
         results.sort(key=lambda x: x["score"], reverse=True)
         def get_nested_value(report_dict, key_path, default=None):
@@ -1479,15 +1439,15 @@ async def screen_stocks_parallel_async(max_workers=4):
 # ======================
 # CHẠY CHƯƠNG TRÌNH CHÍNH
 # ======================
-async def main():
+def main():
     print("==============================================")
     print("HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM VỚI AI")
     print("TÍCH HỢP VNSTOCK VÀ GOOGLE - PHIÊN BẢN TỐI ƯU")
     print("==============================================")
     market_data = get_market_data()
-    await analyze_stock("DRI") # Có thể thay bằng mã khác hoặc bỏ comment dòng dưới để quét danh sách
-    # await screen_stocks_parallel_async(max_workers=4)
+    analyze_stock("DRI") # Có thể thay bằng mã khác hoặc bỏ comment dòng dưới để quét danh sách
+    # screen_stocks_parallel() # Gọi trực tiếp, không dùng await
     print("\nHoàn thành phân tích. Các báo cáo đã được lưu trong thư mục 'vnstocks_data/'.")
 if __name__ == "__main__":
-    asyncio.run(main())
+    main() # Gọi trực tiếp, không dùng asyncio.run()
 # --- KẾT THÚC: TOÀN BỘ MÃ NGUỒN ĐÃ CẬP NHẬT & TỐI ƯU TOÀN DIỆN ---

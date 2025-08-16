@@ -1,6 +1,6 @@
 {
     "symbol": "DRI",
-    "timestamp": "2025-08-16 21:37:12",
+    "timestamp": "2025-08-16 21:44:18",
     "current_price": 12.6,
     "signal": "TRUNG LẬP",
     "recommendation": "GIỮ",
@@ -15,58 +15,58 @@
     "forecast": [
         {
             "date": "2025-08-16",
-            "price": 5.173047064460865,
-            "change_percent": -58.94407091697727
+            "price": 3.8803181568077827,
+            "change_percent": -69.20382415231919
         },
         {
             "date": "2025-08-17",
-            "price": 5.150540975854468,
-            "change_percent": -59.122690667821686
+            "price": 3.858826404955342,
+            "change_percent": -69.37439361146554
         },
         {
             "date": "2025-08-18",
-            "price": 5.111518354863161,
-            "change_percent": -59.432394009022524
+            "price": 3.8163686204547944,
+            "change_percent": -69.71136015512069
         },
         {
             "date": "2025-08-19",
-            "price": 5.069063943240314,
-            "change_percent": -59.769333783807035
+            "price": 3.7638169372876353,
+            "change_percent": -70.1284370056537
         },
         {
             "date": "2025-08-20",
-            "price": 5.032504647263326,
-            "change_percent": -60.05948692648154
+            "price": 3.713757361024509,
+            "change_percent": -70.52573522996421
         },
         {
             "date": "2025-08-21",
-            "price": 5.00608961825995,
-            "change_percent": -60.26913001380992
+            "price": 3.6718905046971817,
+            "change_percent": -70.85801186748269
         },
         {
             "date": "2025-08-22",
-            "price": 4.9896958586233575,
-            "change_percent": -60.39923921727494
+            "price": 3.640354323051078,
+            "change_percent": -71.10829902340414
         },
         {
             "date": "2025-08-23",
-            "price": 4.981231284744856,
-            "change_percent": -60.46641837504082
+            "price": 3.6191535381149795,
+            "change_percent": -71.27655922130968
         },
         {
             "date": "2025-08-24",
-            "price": 4.977997819322137,
-            "change_percent": -60.49208079903066
+            "price": 3.6057013775507105,
+            "change_percent": -71.38332240039118
         },
         {
             "date": "2025-08-25",
-            "price": 4.977689538300263,
-            "change_percent": -60.49452747380744
+            "price": 3.5979491554426666,
+            "change_percent": -71.44484797267725
         }
     ],
     "ai_recommendation": "LSTM PYTORCH TỐI ƯU",
     "ai_reason": "Dữ liệu ổn định (1993 điểm), LSTM PYTORCH TỐI ƯU là lựa chọn phù hợp.",
-    "gemini_analysis": "Chào bạn,\n\nDưới đây là phân tích DRI dựa trên dữ liệu kỹ thuật cung cấp:\n\n**Phân tích DRI:**\n\nDRI hiện đang ở trạng thái kỹ thuật khá trung lập nhưng có xu hướng tiêu cực trong ngắn hạn. Giá 12.60 VND đang nằm dưới các đường trung bình động ngắn hạn (MA10: 12.84, MA20: 13.00) và cận kề MA50 (12.65 VND), cùng với việc nằm dưới Tenkan (12.85) và Kijun (13.17) của Ichimoku, cho thấy áp lực giảm điểm và xu hướng đi xuống trong ngắn và trung hạn.\n\nChỉ số RSI 44.09 thể hiện động lượng yếu nhưng chưa ở vùng quá bán mạnh để kích hoạt tín hiệu mua. Giá đang tiếp cận biên dưới Bollinger Band (12.47 VND), có thể là một vùng hỗ trợ tạm thời, và vẫn duy trì trên MA200 (12.38 VND) cho thấy xu hướng dài hạn chưa bị phá vỡ. Tuy nhiên, Sức mạnh Tương đối (RS) ở mức 0.99 cho thấy cổ phiếu không thể hiện sự vượt trội so với thị trường chung, đây là một điểm trừ.\n\nTín hiệu tổng hợp của hệ thống là TRUNG LẬP (55.4/100) càng củng cố nhận định này. Việc thiếu dữ liệu tài chính cũng là một yếu tố rủi ro lớn cần được lưu ý.\n\n**Kết luận: GIỮ**\n\n**Lý do:** Các chỉ báo kỹ thuật đưa ra tín hiệu trung lập với áp lực giảm trong ngắn hạn. Mặc dù có tiềm năng hỗ trợ từ MA200 và biên dưới BB, việc thiếu sự vượt trội về sức mạnh tương đối, xu hướng ngắn hạn tiêu cực và tín hiệu tổng hợp \"TRUNG LẬP\" khuyến nghị nhà đầu tư nên giữ vị thế hiện tại và chờ đợi tín hiệu rõ ràng hơn về động lực tăng giá. Tránh mua mới trong giai đoạn này khi rủi ro vẫn còn hiện hữu và không có động lực tăng rõ ràng.",
+    "gemini_analysis": "**Phân tích DRI - Ngày [Ngày phân tích]**\n\nGiá DRI hiện tại 12.60 VND đang cho thấy tín hiệu kỹ thuật khá phức tạp, phản ánh một giai đoạn điều chỉnh/tích lũy.\n\n**1. Phân tích Kỹ thuật:**\n*   **Xu hướng ngắn hạn:** Giá đang nằm dưới các đường MA10 (12.84) và MA20 (13.00), cùng với việc nằm dưới Tenkan (12.85) và Kijun (13.17) của Ichimoku, cho thấy áp lực giảm điểm và xu hướng yếu trong ngắn hạn.\n*   **Xu hướng dài hạn & Hỗ trợ:** Tuy nhiên, giá vẫn giữ được trên MA50 (12.65) và đặc biệt là MA200 (12.38), cho thấy xu hướng dài hạn vẫn đang được duy trì. Giá hiện đang tiệm cận dải Bollinger Band dưới (12.47) và Senkou Span A (12.46) của Ichimoku, đây có thể là các vùng hỗ trợ tạm thời.\n*   **Động lượng & Sức mạnh tương đối:** RSI ở mức 44.09 cho thấy cổ phiếu không quá mua cũng không quá bán, duy trì ở vùng trung tính. Chỉ số RS Amibroker (0.99) và RS_Point (1316.75, giảm so với SMA10) cho thấy sức mạnh tương đối của DRI so với thị trường đang ở mức trung bình và có dấu hiệu suy yếu nhẹ trong ngắn hạn.\n\n**2. Tín hiệu tổng thể:**\nTín hiệu tổng hợp là **TRUNG LẬP** (55.4/100), củng cố quan điểm về một giai đoạn không rõ ràng về xu hướng ngắn hạn. Cổ phiếu đang tìm điểm cân bằng quanh các ngưỡng hỗ trợ quan trọng sau nhịp điều chỉnh.\n\n**Kết luận:** **GIỮ**\n\n**Lý do:**\nCác chỉ báo kỹ thuật cho thấy DRI đang trong giai đoạn điều chỉnh hoặc tích lũy. Mặc dù có áp lực giảm trong ngắn hạn khi giá nằm dưới các MA ngắn hạn và các đường Ichimoku Tenkan/Kijun, nhưng xu hướng dài hạn vẫn được duy trì (trên MA200). Giá cũng đang tìm thấy hỗ trợ quanh các vùng Bollinger Band dưới và Senkou Span A. Tín hiệu \"Trung Lập\" cho thấy không có đủ động lực mạnh mẽ để mua mới hay bán tháo ở thời điểm hiện tại. Nhà đầu tư nên tiếp tục nắm giữ và quan sát chặt chẽ diễn biến giá tại các ngưỡng hỗ trợ quan trọng này.",
     "open": 12.8,
     "high": 12.8,
     "low": 12.5,
