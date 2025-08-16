@@ -1,6 +1,6 @@
 {
     "symbol": "DRI",
-    "timestamp": "2025-08-16 20:21:34",
+    "timestamp": "2025-08-16 20:22:10",
     "current_price": 12.6,
     "signal": "LỖI",
     "recommendation": "KHÔNG XÁC ĐỊNH",
@@ -15,58 +15,58 @@
     "forecast": [
         {
             "date": "2025-08-16",
-            "price": 1.8525117595381047,
-            "change_percent": -85.29752571795154
+            "price": 2.842293373577011,
+            "change_percent": -77.44211608272214
         },
         {
             "date": "2025-08-17",
-            "price": 1.8524521158174247,
-            "change_percent": -85.2979990808141
+            "price": 2.842293851401352,
+            "change_percent": -77.44211229046546
         },
         {
             "date": "2025-08-18",
-            "price": 1.8523725721183089,
-            "change_percent": -85.29863038001342
+            "price": 2.8422902255578233,
+            "change_percent": -77.4421410670014
         },
         {
             "date": "2025-08-19",
-            "price": 1.8523176504264105,
-            "change_percent": -85.29906626645706
+            "price": 2.8422783923785557,
+            "change_percent": -77.44223498112258
         },
         {
             "date": "2025-08-20",
-            "price": 1.8522278194503063,
-            "change_percent": -85.29977921071186
+            "price": 2.8422585205074338,
+            "change_percent": -77.44239269438545
         },
         {
             "date": "2025-08-21",
-            "price": 1.852167782227228,
-            "change_percent": -85.3002556966093
+            "price": 2.8422334206758753,
+            "change_percent": -77.44259189939781
         },
         {
             "date": "2025-08-22",
-            "price": 1.8521442282979492,
-            "change_percent": -85.30044263255596
+            "price": 2.842206100366497,
+            "change_percent": -77.44280872725002
         },
         {
             "date": "2025-08-23",
-            "price": 1.8521442282979492,
-            "change_percent": -85.30044263255596
+            "price": 2.842179342203402,
+            "change_percent": -77.4430210936238
         },
         {
             "date": "2025-08-24",
-            "price": 1.852156539301558,
-            "change_percent": -85.30034492617811
+            "price": 2.8421550855912687,
+            "change_percent": -77.4432136064185
         },
         {
             "date": "2025-08-25",
-            "price": 1.852173066402293,
-            "change_percent": -85.30021375871196
+            "price": 2.8421344829299784,
+            "change_percent": -77.44337711960334
         }
     ],
     "ai_recommendation": "LSTM PYTORCH TỐI ƯU",
     "ai_reason": "Dữ liệu ổn định (1993 điểm), LSTM PYTORCH TỐI ƯU là lựa chọn phù hợp.",
-    "gemini_analysis": "**Phân tích Mã Cổ Phiếu DRI**\n\n**1. Phân tích Kỹ thuật:**\nDữ liệu kỹ thuật cho thấy một bức tranh rất bất thường và trung lập. Giá DRI hiện tại là 12.60 VND, đồng thời tất cả các đường trung bình động (MA10, MA20, MA50, MA200) đều ở mức 12.60 VND. Điều này cho thấy cổ phiếu đã giao dịch ngang trong một thời gian dài hoặc dữ liệu đang thể hiện một giai đoạn cực kỳ ổn định, không có xu hướng rõ ràng trong ngắn hạn, trung hạn hay dài hạn. Chỉ số RSI ở mức 50.00 cũng hoàn toàn trung lập, không báo hiệu vùng quá mua hay quá bán. Các chỉ báo khác như Bollinger Bands, Ichimoku, RS (Amibroker) không có dữ liệu hoặc không đủ thông tin để phân tích.\n\n**2. Tín hiệu:**\nTín hiệu hệ thống báo \"LỖI (50.0/100)\". Đây là một cảnh báo quan trọng, cho thấy hệ thống không thể đưa ra một tín hiệu tin cậy hoặc rõ ràng, và điểm số 50/100 củng cố sự thiếu chắc chắn.\n\n**3. Phân tích Tài chính (Quý gần nhất - Lưu ý dữ liệu 2025):**\nDữ liệu tài chính được cung cấp cho \"Quý gần nhất\" lại là của năm 2025 (Quý 2 và Quý 1). Điều này rất bất thường và có thể là dữ liệu dự phóng hoặc lỗi nhập liệu, cần được xác minh. Tuy nhiên, dựa trên các con số được cung cấp:\n*   **Khả năng sinh lời:** Các chỉ số như ROE (25.17%), ROA (21.22%) và Net Profit Margin (18.55%) cho Q2/2025 đều ở mức rất cao, thể hiện hiệu quả kinh doanh xuất sắc.\n*   **Cơ cấu nguồn vốn & Thanh khoản:** Tỷ lệ nợ/Vốn chủ sở hữu (Debt/Equity: 0.258) và Tỷ lệ nợ vay/Vốn chủ sở hữu (ST+LT borrowings/Equity: 0.056) rất thấp, cho thấy cấu trúc tài chính lành mạnh và rủi ro nợ thấp. Tỷ lệ thanh toán hiện hành (Current Ratio: 1.73) ở mức khá, đảm bảo khả năng thanh toán ngắn hạn.\n*   **Định giá:** Với P/E 5.95, P/B 1.42 và EV/EBITDA 3.68, các chỉ số định giá này ở mức rất hấp dẫn nếu các số liệu tài chính 2025 là đáng tin cậy và bền vững. Tỷ suất cổ tức (Dividend Yield) 7.12% cũng rất tốt.\n\n**Kết luận:**\n\nDRI đang trong giai đoạn trung lập về mặt kỹ thuật, không có xu hướng rõ ràng và hệ thống tín hiệu báo lỗi. Mặc dù các chỉ số tài chính (nếu dữ liệu 2025 là chính xác và bền vững) cho thấy triển vọng kinh doanh và định giá rất hấp dẫn, sự thiếu vắng động lực kỹ thuật và đặc biệt là tín hiệu \"LỖI\" từ hệ thống đòi hỏi sự thận trọng.\n\nDựa trên điểm số và chỉ báo kỹ thuật chính (đặc biệt là tín hiệu LỖI và các MA nằm ngang), chúng tôi khuyến nghị: **GIỮ**\n\n**Lý do:**\nCác chỉ báo kỹ thuật hoàn toàn trung lập, không có xu hướng rõ ràng, cho thấy cổ phiếu thiếu động lực tăng giá mạnh mẽ trong ngắn hạn. Tín hiệu \"LỖI\" (50.0/100) cảnh báo sự không chắc chắn của hệ thống, ngăn cản việc đưa ra khuyến nghị MUA/BÁN mạnh. Mặc dù tài chính có vẻ rất tốt (với lưu ý về năm 2025), sự thiếu xác nhận từ khía cạnh kỹ thuật và tín hiệu rủi ro cao khiến việc mua mới trở nên rủi ro.",
+    "gemini_analysis": "Kính gửi Quý nhà đầu tư,\n\n**1. Phân tích Kỹ thuật:**\nDữ liệu kỹ thuật của DRI được cung cấp cho thấy nhiều điểm bất thường và không đáng tin cậy. Cụ thể:\n*   **Giá và MA:** Giá 12.60 VND trùng khớp hoàn toàn với tất cả các đường MA (MA10, MA20, MA50, MA200). Điều này là cực kỳ hiếm gặp và gần như không thể xảy ra trong một thị trường giao dịch bình thường, cho thấy dữ liệu có thể bị lỗi hoặc đã bị làm tròn không chính xác.\n*   **Các chỉ báo khác:** Các chỉ báo như Bollinger Bands (BB), Relative Strength (RS), RS_Point và Ichimoku đều không có dữ liệu (N/A hoặc None/0.00).\n*   **Tín hiệu:** \"LỖI (50.0/100)\" xác nhận sự cố trong việc tạo tín hiệu kỹ thuật.\n**Kết luận về kỹ thuật:** Với dữ liệu kỹ thuật không đầy đủ và không đáng tin cậy, không thể đưa ra bất kỳ nhận định kỹ thuật nào về xu hướng giá, điểm vào/ra hay sức mạnh tương đối của cổ phiếu DRI.\n\n**2. Phân tích Tài chính:**\nDữ liệu tài chính được cung cấp cho các quý năm 2024 và dự phóng 2025.\n*   **Khả năng sinh lời:** Biên lợi nhuận ròng (Net Profit Margin) dao động từ 0.15% (2024 Q2) đến 0.27% (2025 Q1, 2024 Q3), tương đương 15-27%. Tỷ suất lợi nhuận trên vốn chủ sở hữu (ROE) và trên tổng tài sản (ROA) trong các quý gần đây và dự phóng 2025 cũng cho thấy mức độ sinh lời khá tốt (ROE quanh 25% cho 2025 Q1/Q2).\n*   **Cơ cấu vốn & Thanh khoản:** Tỷ lệ nợ trên vốn chủ sở hữu (Debt/Equity) thấp (dưới 0.26), cho thấy cơ cấu tài chính lành mạnh, ít phụ thuộc vào nợ vay. Các chỉ số thanh khoản như Current Ratio (1.55 - 4.30) và Quick Ratio (0.77 - 2.81) đều cho thấy khả năng thanh toán tốt, đặc biệt mạnh trong Q1 2025.\n*   **Định giá:** Đây là điểm cần lưu ý. Với giá hiện tại 12.60 VND (giả sử là 12,600 VND) và EPS dự phóng Q2 2025 là 287.15 VND, thì P/E dự phóng sẽ là 12,600 / (287.15 * 4) = 10.97. Tuy nhiên, dữ liệu lại cho P/E là 5.95, cho thấy sự không nhất quán giữa giá và các chỉ số định giá được tính toán trong bảng. Điều này gây khó khăn trong việc đánh giá mức độ hấp dẫn của cổ phiếu. EPS cũng biến động mạnh giữa các quý dự phóng (287 VND Q2 2025 vs 764 VND Q1 2025).\n\n**3. Kết luận & Khuyến nghị:**\nDo **lỗi nghiêm trọng trong dữ liệu kỹ thuật** và **sự không nhất quán trong các chỉ số định giá tài chính** được cung cấp, chúng tôi không thể đưa ra khuyến nghị mua bán đáng tin cậy dựa trên dữ liệu này. Mặc dù các chỉ số tài chính về khả năng sinh lời và thanh khoản **có vẻ tích cực** (nếu dữ liệu dự phóng chính xác), nhưng sự thiếu minh bạch và sai lệch dữ liệu khiến việc ra quyết định trở nên rủi ro cao.\n\n**Khuyến nghị:** **GIỮ** (với nhà đầu tư đang nắm giữ) / **QUAN SÁT** (với nhà đầu tư chưa có vị thế)\n**Lý do:** Không có cơ sở đáng tin cậy để đưa ra hành động MUA/BÁN. Cần thu thập và xác minh lại toàn bộ dữ liệu kỹ thuật và tài chính trước khi xem xét bất kỳ hành động đầu tư nào đối với DRI.\n\nTrân trọng,\nChuyên gia phân tích chứng khoán Việt Nam",
     "open": null,
     "high": null,
     "low": null,
