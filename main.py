@@ -80,7 +80,7 @@ def get_financial_data(symbol):
     """Lấy dữ liệu báo cáo tài chính (12 quý gần nhất) từ VCI và lưu vào file CSV."""
     try:
         financial_obj = Finance(symbol=symbol)
-        financial_data = financial_obj.ratio(period="quarter", lang="en", flatten_columns=True).head(13)
+        financial_data = financial_obj.ratio(period="quarter", lang="en", flatten_columns=True)
         if financial_data is not None and not financial_data.empty:
             financial_data.to_csv(f"vnstocks_data/{symbol}_financial.csv", index=False)
             print(f"✅ Đã lưu BCTC cho mã {symbol} vào file 'vnstocks_data/{symbol}_financial.csv'")
