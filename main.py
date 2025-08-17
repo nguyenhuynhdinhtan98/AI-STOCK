@@ -344,7 +344,7 @@ def train_lstm_model(df, symbol):
             dropout= 0.3
         ).to(device) # Chuyển mô hình lên thiết bị (MPS/CUDA/CPU)
         loss_function = nn.MSELoss()
-        optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+        optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
         print(f"🚀 Đang huấn luyện mô hình AI nâng cao hơn cho {symbol} trên {device} (Epochs: {GLOBAL_EPOCHS}, Seq Len: {GLOBAL_SEQ_LENGTH})...")
         model.train()
