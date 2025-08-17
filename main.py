@@ -319,6 +319,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
             }
         # Vẽ biểu đồ phân tích kỹ thuật
+
         try:
             plot_configs = ["price_sma", "ichimoku", "rsi", "macd", "rs", "rs_point", "rs_point_252", "volume"]
             num_subplots = len(plot_configs)
@@ -326,19 +327,41 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             width = 18
             height = num_subplots * height_per_subplot
             plt.figure(figsize=(width, height), constrained_layout=True)
-            grid = plt.GridSpec(num_subplots + 1, 1, hspace=0.3, height_ratios=[3] + [2] * (num_subplots - 1) + [2])
+
+            grid = plt.GridSpec(9, 1, hspace=0.3, height_ratios=[3, 3, 2, 2, 2, 2, 2, 2])
+
             # === Biểu đồ 1: Giá và các đường trung bình ===
             ax1 = plt.subplot(grid[0])
-            plt.plot(df.index, df["Close"], label=f"Giá đóng cửa {df['Close'].iloc[-1]:,.0f}", color="black", linewidth=1.5)
-            plt.plot(df.index, df["SMA_10"], label=f"SMA 10 {df['SMA_10'].iloc[-1]:,.0f}", color="blue", alpha=0.7)
-            plt.plot(df.index, df["SMA_20"], label=f"SMA 20 {df['SMA_20'].iloc[-1]:,.0f}", color="orange", alpha=0.7)
-            plt.plot(df.index, df["SMA_50"], label=f"SMA 50 {df['SMA_50'].iloc[-1]:,.0f}", color="green", alpha=0.7)
-            plt.plot(df.index, df["SMA_200"], label=f"SMA 200 {df['SMA_200'].iloc[-1]:,.0f}", color="purple", alpha=0.7)
-            plt.fill_between(df.index, df["BB_Upper"], df["BB_Lower"], color="gray", alpha=0.1, label="Bollinger Bands")
-            plt.title(f"Biểu đồ giá {symbol}", fontsize=14, fontweight="bold")
+            plt.plot(df.index, df["Close"], label=f"Giá đóng cửa {df['Close'].iloc[-1]:,.2f}", color="#1f77b4",
+                     linewidth=1.5)
+            plt.plot(df.index, df["SMA_10"], label=f"SMA 10 {df['SMA_10'].iloc[-1]:,.2f}", color="blue", alpha=0.7,
+                     linewidth=1)
+            plt.plot(df.index, df["SMA_20"], label=f"SMA 20 {df['SMA_20'].iloc[-1]:,.2f}", color="orange", alpha=0.8,
+                     linewidth=1.5)
+            plt.plot(df.index, df["SMA_50"], label=f"SMA 50 {df['SMA_50'].iloc[-1]:,.2f}", color="green", alpha=0.8,
+                     linewidth=1.5)
+            plt.plot(df.index, df["SMA_200"], label=f"SMA 200 {df['SMA_200'].iloc[-1]:,.2f}", color="purple", alpha=0.8,
+                     linewidth=1.5)
+            plt.plot(df.index, df["BB_upper"], label=f"BB Upper {df['BB_upper'].iloc[-1]:,.2f}", color="red", alpha=0.5,
+                     linestyle="--")
+            plt.plot(df.index, df["BB_lower"], label=f"BB Lower {df['BB_lower'].iloc[-1]:,.2f}", color="green", alpha=0.5,
+                     linestyle="--")
+            plt.fill_between(df.index, df["BB_lower"], df["BB_upper"], color="gray", alpha=0.1)
+
+            cross_10_20_above = (df["SMA_10"] > df["SMA_20"]) & (df["SMA_10"].shift(1) <= df["SMA_20"].shift(1))
+            cross_10_20_below = (df["SMA_10"] < df["SMA_20"]) & (df["SMA_10"].shift(1) >= df["SMA_20"].shift(1))
+            if cross_10_20_above.any():
+                plt.scatter(df.index[cross_10_20_above], df.loc[cross_10_20_above, "SMA_10"], marker="^", color="lime",
+                            s=60, label="SMA10 > SMA20", zorder=5)
+            if cross_10_20_below.any():
+                plt.scatter(df.index[cross_10_20_below], df.loc[cross_10_20_below, "SMA_10"], marker="v", color="magenta",
+                            s=60, label="SMA10 < SMA20", zorder=5)
+
+            plt.suptitle(f"Phân tích kỹ thuật {symbol} - Giá và Chỉ báo", fontsize=16, fontweight="bold", y=0.98)
             plt.ylabel("Giá (VND)", fontsize=12)
-            plt.legend(loc="upper left")
+            plt.legend(loc="upper left", fontsize=10)
             plt.grid(True, alpha=0.3)
+
             # === Biểu đồ 2: Ichimoku Cloud ===
             ax2 = plt.subplot(grid[1], sharex=ax1)
             for i in range(len(df)):
@@ -347,56 +370,92 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                     open_price = (df["Open"].iloc[i] if not pd.isna(df["Open"].iloc[i]) else df["Close"].iloc[i])
                     high_price = (df["High"].iloc[i] if not pd.isna(df["High"].iloc[i]) else df["Close"].iloc[i])
                     low_price = (df["Low"].iloc[i] if not pd.isna(df["Low"].iloc[i]) else df["Close"].iloc[i])
-                    close_price = df["Close"].iloc[i]
-                    color = "green" if close_price >= open_price else "red"
-                    ax2.plot([date, date], [low_price, high_price], color=color, linewidth=1)
-                    ax2.plot([date], [open_price], marker="_", color=color, markersize=4)
-                    ax2.plot([date], [close_price], marker="_", color=color, markersize=4)
-            plt.plot(df.index, df["SMA_20"], label=f"Kijun-sen {df['SMA_20'].iloc[-1]:.0f}", color="red", linewidth=1.5)
-            plt.plot(df.index, df["SMA_50"], label=f"Tenkan-sen {df['SMA_50'].iloc[-1]:.0f}", color="blue", linewidth=1.5)
+                    close_price = (df["Close"].iloc[i] if not pd.isna(df["Close"].iloc[i]) else open_price)
+                    if close_price >= open_price:
+                        color = "green"
+                        bottom = open_price
+                        height = close_price - open_price
+                    else:
+                        color = "red"
+                        bottom = close_price
+                        height = open_price - close_price
+                    if height > 0:
+                        plt.bar(date, height, bottom=bottom, color=color, width=0.6, alpha=0.8)
+                    plt.plot([date, date], [low_price, high_price], color="black", linewidth=0.5)
+
+            plt.plot(df.index, df["ichimoku_tenkan_sen"], label=f"Tenkan-sen {df['ichimoku_tenkan_sen'].iloc[-1]:,.2f}",
+                     color="red", linewidth=1)
+            plt.plot(df.index, df["ichimoku_kijun_sen"], label=f"Kijun-sen {df['ichimoku_kijun_sen'].iloc[-1]:,.2f}",
+                     color="blue", linewidth=1)
+            plt.plot(df.index, df["ichimoku_senkou_span_a"],
+                     label=f"Senkou Span A {df['ichimoku_senkou_span_a'].iloc[-1]:,.2f}", color="green", linewidth=1,
+                     alpha=0.7)
+            plt.plot(df.index, df["ichimoku_senkou_span_b"],
+                     label=f"Senkou Span B {df['ichimoku_senkou_span_b'].iloc[-1]:,.2f}", color="purple", linewidth=1,
+                     alpha=0.7)
+            plt.plot(df.index, df["ichimoku_chikou_span"], label=f"Chikou Span {df['ichimoku_chikou_span'].iloc[-1]:,.2f}",
+                     color="orange", linewidth=1)
+
+            valid_cloud = (df["ichimoku_senkou_span_a"].notna() & df["ichimoku_senkou_span_b"].notna())
+            if valid_cloud.any():
+                plt.fill_between(df.index[valid_cloud], df["ichimoku_senkou_span_a"][valid_cloud],
+                                 df["ichimoku_senkou_span_b"][valid_cloud],
+                                 where=(df["ichimoku_senkou_span_a"][valid_cloud] >= df["ichimoku_senkou_span_b"][valid_cloud]),
+                                 color="green", alpha=0.2, interpolate=True, label="Bullish Cloud")
+                plt.fill_between(df.index[valid_cloud], df["ichimoku_senkou_span_a"][valid_cloud],
+                                 df["ichimoku_senkou_span_b"][valid_cloud],
+                                 where=(df["ichimoku_senkou_span_a"][valid_cloud] < df["ichimoku_senkou_span_b"][valid_cloud]),
+                                 color="red", alpha=0.2, interpolate=True, label="Bearish Cloud")
+
+            plt.plot(df.index, df["Close"], label="Giá đóng cửa", color="black", linewidth=1.5, alpha=0.7)
             plt.title("Ichimoku Cloud", fontsize=12)
-            plt.ylabel("Giá (VND)", fontsize=10)
-            plt.legend(fontsize=8, loc="upper left")
+            plt.ylabel("Giá", fontsize=10)
+            plt.legend(fontsize=7, loc="upper left", ncol=2)
             plt.grid(True, alpha=0.3)
+
             # === Biểu đồ 3: RSI ===
             ax3 = plt.subplot(grid[2], sharex=ax1)
-            plt.plot(df.index, df["RSI"], label=f"RSI {df['RSI'].iloc[-1]:.2f}", color="purple", linewidth=1.5)
-            plt.axhline(70, color="red", linestyle="--", linewidth=0.8, label="Quá mua")
-            plt.axhline(30, color="green", linestyle="--", linewidth=0.8, label="Quá bán")
-            plt.axhline(50, color="black", linestyle="-", linewidth=0.5)
-            plt.fill_between(df.index, df["RSI"], 70, where=(df["RSI"] > 70), color="red", alpha=0.3)
-            plt.fill_between(df.index, df["RSI"], 30, where=(df["RSI"] < 30), color="green", alpha=0.3)
+            plt.plot(df.index, df["RSI"], label=f"RSI {df['RSI'].iloc[-1]:.2f}", color="purple")
+            plt.axhline(70, linestyle="--", color="red", alpha=0.7)
+            plt.axhline(30, linestyle="--", color="green", alpha=0.7)
+            plt.fill_between(df.index, 30, 70, color="gray", alpha=0.1)
             plt.title("RSI", fontsize=12)
             plt.ylabel("RSI", fontsize=10)
-            plt.ylim(0, 100)
-            plt.legend(fontsize=8, loc="upper left")
             plt.grid(True, alpha=0.3)
+            plt.legend(fontsize=7, loc="upper left")
+
             # === Biểu đồ 4: MACD ===
             ax4 = plt.subplot(grid[3], sharex=ax1)
-            plt.plot(df.index, df["MACD"], label=f"MACD {df['MACD'].iloc[-1]:.2f}", color="blue", linewidth=1.5)
-            plt.plot(df.index, df["MACD_Signal"], label=f"Signal {df['MACD_Signal'].iloc[-1]:.2f}", color="red", linewidth=1.5)
-            plt.bar(df.index, df["MACD_Hist"], label=f"Hist {df['MACD_Hist'].iloc[-1]:.2f}",
-                    color=np.where(df["MACD_Hist"] > 0, "green", "red"), alpha=0.6)
-            plt.axhline(0, color="black", linestyle="-", linewidth=0.8)
+            plt.plot(df.index, df["MACD"], label=f"MACD {df['MACD'].iloc[-1]:.2f}", color="blue")
+            plt.plot(df.index, df["MACD_signal"], label=f"Signal Line {df['MACD_signal'].iloc[-1]:.2f}", color="red")
+            plt.bar(df.index, df["MACD_Hist"], color=np.where(df["MACD_Hist"] > 0, "green", "red"), alpha=0.5,
+                    label=f"Hist {df['MACD_Hist'].iloc[-1]:.2f}")
             plt.title("MACD", fontsize=12)
             plt.ylabel("MACD", fontsize=10)
-            plt.legend(fontsize=8, loc="upper left")
+            plt.legend(fontsize=7, loc="upper left")
             plt.grid(True, alpha=0.3)
-            # === Biểu đồ 5: RS (Relative Strength) ===
+
+            # === Biểu đồ 5: RS (Relative Strength vs VNINDEX) ===
             ax5 = plt.subplot(grid[4], sharex=ax1)
-            plt.plot(df.index, df["RS"], label=f"RS {df['RS'].iloc[-1]:.4f}", color="blue", linewidth=1.5)
-            plt.plot(df.index, df["RS_SMA_10"], label=f"RS SMA 10 {df['RS_SMA_10'].iloc[-1]:.4f}", color="orange", alpha=0.7)
-            plt.plot(df.index, df["RS_SMA_20"], label=f"RS SMA 20 {df['RS_SMA_20'].iloc[-1]:.4f}", color="green", alpha=0.7)
-            plt.plot(df.index, df["RS_SMA_50"], label=f"RS SMA 50 {df['RS_SMA_50'].iloc[-1]:.4f}", color="red", alpha=0.7)
-            plt.plot(df.index, df["RS_SMA_200"], label=f"RS SMA 200 {df['RS_SMA_200'].iloc[-1]:.4f}", color="purple", alpha=0.7)
-            plt.axhline(1, color="black", linestyle="-", linewidth=0.8)
-            plt.title("RS (Relative Strength vs VNINDEX)", fontsize=12)
+            plt.plot(df.index, df["RS"], label=f"RS (Price / VNINDEX) {df['RS'].iloc[-1]:.2f}", color="brown",
+                     linewidth=1)
+            plt.plot(df.index, df["RS_SMA_10"], label=f"RS SMA 10 {df['RS_SMA_10'].iloc[-1]:.2f}", color="blue", alpha=0.7,
+                     linewidth=1)
+            plt.plot(df.index, df["RS_SMA_20"], label=f"RS SMA 20 {df['RS_SMA_20'].iloc[-1]:.2f}", color="orange", alpha=0.7,
+                     linewidth=1)
+            plt.plot(df.index, df["RS_SMA_50"], label=f"RS SMA 50 {df['RS_SMA_50'].iloc[-1]:.2f}", color="green", alpha=0.7,
+                     linewidth=1)
+            plt.plot(df.index, df["RS_SMA_200"], label=f"RS SMA 200 {df['RS_SMA_200'].iloc[-1]:.2f}", color="purple", alpha=0.7,
+                     linewidth=1)
+            plt.title("RS vs VNINDEX", fontsize=12)
             plt.ylabel("RS", fontsize=10)
             plt.grid(True, alpha=0.3)
             plt.legend(fontsize=7, loc="upper left")
+
             # === Biểu đồ 6: RS_Point ===
             ax6 = plt.subplot(grid[5], sharex=ax1)
-            plt.plot(df.index, df["RS_Point"], label=f"RS_Point {df['RS_Point'].iloc[-1]:.2f}", color="darkblue", linewidth=1.5)
+            plt.plot(df.index, df["RS_Point"], label=f"RS_Point {df['RS_Point'].iloc[-1]:.2f}", color="darkblue",
+                     linewidth=1.5)
             plt.plot(df.index, df["RS_Point_SMA_10"], label=f"RS_Point SMA 10 {df['RS_Point_SMA_10'].iloc[-1]:.2f}",
                      color="blue", alpha=0.7, linewidth=1)
             plt.plot(df.index, df["RS_Point_SMA_20"], label=f"RS_Point SMA 20 {df['RS_Point_SMA_20'].iloc[-1]:.2f}",
@@ -406,13 +465,14 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             plt.plot(df.index, df["RS_Point_SMA_200"], label=f"RS_Point SMA 200 {df['RS_Point_SMA_200'].iloc[-1]:.2f}",
                      color="purple", alpha=0.7, linewidth=1)
             plt.axhline(0, color="black", linestyle="-", linewidth=0.8)
-            plt.fill_between(df.index, df["RS_Point"], 0, where=(df["RS_Point"] > 0), color="green", alpha=0.2)
-            plt.fill_between(df.index, df["RS_Point"], 0, where=(df["RS_Point"] < 0), color="red", alpha=0.2)
+            plt.fill_between(df.index, df["RS_Point"], 0, where=(df["RS_Point"] > 0), color="green", alpha=0.3)
+            plt.fill_between(df.index, df["RS_Point"], 0, where=(df["RS_Point"] < 0), color="red", alpha=0.3)
             plt.title("RS_Point", fontsize=12)
             plt.ylabel("RS_Point", fontsize=10)
             plt.grid(True, alpha=0.3)
             plt.legend(fontsize=7, loc="upper left")
-            # === Biểu đồ 7: RS_Point_252 ===
+
+               # === Biểu đồ 7: RS_Point_252 ===
             ax7 = plt.subplot(grid[6], sharex=ax1)
             plt.plot(df.index, df["RS_Point_252"], label=f"RS_Point_252 {df['RS_Point_252'].iloc[-1]:.2f}", color="darkgreen",
                      linewidth=1.5)
@@ -431,12 +491,13 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             plt.ylabel("RS_Point_252", fontsize=10)
             plt.grid(True, alpha=0.3)
             plt.legend(fontsize=7, loc="upper left")
+
             # === Biểu đồ 8: Khối lượng ===
             ax8 = plt.subplot(grid[7], sharex=ax1)
             if show_volume and "Volume" in df.columns:
                 volume_sma_plotted = False
                 if ("Volume_MA" in df.columns and not df["Volume_MA"].isna().all()):
-                    plt.plot(df.index, df["Volume_MA"], label=f"Vol SMA 20 {df['Volume_MA'].iloc[-1]:,.0f}",
+                    plt.plot(df.index, df["Volume_MA"], label=f"Vol SMA 10 {df['Volume_MA'].iloc[-1]:,.2f}",
                              color="orange", alpha=0.8, linewidth=1.5)
                     volume_sma_plotted = True
                 colors = np.where(df["Close"] > df["Open"], "green", "red")
@@ -454,15 +515,18 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 plt.title("Khối lượng giao dịch", fontsize=12)
                 plt.ylabel("Khối lượng", fontsize=10)
                 plt.grid(True, alpha=0.3)
-            plt.suptitle(f"Phân tích kỹ thuật {symbol} - Giá và Chỉ báo", fontsize=16, fontweight="bold", y=0.98)
-            technical_plot_path = f"vnstocks_data/{symbol}_analysis.png"
-            plt.savefig(technical_plot_path)
+
+            plt.tight_layout(pad=3.0, h_pad=1.0)
+            plt.subplots_adjust(top=0.95, bottom=0.08, left=0.08, right=0.97, hspace=0.4)
+
+            plt.savefig(f"vnstocks_data/{symbol}_technical_analysis.png", dpi=300, bbox_inches="tight")
             plt.close()
-            print(f"✅ Đã lưu biểu đồ phân tích vào file '{technical_plot_path}'")
+            print(f"✅ Đã lưu biểu đồ phân tích kỹ thuật vào vnstocks_data/{symbol}_technical_analysis.png")
+
         except Exception as e:
-            print(f"⚠️ Cảnh báo: Không thể vẽ biểu đồ cho {symbol}: {e}")
+            print(f"❌ Lỗi khi vẽ biểu đồ: {str(e)}")
             traceback.print_exc()
-            technical_plot_path = ""
+
         # Tạo tín hiệu giao dịch
         try:
             last_row = df.iloc[-1]
@@ -573,13 +637,13 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             # In ra tín hiệu cuối cùng
             analysis_date = df.index[-1].strftime("%d/%m/%Y")
             print(f"\n📊 TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO {symbol} ({analysis_date}):")
-            print(f"  - Giá hiện tại: {current_price:,.0f} VND")
+            print(f"  - Giá hiện tại: {current_price:,.2f} VND")
             print(f"  - Đường trung bình:")
-            print(f"    * MA10: {ma10_value:,.0f} | MA20: {ma20_value:,.0f} | MA50: {ma50_value:,.0f} | MA200: {ma200_value:,.0f}")
+            print(f"    * MA10: {ma10_value:,.2f} | MA20: {ma20_value:,.2f} | MA50: {ma50_value:,.2f} | MA200: {ma200_value:,.2f}")
             print(f"  - Chỉ báo dao động:")
             print(f"    * RSI (14): {rsi_value:.2f}")
             print(f"    * MACD: {macd_value:.2f} | Signal: {macd_signal:.2f} | Histogram: {macd_hist:.2f}")
-            print(f"    * Bollinger Bands: Trên: {bb_upper:,.0f} | Dưới: {bb_lower:,.0f}")
+            print(f"    * Bollinger Bands: Trên: {bb_upper:,.2f} | Dưới: {bb_lower:,.2f}")
             if symbol.upper() != "VNINDEX":
                  print(f"  - Sức mạnh tương đối (RS):")
                  print(f"    * RS: {rs_value:.4f}")
@@ -587,16 +651,16 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                  print(f"    * RS_Point_252: {rs_point_252_value:.2f}")
             try:
                 print(f"  - Mô hình Ichimoku:")
-                print(f"    * Tenkan-sen (Chuyển đổi): {tenkan_sen:.0f}")
-                print(f"    * Kijun-sen (Cơ sở): {kijun_sen:.0f}")
-                print(f"    * Senkou Span A (Leading Span A): {senkou_span_a:.0f}")
-                print(f"    * Senkou Span B (Leading Span B): {senkou_span_b:.0f}")
-                print(f"    * Chikou Span (Trễ): {chikou_span:.0f}")
-                print(f"    * Điểm Ichimoku: ~{ichimoku_score:.1f}")
+                print(f"    * Tenkan-sen (Chuyển đổi): {tenkan_sen:.2f}")
+                print(f"    * Kijun-sen (Cơ sở): {kijun_sen:.2f}")
+                print(f"    * Senkou Span A (Leading Span A): {senkou_span_a:.2f}")
+                print(f"    * Senkou Span B (Leading Span B): {senkou_span_b:.2f}")
+                print(f"    * Chikou Span (Trễ): {chikou_span:.2f}")
+                print(f"    * Điểm Ichimoku: ~{ichimoku_score:.2f}")
             except: print(f"  - Ichimoku: Không có đủ dữ liệu.")
             print(f"  - Khối lượng:")
             print(f"    * Khối lượng hiện tại: {last_row.get('Volume', 'N/A')}")
-            print(f"    * MA Khối lượng (20): {volume_ma:,.0f}")
+            print(f"    * MA Khối lượng (20): {volume_ma:,.2f}")
             print(f"  🎯 ĐỀ XUẤT CUỐI CÙNG: {recommendation}")
             print(f"  📊 TỔNG ĐIỂM PHÂN TÍCH: {score:.1f}/100")
             print(f"  📈 TÍN HIỆU: {signal}")
@@ -726,7 +790,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data):
         else:
             prompt += "2. Tài chính : Không có dữ liệu tài chính."
         prompt += """Yêu cầu:
-- Cho tôi biết nó đang mẫu hình trong phân tích kỹ thuật.
+- Cho tôi biết nó đang mẫu hình nào trong phân tích kỹ thuật.
 - Phân tích ngắn gọn, chuyên nghiệp.
 - Kết luận rõ ràng: MUA MẠNH/MUA/GIỮ/BÁN/BÁN MẠNH.
 - Phân tích dựa trên kỹ thuật và phân tích tài chính."""
@@ -741,7 +805,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data):
             else: print(f"⚠️ Gemini không hỗ trợ file: {technical_plot_path}. Bỏ qua.")
 
         # Gửi prompt và files (ảnh) cho Gemini
-        model = genai.GenerativeModel("gemini-2.5-flash")
+        model = genai.GenerativeModel("gemini-2.5-pro")
         if files:
             uploaded_files = []
             for file_path in files:
