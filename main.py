@@ -933,7 +933,6 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
     """Lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao."""
     try:
         df = Screener().stock(params={"exchangeName": "HOSE,HNX,UPCOM"}, limit=1700)
-        df.to_csv("market.csv", index=False, encoding="utf-8-sig")
         if df is None or df.empty:
             print("❌ Không thể lấy dữ liệu danh sách công ty niêm yết.")
             return None
@@ -942,7 +941,7 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
                          (df['pe'] < 20) &
                          (df['pb'] > 0) &
                          (df['doe'] < 2)]
-
+        filtered_df.to_csv("market.csv", index=False, encoding="utf-8-sig")
         return filtered_df
     except Exception as e:
         print(f"❌ Đã xảy ra lỗi trong quá trình lọc cổ phiếu: {e}")
