@@ -18,16 +18,13 @@ import traceback
 from vnstock.explorer.vci import Quote, Finance
 import matplotlib.dates as mdates
 import mplfinance as mpf
-
 # --- Thêm imports cho AI ---
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 # --- Thêm import cho tiến trình ---
 from tqdm import tqdm
-
 warnings.filterwarnings("ignore")
-
 # --- Cấu hình AI toàn cục ---
 # Kiểm tra xem có GPU hỗ trợ MPS (Mac Silicon) hoặc CUDA (NVIDIA) không, nếu có thì dùng GPU, nếu không thì dùng CPU
 if torch.backends.mps.is_available():
@@ -39,18 +36,16 @@ elif torch.cuda.is_available():
 else:
     device = torch.device("cpu")
     print("💻 Đang sử dụng thiết bị cho AI: CPU")
-
 # --- Cấu hình toàn cục cho phân tích dữ liệu ---
 # Thời gian lấy dữ liệu (ĐÃ THAY ĐỔI THÀNH 10 NĂM)
 GLOBAL_START_DATE = (datetime.today() - timedelta(days=365 * 10)).strftime("%Y-%m-%d") # Lấy dữ liệu 10 năm gần nhất
 GLOBAL_END_DATE = datetime.today().strftime("%Y-%m-%d")
-
-# --- Cấu hình toàn cục cho mô hình AI LSTM ---
+# --- Cấu hình toàn cục cho mô hình AI N-BEATS ---
 GLOBAL_EPOCHS = 50       # Số vòng lặp huấn luyện
 GLOBAL_BATCH_SIZE = 64    # Kích thước lô dữ liệu
-GLOBAL_SEQ_LENGTH = 2000   # Độ dài chuỗi dữ liệu đầu vào cho mỗi lần dự đoán
-GLOBAL_FORECAST_DAYS = 10 # Số ngày dự báo tương lai
-
+GLOBAL_SEQ_LENGTH = 50   # Độ dài chuỗi dữ liệu đầu vào cho mỗi lần dự đoán (N-BEATS thường dùng chuỗi ngắn hơn)
+GLOBAL_PRED_LENGTH = 10  # Số ngày dự báo tương lai trong mỗi bước dự báo (phải <= GLOBAL_FORECAST_DAYS)
+GLOBAL_FORECAST_DAYS = 10 # Tổng số ngày dự báo tương lai
 # --- Cấu hình API và thư mục lưu trữ ---
 load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") # Khóa API cho Google Gemini
@@ -58,7 +53,6 @@ if not GOOGLE_API_KEY:
     raise ValueError("Vui lòng đặt GOOGLE_API_KEY trong file .env")
 genai.configure(api_key=GOOGLE_API_KEY)
 os.makedirs("vnstocks_data", exist_ok=True) # Tạo thư mục lưu trữ dữ liệu nếu chưa tồn tại
-
 # --- Hàm tiện ích ---
 def safe_float(val):
     """Chuyển đổi giá trị sang float an toàn, trả về None nếu không hợp lệ."""
@@ -68,7 +62,6 @@ def safe_float(val):
         return float(val)
     except (TypeError, ValueError):
         return None
-
 def safe_format(val, fmt=".2f"):
     """Định dạng giá trị float an toàn, trả về 'N/A' nếu không hợp lệ."""
     try:
@@ -77,6 +70,315 @@ def safe_format(val, fmt=".2f"):
         return f"{val:{fmt}}"
     except (TypeError, ValueError):
         return "N/A"
+
+# --- Mô hình AI dự báo giá (N-BEATS) ---
+class TimeSeriesDataset(Dataset):
+    """Dataset cho mô hình N-BEATS."""
+    def __init__(self, data, seq_length, pred_length):
+        self.data = data
+        self.seq_length = seq_length
+        self.pred_length = pred_length
+
+    def __len__(self):
+        # Đảm bảo có đủ dữ liệu cho cả input và output
+        return len(self.data) - self.seq_length - self.pred_length + 1
+
+    def __getitem__(self, idx):
+        # X[idx] là chuỗi đầu vào (seq_length điểm)
+        # Y[idx] là chuỗi đầu ra (pred_length điểm) ngay sau chuỗi đầu vào
+        x = self.data[idx : idx + self.seq_length]
+        y = self.data[idx + self.seq_length : idx + self.seq_length + self.pred_length]
+        return torch.FloatTensor(x), torch.FloatTensor(y)
+
+# --- Mô hình N-BEATS ---
+# Các block cấu thành N-BEATS
+class NBeatsBlock(nn.Module):
+    def __init__(self, input_size, theta_size, basis_function, layers=[512, 512], layer_dropout=0.5):
+        super().__init__()
+        self.layers = nn.ModuleList([nn.Linear(in_features=input_size, out_features=layers[0])])
+        for i in range(len(layers) - 1):
+            self.layers.append(nn.Linear(in_features=layers[i], out_features=layers[i + 1]))
+
+        self.basis_function = basis_function
+        self.layer_dropout = nn.Dropout(p=layer_dropout)
+        self.theta_layer = nn.Linear(in_features=layers[-1], out_features=theta_size)
+        
+    def forward(self, x):
+        # x shape: (batch, seq_len)
+        batch_size = x.shape[0]
+        for layer in self.layers:
+            x = torch.relu(layer(x))
+            x = self.layer_dropout(x)
+        theta = self.theta_layer(x) # (batch, theta_size)
+        backcast, forecast = self.basis_function(theta, batch_size)
+        return backcast, forecast
+
+# Hàm cơ sở tuyến tính cho Trend Block
+class TrendBasisFunction(nn.Module):
+    def __init__(self, degree_of_polynomial, backcast_size, forecast_size):
+        super().__init__()
+        self.degree_of_polynomial = degree_of_polynomial
+        self.backcast_size = backcast_size
+        self.forecast_size = forecast_size
+        
+        # Tạo ma trận hệ số cơ sở cho trend (shape: [degree_of_polynomial, backcast_size])
+        trend_coefficients_np = np.array([
+            np.power(np.arange(backcast_size, dtype=np.float32) / backcast_size, i)
+            for i in range(degree_of_polynomial)
+        ], dtype=np.float32) # Shape: [degree_of_polynomial, backcast_size]
+        # Sử dụng register_buffer để tensor này được chuyển device cùng model và không cần tính gradient
+        self.register_buffer('trend_coefficients', torch.from_numpy(trend_coefficients_np)) 
+
+        # Tạo ma trận hệ số cơ sở cho forecast (shape: [degree_of_polynomial, forecast_size])
+        trend_coefficients_f_np = np.array([
+            np.power(np.arange(forecast_size, dtype=np.float32) / forecast_size, i)
+            for i in range(degree_of_polynomial)
+        ], dtype=np.float32) # Shape: [degree_of_polynomial, forecast_size]
+        self.register_buffer('trend_coefficients_f', torch.from_numpy(trend_coefficients_f_np))
+
+    def forward(self, theta, batch_size):
+        # theta: (batch, degree_of_polynomial) e.g., [64, 4]
+        # self.trend_coefficients: (degree_of_polynomial, backcast_size) e.g., [4, 50]
+        # self.trend_coefficients_f: (degree_of_polynomial, forecast_size) e.g., [4, 10]
+
+        # backcast = theta @ self.trend_coefficients
+        # torch.matmul(tensor1: [..., n, k], tensor2: [..., k, m]) -> [..., n, m]
+        # theta: [batch, degree_of_polynomial]
+        # trend_coefficients: [degree_of_polynomial, backcast_size]
+        # Result: [batch, backcast_size]
+        backcast = torch.matmul(theta, self.trend_coefficients) # (batch, backcast_size)
+        forecast = torch.matmul(theta, self.trend_coefficients_f) # (batch, forecast_size)
+        
+        return backcast, forecast
+
+# Hàm cơ sở tuần hoàn cho Seasonality Block
+class SeasonalityBasisFunction(nn.Module):
+    def __init__(self, harmonics, backcast_size, forecast_size):
+        super().__init__()
+        self.harmonics = harmonics
+        self.backcast_size = backcast_size
+        self.forecast_size = forecast_size
+        # Tính toán theta_size dựa trên số lượng harmonics
+        # theta_size = 1 (hằng số) + 2 * harmonics (cos, sin cho mỗi harmonic)
+        self.theta_size = 2 * harmonics + 1 
+        
+        # Tạo ma trận hệ số cơ sở cho backcast (shape: [theta_size, backcast_size])
+        backcast_template = np.zeros((self.theta_size, backcast_size), dtype=np.float32)
+        backcast_grid = np.arange(backcast_size, dtype=np.float32) / backcast_size # [0, 1/size, ..., (size-1)/size]
+
+        # Thành phần hằng số (index 0)
+        backcast_template[0, :] = 1.0
+        
+        # Thành phần cosine và sine
+        # Lặp từ 1 đến harmonics để tạo các cặp cos/sin
+        for i in range(1, harmonics + 1):
+            freq = i / backcast_size # Tần số chuẩn hóa cho backcast
+            # Cosine cho harmonic i (index 2*i - 1)
+            backcast_template[2 * i - 1, :] = np.cos(2 * np.pi * freq * backcast_grid)
+            # Sine cho harmonic i (index 2*i)
+            backcast_template[2 * i, :] = np.sin(2 * np.pi * freq * backcast_grid)
+            
+        # Đăng ký như buffer để tensor này được chuyển device cùng model và không cần tính gradient
+        self.register_buffer('backcast_template', torch.from_numpy(backcast_template)) # Shape: [theta_size, backcast_size]
+
+        # Tạo ma trận hệ số cơ sở cho forecast (shape: [theta_size, forecast_size])
+        forecast_template = np.zeros((self.theta_size, forecast_size), dtype=np.float32)
+        forecast_grid = np.arange(forecast_size, dtype=np.float32) / forecast_size
+
+        # Thành phần hằng số
+        forecast_template[0, :] = 1.0
+        
+        # Thành phần cosine và sine cho forecast
+        for i in range(1, harmonics + 1):
+            freq = i / forecast_size # Tần số chuẩn hóa cho forecast
+            forecast_template[2 * i - 1, :] = np.cos(2 * np.pi * freq * forecast_grid)
+            forecast_template[2 * i, :] = np.sin(2 * np.pi * freq * forecast_grid)
+            
+        self.register_buffer('forecast_template', torch.from_numpy(forecast_template)) # Shape: [theta_size, forecast_size]
+
+    def forward(self, theta, batch_size):
+        # theta: (batch, theta_size) e.g., [64, 9] if harmonics=4 (theta_size = 2*4+1 = 9)
+        # self.backcast_template: (theta_size, backcast_size) e.g., [9, 50]
+        # self.forecast_template: (theta_size, forecast_size) e.g., [9, 10]
+
+        # Thực hiện phép nhân ma trận: theta @ template
+        # torch.matmul(tensor1: [..., n, k], tensor2: [..., k, m]) -> [..., n, m]
+        # theta: [batch, theta_size]
+        # backcast_template: [theta_size, backcast_size]
+        # Result backcast: [batch, backcast_size]
+        backcast = torch.matmul(theta, self.backcast_template) # (batch, backcast_size)
+        forecast = torch.matmul(theta, self.forecast_template) # (batch, forecast_size)
+        
+        return backcast, forecast
+
+
+class NBeatsNet(nn.Module):
+    def __init__(self, backcast_length, forecast_length,
+                 stack_types=['trend', 'seasonality'], nb_blocks_per_stack=[3, 3],
+                 thetas_dims=[4, 8], share_weights_in_stack=False,
+                 hidden_layer_sizes=[[256, 256]] * 2):
+        super().__init__()
+        self.backcast_length = backcast_length
+        self.forecast_length = forecast_length
+        self.stack_types = stack_types
+        self.nb_blocks_per_stack = nb_blocks_per_stack
+        self.thetas_dims = thetas_dims
+        self.share_weights_in_stack = share_weights_in_stack
+        self.hidden_layer_sizes = hidden_layer_sizes
+
+        self.blocks = nn.ModuleList()
+
+        for stack_id, stack_type in enumerate(stack_types):
+            for block_id in range(nb_blocks_per_stack[stack_id]):
+                # Xác định hàm cơ sở
+                if stack_type == 'trend':
+                    basis_function = TrendBasisFunction(thetas_dims[stack_id], backcast_length, forecast_length)
+                elif stack_type == 'seasonality':
+                    basis_function = SeasonalityBasisFunction(thetas_dims[stack_id], backcast_length, forecast_length)
+                else:
+                    raise ValueError(f'Unknown stack type {stack_type}')
+
+                # Nếu share_weights_in_stack, chỉ tạo một block và dùng lại
+                if share_weights_in_stack and block_id > 0:
+                    # Không thêm block mới, sử dụng lại block đầu tiên của stack này
+                    continue
+                else:
+                    # Tạo block mới
+                    block = NBeatsBlock(input_size=backcast_length,
+                                        theta_size=thetas_dims[stack_id],
+                                        basis_function=basis_function,
+                                        layers=hidden_layer_sizes[stack_id])
+                    self.blocks.append(block)
+
+    def forward(self, x):
+        # x shape: (batch, backcast_length)
+        residuals = x.flip(dims=(1,)) # Đảo ngược chuỗi đầu vào để dự báo từ cuối
+        forecast = torch.zeros(size=(x.size(0), self.forecast_length), device=x.device) # (batch, forecast_length)
+
+        for i, block in enumerate(self.blocks):
+            backcast, block_forecast = block(residuals)
+            residuals = residuals - backcast
+            forecast = forecast + block_forecast
+
+        point_forecast = forecast
+        return point_forecast
+
+
+def train_nbeats_model(df, symbol):
+    """Huấn luyện mô hình N-BEATS và dự báo giá."""
+    try:
+        print(f"🤖 Đang chuẩn bị dữ liệu cho mô hình AI N-BEATS của {symbol}...")
+        data = df[['Close']].values.astype(float)
+        scaler = MinMaxScaler(feature_range=(-1, 1))
+        scaled_data = scaler.fit_transform(data).flatten() # Chuyển thành 1D array
+
+        # Kiểm tra độ dài dữ liệu
+        if len(scaled_data) < GLOBAL_SEQ_LENGTH + GLOBAL_PRED_LENGTH:
+             print(f"❌ Dữ liệu cho {symbol} không đủ để huấn luyện N-BEATS (cần ít nhất {GLOBAL_SEQ_LENGTH + GLOBAL_PRED_LENGTH} điểm).")
+             return [], [], ""
+
+        dataset = TimeSeriesDataset(scaled_data, GLOBAL_SEQ_LENGTH, GLOBAL_PRED_LENGTH)
+        
+        # Điều chỉnh batch_size nếu dữ liệu quá nhỏ để tránh lỗi
+        adjusted_batch_size = min(GLOBAL_BATCH_SIZE, len(dataset)) if len(dataset) > 0 else 1
+        if adjusted_batch_size < 1:
+            adjusted_batch_size = 1
+        train_loader = DataLoader(dataset, batch_size=adjusted_batch_size, shuffle=True)
+
+        # --- Khởi tạo mô hình N-BEATS ---
+        model = NBeatsNet(
+            backcast_length=GLOBAL_SEQ_LENGTH,
+            forecast_length=GLOBAL_PRED_LENGTH,
+            stack_types=['trend', 'seasonality'],
+            nb_blocks_per_stack=[3, 3],
+            thetas_dims=[4, 8],
+            hidden_layer_sizes=[[512, 512], [512, 512]]
+        ).to(device)
+        
+        loss_function = nn.MSELoss()
+        optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
+        print(f"🚀 Đang huấn luyện mô hình AI N-BEATS cho {symbol} trên {device} (Epochs: {GLOBAL_EPOCHS}, Seq Len: {GLOBAL_SEQ_LENGTH}, Pred Len: {GLOBAL_PRED_LENGTH})...")
+        model.train()
+        
+        # --- Thêm tiến trình hoàn thành ---
+        progress_bar = tqdm(range(GLOBAL_EPOCHS), desc='Epochs')
+        for epoch in progress_bar:
+            epoch_loss = 0.0
+            num_batches = 0
+            for seq, labels in train_loader:
+                optimizer.zero_grad()
+                # --- Chuyển dữ liệu lên thiết bị ---
+                seq, labels = seq.to(device), labels.to(device) # seq: (batch, seq_len), labels: (batch, pred_len)
+                y_pred = model(seq) # y_pred: (batch, pred_len)
+                single_loss = loss_function(y_pred, labels)
+                single_loss.backward()
+                optimizer.step()
+                epoch_loss += single_loss.item()
+                num_batches += 1
+            avg_loss = epoch_loss / num_batches if num_batches > 0 else 0
+            # Cập nhật mô tả thanh tiến trình
+            progress_bar.set_postfix({'Avg Loss': f'{avg_loss:.6f}'})
+
+        print(f"\n🔮 Đang dự báo giá {GLOBAL_FORECAST_DAYS} ngày tới cho {symbol}...")
+
+        model.eval()
+        all_forecasts = []
+        
+        # Lấy chuỗi dữ liệu cuối cùng để bắt đầu dự báo
+        last_seq_full = scaled_data[-(GLOBAL_SEQ_LENGTH + GLOBAL_PRED_LENGTH):] # Lấy đủ dữ liệu để bắt đầu
+        
+        # Dự báo từng bước
+        current_input_seq = last_seq_full[:GLOBAL_SEQ_LENGTH] # (seq_len,)
+        
+        days_forecasted = 0
+        while days_forecasted < GLOBAL_FORECAST_DAYS:
+            with torch.no_grad():
+                # --- Chuyển dữ liệu đầu vào lên thiết bị ---
+                seq_tensor = torch.FloatTensor(current_input_seq).unsqueeze(0).to(device) # (1, seq_len)
+                # Dự báo GLOBAL_PRED_LENGTH ngày tiếp theo
+                pred_chunk = model(seq_tensor).cpu().numpy().flatten() # (pred_len,)
+                
+                # Lấy số ngày cần thêm (không vượt quá GLOBAL_FORECAST_DAYS)
+                days_to_add = min(GLOBAL_PRED_LENGTH, GLOBAL_FORECAST_DAYS - days_forecasted)
+                all_forecasts.extend(pred_chunk[:days_to_add])
+                days_forecasted += days_to_add
+                
+                if days_forecasted >= GLOBAL_FORECAST_DAYS:
+                    break
+
+                # Cập nhật chuỗi đầu vào cho bước tiếp theo
+                # Loại bỏ 'days_to_add' phần tử đầu tiên và thêm 'days_to_add' phần tử dự báo mới
+                current_input_seq = np.concatenate([current_input_seq[days_to_add:], pred_chunk[:days_to_add]])
+
+        # Chuyển đổi giá dự báo về miền giá gốc
+        forecast_prices = scaler.inverse_transform(np.array(all_forecasts).reshape(-1, 1)).flatten()
+        
+        last_date = df.index[-1]
+        forecast_dates = pd.date_range(start=last_date + timedelta(days=1), periods=GLOBAL_FORECAST_DAYS, freq='D')
+
+        # Vẽ biểu đồ dự báo
+        plt.figure(figsize=(12, 6))
+        history_plot = df['Close'].tail(60)
+        plt.plot(history_plot.index, history_plot.values, label='Giá thực tế (60 ngày)', color='blue')
+        plt.plot(forecast_dates, forecast_prices, label=f'Dự báo {GLOBAL_FORECAST_DAYS} ngày (N-BEATS)', color='red', marker='o')
+        plt.title(f'Dự báo giá {symbol} trong {GLOBAL_FORECAST_DAYS} ngày tới (N-BEATS)')
+        plt.xlabel('Ngày')
+        plt.ylabel('Giá (VND)')
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+        forecast_plot_path = f"vnstocks_data/{symbol}_forecast.png"
+        plt.savefig(forecast_plot_path)
+        plt.close()
+        print(f"✅ Đã lưu biểu đồ dự báo vào {forecast_plot_path}")
+        return forecast_dates.tolist(), forecast_prices.tolist(), forecast_plot_path
+
+    except Exception as e:
+        print(f"❌ Lỗi khi huấn luyện/dự báo với AI N-BEATS cho {symbol}: {e}")
+        traceback.print_exc()
+        return [], [], ""
+
 
 # --- Hàm lấy dữ liệu ---
 def get_stock_data(symbol):
@@ -101,7 +403,6 @@ def get_stock_data(symbol):
     except Exception as e:
         print(f"❌ Exception khi lấy dữ liệu cho mã {symbol}: {str(e)}")
         return None
-
 def get_financial_data(symbol):
     """Lấy dữ liệu báo cáo tài chính (12 quý gần nhất) từ VCI và lưu vào file CSV."""
     try:
@@ -117,7 +418,6 @@ def get_financial_data(symbol):
     except Exception as e:
         print(f"❌ Lỗi khi lấy BCTC cho {symbol}: {str(e)}")
         return None
-
 def get_market_data():
     """Lấy dữ liệu lịch sử của VNINDEX từ VCI và lưu vào file CSV."""
     try:
@@ -140,7 +440,6 @@ def get_market_data():
     except Exception as e:
         print(f"❌ Lỗi khi lấy dữ liệu thị trường (VNINDEX): {str(e)}")
         return None
-
 # --- Tiền xử lý dữ liệu ---
 def preprocess_stock_data(df):
     """Tiền xử lý dữ liệu giá cổ phiếu cơ bản (sắp xếp, xử lý NaN, tính returns, MA)."""
@@ -153,7 +452,6 @@ def preprocess_stock_data(df):
     df["MA_50"] = df["Close"].rolling(window=50).mean()
     df["volatility"] = df["returns"].rolling(window=10).std()
     return df
-
 def create_features(df):
     """Tạo các chỉ báo kỹ thuật sử dụng thư viện 'ta'."""
     df["SMA_10"] = ta.trend.sma_indicator(df["Close"], window=10)
@@ -169,7 +467,6 @@ def create_features(df):
     df["BB_Upper"], df["BB_Middle"], df["BB_Lower"] = ta.volatility.bollinger_hband_indicator(df["Close"]), ta.volatility.bollinger_mavg(df["Close"]), ta.volatility.bollinger_lband_indicator(df["Close"])
     df["Volume_MA"] = df["Volume"].rolling(window=20).mean()
     return df
-
 # --- Tính toán Relative Strength ---
 def calculate_relative_strength(df_stock, df_index):
     """Tính Relative Strength (RS) và các chỉ báo RS Point theo công thức tiêu chuẩn."""
@@ -193,20 +490,14 @@ def calculate_relative_strength(df_stock, df_index):
         df_stock["RS_Point_252_SMA_50"] = 0.0
         df_stock["RS_Point_252_SMA_200"] = 0.0
         return df_stock
-
     df_merged["Index_Close"] = df_merged["Index_Close"].ffill().bfill()
-
-    # Tính RS = (P(t)/P(t-1)) / (Index(t)/Index(t-1))
-    price_ratio = df_merged["Close"] / df_merged["Close"].shift(1)
-    index_ratio = df_merged["Index_Close"] / df_merged["Index_Close"].shift(1)
-    df_merged["RS"] = np.where(index_ratio != 0, price_ratio / index_ratio, 1.0)
-
+    # Tính RS
+    df_merged["RS"] = df_merged["Close"] / df_merged["Index_Close"]
     # Tính các thành phần ROC cho RS_Point
     roc_63 = (df_merged["Close"] / df_merged["Close"].shift(63) - 1) * 100
     roc_126 = (df_merged["Close"] / df_merged["Close"].shift(126) - 1) * 100
     roc_189 = (df_merged["Close"] / df_merged["Close"].shift(189) - 1) * 100
     roc_252_for_rs_point = (df_merged["Close"] / df_merged["Close"].shift(252) - 1) * 100
-
     # Tính RS_Point theo công thức: (ROC(63)*0.4 + ROC(126)*0.2 + ROC(189)*0.2 + ROC(252)*0.2)
     # Vì ROC đã được nhân 100, kết quả không cần nhân thêm.
     df_merged["RS_Point"] = (
@@ -215,26 +506,21 @@ def calculate_relative_strength(df_stock, df_index):
         roc_189.fillna(0) * 0.2 +
         roc_252_for_rs_point.fillna(0) * 0.2
     )
-
     # Tính RS_Point_252 = ((C / Ref(C, -252)) - 1) * 100
     df_merged["RS_Point_252"] = ((df_merged["Close"] / df_merged["Close"].shift(252)) - 1) * 100
-
     # Tính các đường trung bình cho RS, RS_Point, RS_Point_252
     df_merged["RS_SMA_10"] = ta.trend.sma_indicator(df_merged["RS"], window=10)
     df_merged["RS_SMA_20"] = ta.trend.sma_indicator(df_merged["RS"], window=20)
     df_merged["RS_SMA_50"] = ta.trend.sma_indicator(df_merged["RS"], window=50)
     df_merged["RS_SMA_200"] = ta.trend.sma_indicator(df_merged["RS"], window=200)
-
     df_merged["RS_Point_SMA_10"] = ta.trend.sma_indicator(df_merged["RS_Point"], window=10)
     df_merged["RS_Point_SMA_20"] = ta.trend.sma_indicator(df_merged["RS_Point"], window=20)
     df_merged["RS_Point_SMA_50"] = ta.trend.sma_indicator(df_merged["RS_Point"], window=50)
     df_merged["RS_Point_SMA_200"] = ta.trend.sma_indicator(df_merged["RS_Point"], window=200)
-
     df_merged["RS_Point_252_SMA_10"] = ta.trend.sma_indicator(df_merged["RS_Point_252"], window=10)
     df_merged["RS_Point_252_SMA_20"] = ta.trend.sma_indicator(df_merged["RS_Point_252"], window=20)
     df_merged["RS_Point_252_SMA_50"] = ta.trend.sma_indicator(df_merged["RS_Point_252"], window=50)
     df_merged["RS_Point_252_SMA_200"] = ta.trend.sma_indicator(df_merged["RS_Point_252"], window=200)
-
     # Gán các chỉ báo trở lại dataframe gốc
     cols_to_join = [
         "RS", "RS_Point", "RS_Point_252",
@@ -243,7 +529,6 @@ def calculate_relative_strength(df_stock, df_index):
         "RS_Point_252_SMA_10", "RS_Point_252_SMA_20", "RS_Point_252_SMA_50", "RS_Point_252_SMA_200"
     ]
     df_stock = df_stock.join(df_merged[cols_to_join], how="left")
-
     # Xử lý giá trị NaN
     df_stock["RS"].fillna(1.0, inplace=True)
     df_stock["RS_Point"].fillna(0.0, inplace=True)
@@ -260,154 +545,7 @@ def calculate_relative_strength(df_stock, df_index):
     df_stock["RS_Point_252_SMA_20"].fillna(0.0, inplace=True)
     df_stock["RS_Point_252_SMA_50"].fillna(0.0, inplace=True)
     df_stock["RS_Point_252_SMA_200"].fillna(0.0, inplace=True)
-
     return df_stock
-
-# --- Mô hình AI dự báo giá (LSTM nâng cao hơn) ---
-class StockDataset(Dataset):
-    """Dataset cho mô hình LSTM."""
-    def __init__(self, data, seq_length):
-        self.data = data
-        self.seq_length = seq_length
-
-    def __len__(self):
-        return len(self.data) - self.seq_length
-
-    def __getitem__(self, idx):
-        return (torch.FloatTensor(self.data[idx:idx+self.seq_length]),
-                torch.FloatTensor(self.data[idx+self.seq_length:idx+self.seq_length+1]))
-
-# --- Mô hình LSTM nâng cao hơn với nhiều lớp và tham số điều chỉnh ---
-class LSTMModelAdvanced(nn.Module):
-    """Mô hình LSTM nâng cao hơn với nhiều lớp LSTM và đầu ra phức tạp hơn."""
-    def __init__(self, input_size=1, hidden_layer_sizes=[128, 64], output_size=1, num_layers_per_block=2, dropout=0.2):
-        super().__init__()
-        self.hidden_layer_sizes = hidden_layer_sizes
-        self.num_blocks = len(hidden_layer_sizes)
-        self.dropout = dropout
-
-        # Tạo các khối LSTM. Mỗi khối có thể có nhiều lớp LSTM chồng lên nhau.
-        self.lstm_blocks = nn.ModuleList()
-        for i in range(self.num_blocks):
-            # Kích thước đầu vào của khối hiện tại
-            in_size = input_size if i == 0 else hidden_layer_sizes[i-1]
-            # Kích thước ẩn của khối hiện tại
-            hidden_size = hidden_layer_sizes[i]
-            # Tạo LSTM với nhiều lớp (layers) trong một khối
-            lstm_block = nn.LSTM(in_size, hidden_size, num_layers=num_layers_per_block,
-                                 batch_first=True, dropout=dropout if num_layers_per_block > 1 else 0)
-            self.lstm_blocks.append(lstm_block)
-
-        # Lớp dropout trước lớp đầu ra
-        self.dropout_layer = nn.Dropout(dropout)
-        # Lớp đầu ra tuyến tính
-        self.linear = nn.Linear(hidden_layer_sizes[-1], output_size)
-
-    def forward(self, input_seq):
-        x = input_seq
-        # Truyền qua từng khối LSTM
-        for lstm_block in self.lstm_blocks:
-            x, _ = lstm_block(x) # x có shape [batch_size, seq_len, hidden_size]
-        # Lấy đầu ra của bước thời gian cuối cùng
-        x = x[:, -1, :] # x có shape [batch_size, hidden_size]
-        # Áp dụng dropout
-        x = self.dropout_layer(x)
-        # Lớp đầu ra
-        predictions = self.linear(x) # predictions có shape [batch_size, output_size]
-        return predictions
-
-def train_lstm_model(df, symbol):
-    """Huấn luyện mô hình LSTM nâng cao hơn và dự báo giá."""
-    try:
-        print(f"🤖 Đang chuẩn bị dữ liệu cho mô hình AI của {symbol}...")
-        data = df[['Close']].values.astype(float)
-        scaler = MinMaxScaler(feature_range=(-1, 1))
-        scaled_data = scaler.fit_transform(data)
-
-        dataset = StockDataset(scaled_data, GLOBAL_SEQ_LENGTH)
-        # Điều chỉnh batch_size nếu dữ liệu quá nhỏ để tránh lỗi
-        # Đảm bảo batch_size tối thiểu là 1 và không vượt quá số lượng mẫu trong dataset
-        adjusted_batch_size = min(GLOBAL_BATCH_SIZE, len(dataset)) if len(dataset) > 0 else 1
-        # Kiểm tra thêm để đảm bảo an toàn tuyệt đối
-        if adjusted_batch_size < 1:
-            adjusted_batch_size = 1
-        train_loader = DataLoader(dataset, batch_size=adjusted_batch_size, shuffle=True)
-
-        # --- CẬP NHẬT: Khởi tạo mô hình LSTM nâng cao hơn với tham số ẩn lớn hơn ---
-        # Ví dụ: hidden_layer_sizes=[128, 64] (2 khối LSTM với 128 và 64 units ẩn)
-        # num_layers_per_block=2 (mỗi khối có 2 lớp LSTM chồng lên nhau)
-        model = LSTMModelAdvanced(
-            input_size = 1,
-            hidden_layer_sizes=[128, 64], # Tăng số lượng units ẩn
-            output_size = 1,
-            num_layers_per_block= 5,       # Thêm lớp LSTM trong mỗi khối
-            dropout= 0.3
-        ).to(device) # Chuyển mô hình lên thiết bị (MPS/CUDA/CPU)
-        loss_function = nn.MSELoss()
-        optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-
-        print(f"🚀 Đang huấn luyện mô hình AI nâng cao hơn cho {symbol} trên {device} (Epochs: {GLOBAL_EPOCHS}, Seq Len: {GLOBAL_SEQ_LENGTH})...")
-        model.train()
-
-        # --- Thêm tiến trình hoàn thành ---
-        progress_bar = tqdm(range(GLOBAL_EPOCHS), desc='Epochs')
-        for epoch in progress_bar:
-            epoch_loss = 0.0
-            num_batches = 0
-            for seq, labels in train_loader:
-                optimizer.zero_grad()
-                # --- CẬP NHẬT: Chuyển dữ liệu lên thiết bị ---
-                seq, labels = seq.to(device), labels.to(device)
-                y_pred = model(seq)
-                single_loss = loss_function(y_pred, labels)
-                single_loss.backward()
-                optimizer.step()
-                epoch_loss += single_loss.item()
-                num_batches += 1
-            avg_loss = epoch_loss / num_batches if num_batches > 0 else 0
-            # Cập nhật mô tả thanh tiến trình
-            progress_bar.set_postfix({'Avg Loss': f'{avg_loss:.6f}'})
-
-        print(f"\n🔮 Đang dự báo giá {GLOBAL_FORECAST_DAYS} ngày tới cho {symbol}...")
-        model.eval()
-        last_seq = scaled_data[-GLOBAL_SEQ_LENGTH:]
-        forecast = []
-        for _ in range(GLOBAL_FORECAST_DAYS):
-            with torch.no_grad():
-                # --- CẬP NHẬT: Chuyển dữ liệu đầu vào lên thiết bị ---
-                seq_tensor = torch.FloatTensor(last_seq).unsqueeze(0).to(device)
-                pred = model(seq_tensor).item()
-                forecast.append(pred)
-                last_seq = np.append(last_seq[1:], [[pred]], axis=0) # Cập nhật chuỗi đầu vào
-
-        forecast_prices = scaler.inverse_transform(np.array(forecast).reshape(-1, 1)).flatten()
-
-        last_date = df.index[-1]
-        forecast_dates = pd.date_range(start=last_date + timedelta(days=1), periods=GLOBAL_FORECAST_DAYS, freq='D')
-
-        # Vẽ biểu đồ dự báo
-        plt.figure(figsize=(12, 6))
-        history_plot = df['Close'].tail(60)
-        plt.plot(history_plot.index, history_plot.values, label='Giá thực tế (60 ngày)', color='blue')
-        plt.plot(forecast_dates, forecast_prices, label=f'Dự báo {GLOBAL_FORECAST_DAYS} ngày', color='red', marker='o')
-        plt.title(f'Dự báo giá {symbol} trong {GLOBAL_FORECAST_DAYS} ngày tới')
-        plt.xlabel('Ngày')
-        plt.ylabel('Giá (VND)')
-        plt.legend()
-        plt.grid(True)
-        plt.tight_layout()
-        forecast_plot_path = f"vnstocks_data/{symbol}_forecast.png"
-        plt.savefig(forecast_plot_path)
-        plt.close()
-        print(f"✅ Đã lưu biểu đồ dự báo vào {forecast_plot_path}")
-
-        return forecast_dates.tolist(), forecast_prices.tolist(), forecast_plot_path
-
-    except Exception as e:
-        print(f"❌ Lỗi khi huấn luyện/dự báo với AI cho {symbol}: {e}")
-        traceback.print_exc()
-        return [], [], []
-
 # --- Phân tích kỹ thuật và vẽ biểu đồ ---
 def plot_stock_analysis(symbol, df, show_volume=True):
     """Phân tích kỹ thuật và vẽ biểu đồ cho mã chứng khoán."""
@@ -431,10 +569,8 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
                 "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
             }
-
         df = df.sort_index()
         df = create_features(df)
-
         # Tính RS (Relative Strength so với VNINDEX)
         if symbol.upper() != "VNINDEX":
             try:
@@ -485,7 +621,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             df["RS_Point_252_SMA_20"] = 0.0
             df["RS_Point_252_SMA_50"] = 0.0
             df["RS_Point_252_SMA_200"] = 0.0
-
         df = df.dropna(subset=["Close", "SMA_10", "SMA_20", "SMA_50"], how="all")
         if len(df) < 20:
             print("❌ Không đủ dữ liệu hợp lệ để phân tích")
@@ -505,7 +640,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
                 "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
             }
-
         # Vẽ biểu đồ phân tích kỹ thuật
         try:
             plot_configs = ["price_sma", "ichimoku", "rsi", "macd", "rs", "rs_point", "rs_point_252", "volume"]
@@ -515,7 +649,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             height = num_subplots * height_per_subplot
             plt.figure(figsize=(width, height), constrained_layout=True)
             grid = plt.GridSpec(num_subplots + 1, 1, hspace=0.3, height_ratios=[3] + [2] * (num_subplots - 1) + [2])
-
             # === Biểu đồ 1: Giá và các đường trung bình ===
             ax1 = plt.subplot(grid[0])
             plt.plot(df.index, df["Close"], label=f"Giá đóng cửa {df['Close'].iloc[-1]:,.0f}", color="black", linewidth=1.5)
@@ -528,7 +661,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             plt.ylabel("Giá (VND)", fontsize=12)
             plt.legend(loc="upper left")
             plt.grid(True, alpha=0.3)
-
             # === Biểu đồ 2: Ichimoku Cloud ===
             ax2 = plt.subplot(grid[1], sharex=ax1)
             for i in range(len(df)):
@@ -548,7 +680,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             plt.ylabel("Giá (VND)", fontsize=10)
             plt.legend(fontsize=8, loc="upper left")
             plt.grid(True, alpha=0.3)
-
             # === Biểu đồ 3: RSI ===
             ax3 = plt.subplot(grid[2], sharex=ax1)
             plt.plot(df.index, df["RSI"], label=f"RSI {df['RSI'].iloc[-1]:.2f}", color="purple", linewidth=1.5)
@@ -562,7 +693,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             plt.ylim(0, 100)
             plt.legend(fontsize=8, loc="upper left")
             plt.grid(True, alpha=0.3)
-
             # === Biểu đồ 4: MACD ===
             ax4 = plt.subplot(grid[3], sharex=ax1)
             plt.plot(df.index, df["MACD"], label=f"MACD {df['MACD'].iloc[-1]:.2f}", color="blue", linewidth=1.5)
@@ -574,7 +704,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             plt.ylabel("MACD", fontsize=10)
             plt.legend(fontsize=8, loc="upper left")
             plt.grid(True, alpha=0.3)
-
             # === Biểu đồ 5: RS (Relative Strength) ===
             ax5 = plt.subplot(grid[4], sharex=ax1)
             plt.plot(df.index, df["RS"], label=f"RS {df['RS'].iloc[-1]:.4f}", color="blue", linewidth=1.5)
@@ -587,7 +716,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             plt.ylabel("RS", fontsize=10)
             plt.grid(True, alpha=0.3)
             plt.legend(fontsize=7, loc="upper left")
-
             # === Biểu đồ 6: RS_Point ===
             ax6 = plt.subplot(grid[5], sharex=ax1)
             plt.plot(df.index, df["RS_Point"], label=f"RS_Point {df['RS_Point'].iloc[-1]:.2f}", color="darkblue", linewidth=1.5)
@@ -606,7 +734,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             plt.ylabel("RS_Point", fontsize=10)
             plt.grid(True, alpha=0.3)
             plt.legend(fontsize=7, loc="upper left")
-
             # === Biểu đồ 7: RS_Point_252 ===
             ax7 = plt.subplot(grid[6], sharex=ax1)
             plt.plot(df.index, df["RS_Point_252"], label=f"RS_Point_252 {df['RS_Point_252'].iloc[-1]:.2f}", color="darkgreen",
@@ -626,7 +753,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             plt.ylabel("RS_Point_252", fontsize=10)
             plt.grid(True, alpha=0.3)
             plt.legend(fontsize=7, loc="upper left")
-
             # === Biểu đồ 8: Khối lượng ===
             ax8 = plt.subplot(grid[7], sharex=ax1)
             if show_volume and "Volume" in df.columns:
@@ -650,18 +776,15 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 plt.title("Khối lượng giao dịch", fontsize=12)
                 plt.ylabel("Khối lượng", fontsize=10)
                 plt.grid(True, alpha=0.3)
-
             plt.suptitle(f"Phân tích kỹ thuật {symbol} - Giá và Chỉ báo", fontsize=16, fontweight="bold", y=0.98)
             technical_plot_path = f"vnstocks_data/{symbol}_analysis.png"
             plt.savefig(technical_plot_path)
             plt.close()
             print(f"✅ Đã lưu biểu đồ phân tích vào file '{technical_plot_path}'")
-
         except Exception as e:
             print(f"⚠️ Cảnh báo: Không thể vẽ biểu đồ cho {symbol}: {e}")
             traceback.print_exc()
             technical_plot_path = ""
-
         # Tạo tín hiệu giao dịch
         try:
             last_row = df.iloc[-1]
@@ -674,20 +797,17 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             rs_value = last_row["RS"] if not pd.isna(last_row["RS"]) else 1.0
             rs_point_value = last_row["RS_Point"] if not pd.isna(last_row["RS_Point"]) else 0.0
             rs_point_252_value = last_row["RS_Point_252"] if not pd.isna(last_row["RS_Point_252"]) else 0.0
-
             macd_value = last_row["MACD"] if not pd.isna(last_row["MACD"]) else 0
             macd_signal = last_row["MACD_Signal"] if not pd.isna(last_row["MACD_Signal"]) else 0
             macd_hist = last_row["MACD_Hist"] if not pd.isna(last_row["MACD_Hist"]) else 0
             bb_upper = last_row["BB_Upper"] if not pd.isna(last_row["BB_Upper"]) else current_price
             bb_lower = last_row["BB_Lower"] if not pd.isna(last_row["BB_Lower"]) else current_price
             volume_ma = last_row["Volume_MA"] if not pd.isna(last_row["Volume_MA"]) else 0
-
             tenkan_sen = last_row["SMA_50"] if not pd.isna(last_row["SMA_50"]) else np.nan
             kijun_sen = last_row["SMA_20"] if not pd.isna(last_row["SMA_20"]) else np.nan
             senkou_span_a = (tenkan_sen + kijun_sen) / 2 if not (pd.isna(tenkan_sen) or pd.isna(kijun_sen)) else np.nan
             senkou_span_b = df["Close"].rolling(window=52).mean().iloc[-26] if len(df) >= 78 else np.nan
             chikou_span = df["Close"].shift(-26).iloc[-1] if len(df) > 26 else np.nan
-
             # Tính điểm tổng hợp
             score = 50 # Điểm cơ bản
             # 1. RSI - 15 điểm
@@ -757,7 +877,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 print(f"⚠️ Cảnh báo: Lỗi khi tính điểm Ichimoku: {e}")
             score += ichimoku_score
             score = np.clip(score, 0, 100)
-
             # Xác định tín hiệu và đề xuất
             signal = "TRUNG LẬP"
             recommendation = "GIỮ"
@@ -773,7 +892,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             elif score <= 35:
                 signal = "BÁN"
                 recommendation = "BÁN"
-
             # In ra tín hiệu cuối cùng
             analysis_date = df.index[-1].strftime("%d/%m/%Y")
             print(f"\n📊 TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO {symbol} ({analysis_date}):")
@@ -804,10 +922,8 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             print(f"  🎯 ĐỀ XUẤT CUỐI CÙNG: {recommendation}")
             print(f"  📊 TỔNG ĐIỂM PHÂN TÍCH: {score:.1f}/100")
             print(f"  📈 TÍN HIỆU: {signal}")
-
-            # --- Huấn luyện AI và dự báo giá ---
-            forecast_dates_list, forecast_prices_list, forecast_plot_path = train_lstm_model(df, symbol)
-
+            # --- Huấn luyện AI và dự báo giá (N-BEATS) ---
+            forecast_dates_list, forecast_prices_list, forecast_plot_path = train_nbeats_model(df, symbol)
             return {
                 "signal": signal, "score": float(score), "current_price": float(current_price),
                 "rsi_value": float(rsi_value),
@@ -841,7 +957,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "forecast_prices": forecast_prices_list,
                 "forecast_plot_path": forecast_plot_path
             }
-
         except Exception as e:
             print(f"❌ Lỗi khi tạo tín hiệu cho {symbol}: {str(e)}")
             traceback.print_exc()
@@ -867,7 +982,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
                 "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
             }
-
     except Exception as e:
         print(f"❌ Lỗi nghiêm trọng khi phân tích {symbol}: {str(e)}")
         traceback.print_exc()
@@ -888,7 +1002,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
             "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
         }
-
 # --- Phân tích bằng Google Gemini ---
 def analyze_with_gemini(symbol, trading_signal, financial_data):
     """Phân tích mã chứng khoán bằng Google Gemini."""
@@ -899,29 +1012,24 @@ def analyze_with_gemini(symbol, trading_signal, financial_data):
         rs_sma20_val = safe_format(trading_signal.get("rs_sma_20"), ".4f")
         rs_sma50_val = safe_format(trading_signal.get("rs_sma_50"), ".4f")
         rs_sma200_val = safe_format(trading_signal.get("rs_sma_200"), ".4f")
-
         rs_point_val = trading_signal["rs_point"]
         rs_point_sma10_val = safe_format(trading_signal.get("rs_point_sma_10"), ".2f")
         rs_point_sma20_val = safe_format(trading_signal.get("rs_point_sma_20"), ".2f")
         rs_point_sma50_val = safe_format(trading_signal.get("rs_point_sma_50"), ".2f")
         rs_point_sma200_val = safe_format(trading_signal.get("rs_point_sma_200"), ".2f")
-
         rs_point_252_val = trading_signal.get("rs_point_252", 0.0)
         rs_point_252_sma10_val = safe_format(trading_signal.get("rs_point_252_sma_10"), ".2f")
         rs_point_252_sma20_val = safe_format(trading_signal.get("rs_point_252_sma_20"), ".2f")
         rs_point_252_sma50_val = safe_format(trading_signal.get("rs_point_252_sma_50"), ".2f")
         rs_point_252_sma200_val = safe_format(trading_signal.get("rs_point_252_sma_200"), ".2f")
-
         tenkan_val = safe_format(trading_signal.get("ichimoku_tenkan_sen"))
         kijun_val = safe_format(trading_signal.get("ichimoku_kijun_sen"))
         senkou_a_val = safe_format(trading_signal.get("ichimoku_senkou_span_a"))
         senkou_b_val = safe_format(trading_signal.get("ichimoku_senkou_span_b"))
         chikou_val = safe_format(trading_signal.get("ichimoku_chikou_span"))
-
         # Lấy đường dẫn ảnh phân tích kỹ thuật và dự báo
-        technical_plot_path = trading_signal.get("forecast_plot_path", "") # Sử dụng forecast_plot_path vì nó được lưu cuối cùng
+        technical_plot_path = f"vnstocks_data/{symbol}_analysis.png" # Sử dụng forecast_plot_path vì nó được lưu cuối cùng
         forecast_plot_path = trading_signal.get("forecast_plot_path", "")
-
         prompt = f"""Bạn là chuyên gia phân tích chứng khoán Việt Nam. Phân tích {symbol}:
 1. Kỹ thuật:
 - Giá: {trading_signal['current_price']:,.2f}
@@ -937,16 +1045,14 @@ def analyze_with_gemini(symbol, trading_signal, financial_data):
             prompt += f"- RS_Point_252: {rs_point_252_val:.2f} (SMA10: {rs_point_252_sma10_val}) (SMA20: {rs_point_252_sma20_val}) (SMA50: {rs_point_252_sma50_val}) (SMA200: {rs_point_252_sma200_val})"
             prompt += f"- Ichimoku: T:{tenkan_val}| K:{kijun_val}| A:{senkou_a_val}| B:{senkou_b_val}| C:{chikou_val}"
         if financial_data is not None and not financial_data.empty:
-            prompt += f"2. Tài chính :\n{financial_data.to_string(index=False)}"
+            prompt += f"2. Tài chính :{financial_data.to_string(index=False)}"
         else:
             prompt += "2. Tài chính : Không có dữ liệu tài chính."
-
         prompt += """Yêu cầu:
 - Cho tôi biết nó đang mẫu hình trong phân tích kỹ thuật.
 - Phân tích ngắn gọn, chuyên nghiệp.
 - Kết luận rõ ràng: MUA MẠNH/MUA/GIỮ/BÁN/BÁN MẠNH.
 - Phân tích dựa trên kỹ thuật và phân tích tài chính."""
-
         # Tạo danh sách files để gửi cho Gemini
         files = []
         if technical_plot_path and os.path.exists(technical_plot_path):
@@ -960,7 +1066,6 @@ def analyze_with_gemini(symbol, trading_signal, financial_data):
                 files.append(forecast_plot_path)
                 print(f"📁 Đính kèm ảnh dự báo giá: {forecast_plot_path}")
             else: print(f"⚠️ Gemini không hỗ trợ file: {forecast_plot_path}. Bỏ qua.")
-
         # Gửi prompt và files (ảnh) cho Gemini
         model = genai.GenerativeModel("gemini-1.5-flash")
         if files:
@@ -981,19 +1086,16 @@ def analyze_with_gemini(symbol, trading_signal, financial_data):
         else:
             print("⚠️ Không có ảnh để đính kèm.")
             response = model.generate_content(prompt)
-
         if response and response.text:
             return response.text.strip()
         else:
             return "Không nhận được phản hồi từ Google Gemini."
-
     except Exception as e:
         import traceback
         print(f"❌ Lỗi khi phân tích bằng Google Gemini cho {symbol}: {str(e)}")
         print("Chi tiết lỗi:")
         traceback.print_exc()
         return "Không thể tạo phân tích bằng Google Gemini tại thời điểm này."
-
 # --- Phân tích một mã cổ phiếu ---
 def analyze_stock(symbol):
     """Phân tích toàn diện một mã chứng khoán."""
@@ -1028,6 +1130,12 @@ def analyze_stock(symbol):
     print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ GOOGLE GEMINI ---")
     print(gemini_analysis)
     print(f"{'='*60}\n")
+
+    # --- Sửa lỗi TypeError: Object of type Timestamp is not JSON serializable ---
+    # Chuyển đổi forecast_dates từ pd.Timestamp sang string
+    forecast_dates_str = [date.strftime("%Y-%m-%d") for date in trading_signal.get("forecast_dates", [])]
+    # --- Kết thúc phần sửa lỗi JSON ---
+
     report = {
         "symbol": symbol, "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "current_price": safe_float(trading_signal.get("current_price")), "signal": trading_signal.get("signal"),
@@ -1038,15 +1146,14 @@ def analyze_stock(symbol):
         "rs": safe_float(trading_signal.get("rs")) if symbol.upper() != "VNINDEX" else None,
         "rs_point": safe_float(trading_signal.get("rs_point")) if symbol.upper() != "VNINDEX" else None,
         "rs_point_252": safe_float(trading_signal.get("rs_point_252")) if symbol.upper() != "VNINDEX" else None,
-        "forecast": list(zip(trading_signal.get("forecast_dates", []), trading_signal.get("forecast_prices", []))),
+        "forecast": list(zip(forecast_dates_str, trading_signal.get("forecast_prices", []))),  # Sử dụng forecast_dates_str
         "ai_recommendation": "Không có", "ai_reason": "Không chạy mô hình AI riêng", "gemini_analysis": gemini_analysis,
     }
-    report.update(trading_signal)
+    # report.update(trading_signal) # Không cập nhật toàn bộ trading_signal vì có thể gây trùng lặp key và lỗi JSON
     with open(f"vnstocks_data/{symbol}_report.json", "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=4)
     print(f"✅ Đã lưu báo cáo phân tích vào file 'vnstocks_data/{symbol}_report.json'")
     return report
-
 # --- Quét danh sách mã cổ phiếu ---
 def screen_stocks_parallel():
     """Quét và phân tích nhiều mã chứng khoán tuần tự (sync)."""
@@ -1105,7 +1212,6 @@ def screen_stocks_parallel():
     else:
         print("❌ Không có kết quả phân tích nào để tạo báo cáo tổng hợp.")
         return None
-
 # --- Lọc cổ phiếu ---
 def filter_stocks_low_pe_high_cap(min_market_cap=500):
     """Lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao."""
@@ -1123,13 +1229,12 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
     except Exception as e:
         print(f"❌ Đã xảy ra lỗi trong quá trình lọc cổ phiếu: {e}")
         return None
-
 # --- Hàm chính ---
 def main():
     """Hàm chính để chạy chương trình."""
     print("=" * 60)
     print("HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM")
-    print("TÍCH HỢP VNSTOCK, GOOGLE GEMINI & AI (LSTM NÂNG CAO)")
+    print("TÍCH HỢP VNSTOCK, GOOGLE GEMINI & AI (N-BEATS)")
     print("=" * 60)
     min_cap = 500
     print(f"🔍 Đang lọc cổ phiếu có P/E thấp và vốn hóa > {min_cap} tỷ VND...")
