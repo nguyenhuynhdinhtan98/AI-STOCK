@@ -167,7 +167,7 @@ def create_features(df):
     df["MACD_Signal"] = ta.trend.ema_indicator(df["MACD"], window=9)
     df["MACD_Hist"] = df["MACD"] - df["MACD_Signal"]
     df["BB_Upper"], df["BB_Middle"], df["BB_Lower"] = ta.volatility.bollinger_hband_indicator(df["Close"]), ta.volatility.bollinger_mavg(df["Close"]), ta.volatility.bollinger_lband_indicator(df["Close"])
-    df["Volume_MA"] = df["Volume"].rolling(window=10).mean()
+    df["Volume_MA"] = df["Volume"].rolling(window=20).mean()
     return df
 
 # --- Tính toán Relative Strength ---
@@ -632,7 +632,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             if show_volume and "Volume" in df.columns:
                 volume_sma_plotted = False
                 if ("Volume_MA" in df.columns and not df["Volume_MA"].isna().all()):
-                    plt.plot(df.index, df["Volume_MA"], label=f"Vol SMA 10 {df['Volume_MA'].iloc[-1]:,.0f}",
+                    plt.plot(df.index, df["Volume_MA"], label=f"Vol SMA 20 {df['Volume_MA'].iloc[-1]:,.0f}",
                              color="orange", alpha=0.8, linewidth=1.5)
                     volume_sma_plotted = True
                 colors = np.where(df["Close"] > df["Open"], "green", "red")
@@ -800,7 +800,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             except: print(f"  - Ichimoku: Không có đủ dữ liệu.")
             print(f"  - Khối lượng:")
             print(f"    * Khối lượng hiện tại: {last_row.get('Volume', 'N/A')}")
-            print(f"    * MA Khối lượng (10): {volume_ma:,.0f}")
+            print(f"    * MA Khối lượng (20): {volume_ma:,.0f}")
             print(f"  🎯 ĐỀ XUẤT CUỐI CÙNG: {recommendation}")
             print(f"  📊 TỔNG ĐIỂM PHÂN TÍCH: {score:.1f}/100")
             print(f"  📈 TÍN HIỆU: {signal}")
