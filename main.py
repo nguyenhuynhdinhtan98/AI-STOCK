@@ -109,7 +109,7 @@ def get_financial_data(symbol):
     """
     try:
         financial_obj = Finance(symbol=symbol)
-        financial_data = financial_obj.ratio(period="quarter", lang="en", flatten_columns=True, limit=12)
+        financial_data = financial_obj.ratio(period="quarter", lang="en", flatten_columns=True).head(13)
         if financial_data is not None and not financial_data.empty:
             financial_data.to_csv(f"vnstocks_data/{symbol}_financial.csv", index=False)
             return financial_data
@@ -178,7 +178,6 @@ def preprocess_stock_data(df):
     df["MA_10"] = df["Close"].rolling(window=10).mean()
     df["MA_50"] = df["Close"].rolling(window=50).mean()
     df["volatility"] = df["returns"].rolling(window=10).std()
-    df.dropna(inplace=True)
     return df
 
 
@@ -223,9 +222,7 @@ def create_features(df):
     senkou_span_b_high = df["High"].rolling(window=senkou_span_b_window).max()
     senkou_span_b_low = df["Low"].rolling(window=senkou_span_b_window).min()
     df["ichimoku_senkou_span_b"] = ((senkou_span_b_high + senkou_span_b_low) / 2).shift(kijun_window)
-    df["ichimoku_chikou_span"] = df["Close"].shift(-kijun_window)
-
-    df.dropna(inplace=True)
+    df["ichimoku_chikou_span"] = df["Close"].shift(kijun_window)
     return df
 
 
@@ -246,16 +243,13 @@ def calculate_relative_strength(df_stock, df_index):
 
     df_merged["Index_Close"] = df_merged["Index_Close"].ffill().bfill()
 
-    # Tính RS theo công thức Amibroker
-    price_ratio = df_merged["Close"] / df_merged["Close"].shift(1)
-    index_ratio = df_merged["Index_Close"] / df_merged["Index_Close"].shift(1)
-    df_merged["RS"] = price_ratio / index_ratio
+    df_merged["RS"] = df_merged["Close"] / df_merged["Index_Close"]
 
     # Tính ROC cho các kỳ hạn
-    roc_63 = df_merged["Close"].pct_change(periods=63) * 100
-    roc_126 = df_merged["Close"].pct_change(periods=126) * 100
-    roc_189 = df_merged["Close"].pct_change(periods=189) * 100
-    roc_252 = df_merged["Close"].pct_change(periods=252) * 100
+    roc_63 = (df_merged["Close"] / df_merged["Close"].shift(63) - 1) * 100
+    roc_126 = (df_merged["Close"] / df_merged["Close"].shift(126) - 1) * 100
+    roc_189 = (df_merged["Close"] / df_merged["Close"].shift(189) - 1) * 100
+    roc_252 = (df_merged["Close"] / df_merged["Close"].shift(252) - 1) * 100
 
     # Tính RS Point theo công thức Amibroker
     df_merged["RS_Point"] = (
@@ -470,15 +464,15 @@ def plot_stock_analysis(symbol, df, show_volume=True):
 
             # === Biểu đồ 5: RS (Relative Strength vs VNINDEX) ===
             ax5 = plt.subplot(grid[4], sharex=ax1)
-            plt.plot(df.index, df["RS"], label=f"RS (Price / VNINDEX) {df['RS'].iloc[-1]:.2f}", color="brown",
+            plt.plot(df.index, df["RS"], label=f"RS (Price / VNINDEX) {df['RS'].iloc[-1]:.10f}", color="brown",
                      linewidth=1.5)
-            plt.plot(df.index, df["RS_SMA_10"], label=f"RS SMA 10 {df['RS_SMA_10'].iloc[-1]:.2f}", color="blue", alpha=0.7,
+            plt.plot(df.index, df["RS_SMA_10"], label=f"RS SMA 10 {df['RS_SMA_10'].iloc[-1]:.10f}", color="blue", alpha=0.7,
                      linewidth=1)
-            plt.plot(df.index, df["RS_SMA_20"], label=f"RS SMA 20 {df['RS_SMA_20'].iloc[-1]:.2f}", color="orange", alpha=0.7,
+            plt.plot(df.index, df["RS_SMA_20"], label=f"RS SMA 20 {df['RS_SMA_20'].iloc[-1]:.10f}", color="orange", alpha=0.7,
                      linewidth=1)
-            plt.plot(df.index, df["RS_SMA_50"], label=f"RS SMA 50 {df['RS_SMA_50'].iloc[-1]:.2f}", color="green", alpha=0.7,
+            plt.plot(df.index, df["RS_SMA_50"], label=f"RS SMA 50 {df['RS_SMA_50'].iloc[-1]:.10f}", color="green", alpha=0.7,
                      linewidth=1)
-            plt.plot(df.index, df["RS_SMA_200"], label=f"RS SMA 200 {df['RS_SMA_200'].iloc[-1]:.2f}", color="purple", alpha=0.7,
+            plt.plot(df.index, df["RS_SMA_200"], label=f"RS SMA 200 {df['RS_SMA_200'].iloc[-1]:.10f}", color="purple", alpha=0.7,
                      linewidth=1)
             plt.title("RS vs VNINDEX", fontsize=12)
             plt.ylabel("RS", fontsize=10)
@@ -816,20 +810,19 @@ def analyze_with_gemini(symbol, trading_signal, forecast, financial_data=None):
         prompt = f"""
 Bạn là chuyên gia phân tích chứng khoán Việt Nam. Phân tích {symbol}:
 1. Kỹ thuật:
-- Giá: {trading_signal['current_price']:,.2f} VND
+- Giá: {trading_signal['current_price']:,.2f}
 - RSI: {trading_signal['rsi_value']:.2f}
-- MA10: {trading_signal['ma10']:,.2f} VND
-- MA20: {trading_signal['ma20']:,.2f} VND
-- MA50: {trading_signal['ma50']:,.2f} VND
-- MA200: {trading_signal['ma200']:,.2f} VND
+- MA10: {trading_signal['ma10']:,.2f}
+- MA20: {trading_signal['ma20']:,.2f}
+- MA50: {trading_signal['ma50']:,.2f}
+- MA200: {trading_signal['ma200']:,.2f}
 - BB: {safe_format(trading_signal.get('bb_upper'))} / {safe_format(trading_signal.get('bb_lower'))}
-- RS (Amibroker): {rs_val:.2f} (SMA10: {rs_sma10_val})
-- RS_Point: {rs_point_val:.2f} (SMA10: {rs_point_sma10_val})
+- RS (Amibroker): {rs_val} (SMA10: {rs_sma10_val}) (SMA20: {rs_sma20_val}) (SMA50: {rs_sma50_val}) (SMA200: {rs_sma200_val})
+- RS_Point: {rs_point_val} (SMA10: {rs_point_sma10_val}) (SMA20: {rs_point_sma20_val}) (SMA50: {rs_point_sma50_val}) (SMA200: {rs_point_sma200_val})
 - Ichimoku: T:{tenkan_val} | K:{kijun_val} | A:{senkou_a_val} | B:{senkou_b_val} | C:{chikou_val}
-2. Tín hiệu: {trading_signal['signal']} ({trading_signal['score']:.1f}/100)
 """
         if financial_data is not None and not financial_data.empty:
-            prompt += f"\n3. Tài chính (12 quý gần nhất):\n{financial_data.to_string(index=False)}"
+            prompt += f"\2. Tài chính :\n{financial_data.to_string(index=False)}"
         else:
             prompt += "\n3. Không có dữ liệu tài chính."
 
@@ -1016,7 +1009,7 @@ def main():
     print("==============================================")
 
     market_data = get_market_data()
-    analyze_stock("DRI")
+    analyze_stock("REE")
     # screen_stocks_parallel()
 
     print("\nHoàn thành phân tích. Các báo cáo đã được lưu trong thư mục 'vnstocks_data/'.")
