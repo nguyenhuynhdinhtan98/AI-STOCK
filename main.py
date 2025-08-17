@@ -328,7 +328,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             height = num_subplots * height_per_subplot
             plt.figure(figsize=(width, height), constrained_layout=True)
 
-            grid = plt.GridSpec(9, 1, hspace=0.3, height_ratios=[3, 3, 2, 2, 2, 2, 2, 2])
+            grid = plt.GridSpec(8, 1, hspace=0.3, height_ratios=[3, 3, 2, 2, 2, 2, 2, 2])
 
             # === Biểu đồ 1: Giá và các đường trung bình ===
             ax1 = plt.subplot(grid[0])
@@ -795,35 +795,9 @@ def analyze_with_gemini(symbol, trading_signal, financial_data):
 - Kết luận rõ ràng: MUA MẠNH/MUA/GIỮ/BÁN/BÁN MẠNH.
 - Phân tích dựa trên kỹ thuật và phân tích tài chính."""
 
-        # Tạo danh sách files để gửi cho Gemini
-        files = []
-        if technical_plot_path and os.path.exists(technical_plot_path):
-            # Kiểm tra loại file để đảm bảo Gemini hỗ trợ
-            if technical_plot_path.lower().endswith(('.png', '.jpg', '.jpeg')):
-                files.append(technical_plot_path)
-                print(f"📁 Đính kèm ảnh phân tích kỹ thuật: {technical_plot_path}")
-            else: print(f"⚠️ Gemini không hỗ trợ file: {technical_plot_path}. Bỏ qua.")
-
-        # Gửi prompt và files (ảnh) cho Gemini
+        # Gửi prompt cho Gemini
         model = genai.GenerativeModel("gemini-2.5-pro")
-        if files:
-            uploaded_files = []
-            for file_path in files:
-                try:
-                    uploaded_file = genai.upload_file(path=file_path)
-                    uploaded_files.append(uploaded_file)
-                    print(f"✅ Đã tải lên ảnh cho Gemini: {file_path}")
-                except Exception as e:
-                    print(f"⚠️ Lỗi khi tải ảnh {file_path} lên Gemini: {e}. Bỏ qua.")
-            if uploaded_files:
-                full_prompt = [prompt] + uploaded_files
-                response = model.generate_content(full_prompt)
-            else:
-                print("⚠️ Không có ảnh hợp lệ để đính kèm.")
-                response = model.generate_content(prompt)
-        else:
-            print("⚠️ Không có ảnh để đính kèm.")
-            response = model.generate_content(prompt)
+        response = model.generate_content(prompt)
 
         if response and response.text:
             return response.text.strip()
