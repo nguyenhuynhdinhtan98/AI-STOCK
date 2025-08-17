@@ -46,9 +46,9 @@ GLOBAL_START_DATE = (datetime.today() - timedelta(days=365 * 10)).strftime("%Y-%
 GLOBAL_END_DATE = datetime.today().strftime("%Y-%m-%d")
 
 # --- Cấu hình toàn cục cho mô hình AI LSTM ---
-GLOBAL_EPOCHS = 100       # Số vòng lặp huấn luyện
+GLOBAL_EPOCHS = 50       # Số vòng lặp huấn luyện
 GLOBAL_BATCH_SIZE = 64    # Kích thước lô dữ liệu
-GLOBAL_SEQ_LENGTH = 500   # Độ dài chuỗi dữ liệu đầu vào cho mỗi lần dự đoán
+GLOBAL_SEQ_LENGTH = 1000   # Độ dài chuỗi dữ liệu đầu vào cho mỗi lần dự đoán
 GLOBAL_FORECAST_DAYS = 10 # Số ngày dự báo tương lai
 
 # --- Cấu hình API và thư mục lưu trữ ---
@@ -337,9 +337,9 @@ def train_lstm_model(df, symbol):
         # Ví dụ: hidden_layer_sizes=[128, 64] (2 khối LSTM với 128 và 64 units ẩn)
         # num_layers_per_block=2 (mỗi khối có 2 lớp LSTM chồng lên nhau)
         model = LSTMModelAdvanced(
-            input_size = 2,
-            hidden_layer_sizes=[256, 128], # Tăng số lượng units ẩn
-            output_size = 2,
+            input_size = 1,
+            hidden_layer_sizes=[128, 64], # Tăng số lượng units ẩn
+            output_size = 1,
             num_layers_per_block= 5,       # Thêm lớp LSTM trong mỗi khối
             dropout= 0.3
         ).to(device) # Chuyển mô hình lên thiết bị (MPS/CUDA/CPU)
