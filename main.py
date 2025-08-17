@@ -42,7 +42,7 @@ def get_vnstocks_list():
     Trả về DataFrame chứa cột 'symbol'.
     """
     try:
-        df = listing_companies()
+        df = Screener().stock(params={"exchangeName": "HOSE,HNX,UPCOM"}, limit=1700)
         if df is not None and not df.empty:
             df = df[df["organType"] == "DN"]
             symbols = df[["ticker"]].rename(columns={"ticker": "symbol"})
@@ -913,6 +913,50 @@ def screen_stocks_parallel():
     else:
         print("\nKhông có kết quả phân tích nào để tạo báo cáo tổng hợp.")
     return None
+
+def filter_stocks_low_pe_high_cap(min_market_cap=500):
+
+    try:
+        # Lấy dữ liệu
+        df = Screener().stock(params={"exchangeName": "HOSE,HNX,UPCOM"}, limit=1700)
+
+        # Kiểm tra dữ liệu có rỗng không
+        if df is None or df.empty:
+            print("Không thể lấy dữ liệu danh sách công ty niêm yết.")
+            exit()
+
+          # Lọc điều kiện
+        filtered_df = df[
+            (df['market_cap'] > 500) & 
+            (df['pe'] > 0) & 
+            (df['pb'] > 0) & 
+            (df['doe'] < 2) &
+            (df['doe'].notna())
+        ]
+        
+        # Sắp xếp theo PE tăng dần (P/E thấp lên trước)
+        filtered_df = filtered_df.sort_values(by='pe', ascending=True)
+        
+        # Chọn các cột quan trọng
+        important_columns = [
+            'ticker', 'exchange', 'industry',
+            'market_cap', 'pe', 'pb', 'doe',
+            'dividend_yield', 'roe', 'eps'
+        ]
+        
+        result_df = filtered_df[important_columns]
+        
+        # In ra console
+        print("Các cổ phiếu đã lọc (sắp xếp theo P/E tăng dần):")
+        # print(result_df.to_string(index=False))
+        
+        # Xuất ra file Excel
+        result_df.to_excel("filtered_stocks.xlsx", index=False)
+        print("\nĐã xuất dữ liệu vào file filtered_stocks.xlsx")
+        return result_df
+    except Exception as e:
+        print(f"Đã xảy ra lỗi trong quá trình lọc cổ phiếu: {e}")
+        return None
 def main():
     """
     Hàm chính để chạy chương trình.
@@ -921,21 +965,33 @@ def main():
     print("HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM")
     print("TÍCH HỢP VNSTOCK VÀ GOOGLE - PHIÊN BẢN KHÔNG AI")
     print("==============================================")
+    min_cap = 500  # Vốn hóa tối thiểu 500 tỷ VND
+    print(f"Đang lọc cổ phiếu có P/E thấp và vốn hóa > {min_cap} tỷ VND...")
+    
+    filtered_stocks = filter_stocks_low_pe_high_cap(min_market_cap=min_cap)
+    
+    if filtered_stocks is not None and not filtered_stocks.empty:
+        print("\nCác cổ phiếu có P/E thấp và vốn hóa lớn:")
+        print(filtered_stocks.to_string(index=False)) # index=False để không hiển thị số thứ tự
+        # Lưu kết quả vào file CSV nếu cần
+        # filtered_stocks.to_csv("low_pe_high_cap_stocks.csv", index=False)
+        # print("\nKết quả đã được lưu vào file 'low_pe_high_cap_stocks.csv'")
+    elif filtered_stocks is not None: # DataFrame rỗng
+         print("\nKhông tìm thấy cổ phiếu nào thỏa mãn điều kiện P/E thấp và vốn hóa lớn.")
+    # Nếu filtered_stocks là None, thông báo lỗi đã được in trong hàm
     market_data = get_market_data()
-    # Yêu cầu người dùng nhập mã cổ phiếu
-    while True:
-        user_input = input("\nNhập mã cổ phiếu để phân tích (hoặc 'exit' để thoát): ").strip().upper()
-        if user_input == 'EXIT':
-            print("Thoát chương trình.")
-            break
-        elif user_input:
-            analyze_stock(user_input)
-        else:
-            print("Vui lòng nhập một mã cổ phiếu hợp lệ.")
-
-    # analyze_stock("REE") # Dòng này có thể được comment lại hoặc xóa
-    # screen_stocks_parallel() # Dòng này có thể được comment lại hoặc xóa nếu không cần
-    print("\nHoàn thành phân tích. Các báo cáo đã được lưu trong thư mục 'vnstocks_data/'.")
+    # Nhập mã cổ phiếu để phân tích (có thể nhập nhiều mã cách nhau bằng dấu phẩy)
+    user_input = input("\nNhập mã cổ phiếu để phân tích: ").strip().upper()
+    
+    if user_input and user_input.lower() != 'exit':
+        tickers = [ticker.strip() for ticker in user_input.split(',')]
+        for ticker in tickers:
+            if ticker:
+                print(f"\nPhân tích mã: {ticker}")
+                analyze_stock(ticker)
+        print("\nHoàn thành phân tích. Các báo cáo đã được lưu trong thư mục 'vnstocks_data/'.")
+    else:
+        print("Thoát chương trình.")
 
 if __name__ == "__main__":
     main()
