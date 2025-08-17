@@ -781,9 +781,9 @@ def analyze_with_gemini(symbol, trading_signal, financial_data):
 - MA200: {trading_signal['ma200']:,.2f}
 - BB: {safe_format(trading_signal.get('bb_upper'))} / {safe_format(trading_signal.get('bb_lower'))}"""
         if symbol.upper() != "VNINDEX":
-            prompt += f"- RS (so với VNINDEX): {rs_val:.4f} (SMA10: {safe_format(rs_sma10_val, '.4f')}) (SMA20: {safe_format(rs_sma20_val, '.4f')}) (SMA50: {safe_format(rs_sma50_val, '.4f')}) (SMA200: {safe_format(rs_sma200_val, '.4f')})"
-            prompt += f"- RS_Point: {rs_point_val:.2f} (SMA10: {rs_point_sma10_val}) (SMA20: {rs_point_sma20_val}) (SMA50: {rs_point_sma50_val}) (SMA200: {rs_point_sma200_val})"
-            prompt += f"- RS_Point_252: {rs_point_252_val:.2f} (SMA10: {rs_point_252_sma10_val}) (SMA20: {rs_point_252_sma20_val}) (SMA50: {rs_point_252_sma50_val}) (SMA200: {rs_point_252_sma200_val})"
+            prompt += f"- RS (so với VNINDEX) C/PriceVNINDEX: {rs_val:.4f} (SMA10: {safe_format(rs_sma10_val, '.4f')}) (SMA20: {safe_format(rs_sma20_val, '.4f')}) (SMA50: {safe_format(rs_sma50_val, '.4f')}) (SMA200: {safe_format(rs_sma200_val, '.4f')})"
+            prompt += f"- RS_Point ( ROC( C, 63 ) * .4 + ROC( C, 126 ) * .2 + ROC( C, 189 ) * .2 + ROC( C, 252 ) * .2 ) * 100: {rs_point_val:.2f} (SMA10: {rs_point_sma10_val}) (SMA20: {rs_point_sma20_val}) (SMA50: {rs_point_sma50_val}) (SMA200: {rs_point_sma200_val})"
+            prompt += f"- RS_Point_252 ( ( C / Ref( C, -252 ) - 1 ) * 100 ): {rs_point_252_val:.2f} (SMA10: {rs_point_252_sma10_val}) (SMA20: {rs_point_252_sma20_val}) (SMA50: {rs_point_252_sma50_val}) (SMA200: {rs_point_252_sma200_val})"
             prompt += f"- Ichimoku: T:{tenkan_val}| K:{kijun_val}| A:{senkou_a_val}| B:{senkou_b_val}| C:{chikou_val}"
         if financial_data is not None and not financial_data.empty:
             prompt += f"2. Tài chính :{financial_data.to_string(index=False)}"
@@ -838,7 +838,7 @@ def analyze_stock(symbol):
     print(f"🎯 Đề xuất: {trading_signal['recommendation']}")
     print(f"📊 Điểm phân tích: {trading_signal['score']:.2f}/100")
     if symbol.upper() != "VNINDEX":
-        print(f"📊 RS (so với VNINDEX): {trading_signal['rs']:.4f}")
+        print(f"📊 RS (so với VNINDEX: {trading_signal['rs']:.4f}")
         print(f"📊 RS_Point: {trading_signal['rs_point']:.2f}")
         print(f"📊 RS_Point_252: {trading_signal['rs_point_252']:.2f}")
     print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ GOOGLE GEMINI ---")
