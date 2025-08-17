@@ -933,14 +933,15 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
     """Lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao."""
     try:
         df = Screener().stock(params={"exchangeName": "HOSE,HNX,UPCOM"}, limit=1700)
+        df.to_csv("market.csv", index=False, encoding="utf-8-sig")
         if df is None or df.empty:
             print("❌ Không thể lấy dữ liệu danh sách công ty niêm yết.")
             return None
         filtered_df = df[(df['market_cap'] > min_market_cap) &
                          (df['pe'] > 0) &
                          (df['pb'] > 0) &
-                         (df['doe'] < 2) &
-                         (df['volume'] > 100000)]
+                         (df['doe'] < 2)]
+
         return filtered_df
     except Exception as e:
         print(f"❌ Đã xảy ra lỗi trong quá trình lọc cổ phiếu: {e}")
@@ -956,11 +957,11 @@ def main():
     min_cap = 500
     print(f"🔍 Đang lọc cổ phiếu có P/E thấp và vốn hóa > {min_cap} tỷ VND...")
     filtered_stocks = filter_stocks_low_pe_high_cap(min_market_cap=min_cap)
-    if filtered_stocks is not None and not filtered_stocks.empty:
-        print("🚀 Bắt đầu quét và phân tích...")
-        screen_stocks_parallel()
-    else:
-        print("🔍 Không tìm được cổ phiếu nào phù hợp với tiêu chí lọc.")
+    # if filtered_stocks is not None and not filtered_stocks.empty:
+    #     print("🚀 Bắt đầu quét và phân tích...")
+    #     screen_stocks_parallel()
+    # else:
+    #     print("🔍 Không tìm được cổ phiếu nào phù hợp với tiêu chí lọc.")
     print("\nNhập mã cổ phiếu để phân tích riêng lẻ (ví dụ: VCB, FPT) hoặc 'exit' để thoát:")
     user_input = input("Nhập mã cổ phiếu để phân tích: ").strip().upper()
     if user_input and user_input.lower() != 'exit':
