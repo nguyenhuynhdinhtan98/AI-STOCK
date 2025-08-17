@@ -48,7 +48,7 @@ GLOBAL_END_DATE = datetime.today().strftime("%Y-%m-%d")
 # --- Cấu hình toàn cục cho mô hình AI LSTM ---
 GLOBAL_EPOCHS = 50       # Số vòng lặp huấn luyện
 GLOBAL_BATCH_SIZE = 64    # Kích thước lô dữ liệu
-GLOBAL_SEQ_LENGTH = 1000   # Độ dài chuỗi dữ liệu đầu vào cho mỗi lần dự đoán
+GLOBAL_SEQ_LENGTH = 2000   # Độ dài chuỗi dữ liệu đầu vào cho mỗi lần dự đoán
 GLOBAL_FORECAST_DAYS = 10 # Số ngày dự báo tương lai
 
 # --- Cấu hình API và thư mục lưu trữ ---
