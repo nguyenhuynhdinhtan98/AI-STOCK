@@ -47,8 +47,8 @@ GLOBAL_END_DATE = datetime.today().strftime("%Y-%m-%d")
 
 # --- Cấu hình toàn cục cho mô hình AI LSTM ---
 GLOBAL_EPOCHS = 100       # Số vòng lặp huấn luyện
-GLOBAL_BATCH_SIZE = 32    # Kích thước lô dữ liệu
-GLOBAL_SEQ_LENGTH = 100   # Độ dài chuỗi dữ liệu đầu vào cho mỗi lần dự đoán
+GLOBAL_BATCH_SIZE = 64    # Kích thước lô dữ liệu
+GLOBAL_SEQ_LENGTH = 500   # Độ dài chuỗi dữ liệu đầu vào cho mỗi lần dự đoán
 GLOBAL_FORECAST_DAYS = 10 # Số ngày dự báo tương lai
 
 # --- Cấu hình API và thư mục lưu trữ ---
@@ -325,22 +325,26 @@ def train_lstm_model(df, symbol):
         scaled_data = scaler.fit_transform(data)
 
         dataset = StockDataset(scaled_data, GLOBAL_SEQ_LENGTH)
-        # Điều chỉnh batch_size nếu dữ liệu quá nhỏ
-        adjusted_batch_size = min(GLOBAL_BATCH_SIZE, len(dataset) // 2) if len(dataset) > 1 else 1
+        # Điều chỉnh batch_size nếu dữ liệu quá nhỏ để tránh lỗi
+        # Đảm bảo batch_size tối thiểu là 1 và không vượt quá số lượng mẫu trong dataset
+        adjusted_batch_size = min(GLOBAL_BATCH_SIZE, len(dataset)) if len(dataset) > 0 else 1
+        # Kiểm tra thêm để đảm bảo an toàn tuyệt đối
+        if adjusted_batch_size < 1:
+            adjusted_batch_size = 1
         train_loader = DataLoader(dataset, batch_size=adjusted_batch_size, shuffle=True)
 
         # --- CẬP NHẬT: Khởi tạo mô hình LSTM nâng cao hơn với tham số ẩn lớn hơn ---
         # Ví dụ: hidden_layer_sizes=[128, 64] (2 khối LSTM với 128 và 64 units ẩn)
         # num_layers_per_block=2 (mỗi khối có 2 lớp LSTM chồng lên nhau)
         model = LSTMModelAdvanced(
-            input_size=1,
-            hidden_layer_sizes=[128, 64], # Tăng số lượng units ẩn
-            output_size=1,
-            num_layers_per_block=2,       # Thêm lớp LSTM trong mỗi khối
-            dropout=0.2
+            input_size = 16,
+            hidden_layer_sizes=[256, 128], # Tăng số lượng units ẩn
+            output_size = 16,
+            num_layers_per_block= 5,       # Thêm lớp LSTM trong mỗi khối
+            dropout= 0.3
         ).to(device) # Chuyển mô hình lên thiết bị (MPS/CUDA/CPU)
         loss_function = nn.MSELoss()
-        optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+        optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 
         print(f"🚀 Đang huấn luyện mô hình AI nâng cao hơn cho {symbol} trên {device} (Epochs: {GLOBAL_EPOCHS}, Seq Len: {GLOBAL_SEQ_LENGTH})...")
         model.train()
