@@ -337,9 +337,9 @@ def train_lstm_model(df, symbol):
         # Ví dụ: hidden_layer_sizes=[128, 64] (2 khối LSTM với 128 và 64 units ẩn)
         # num_layers_per_block=2 (mỗi khối có 2 lớp LSTM chồng lên nhau)
         model = LSTMModelAdvanced(
-            input_size = 16,
+            input_size = 2,
             hidden_layer_sizes=[256, 128], # Tăng số lượng units ẩn
-            output_size = 16,
+            output_size = 2,
             num_layers_per_block= 5,       # Thêm lớp LSTM trong mỗi khối
             dropout= 0.3
         ).to(device) # Chuyển mô hình lên thiết bị (MPS/CUDA/CPU)
