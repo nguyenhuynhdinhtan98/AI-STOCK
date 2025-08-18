@@ -86,7 +86,7 @@ def get_financial_data(symbol):
     try:
 
             # Khởi tạo đối tượng finance với source="VCI"
-            finance = Finance(symbol="DRI")
+            finance = Finance(symbol=symbol)
 
             # Lấy 4 loại báo cáo tài chính
             df_ratio = finance.ratio(period='quarter',flatten_columns=True)
