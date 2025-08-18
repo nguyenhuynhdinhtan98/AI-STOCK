@@ -449,7 +449,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             bb_score = 0
             bb_upper = last_row["BB_Upper"]
             bb_lower = last_row["BB_Lower"]
-            
             # Tính khoảng cách từ giá đến các dải
             if not pd.isna(bb_upper) and not pd.isna(bb_lower) and bb_upper > bb_lower:
                 bb_width = bb_upper - bb_lower
@@ -650,6 +649,7 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data: pd.Da
         current_price = safe_float(trading_signal.get('current_price'))
         rsi_value = safe_float(trading_signal.get('rsi_value'))
         ma10 = safe_float(trading_signal.get('ma10'))
+        ma20 = safe_float(trading_signal.get('ma20'))
         ma50 = safe_float(trading_signal.get('ma50'))
         ma200 = safe_float(trading_signal.get('ma200'))
         bb_upper = safe_float(trading_signal.get('bb_upper'))
@@ -657,6 +657,7 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data: pd.Da
         macd = safe_float(trading_signal.get('macd'))
         macd_signal = safe_float(trading_signal.get('macd_signal'))
         hist = safe_float(trading_signal.get('macd_hist'))
+        volume = safe_float(trading_signal.get('volume'))
         volume_ma_20 = safe_float(trading_signal.get('volume_ma_20'))
         volume_ma_50 = safe_float(trading_signal.get('volume_ma_50'))
         
@@ -666,9 +667,10 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
 1. Phân tích kỹ thuật:
    - Giá: {safe_format(current_price)}
    - RSI: {safe_format(rsi_value)}
-   - MA: {safe_format(ma10)} (10), {safe_format(ma50)} (50), {safe_format(ma200)} (200)
+   - MA: {safe_format(ma10)} (10), {safe_format(ma20)} (20), {safe_format(ma50)} (50), {safe_format(ma200)} (200)
    - BB: {safe_format(bb_upper)} / {safe_format(bb_lower)}
    - MACD: {safe_format(macd)}, Signal: {safe_format(macd_signal)}, Histogram: {safe_format(hist)}
+   - Khối lượng: {safe_format(volume)}
    - Khối lượng trung bình 20 ngày: {safe_format(volume_ma_20)}
    - Khối lượng trung bình 50 ngày: {safe_format(volume_ma_50)}
    """
@@ -700,12 +702,13 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
         
         prompt += """
 Yêu cầu:
-- Nhận định xu hướng ngắn hạn và trung hạn.
+- Nhận định phân tích kỹ thuật và tài chính.
 - Đánh giá theo mô hình kỹ thuật (nếu có).
+- Nhận định xu hướng ngắn hạn và trung hạn.
 - Kết luận rõ ràng: MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH.
 - Phân tích ngắn gọn, chuyên nghiệp.
 """
-        
+        print(prompt)
         model = genai.GenerativeModel("gemini-2.5-pro")
         response = model.generate_content(prompt)
         if response and response.text:
