@@ -729,12 +729,13 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
             prompt += "2. Không có dữ liệu tài chính.\n"
         
         prompt += """
-Yêu cầu:
-- Nhận định phân tích kỹ thuật và tài chính.
-- Đánh giá theo mô hình kỹ thuật (nếu có).
-- Nhận định xu hướng ngắn hạn và trung hạn.
-- Kết luận rõ ràng: MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH.
-- Phân tích ngắn gọn, chuyên nghiệp dựa trên wyckoff, vsa, vpa, minervini, warren buffet.
+Nhiệm vụ của bạn:
+- Phân tích kỹ thuật theo Wyckoff, VSA/VPA, Minervini, Alexander Elder: hành động giá, khối lượng, cấu trúc xu hướng, điểm mua/bán.
+- Phân tích cơ bản theo Warren Buffett, Charlie Munger, Peter Lynch, Seth Klarman: tăng trưởng, lợi nhuận, biên lợi nhuận, ROE, nợ, dòng tiền.
+- Đánh giá mô hình kỹ thuật (nếu có).
+- Nhận định xu hướng ngắn hạn (1–4 tuần) và trung hạn (1–6 tháng).
+- Kết luận cuối cùng phải rõ ràng, súc tích: **MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH**.
+- Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
 """
 
         model = genai.GenerativeModel("gemini-2.5-pro")
