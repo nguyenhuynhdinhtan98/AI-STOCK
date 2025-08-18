@@ -897,10 +897,10 @@ def screen_stocks_parallel():
         return None
 
 # --- Lọc cổ phiếu ---
-def filter_stocks_low_pe_high_cap(min_market_cap=500):
+def filter_stocks_low_pe_high_cap(min_market_cap= 1000):
     """Lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao."""
     try:
-        df = Screener().stock(params={"exchangeName": "HOSE,HNX,UPCOM"}, limit=1700)
+        df = Screener().stock(params={"exchangeName": "HOSE,HNX,UPCOM"}, limit=5000)
         if df is None or df.empty:
             print("❌ Không thể lấy dữ liệu danh sách công ty niêm yết.")
             return None
@@ -908,6 +908,12 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
                          (df['pe'] > 0) &
                          (df['pe'] < 20) &
                          (df['pb'] > 0) &
+                         (df['revenue_growth_1y'] > 0) &
+                         (df['last_quarter_revenue_growth'] > 0) &
+                         (df['second_quarter_revenue_growth'] > 0) &
+                         (df['eps_growth_1y'] > 0) &
+                         (df['last_quarter_profit_growth'] > 0) &
+                         (df['second_quarter_profit_growth'] > 0) &
                          (df['doe'] < 2)]
         filtered_df.to_csv("market.csv", index=False, encoding="utf-8-sig")
         return filtered_df
@@ -922,9 +928,8 @@ def main():
     print("HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM")
     print("TÍCH HỢP VNSTOCK & GOOGLE GEMINI")
     print("=" * 60)
-    min_cap = 500
     # print(f"🔍 Đang lọc cổ phiếu có P/E thấp và vốn hóa > {min_cap} tỷ VND...")
-    # filtered_stocks = filter_stocks_low_pe_high_cap(min_market_cap=min_cap)
+    filtered_stocks = filter_stocks_low_pe_high_cap()
     # if filtered_stocks is not None and not filtered_stocks.empty:
     #     print("🚀 Bắt đầu quét và phân tích...")
     #     screen_stocks_parallel()
