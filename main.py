@@ -140,7 +140,9 @@ def create_features(df):
     df["MACD"] = df["EMA_12"] - df["EMA_26"]
     df["MACD_Signal"] = ta.trend.ema_indicator(df["MACD"], window=9)
     df["MACD_Hist"] = df["MACD"] - df["MACD_Signal"]
-    df["BB_Upper"], df["BB_Middle"], df["BB_Lower"] = ta.volatility.bollinger_hband_indicator(df["Close"]), ta.volatility.bollinger_mavg(df["Close"]), ta.volatility.bollinger_lband_indicator(df["Close"])
+    df["BB_Upper"] = ta.volatility.bollinger_hband(df["Close"])
+    df["BB_Middle"] = ta.volatility.bollinger_mavg(df["Close"])
+    df["BB_Lower"] = ta.volatility.bollinger_lband(df["Close"])
     df["Volume_MA_20"] = df["Volume"].rolling(window=20).mean()
     df["Volume_MA_50"] = df["Volume"].rolling(window=50).mean()
     return df
@@ -708,7 +710,7 @@ Yêu cầu:
 - Kết luận rõ ràng: MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH.
 - Phân tích ngắn gọn, chuyên nghiệp.
 """
-        print(prompt)
+
         model = genai.GenerativeModel("gemini-2.5-pro")
         response = model.generate_content(prompt)
         if response and response.text:
