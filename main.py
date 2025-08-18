@@ -76,20 +76,120 @@ def get_stock_data(symbol):
         print(f"❌ Exception khi lấy dữ liệu cho mã {symbol}: {str(e)}")
         return None
 
-def get_financial_data(symbol):
-    """Lấy dữ liệu báo cáo tài chính (12 quý gần nhất) từ VCI và lưu vào file CSV."""
+
+"""Lấy dữ liệu báo cáo tài chính (12 quý gần nhất) từ VCI và lưu vào file CSV."""
+def get_financial_data(symbol, period='quarter', lang='en'):
     try:
-        stock = Vnstock().stock(symbol=symbol, source="VCI")
+        # Khởi tạo đối tượng Finance
+        finance = Finance(symbol=symbol)
+        
+        # Tạo thư mục lưu trữ nếu chưa tồn tại
+        if not os.path.exists("vnstocks_data"):
+            os.makedirs("vnstocks_data")
+            print("✅ Đã tạo thư mục 'vnstocks_data' để lưu trữ dữ liệu")
+        
+        print(f"🔄 Bắt đầu lấy BCTC cho mã {symbol} ...")
+        
+        # Lấy 4 loại báo cáo tài chính
+        df_ratio = finance.ratio(period=period, lang=lang, flatten_columns=True)
+        df_bs = finance.balance_sheet(period=period, lang=lang)
+        df_is = finance.income_statement(period=period, lang=lang)
+        df_cf = finance.cash_flow(period=period, lang=lang)
+        
+        # Hàm kiểm tra và chuẩn hóa DataFrame
+        def standardize_df(df, report_type):
+            """Chuẩn hóa DataFrame trước khi merge"""
+            if df is None or df.empty:
+                print(f"⚠️ Cảnh báo: Báo cáo {report_type} trống hoặc không tồn tại")
+                return pd.DataFrame()
+            
+            # Đảm bảo cột key tồn tại
+            if 'ticker' not in df.columns:
+                # Tìm cột tương đương
+                ticker_col = [col for col in df.columns if 'ticker' in str(col).lower()]
+                if ticker_col:
+                    df.rename(columns={ticker_col[0]: 'ticker'}, inplace=True)
+                else:
+                    df['ticker'] = symbol
+            
+            if 'yearReport' not in df.columns:
+                year_col = [col for col in df.columns if 'year' in str(col).lower()]
+                if year_col:
+                    df.rename(columns={year_col[0]: 'yearReport'}, inplace=True)
+                else:
+                    # Thử trích xuất năm từ index nếu có
+                    if hasattr(df.index, 'names') and 'year' in str(df.index.names).lower():
+                        df = df.reset_index()
+                        df.rename(columns={'year': 'yearReport'}, inplace=True)
+            
+            if 'lengthReport' not in df.columns:
+                period_col = [col for col in df.columns if 'length' in str(col).lower() or 'period' in str(col).lower() or 'quarter' in str(col).lower()]
+                if period_col:
+                    df.rename(columns={period_col[0]: 'lengthReport'}, inplace=True)
+                else:
+                    # Thử trích xuất kỳ báo cáo từ index nếu có
+                    if hasattr(df.index, 'names') and ('quarter' in str(df.index.names).lower() or 'period' in str(df.index.names).lower()):
+                        df = df.reset_index()
+                        df.rename(columns={'quarter': 'lengthReport', 'period': 'lengthReport'}, inplace=True)
+            
+            # Chuẩn hóa kiểu dữ liệu cho các cột key
+            try:
+                df['ticker'] = df['ticker'].astype(str)
+                if 'yearReport' in df.columns:
+                    df['yearReport'] = pd.to_numeric(df['yearReport'], errors='coerce').fillna(0).astype(int)
+                if 'lengthReport' in df.columns:
+                    df['lengthReport'] = pd.to_numeric(df['lengthReport'], errors='coerce').fillna(0).astype(int)
+            except Exception as e:
+                print(f"⚠️ Lỗi chuẩn hóa kiểu dữ liệu cho {report_type}: {str(e)}")
+            
+            # Đổi tên cột trùng để tránh xung đột khi merge
+            suffix = f"_{report_type}" if report_type else ""
+            cols_to_rename = {}
+            for col in df.columns:
+                if col not in ['ticker', 'yearReport', 'lengthReport'] and not col.endswith(suffix):
+                    cols_to_rename[col] = f"{col}{suffix}"
+            df.rename(columns=cols_to_rename, inplace=True)
+            
+            return df
 
-        df_ratio = stock.finance.ratio(period='quarter', lang='en')
-        df_bs = stock.finance.balance_sheet(period='quarter', lang='en')
-        df_is = stock.finance.income_statement(period='quarter', lang='en')
-        df_cf = stock.finance.cash_flow(period='quarter', lang='en')
-
-        # Merge ngang theo 'period'
-        df_merged = df_ratio.merge(df_bs, on='period', how='outer', suffixes=('_ratio', '_bs'))
-        df_merged = df_merged.merge(df_is, on='period', how='outer', suffixes=('', '_is'))
-        df_merged = df_merged.merge(df_cf, on='period', how='outer', suffixes=('', '_cf'))
+        # Chuẩn hóa các DataFrame
+        df_ratio = standardize_df(df_ratio, "ratio")
+        df_bs = standardize_df(df_bs, "bs")
+        df_is = standardize_df(df_is, "is")
+        df_cf = standardize_df(df_cf, "cf")
+        
+        # Kiểm tra xem các DataFrame có dữ liệu không
+        valid_dfs = []
+        for df, name in [(df_ratio, "ratio"), (df_bs, "bs"), (df_is, "is"), (df_cf, "cf")]:
+            if not df.empty and all(col in df.columns for col in ['ticker', 'yearReport', 'lengthReport']):
+                valid_dfs.append((df, name))
+            else:
+                print(f"⚠️ Bỏ qua báo cáo {name} do thiếu dữ liệu hoặc cột key")
+        
+        if not valid_dfs:
+            print("❌ Không có báo cáo nào hợp lệ để gộp")
+            return None
+        
+        # Bắt đầu gộp từ DataFrame đầu tiên hợp lệ
+        financial_data = valid_dfs[0][0].copy()
+        
+        # Gộp các DataFrame còn lại
+        for df, name in valid_dfs[1:]:
+            financial_data = pd.merge(
+                financial_data,
+                df,
+                on=['ticker', 'yearReport', 'lengthReport'],
+                how='outer',
+                suffixes=('', f'_{name}')
+            )
+        
+        # Sắp xếp theo năm và quý
+        if 'yearReport' in financial_data.columns and 'lengthReport' in financial_data.columns:
+            financial_data = financial_data.sort_values(by=['yearReport', 'lengthReport'], ascending=[False, True])
+        
+        print(f"✅ Gộp thành công! Tổng số bản ghi: {len(financial_data)}, Tổng số cột: {len(financial_data.columns)}")
+        
+        # Lưu dữ liệu vào file CSV
         if financial_data is not None and not financial_data.empty:
             financial_data.to_csv(f"vnstocks_data/{symbol}_financial.csv", index=False)
             print(f"✅ Đã lưu BCTC cho mã {symbol} vào file 'vnstocks_data/{symbol}_financial.csv'")
@@ -97,6 +197,7 @@ def get_financial_data(symbol):
         else:
             print(f"⚠️ Không lấy được BCTC cho mã {symbol}")
             return None
+            
     except Exception as e:
         print(f"❌ Lỗi khi lấy BCTC cho {symbol}: {str(e)}")
         return None
