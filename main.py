@@ -730,7 +730,7 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
         
         prompt += """
 Yêu cầu:
-- Cho tôi thông tin ảnh hưởng ngành và vĩ mô đối với cổ phiếu.
+- Cho tôi thông tin ảnh hưởng ngành và vĩ mô đối với cổ phiếu gần đây nhất.
 - Có thể dùng thêm dữ liệu bên ngoài như vietstock, fireant, cafef, tradingview ... để đưa ra nhận định. Lấy thông tin từ cộng đồng tôi biết câu chuyện đang có.
 - Nhận định phân tích kỹ thuật và tài chính.
 - Đánh giá theo mô hình kỹ thuật (nếu có).
