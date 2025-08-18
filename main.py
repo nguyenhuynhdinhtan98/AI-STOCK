@@ -141,7 +141,8 @@ def create_features(df):
     df["MACD_Signal"] = ta.trend.ema_indicator(df["MACD"], window=9)
     df["MACD_Hist"] = df["MACD"] - df["MACD_Signal"]
     df["BB_Upper"], df["BB_Middle"], df["BB_Lower"] = ta.volatility.bollinger_hband_indicator(df["Close"]), ta.volatility.bollinger_mavg(df["Close"]), ta.volatility.bollinger_lband_indicator(df["Close"])
-    df["Volume_MA"] = df["Volume"].rolling(window=20).mean()
+    df["Volume_MA_20"] = df["Volume"].rolling(window=20).mean()
+    df["Volume_MA_50"] = df["Volume"].rolling(window=50).mean()
     return df
 
 # --- Tính toán Relative Strength ---
@@ -238,295 +239,43 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "open": None, "high": None, "low": None, "volume": None,
                 "macd": None, "macd_signal": None, "macd_hist": None,
                 "bb_upper": None, "bb_lower": None,
-                "volume_ma": None,
+                "volume_ma_20": None,
+                "volume_ma_50": None,
                 "ichimoku_tenkan_sen": None, "ichimoku_kijun_sen": None,
-                "ichimoku_senkou_span_a": None, "ichimoku_senkou_span_b": None, "ichimoku_chikou_span": None,
+                "ichimoku_senkou_span_a": None, "ichimoku_senkou_span_b": None, 
+                "ichimoku_chikou_span": None,
                 "rs_sma_10": None, "rs_sma_20": None, "rs_sma_50": None, "rs_sma_200": None,
                 "rs_point_sma_10": None, "rs_point_sma_20": None, "rs_point_sma_50": None, "rs_point_sma_200": None,
                 "rs_point_252_sma_10": None, "rs_point_252_sma_20": None,
                 "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
                 "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
             }
+        
         df = df.sort_index()
         df = create_features(df)
+        
         # Tính RS (Relative Strength so với VNINDEX)
         if symbol.upper() != "VNINDEX":
             try:
                 quoteVNI = Quote(symbol="VNINDEX")
-                vnindex_df = quoteVNI.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
-                if len(vnindex_df) == 0:
-                    raise ValueError("Không lấy được dữ liệu VNINDEX")
-                vnindex_df.rename(columns={
-                    "time": "Date", "open": "Open", "high": "High",
-                    "low": "Low", "close": "Close", "volume": "Volume"
-                }, inplace=True)
-                vnindex_df["Date"] = pd.to_datetime(vnindex_df["Date"])
-                vnindex_df.set_index("Date", inplace=True)
-                vnindex_df.sort_index(inplace=True)
-                df = calculate_relative_strength(df, vnindex_df)
-            except Exception as e:
-                print(f"⚠️ Cảnh báo: Không thể tính RS cho {symbol} do lỗi: {e}")
-                # Gán giá trị mặc định nếu lỗi tính RS
-                df["RS"] = 1.0
-                df["RS_Point"] = 0.0
-                df["RS_Point_252"] = 0.0
-                df["RS_SMA_10"] = 1.0
-                df["RS_SMA_20"] = 1.0
-                df["RS_SMA_50"] = 1.0
-                df["RS_SMA_200"] = 1.0
-                df["RS_Point_SMA_10"] = 0.0
-                df["RS_Point_SMA_20"] = 0.0
-                df["RS_Point_SMA_50"] = 0.0
-                df["RS_Point_SMA_200"] = 0.0
-                df["RS_Point_252_SMA_10"] = 0.0
-                df["RS_Point_252_SMA_20"] = 0.0
-                df["RS_Point_252_SMA_50"] = 0.0
-                df["RS_Point_252_SMA_200"] = 0.0
-        else:
-            # Nếu là VNINDEX, gán các giá trị mặc định
-            df["RS"] = 1.0
-            df["RS_Point"] = 0.0
-            df["RS_Point_252"] = 0.0
-            df["RS_SMA_10"] = 1.0
-            df["RS_SMA_20"] = 1.0
-            df["RS_SMA_50"] = 1.0
-            df["RS_SMA_200"] = 1.0
-            df["RS_Point_SMA_10"] = 0.0
-            df["RS_Point_SMA_20"] = 0.0
-            df["RS_Point_SMA_50"] = 0.0
-            df["RS_Point_SMA_200"] = 0.0
-            df["RS_Point_252_SMA_10"] = 0.0
-            df["RS_Point_252_SMA_20"] = 0.0
-            df["RS_Point_252_SMA_50"] = 0.0
-            df["RS_Point_252_SMA_200"] = 0.0
-        df = df.dropna(subset=["Close", "SMA_10", "SMA_20", "SMA_50"], how="all")
-        if len(df) < 20:
-            print("❌ Không đủ dữ liệu hợp lệ để phân tích")
-            return {
-                "signal": "LỖI", "score": 50,
-                "current_price": df["Close"].iloc[-1] if len(df) > 0 else 0,
-                "rsi_value": 50,
-                "ma10": df["Close"].iloc[-1] if len(df) > 0 else 0,
-                "ma20": df["Close"].iloc[-1] if len(df) > 0 else 0,
-                "ma50": df["Close"].iloc[-1] if len(df) > 0 else 0,
-                "ma200": df["Close"].iloc[-1] if len(df) > 0 else 0,
-                "rs": 1.0, "rs_point": 0, "rs_point_252": 0.0,
-                "recommendation": "KHÔNG XÁC ĐỊNH",
-                "rs_sma_10": None, "rs_sma_20": None, "rs_sma_50": None, "rs_sma_200": None,
-                "rs_point_sma_10": None, "rs_point_sma_20": None, "rs_point_sma_50": None, "rs_point_sma_200": None,
-                "rs_point_252_sma_10": None, "rs_point_252_sma_20": None,
-                "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
-                "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
-            }
-        # Vẽ biểu đồ phân tích kỹ thuật
-
-        try:
-            plot_configs = ["price_sma", "ichimoku", "rsi", "macd", "rs", "rs_point", "rs_point_252", "volume"]
-            num_subplots = len(plot_configs)
-            height_per_subplot = 3
-            width = 18
-            height = num_subplots * height_per_subplot
-            plt.figure(figsize=(width, height), constrained_layout=True)
-
-            grid = plt.GridSpec(8, 1, hspace=0.3, height_ratios=[3, 3, 2, 2, 2, 2, 2, 2])
-
-            # === Biểu đồ 1: Giá và các đường trung bình ===
-            ax1 = plt.subplot(grid[0])
-            plt.plot(df.index, df["Close"], label=f"Giá đóng cửa {df['Close'].iloc[-1]:,.2f}", color="#1f77b4",
-                     linewidth=1.5)
-            plt.plot(df.index, df["SMA_10"], label=f"SMA 10 {df['SMA_10'].iloc[-1]:,.2f}", color="blue", alpha=0.7,
-                     linewidth=1)
-            plt.plot(df.index, df["SMA_20"], label=f"SMA 20 {df['SMA_20'].iloc[-1]:,.2f}", color="orange", alpha=0.8,
-                     linewidth=1.5)
-            plt.plot(df.index, df["SMA_50"], label=f"SMA 50 {df['SMA_50'].iloc[-1]:,.2f}", color="green", alpha=0.8,
-                     linewidth=1.5)
-            plt.plot(df.index, df["SMA_200"], label=f"SMA 200 {df['SMA_200'].iloc[-1]:,.2f}", color="purple", alpha=0.8,
-                     linewidth=1.5)
-            plt.plot(df.index, df["BB_upper"], label=f"BB Upper {df['BB_upper'].iloc[-1]:,.2f}", color="red", alpha=0.5,
-                     linestyle="--")
-            plt.plot(df.index, df["BB_lower"], label=f"BB Lower {df['BB_lower'].iloc[-1]:,.2f}", color="green", alpha=0.5,
-                     linestyle="--")
-            plt.fill_between(df.index, df["BB_lower"], df["BB_upper"], color="gray", alpha=0.1)
-
-            cross_10_20_above = (df["SMA_10"] > df["SMA_20"]) & (df["SMA_10"].shift(1) <= df["SMA_20"].shift(1))
-            cross_10_20_below = (df["SMA_10"] < df["SMA_20"]) & (df["SMA_10"].shift(1) >= df["SMA_20"].shift(1))
-            if cross_10_20_above.any():
-                plt.scatter(df.index[cross_10_20_above], df.loc[cross_10_20_above, "SMA_10"], marker="^", color="lime",
-                            s=60, label="SMA10 > SMA20", zorder=5)
-            if cross_10_20_below.any():
-                plt.scatter(df.index[cross_10_20_below], df.loc[cross_10_20_below, "SMA_10"], marker="v", color="magenta",
-                            s=60, label="SMA10 < SMA20", zorder=5)
-
-            plt.suptitle(f"Phân tích kỹ thuật {symbol} - Giá và Chỉ báo", fontsize=16, fontweight="bold", y=0.98)
-            plt.ylabel("Giá (VND)", fontsize=12)
-            plt.legend(loc="upper left", fontsize=10)
-            plt.grid(True, alpha=0.3)
-
-            # === Biểu đồ 2: Ichimoku Cloud ===
-            ax2 = plt.subplot(grid[1], sharex=ax1)
-            for i in range(len(df)):
-                if i < len(df) - 1:
-                    date = mdates.date2num(df.index[i])
-                    open_price = (df["Open"].iloc[i] if not pd.isna(df["Open"].iloc[i]) else df["Close"].iloc[i])
-                    high_price = (df["High"].iloc[i] if not pd.isna(df["High"].iloc[i]) else df["Close"].iloc[i])
-                    low_price = (df["Low"].iloc[i] if not pd.isna(df["Low"].iloc[i]) else df["Close"].iloc[i])
-                    close_price = (df["Close"].iloc[i] if not pd.isna(df["Close"].iloc[i]) else open_price)
-                    if close_price >= open_price:
-                        color = "green"
-                        bottom = open_price
-                        height = close_price - open_price
-                    else:
-                        color = "red"
-                        bottom = close_price
-                        height = open_price - close_price
-                    if height > 0:
-                        plt.bar(date, height, bottom=bottom, color=color, width=0.6, alpha=0.8)
-                    plt.plot([date, date], [low_price, high_price], color="black", linewidth=0.5)
-
-            plt.plot(df.index, df["ichimoku_tenkan_sen"], label=f"Tenkan-sen {df['ichimoku_tenkan_sen'].iloc[-1]:,.2f}",
-                     color="red", linewidth=1)
-            plt.plot(df.index, df["ichimoku_kijun_sen"], label=f"Kijun-sen {df['ichimoku_kijun_sen'].iloc[-1]:,.2f}",
-                     color="blue", linewidth=1)
-            plt.plot(df.index, df["ichimoku_senkou_span_a"],
-                     label=f"Senkou Span A {df['ichimoku_senkou_span_a'].iloc[-1]:,.2f}", color="green", linewidth=1,
-                     alpha=0.7)
-            plt.plot(df.index, df["ichimoku_senkou_span_b"],
-                     label=f"Senkou Span B {df['ichimoku_senkou_span_b'].iloc[-1]:,.2f}", color="purple", linewidth=1,
-                     alpha=0.7)
-            plt.plot(df.index, df["ichimoku_chikou_span"], label=f"Chikou Span {df['ichimoku_chikou_span'].iloc[-1]:,.2f}",
-                     color="orange", linewidth=1)
-
-            valid_cloud = (df["ichimoku_senkou_span_a"].notna() & df["ichimoku_senkou_span_b"].notna())
-            if valid_cloud.any():
-                plt.fill_between(df.index[valid_cloud], df["ichimoku_senkou_span_a"][valid_cloud],
-                                 df["ichimoku_senkou_span_b"][valid_cloud],
-                                 where=(df["ichimoku_senkou_span_a"][valid_cloud] >= df["ichimoku_senkou_span_b"][valid_cloud]),
-                                 color="green", alpha=0.2, interpolate=True, label="Bullish Cloud")
-                plt.fill_between(df.index[valid_cloud], df["ichimoku_senkou_span_a"][valid_cloud],
-                                 df["ichimoku_senkou_span_b"][valid_cloud],
-                                 where=(df["ichimoku_senkou_span_a"][valid_cloud] < df["ichimoku_senkou_span_b"][valid_cloud]),
-                                 color="red", alpha=0.2, interpolate=True, label="Bearish Cloud")
-
-            plt.plot(df.index, df["Close"], label="Giá đóng cửa", color="black", linewidth=1.5, alpha=0.7)
-            plt.title("Ichimoku Cloud", fontsize=12)
-            plt.ylabel("Giá", fontsize=10)
-            plt.legend(fontsize=7, loc="upper left", ncol=2)
-            plt.grid(True, alpha=0.3)
-
-            # === Biểu đồ 3: RSI ===
-            ax3 = plt.subplot(grid[2], sharex=ax1)
-            plt.plot(df.index, df["RSI"], label=f"RSI {df['RSI'].iloc[-1]:.2f}", color="purple")
-            plt.axhline(70, linestyle="--", color="red", alpha=0.7)
-            plt.axhline(30, linestyle="--", color="green", alpha=0.7)
-            plt.fill_between(df.index, 30, 70, color="gray", alpha=0.1)
-            plt.title("RSI", fontsize=12)
-            plt.ylabel("RSI", fontsize=10)
-            plt.grid(True, alpha=0.3)
-            plt.legend(fontsize=7, loc="upper left")
-
-            # === Biểu đồ 4: MACD ===
-            ax4 = plt.subplot(grid[3], sharex=ax1)
-            plt.plot(df.index, df["MACD"], label=f"MACD {df['MACD'].iloc[-1]:.2f}", color="blue")
-            plt.plot(df.index, df["MACD_signal"], label=f"Signal Line {df['MACD_signal'].iloc[-1]:.2f}", color="red")
-            plt.bar(df.index, df["MACD_Hist"], color=np.where(df["MACD_Hist"] > 0, "green", "red"), alpha=0.5,
-                    label=f"Hist {df['MACD_Hist'].iloc[-1]:.2f}")
-            plt.title("MACD", fontsize=12)
-            plt.ylabel("MACD", fontsize=10)
-            plt.legend(fontsize=7, loc="upper left")
-            plt.grid(True, alpha=0.3)
-
-            # === Biểu đồ 5: RS (Relative Strength vs VNINDEX) ===
-            ax5 = plt.subplot(grid[4], sharex=ax1)
-            plt.plot(df.index, df["RS"], label=f"RS (Price / VNINDEX) {df['RS'].iloc[-1]:.2f}", color="brown",
-                     linewidth=1)
-            plt.plot(df.index, df["RS_SMA_10"], label=f"RS SMA 10 {df['RS_SMA_10'].iloc[-1]:.2f}", color="blue", alpha=0.7,
-                     linewidth=1)
-            plt.plot(df.index, df["RS_SMA_20"], label=f"RS SMA 20 {df['RS_SMA_20'].iloc[-1]:.2f}", color="orange", alpha=0.7,
-                     linewidth=1)
-            plt.plot(df.index, df["RS_SMA_50"], label=f"RS SMA 50 {df['RS_SMA_50'].iloc[-1]:.2f}", color="green", alpha=0.7,
-                     linewidth=1)
-            plt.plot(df.index, df["RS_SMA_200"], label=f"RS SMA 200 {df['RS_SMA_200'].iloc[-1]:.2f}", color="purple", alpha=0.7,
-                     linewidth=1)
-            plt.title("RS vs VNINDEX", fontsize=12)
-            plt.ylabel("RS", fontsize=10)
-            plt.grid(True, alpha=0.3)
-            plt.legend(fontsize=7, loc="upper left")
-
-            # === Biểu đồ 6: RS_Point ===
-            ax6 = plt.subplot(grid[5], sharex=ax1)
-            plt.plot(df.index, df["RS_Point"], label=f"RS_Point {df['RS_Point'].iloc[-1]:.2f}", color="darkblue",
-                     linewidth=1.5)
-            plt.plot(df.index, df["RS_Point_SMA_10"], label=f"RS_Point SMA 10 {df['RS_Point_SMA_10'].iloc[-1]:.2f}",
-                     color="blue", alpha=0.7, linewidth=1)
-            plt.plot(df.index, df["RS_Point_SMA_20"], label=f"RS_Point SMA 20 {df['RS_Point_SMA_20'].iloc[-1]:.2f}",
-                     color="orange", alpha=0.7, linewidth=1)
-            plt.plot(df.index, df["RS_Point_SMA_50"], label=f"RS_Point SMA 50 {df['RS_Point_SMA_50'].iloc[-1]:.2f}",
-                     color="green", alpha=0.7, linewidth=1)
-            plt.plot(df.index, df["RS_Point_SMA_200"], label=f"RS_Point SMA 200 {df['RS_Point_SMA_200'].iloc[-1]:.2f}",
-                     color="purple", alpha=0.7, linewidth=1)
-            plt.axhline(0, color="black", linestyle="-", linewidth=0.8)
-            plt.fill_between(df.index, df["RS_Point"], 0, where=(df["RS_Point"] > 0), color="green", alpha=0.3)
-            plt.fill_between(df.index, df["RS_Point"], 0, where=(df["RS_Point"] < 0), color="red", alpha=0.3)
-            plt.title("RS_Point", fontsize=12)
-            plt.ylabel("RS_Point", fontsize=10)
-            plt.grid(True, alpha=0.3)
-            plt.legend(fontsize=7, loc="upper left")
-
-               # === Biểu đồ 7: RS_Point_252 ===
-            ax7 = plt.subplot(grid[6], sharex=ax1)
-            plt.plot(df.index, df["RS_Point_252"], label=f"RS_Point_252 {df['RS_Point_252'].iloc[-1]:.2f}", color="darkgreen",
-                     linewidth=1.5)
-            plt.plot(df.index, df["RS_Point_252_SMA_10"], label=f"RS_Point_252 SMA 10 {df['RS_Point_252_SMA_10'].iloc[-1]:.2f}",
-                     color="blue", alpha=0.7, linewidth=1)
-            plt.plot(df.index, df["RS_Point_252_SMA_20"], label=f"RS_Point_252 SMA 20 {df['RS_Point_252_SMA_20'].iloc[-1]:.2f}",
-                     color="orange", alpha=0.7, linewidth=1)
-            plt.plot(df.index, df["RS_Point_252_SMA_50"], label=f"RS_Point_252 SMA 50 {df['RS_Point_252_SMA_50'].iloc[-1]:.2f}",
-                     color="green", alpha=0.7, linewidth=1)
-            plt.plot(df.index, df["RS_Point_252_SMA_200"], label=f"RS_Point_252 SMA 200 {df['RS_Point_252_SMA_200'].iloc[-1]:.2f}",
-                     color="purple", alpha=0.7, linewidth=1)
-            plt.axhline(0, color="black", linestyle="-", linewidth=0.8)
-            plt.fill_between(df.index, df["RS_Point_252"], 0, where=(df["RS_Point_252"] > 0), color="green", alpha=0.2)
-            plt.fill_between(df.index, df["RS_Point_252"], 0, where=(df["RS_Point_252"] < 0), color="red", alpha=0.2)
-            plt.title("RS_Point_252", fontsize=12)
-            plt.ylabel("RS_Point_252", fontsize=10)
-            plt.grid(True, alpha=0.3)
-            plt.legend(fontsize=7, loc="upper left")
-
-            # === Biểu đồ 8: Khối lượng ===
-            ax8 = plt.subplot(grid[7], sharex=ax1)
-            if show_volume and "Volume" in df.columns:
-                volume_sma_plotted = False
-                if ("Volume_MA" in df.columns and not df["Volume_MA"].isna().all()):
-                    plt.plot(df.index, df["Volume_MA"], label=f"Vol SMA 10 {df['Volume_MA'].iloc[-1]:,.2f}",
-                             color="orange", alpha=0.8, linewidth=1.5)
-                    volume_sma_plotted = True
-                colors = np.where(df["Close"] > df["Open"], "green", "red")
-                plt.bar(df.index, df["Volume"], color=colors, alpha=0.7, label="Volume" if not volume_sma_plotted else None)
-                handles, labels = ax8.get_legend_handles_labels()
-                if handles:
-                    by_label = dict(zip(labels, handles))
-                    plt.legend(by_label.values(), by_label.keys(), loc="upper left")
+                vnindex = quoteVNI.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
+                if vnindex is not None and not vnindex.empty:
+                    vnindex.rename(columns={
+                        "time": "Date", "open": "Open", "high": "High",
+                        "low": "Low", "close": "Close", "volume": "Volume"
+                    }, inplace=True)
+                    vnindex["Date"] = pd.to_datetime(vnindex["Date"])
+                    vnindex.set_index("Date", inplace=True)
+                    vnindex.sort_index(inplace=True)
+                    vnindex.to_csv("vnstocks_data/VNINDEX_data.csv")
+                    print(f"✅ Đã lưu dữ liệu VNINDEX vào file 'vnstocks_data/VNINDEX_data.csv'")
+                    
+                    df = calculate_relative_strength(df, vnindex)
                 else:
-                    plt.legend(fontsize=7, loc="upper left")
-                plt.title("Volume & Vol SMA", fontsize=12)
-                plt.ylabel("Khối lượng", fontsize=10)
-                plt.grid(True, alpha=0.3)
-            else:
-                plt.title("Khối lượng giao dịch", fontsize=12)
-                plt.ylabel("Khối lượng", fontsize=10)
-                plt.grid(True, alpha=0.3)
-
-            plt.tight_layout(pad=3.0, h_pad=1.0)
-            plt.subplots_adjust(top=0.95, bottom=0.08, left=0.08, right=0.97, hspace=0.4)
-
-            plt.savefig(f"vnstocks_data/{symbol}_technical_analysis.png", dpi=300, bbox_inches="tight")
-            plt.close()
-            print(f"✅ Đã lưu biểu đồ phân tích kỹ thuật vào vnstocks_data/{symbol}_technical_analysis.png")
-
-        except Exception as e:
-            print(f"❌ Lỗi khi vẽ biểu đồ: {str(e)}")
-            traceback.print_exc()
-
+                    print("⚠️ Không lấy được dữ liệu VNINDEX")
+            except Exception as e:
+                print(f"❌ Lỗi khi lấy dữ liệu thị trường (VNINDEX): {str(e)}")
+        
         # Tạo tín hiệu giao dịch
         try:
             last_row = df.iloc[-1]
@@ -536,89 +285,201 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             ma20_value = (last_row["SMA_20"] if not pd.isna(last_row["SMA_20"]) else current_price)
             ma50_value = (last_row["SMA_50"] if not pd.isna(last_row["SMA_50"]) else current_price)
             ma200_value = (last_row["SMA_200"] if not pd.isna(last_row["SMA_200"]) else current_price)
-            rs_value = last_row["RS"] if not pd.isna(last_row["RS"]) else 1.0
-            rs_point_value = last_row["RS_Point"] if not pd.isna(last_row["RS_Point"]) else 0.0
-            rs_point_252_value = last_row["RS_Point_252"] if not pd.isna(last_row["RS_Point_252"]) else 0.0
-            macd_value = last_row["MACD"] if not pd.isna(last_row["MACD"]) else 0
-            macd_signal = last_row["MACD_Signal"] if not pd.isna(last_row["MACD_Signal"]) else 0
-            macd_hist = last_row["MACD_Hist"] if not pd.isna(last_row["MACD_Hist"]) else 0
-            bb_upper = last_row["BB_Upper"] if not pd.isna(last_row["BB_Upper"]) else current_price
-            bb_lower = last_row["BB_Lower"] if not pd.isna(last_row["BB_Lower"]) else current_price
-            volume_ma = last_row["Volume_MA"] if not pd.isna(last_row["Volume_MA"]) else 0
-            tenkan_sen = last_row["SMA_50"] if not pd.isna(last_row["SMA_50"]) else np.nan
-            kijun_sen = last_row["SMA_20"] if not pd.isna(last_row["SMA_20"]) else np.nan
-            senkou_span_a = (tenkan_sen + kijun_sen) / 2 if not (pd.isna(tenkan_sen) or pd.isna(kijun_sen)) else np.nan
-            senkou_span_b = df["Close"].rolling(window=52).mean().iloc[-26] if len(df) >= 78 else np.nan
-            chikou_span = df["Close"].shift(26).iloc[-1] if len(df) > 26 else np.nan
-            # Tính điểm tổng hợp
-            score = 50 # Điểm cơ bản
-            # 1. RSI - 15 điểm
-            rsi_score = 0
-            if rsi_value < 30: rsi_score += 15
-            elif rsi_value < 50: rsi_score += 7
-            elif rsi_value > 70: rsi_score -= 15
-            elif rsi_value > 50: rsi_score -= 7
-            score += rsi_score
-            # 2. MA - 20 điểm
+            
+            # Lấy giá trị Ichimoku
+            tenkan_sen = df["Close"].rolling(9).mean().iloc[-1]
+            kijun_sen = df["Close"].rolling(26).mean().iloc[-1]
+            senkou_span_a = ((tenkan_sen + kijun_sen) / 2) if not pd.isna(tenkan_sen) and not pd.isna(kijun_sen) else np.nan
+            senkou_span_b = df["Close"].rolling(52).mean().shift(26).iloc[-1] if len(df) >= 78 else np.nan
+            chikou_span = df["Close"].shift(-26).iloc[-1] if len(df) > 26 else np.nan
+            
+            # Lấy giá trị RS
+            rs_value = last_row["RS"] if symbol.upper() != "VNINDEX" else 1.0
+            rs_point_value = last_row["RS_Point"] if symbol.upper() != "VNINDEX" else 0.0
+            rs_point_252_value = last_row["RS_Point_252"] if symbol.upper() != "VNINDEX" else 0.0
+            
+            # Lấy giá trị Volume MA
+            volume_ma_20 = last_row["Volume_MA_20"] if "Volume_MA_20" in last_row else last_row["Volume"].rolling(20).mean().iloc[-1]
+            volume_ma_50 = last_row["Volume_MA_50"] if "Volume_MA_50" in last_row else last_row["Volume"].rolling(50).mean().iloc[-1]
+            
+            # Tính điểm tổng hợp (phiên bản CÂN BẰNG HOÀN TOÀN)
+            score = 50  # Điểm cơ bản
+            
+            # 1. Đường trung bình (MA) - 14 điểm (cân bằng với các chỉ báo khác)
             ma_score = 0
-            if current_price > ma10_value: ma_score += 2
-            if current_price > ma20_value: ma_score += 3
-            if current_price > ma50_value: ma_score += 5
-            if current_price > ma200_value: ma_score += 10
-            if ma10_value > ma20_value > ma50_value > ma200_value: ma_score += 5
-            elif ma10_value < ma20_value < ma50_value < ma200_value: ma_score -= 5
+            # Đánh giá vị trí giá so với các MA
+            if current_price > ma10_value: ma_score += 3.5
+            if current_price > ma20_value: ma_score += 3.5
+            if current_price > ma50_value: ma_score += 3.5
+            if current_price > ma200_value: ma_score += 3.5
+            
+            # Đánh giá cấu trúc xu hướng
+            if ma10_value > ma20_value > ma50_value > ma200_value:
+                ma_score += 3.5  # Golden cross
+            elif ma10_value < ma20_value < ma50_value < ma200_value:
+                ma_score -= 3.5  # Death cross
+            elif ma10_value > ma20_value and ma50_value > ma200_value:
+                ma_score += 1.75  # Xu hướng tăng trung hạn
+            elif ma10_value < ma20_value and ma50_value < ma200_value:
+                ma_score -= 1.75  # Xu hướng giảm trung hạn
+            
             score += ma_score
-            # 3. MACD - 10 điểm
+            
+            # 2. RSI - 14 điểm (cân bằng với các chỉ báo khác)
+            rsi_score = 0
+            # Phân chia đều cho 7 mức RSI
+            if rsi_value < 30:
+                rsi_score += 14  # Quá bán mạnh
+            elif 30 <= rsi_value < 40:
+                rsi_score += 10  # Xu hướng tăng hình thành
+            elif 40 <= rsi_value < 50:
+                rsi_score += 7   # Xu hướng tăng nhẹ
+            elif 50 <= rsi_value < 60:
+                rsi_score += 3.5 # Trung tính
+            elif 60 <= rsi_value < 70:
+                rsi_score -= 3.5 # Xu hướng giảm nhẹ
+            elif 70 <= rsi_value < 80:
+                rsi_score -= 7   # Xu hướng giảm hình thành
+            else:  # rsi_value >= 80
+                rsi_score -= 14  # Quá mua mạnh
+            
+            score += rsi_score
+            
+            # 3. MACD - 14 điểm (cân bằng với các chỉ báo khác)
             macd_score = 0
-            if macd_value > macd_signal and macd_hist > 0: macd_score += 10
-            elif macd_value < macd_signal and macd_hist < 0: macd_score -= 10
+            macd_value = last_row["MACD"]
+            macd_signal = last_row["MACD_Signal"]
+            macd_hist = last_row["MACD_Hist"]
+            
+            # Đánh giá trạng thái MACD
+            if macd_value > macd_signal and macd_hist > 0:
+                macd_score += 7  # Xu hướng tăng
+            elif macd_value < macd_signal and macd_hist < 0:
+                macd_score -= 7  # Xu hướng giảm
+            
+            # Đánh giá động lượng
+            if len(df) > 1:
+                macd_hist_prev = df["MACD_Hist"].iloc[-2]
+                if macd_hist > macd_hist_prev:
+                    macd_score += 3.5  # Động lượng tăng
+                elif macd_hist < macd_hist_prev:
+                    macd_score -= 3.5  # Động lượng giảm
+            
+            # Đánh giá cắt chéo
+            if len(df) > 1:
+                macd_prev = df["MACD"].iloc[-2]
+                signal_prev = df["MACD_Signal"].iloc[-2]
+                if macd_value > macd_signal and macd_prev <= signal_prev:
+                    macd_score += 3.5  # Cắt vàng
+                elif macd_value < macd_signal and macd_prev >= signal_prev:
+                    macd_score -= 3.5  # Cắt chết
+            
             score += macd_score
-            # 4. Bollinger Bands - 10 điểm
-            bb_score = 0
-            if current_price < bb_lower: bb_score += 10
-            elif current_price > bb_upper: bb_score -= 10
-            score += bb_score
-            # 5. Volume - 5 điểm
+            
+            # 4. Ichimoku Cloud - 14 điểm (CHỈ TẬP TRUNG VÀO 3 TRẠNG THÁI CHÍNH)
+            ichimoku_score = 0
+            if not (pd.isna(tenkan_sen) or pd.isna(kijun_sen) or pd.isna(senkou_span_a) or pd.isna(senkou_span_b)):
+                kumo_top = max(senkou_span_a, senkou_span_b)
+                kumo_bottom = min(senkou_span_a, senkou_span_b)
+                
+                # GIÁ TRÊN MÂY - TÍN HIỆU TĂNG
+                if current_price > kumo_top:
+                    ichimoku_score += 14
+                
+                # GIÁ TRONG MÂY - TRUNG TÍNH
+                elif current_price >= kumo_bottom and current_price <= kumo_top:
+                    ichimoku_score += 0
+                
+                # GIÁ DƯỚI MÂY - TÍN HIỆU GIẢM
+                elif current_price < kumo_bottom:
+                    ichimoku_score -= 14
+            
+            score += ichimoku_score
+            
+            # 5. Volume - 14 điểm (cân bằng với các chỉ báo khác)
             volume_score = 0
-            if "Volume" in last_row and not pd.isna(last_row["Volume"]) and last_row["Volume"] > volume_ma: volume_score += 5
+            if "Volume" in last_row and not pd.isna(last_row["Volume"]):
+                # So sánh với MA20 (ngắn hạn)
+                if last_row["Volume"] > volume_ma_20:
+                    volume_score += 7
+                elif last_row["Volume"] < volume_ma_20 * 0.7:
+                    volume_score -= 3.5
+                
+                # So sánh với MA50 (dài hạn)
+                if last_row["Volume"] > volume_ma_50:
+                    volume_score += 3.5
+                elif last_row["Volume"] < volume_ma_50 * 0.7:
+                    volume_score -= 3.5
+                
+                # Đánh giá xu hướng volume
+                if len(df) > 2:
+                    vol_prev = df["Volume"].iloc[-2]
+                    vol_prev2 = df["Volume"].iloc[-3]
+                    if last_row["Volume"] > vol_prev > vol_prev2:
+                        volume_score += 3.5  # Volume tăng dần
+                    elif last_row["Volume"] < vol_prev < vol_prev2:
+                        volume_score -= 3.5  # Volume giảm dần
+            
             score += volume_score
-            # 6. RS - 10 điểm
+            
+            # 6. RS (Relative Strength) - 14 điểm (cân bằng với các chỉ báo khác)
             if symbol.upper() != "VNINDEX":
                 rs_score = 0
-                if rs_value > last_row.get("RS_SMA_10", rs_value): rs_score += 2
-                if rs_value > last_row.get("RS_SMA_20", rs_value): rs_score += 3
-                if rs_value > last_row.get("RS_SMA_50", rs_value): rs_score += 5
+                # So sánh với SMA ngắn hạn
+                if rs_value > last_row.get("RS_SMA_10", rs_value):
+                    rs_score += 3.5
+                
+                # So sánh với SMA trung hạn
+                if rs_value > last_row.get("RS_SMA_50", rs_value):
+                    rs_score += 3.5
+                
+                # Đánh giá xu hướng RS_Point
+                rs_point_sma20 = last_row.get("RS_Point_SMA_20", 0)
+                if rs_point_value > rs_point_sma20:
+                    rs_score += 3.5
+                
+                # Đánh giá xu hướng RS_Point_252
+                rs_point_252_sma50 = last_row.get("RS_Point_252_SMA_50", 0)
+                if rs_point_252_value > rs_point_252_sma50:
+                    rs_score += 3.5
+                
                 score += rs_score
-            # 7. RS_Point - 10 điểm
-            if symbol.upper() != "VNINDEX":
-                rs_point_score = 0
-                if rs_point_value > last_row.get("RS_Point_SMA_10", 0): rs_point_score += 2
-                if rs_point_value > last_row.get("RS_Point_SMA_20", 0): rs_point_score += 3
-                if rs_point_value > last_row.get("RS_Point_SMA_50", 0): rs_point_score += 5
-                score += rs_point_score
-            # 8. RS_Point_252 - 10 điểm
-            if symbol.upper() != "VNINDEX":
-                rs_point_252_score = 0
-                if rs_point_252_value > last_row.get("RS_Point_252_SMA_10", 0): rs_point_252_score += 2
-                if rs_point_252_value > last_row.get("RS_Point_252_SMA_20", 0): rs_point_252_score += 3
-                if rs_point_252_value > last_row.get("RS_Point_252_SMA_50", 0): rs_point_252_score += 5
-                score += rs_point_252_score
-            # 9. Ichimoku Cloud - 15 điểm
-            ichimoku_score = 0
-            try:
-                if not (pd.isna(tenkan_sen) or pd.isna(kijun_sen) or pd.isna(senkou_span_a) or pd.isna(senkou_span_b)):
-                    if current_price > max(senkou_span_a, senkou_span_b) and tenkan_sen > kijun_sen: ichimoku_score += 15
-                    elif current_price > max(senkou_span_a, senkou_span_b): ichimoku_score += 10
-                    elif current_price < min(senkou_span_a, senkou_span_b) and tenkan_sen < kijun_sen: ichimoku_score -= 15
-                    elif current_price < min(senkou_span_a, senkou_span_b): ichimoku_score -= 10
-                    if tenkan_sen > kijun_sen: ichimoku_score += 5
-                    elif tenkan_sen < kijun_sen: ichimoku_score -= 5
-                    if kijun_sen > max(senkou_span_a, senkou_span_b): ichimoku_score += 5
-                    elif kijun_sen < min(senkou_span_a, senkou_span_b): ichimoku_score -= 5
-            except Exception as e:
-                print(f"⚠️ Cảnh báo: Lỗi khi tính điểm Ichimoku: {e}")
-            score += ichimoku_score
+            
+            # 7. Bollinger Bands - 14 điểm (cân bằng với các chỉ báo khác)
+            bb_score = 0
+            bb_upper = last_row["BB_Upper"]
+            bb_lower = last_row["BB_Lower"]
+            
+            # Tính khoảng cách từ giá đến các dải
+            if not pd.isna(bb_upper) and not pd.isna(bb_lower) and bb_upper > bb_lower:
+                bb_width = bb_upper - bb_lower
+                price_to_upper = (bb_upper - current_price) / bb_width
+                price_to_lower = (current_price - bb_lower) / bb_width
+                
+                # Đánh giá vị trí giá trong kênh
+                if price_to_lower < 0.15:  # Giá gần dải dưới
+                    bb_score += 7
+                elif price_to_lower < 0.3:  # Giá dưới trung bình
+                    bb_score += 3.5
+                
+                if price_to_upper < 0.15:  # Giá gần dải trên
+                    bb_score -= 7
+                elif price_to_upper < 0.3:  # Giá trên trung bình
+                    bb_score -= 3.5
+                
+                # Đánh giá độ rộng kênh
+                if len(df) > 1 and not pd.isna(df["BB_Upper"].iloc[-2]) and not pd.isna(df["BB_Lower"].iloc[-2]):
+                    bb_width_prev = df["BB_Upper"].iloc[-2] - df["BB_Lower"].iloc[-2]
+                    if bb_width > bb_width_prev * 1.1:  # Kênh đang mở rộng
+                        bb_score -= 1.75
+                    elif bb_width < bb_width_prev * 0.9:  # Kênh đang thu hẹp
+                        bb_score += 1.75
+            
+            score += bb_score
+            
+            # Chuẩn hóa điểm số về thang 0-100
             score = np.clip(score, 0, 100)
+            
             # Xác định tín hiệu và đề xuất
             signal = "TRUNG LẬP"
             recommendation = "GIỮ"
@@ -628,60 +489,84 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             elif score >= 65:
                 signal = "MUA"
                 recommendation = "MUA"
-            elif score <= 20:
-                signal = "BÁN MẠNH"
-                recommendation = "BÁN MẠNH"
-            elif score <= 35:
+            elif score >= 55:
+                signal = "TĂNG MẠNH"
+                recommendation = "GIỮ - TĂNG"
+            elif score >= 45:
+                signal = "TRUNG LẬP"
+                recommendation = "GIỮ"
+            elif score >= 35:
+                signal = "GIẢM MẠNH"
+                recommendation = "GIỮ - GIẢM"
+            elif score >= 20:
                 signal = "BÁN"
                 recommendation = "BÁN"
+            else:
+                signal = "BÁN MẠNH"
+                recommendation = "BÁN MẠNH"
+            
             # In ra tín hiệu cuối cùng
             analysis_date = df.index[-1].strftime("%d/%m/%Y")
-            print(f"\n📊 TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO {symbol} ({analysis_date}):")
-            print(f"  - Giá hiện tại: {current_price:,.2f} VND")
-            print(f"  - Đường trung bình:")
-            print(f"    * MA10: {ma10_value:,.2f} | MA20: {ma20_value:,.2f} | MA50: {ma50_value:,.2f} | MA200: {ma200_value:,.2f}")
-            print(f"  - Chỉ báo dao động:")
-            print(f"    * RSI (14): {rsi_value:.2f}")
-            print(f"    * MACD: {macd_value:.2f} | Signal: {macd_signal:.2f} | Histogram: {macd_hist:.2f}")
-            print(f"    * Bollinger Bands: Trên: {bb_upper:,.2f} | Dưới: {bb_lower:,.2f}")
+            print(f"📊 TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO {symbol} ({analysis_date}):")
+            print(f" - Giá hiện tại: {current_price:,.2f} VND")
+            print(f" - Đường trung bình:")
+            print(f" * MA10: {ma10_value:,.2f}| MA20: {ma20_value:,.2f}| MA50: {ma50_value:,.2f}| MA200: {ma200_value:,.2f}")
+            print(f" - Chỉ báo dao động:")
+            print(f" * RSI (14): {rsi_value:.2f}")
+            print(f" * MACD: {macd_value:.2f}| Signal: {macd_signal:.2f}| Histogram: {macd_hist:.2f}")
+            print(f" * Bollinger Bands: Trên: {bb_upper:,.2f}| Dưới: {bb_lower:,.2f}")
             if symbol.upper() != "VNINDEX":
-                 print(f"  - Sức mạnh tương đối (RS):")
-                 print(f"    * RS: {rs_value:.4f}")
-                 print(f"    * RS_Point: {rs_point_value:.2f}")
-                 print(f"    * RS_Point_252: {rs_point_252_value:.2f}")
+                print(f" - Sức mạnh tương đối (RS):")
+                print(f" * RS: {rs_value:.4f}")
+                print(f" * RS_Point: {rs_point_value:.2f}")
+                print(f" * RS_Point_252: {rs_point_252_value:.2f}")
             try:
-                print(f"  - Mô hình Ichimoku:")
-                print(f"    * Tenkan-sen (Chuyển đổi): {tenkan_sen:.2f}")
-                print(f"    * Kijun-sen (Cơ sở): {kijun_sen:.2f}")
-                print(f"    * Senkou Span A (Leading Span A): {senkou_span_a:.2f}")
-                print(f"    * Senkou Span B (Leading Span B): {senkou_span_b:.2f}")
-                print(f"    * Chikou Span (Trễ): {chikou_span:.2f}")
-                print(f"    * Điểm Ichimoku: ~{ichimoku_score:.2f}")
-            except: print(f"  - Ichimoku: Không có đủ dữ liệu.")
-            print(f"  - Khối lượng:")
-            print(f"    * Khối lượng hiện tại: {last_row.get('Volume', 'N/A')}")
-            print(f"    * MA Khối lượng (20): {volume_ma:,.2f}")
-            print(f"  🎯 ĐỀ XUẤT CUỐI CÙNG: {recommendation}")
-            print(f"  📊 TỔNG ĐIỂM PHÂN TÍCH: {score:.1f}/100")
-            print(f"  📈 TÍN HIỆU: {signal}")
-
+                print(f" - Mô hình Ichimoku:")
+                print(f" * Tenkan-sen (Chuyển đổi): {tenkan_sen:.2f}")
+                print(f" * Kijun-sen (Cơ sở): {kijun_sen:.2f}")
+                print(f" * Senkou Span A (Leading Span A): {senkou_span_a:.2f}")
+                print(f" * Senkou Span B (Leading Span B): {senkou_span_b:.2f}")
+                print(f" * Chikou Span (Trễ): {chikou_span:.2f}")
+                print(f" * Điểm Ichimoku: ~{ichimoku_score:.2f}")
+            except: 
+                print(f" - Ichimoku: Không có đủ dữ liệu.")
+            print(f" - Khối lượng:")
+            print(f" * Khối lượng hiện tại: {last_row.get('Volume', 'N/A')}")
+            print(f" * MA Khối lượng (20): {volume_ma_20:,.2f}")
+            print(f" * MA Khối lượng (50): {volume_ma_50:,.2f}")
+            print(f" 🎯 ĐỀ XUẤT CUỐI CÙNG: {recommendation}")
+            print(f" 📊 TỔNG ĐIỂM PHÂN TÍCH: {score:.1f}/100")
+            print(f" 📈 TÍN HIỆU: {signal}")
+            
             # Trả về kết quả phân tích kỹ thuật (không có dự báo AI)
             return {
-                "signal": signal, "score": float(score), "current_price": float(current_price),
+                "signal": signal, 
+                "score": float(score), 
+                "current_price": float(current_price),
                 "rsi_value": float(rsi_value),
-                "ma10": float(ma10_value), "ma20": float(ma20_value), "ma50": float(ma50_value),
+                "ma10": float(ma10_value), 
+                "ma20": float(ma20_value), 
+                "ma50": float(ma50_value),
                 "ma200": float(ma200_value),
-                "rs": float(rs_value), "rs_point": float(rs_point_value),
+                "rs": float(rs_value), 
+                "rs_point": float(rs_point_value),
                 "rs_point_252": float(rs_point_252_value),
                 "recommendation": recommendation,
-                "open": safe_float(last_row.get("Open")), "high": safe_float(last_row.get("High")),
-                "low": safe_float(last_row.get("Low")), "volume": safe_float(last_row.get("Volume")),
-                "macd": safe_float(macd_value), "macd_signal": safe_float(macd_signal), "macd_hist": safe_float(macd_hist),
-                "bb_upper": safe_float(bb_upper), "bb_lower": safe_float(bb_lower),
-                "volume_ma": safe_float(last_row.get("Volume_MA")),
-                "ichimoku_tenkan_sen": safe_float(tenkan_sen), "ichimoku_kijun_sen": safe_float(kijun_sen),
-                "ichimoku_senkou_span_a": safe_float(senkou_span_a),
-                "ichimoku_senkou_span_b": safe_float(senkou_span_b),
+                "open": safe_float(last_row.get("Open")), 
+                "high": safe_float(last_row.get("High")),
+                "low": safe_float(last_row.get("Low")), 
+                "volume": safe_float(last_row.get("Volume")),
+                "volume_ma_20": safe_float(volume_ma_20),
+                "volume_ma_50": safe_float(volume_ma_50),
+                "macd": safe_float(macd_value), 
+                "macd_signal": safe_float(macd_signal), 
+                "macd_hist": safe_float(macd_hist),
+                "bb_upper": safe_float(bb_upper), 
+                "bb_lower": safe_float(bb_lower),
+                "ichimoku_tenkan_sen": safe_float(tenkan_sen), 
+                "ichimoku_kijun_sen": safe_float(kijun_sen),
+                "ichimoku_senkou_span_a": safe_float(senkou_span_a), 
+                "ichimoku_senkou_span_b": safe_float(senkou_span_b), 
                 "ichimoku_chikou_span": safe_float(chikou_span),
                 "rs_sma_10": safe_float(last_row.get("RS_SMA_10")) if symbol.upper() != "VNINDEX" else None,
                 "rs_sma_20": safe_float(last_row.get("RS_SMA_20")) if symbol.upper() != "VNINDEX" else None,
@@ -695,7 +580,9 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "rs_point_252_sma_20": safe_float(last_row.get("RS_Point_252_SMA_20")) if symbol.upper() != "VNINDEX" else None,
                 "rs_point_252_sma_50": safe_float(last_row.get("RS_Point_252_SMA_50")) if symbol.upper() != "VNINDEX" else None,
                 "rs_point_252_sma_200": safe_float(last_row.get("RS_Point_252_SMA_200")) if symbol.upper() != "VNINDEX" else None,
-                "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
+                "forecast_dates": [], 
+                "forecast_prices": [], 
+                "forecast_plot_path": ""
             }
         except Exception as e:
             print(f"❌ Lỗi khi tạo tín hiệu cho {symbol}: {str(e)}")
@@ -713,9 +600,11 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "open": None, "high": None, "low": None, "volume": None,
                 "macd": None, "macd_signal": None, "macd_hist": None,
                 "bb_upper": None, "bb_lower": None,
-                "volume_ma": None,
+                "volume_ma_20": None,
+                "volume_ma_50": None,
                 "ichimoku_tenkan_sen": None, "ichimoku_kijun_sen": None,
-                "ichimoku_senkou_span_a": None, "ichimoku_senkou_span_b": None, "ichimoku_chikou_span": None,
+                "ichimoku_senkou_span_a": None, "ichimoku_senkou_span_b": None, 
+                "ichimoku_chikou_span": None,
                 "rs_sma_10": None, "rs_sma_20": None, "rs_sma_50": None, "rs_sma_200": None,
                 "rs_point_sma_10": None, "rs_point_sma_20": None, "rs_point_sma_50": None, "rs_point_sma_200": None,
                 "rs_point_252_sma_10": None, "rs_point_252_sma_20": None,
@@ -733,78 +622,98 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             "open": None, "high": None, "low": None, "volume": None,
             "macd": None, "macd_signal": None, "macd_hist": None,
             "bb_upper": None, "bb_lower": None,
-            "volume_ma": None,
+            "volume_ma_20": None,
+            "volume_ma_50": None,
             "ichimoku_tenkan_sen": None, "ichimoku_kijun_sen": None,
-            "ichimoku_senkou_span_a": None, "ichimoku_senkou_span_b": None, "ichimoku_chikou_span": None,
+            "ichimoku_senkou_span_a": None, "ichimoku_senkou_span_b": None, 
+            "ichimoku_chikou_span": None,
             "rs_sma_10": None, "rs_sma_20": None, "rs_sma_50": None, "rs_sma_200": None,
             "rs_point_sma_10": None, "rs_point_sma_20": None, "rs_point_sma_50": None, "rs_point_sma_200": None,
             "rs_point_252_sma_10": None, "rs_point_252_sma_20": None,
             "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
             "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
         }
-
 # --- Phân tích bằng Google Gemini ---
-def analyze_with_gemini(symbol, trading_signal, financial_data):
-    """Phân tích mã chứng khoán bằng Google Gemini."""
+def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data: pd.DataFrame) -> str:
+    """Phân tích tổng hợp với Google Gemini, xử lý giá trị None an toàn"""
     try:
-        # Lấy các giá trị cần thiết từ trading_signal
-        rs_val = trading_signal.get("rs", 1.0)
-        rs_sma10_val = safe_format(trading_signal.get("rs_sma_10"), ".4f")
-        rs_sma20_val = safe_format(trading_signal.get("rs_sma_20"), ".4f")
-        rs_sma50_val = safe_format(trading_signal.get("rs_sma_50"), ".4f")
-        rs_sma200_val = safe_format(trading_signal.get("rs_sma_200"), ".4f")
-        rs_point_val = trading_signal["rs_point"]
-        rs_point_sma10_val = safe_format(trading_signal.get("rs_point_sma_10"), ".2f")
-        rs_point_sma20_val = safe_format(trading_signal.get("rs_point_sma_20"), ".2f")
-        rs_point_sma50_val = safe_format(trading_signal.get("rs_point_sma_50"), ".2f")
-        rs_point_sma200_val = safe_format(trading_signal.get("rs_point_sma_200"), ".2f")
-        rs_point_252_val = trading_signal.get("rs_point_252", 0.0)
-        rs_point_252_sma10_val = safe_format(trading_signal.get("rs_point_252_sma_10"), ".2f")
-        rs_point_252_sma20_val = safe_format(trading_signal.get("rs_point_252_sma_20"), ".2f")
-        rs_point_252_sma50_val = safe_format(trading_signal.get("rs_point_252_sma_50"), ".2f")
-        rs_point_252_sma200_val = safe_format(trading_signal.get("rs_point_252_sma_200"), ".2f")
-        tenkan_val = safe_format(trading_signal.get("ichimoku_tenkan_sen"))
-        kijun_val = safe_format(trading_signal.get("ichimoku_kijun_sen"))
-        senkou_a_val = safe_format(trading_signal.get("ichimoku_senkou_span_a"))
-        senkou_b_val = safe_format(trading_signal.get("ichimoku_senkou_span_b"))
-        chikou_val = safe_format(trading_signal.get("ichimoku_chikou_span"))
-        # Lấy đường dẫn ảnh phân tích kỹ thuật
-        technical_plot_path = f"vnstocks_data/{symbol}_analysis.png"
-
-        prompt = f"""Bạn là chuyên gia phân tích chứng khoán Việt Nam. Phân tích {symbol}:
-1. Kỹ thuật:
-- Giá: {trading_signal['current_price']:,.2f}
-- RSI: {trading_signal['rsi_value']:.2f}
-- MA10: {trading_signal['ma10']:,.2f}
-- MA20: {trading_signal['ma20']:,.2f}
-- MA50: {trading_signal['ma50']:,.2f}
-- MA200: {trading_signal['ma200']:,.2f}
-- BB: {safe_format(trading_signal.get('bb_upper'))} / {safe_format(trading_signal.get('bb_lower'))}"""
+        # Hàm hỗ trợ định dạng an toàn
+        def safe_format(value, fmt=".2f", default="N/A"):
+            if value is None or pd.isna(value):
+                return default
+            try:
+                return f"{float(value):{fmt}}"
+            except (TypeError, ValueError):
+                return default
+        
+        # Lấy các giá trị cần thiết với xử lý an toàn
+        current_price = safe_float(trading_signal.get('current_price'))
+        rsi_value = safe_float(trading_signal.get('rsi_value'))
+        ma10 = safe_float(trading_signal.get('ma10'))
+        ma50 = safe_float(trading_signal.get('ma50'))
+        ma200 = safe_float(trading_signal.get('ma200'))
+        bb_upper = safe_float(trading_signal.get('bb_upper'))
+        bb_lower = safe_float(trading_signal.get('bb_lower'))
+        macd = safe_float(trading_signal.get('macd'))
+        macd_signal = safe_float(trading_signal.get('macd_signal'))
+        hist = safe_float(trading_signal.get('macd_hist'))
+        volume_ma_20 = safe_float(trading_signal.get('volume_ma_20'))
+        volume_ma_50 = safe_float(trading_signal.get('volume_ma_50'))
+        
+        # Tạo prompt với các giá trị đã được xử lý an toàn
+        prompt = f"""
+Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá mã {symbol}:
+1. Phân tích kỹ thuật:
+   - Giá: {safe_format(current_price)}
+   - RSI: {safe_format(rsi_value)}
+   - MA: {safe_format(ma10)} (10), {safe_format(ma50)} (50), {safe_format(ma200)} (200)
+   - BB: {safe_format(bb_upper)} / {safe_format(bb_lower)}
+   - MACD: {safe_format(macd)}, Signal: {safe_format(macd_signal)}, Histogram: {safe_format(hist)}
+   - Khối lượng trung bình 20 ngày: {safe_format(volume_ma_20)}
+   - Khối lượng trung bình 50 ngày: {safe_format(volume_ma_50)}
+   """
+        
         if symbol.upper() != "VNINDEX":
-            prompt += f"- RS (so với VNINDEX) công thức ( C / PriceVNINDEX): {rs_val:.4f} (SMA10: {safe_format(rs_sma10_val, '.4f')}) (SMA20: {safe_format(rs_sma20_val, '.4f')}) (SMA50: {safe_format(rs_sma50_val, '.4f')}) (SMA200: {safe_format(rs_sma200_val, '.4f')})"
-            prompt += f"- RS_Point công thức ( ( ROC( C, 63 ) * .4 + ROC( C, 126 ) * .2 + ROC( C, 189 ) * .2 + ROC( C, 252 ) * .2 ) * 100): {rs_point_val:.2f} (SMA10: {rs_point_sma10_val}) (SMA20: {rs_point_sma20_val}) (SMA50: {rs_point_sma50_val}) (SMA200: {rs_point_sma200_val})"
-            prompt += f"- RS_Point_252 công thức ( ( ( C / Ref( C, -252 ) - 1 ) * 100 )): {rs_point_252_val:.2f} (SMA10: {rs_point_252_sma10_val}) (SMA20: {rs_point_252_sma20_val}) (SMA50: {rs_point_252_sma50_val}) (SMA200: {rs_point_252_sma200_val})"
-            prompt += f"- Ichimoku: T:{tenkan_val}| K:{kijun_val}| A:{senkou_a_val}| B:{senkou_b_val}| C:{chikou_val}"
-        if financial_data is not None and not financial_data.empty:
-            prompt += f"2. Tài chính :{financial_data.to_string(index=False)}"
-        else:
-            prompt += "2. Tài chính : Không có dữ liệu tài chính."
-        prompt += """Yêu cầu:
-- Cho tôi biết nó đang mẫu hình nào trong phân tích kỹ thuật.
-- Phân tích ngắn gọn, chuyên nghiệp.
-- Kết luận rõ ràng: MUA MẠNH/MUA/GIỮ/BÁN/BÁN MẠNH.
-- Phân tích dựa trên kỹ thuật và phân tích tài chính."""
+            rs = safe_float(trading_signal.get('rs'))
+            rs_point = safe_float(trading_signal.get('rs_point'))
+            rs_point_252 = safe_float(trading_signal.get('rs_point_252'))
+            
+            prompt += f"""
+   - RS (Sức mạnh tương đối): C / VNINDEX → {safe_format(rs, '.4f')}
+     * RS_SMA_10: {safe_format(trading_signal.get('rs_sma_10'), '.4f')}
+     * RS_SMA_20: {safe_format(trading_signal.get('rs_sma_20'), '.4f')}
+     * RS_SMA_50: {safe_format(trading_signal.get('rs_sma_50'), '.4f')}
+     * RS_SMA_200: {safe_format(trading_signal.get('rs_sma_200'), '.4f')}
 
-        # Gửi prompt cho Gemini
+   - RS_Point (điểm sức mạnh): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252)
+     → {safe_format(rs_point)}
+     * SMA_10: {safe_format(trading_signal.get('rs_point_sma_10'))}, SMA_20: {safe_format(trading_signal.get('rs_point_sma_20'))}, SMA_50: {safe_format(trading_signal.get('rs_point_sma_50'))}, SMA_200: {safe_format(trading_signal.get('rs_point_sma_200'))}
+
+   - RS_Point_252: ((C / Ref(C, -252)) - 1) * 100 → {safe_format(rs_point_252)}
+     * SMA_10: {safe_format(trading_signal.get('rs_point_252_sma_10'))}, SMA_20: {safe_format(trading_signal.get('rs_point_252_sma_20'))}, SMA_50: {safe_format(trading_signal.get('rs_point_252_sma_50'))}, SMA_200: {safe_format(trading_signal.get('rs_point_252_sma_200'))}
+            """
+        
+        if financial_data is not None and not financial_data.empty:
+            prompt += f"2. Tình hình tài chính gần nhất:\n{financial_data.head(4).to_string(index=False)}\n"
+        else:
+            prompt += "2. Không có dữ liệu tài chính.\n"
+        
+        prompt += """
+Yêu cầu:
+- Nhận định xu hướng ngắn hạn và trung hạn.
+- Đánh giá theo mô hình kỹ thuật (nếu có).
+- Kết luận rõ ràng: MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH.
+- Phân tích ngắn gọn, chuyên nghiệp.
+"""
+        
         model = genai.GenerativeModel("gemini-2.5-pro")
         response = model.generate_content(prompt)
-
         if response and response.text:
             return response.text.strip()
         else:
             return "Không nhận được phản hồi từ Google Gemini."
+    
     except Exception as e:
-        import traceback
         print(f"❌ Lỗi khi phân tích bằng Google Gemini cho {symbol}: {str(e)}")
         print("Chi tiết lỗi:")
         traceback.print_exc()
@@ -845,23 +754,50 @@ def analyze_stock(symbol):
     print(gemini_analysis)
     print(f"{'='*60}\n")
 
-    # --- Sửa lỗi TypeError: Object of type Timestamp is not JSON serializable ---
-    # Chuyển đổi forecast_dates từ pd.Timestamp sang string (dù list này sẽ rỗng)
-    forecast_dates_str = [date.strftime("%Y-%m-%d") for date in trading_signal.get("forecast_dates", [])]
-    # --- Kết thúc phần sửa lỗi JSON ---
-
     report = {
-        "symbol": symbol, "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "current_price": safe_float(trading_signal.get("current_price")), "signal": trading_signal.get("signal"),
-        "recommendation": trading_signal.get("recommendation"), "score": safe_float(trading_signal.get("score")),
-        "rsi_value": safe_float(trading_signal.get("rsi_value")), "ma10": safe_float(trading_signal.get("ma10")),
-        "ma20": safe_float(trading_signal.get("ma20")), "ma50": safe_float(trading_signal.get("ma50")),
+        "symbol": symbol, 
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "current_price": safe_float(trading_signal.get("current_price")), 
+        "signal": trading_signal.get("signal"),
+        "recommendation": trading_signal.get("recommendation"), 
+        "score": safe_float(trading_signal.get("score")),
+        "rsi_value": safe_float(trading_signal.get("rsi_value")), 
+        "ma10": safe_float(trading_signal.get("ma10")),
+        "ma20": safe_float(trading_signal.get("ma20")), 
+        "ma50": safe_float(trading_signal.get("ma50")),
         "ma200": safe_float(trading_signal.get("ma200")),
         "rs": safe_float(trading_signal.get("rs")) if symbol.upper() != "VNINDEX" else None,
         "rs_point": safe_float(trading_signal.get("rs_point")) if symbol.upper() != "VNINDEX" else None,
         "rs_point_252": safe_float(trading_signal.get("rs_point_252")) if symbol.upper() != "VNINDEX" else None,
-        "forecast": list(zip(forecast_dates_str, trading_signal.get("forecast_prices", []))),  # Sử dụng forecast_dates_str
-        "ai_recommendation": "Không có", "ai_reason": "Không chạy mô hình AI riêng", "gemini_analysis": gemini_analysis,
+        # Thêm các chỉ báo còn thiếu
+        "open": safe_float(trading_signal.get("open")),
+        "high": safe_float(trading_signal.get("high")),
+        "low": safe_float(trading_signal.get("low")),
+        "volume": safe_float(trading_signal.get("volume")),
+        "macd": safe_float(trading_signal.get("macd")),
+        "macd_signal": safe_float(trading_signal.get("macd_signal")),
+        "macd_hist": safe_float(trading_signal.get("macd_hist")),
+        "bb_upper": safe_float(trading_signal.get("bb_upper")),
+        "bb_lower": safe_float(trading_signal.get("bb_lower")),
+        "volume_ma": safe_float(trading_signal.get("volume_ma")),
+        "ichimoku_tenkan_sen": safe_float(trading_signal.get("ichimoku_tenkan_sen")),
+        "ichimoku_kijun_sen": safe_float(trading_signal.get("ichimoku_kijun_sen")),
+        "ichimoku_senkou_span_a": safe_float(trading_signal.get("ichimoku_senkou_span_a")),
+        "ichimoku_senkou_span_b": safe_float(trading_signal.get("ichimoku_senkou_span_b")),
+        "ichimoku_chikou_span": safe_float(trading_signal.get("ichimoku_chikou_span")),
+        "rs_sma_10": safe_float(trading_signal.get("rs_sma_10")) if symbol.upper() != "VNINDEX" else None,
+        "rs_sma_20": safe_float(trading_signal.get("rs_sma_20")) if symbol.upper() != "VNINDEX" else None,
+        "rs_sma_50": safe_float(trading_signal.get("rs_sma_50")) if symbol.upper() != "VNINDEX" else None,
+        "rs_sma_200": safe_float(trading_signal.get("rs_sma_200")) if symbol.upper() != "VNINDEX" else None,
+        "rs_point_sma_10": safe_float(trading_signal.get("rs_point_sma_10")) if symbol.upper() != "VNINDEX" else None,
+        "rs_point_sma_20": safe_float(trading_signal.get("rs_point_sma_20")) if symbol.upper() != "VNINDEX" else None,
+        "rs_point_sma_50": safe_float(trading_signal.get("rs_point_sma_50")) if symbol.upper() != "VNINDEX" else None,
+        "rs_point_sma_200": safe_float(trading_signal.get("rs_point_sma_200")) if symbol.upper() != "VNINDEX" else None,
+        "rs_point_252_sma_10": safe_float(trading_signal.get("rs_point_252_sma_10")) if symbol.upper() != "VNINDEX" else None,
+        "rs_point_252_sma_20": safe_float(trading_signal.get("rs_point_252_sma_20")) if symbol.upper() != "VNINDEX" else None,
+        "rs_point_252_sma_50": safe_float(trading_signal.get("rs_point_252_sma_50")) if symbol.upper() != "VNINDEX" else None,
+        "rs_point_252_sma_200": safe_float(trading_signal.get("rs_point_252_sma_200")) if symbol.upper() != "VNINDEX" else None,
+        "gemini_analysis": gemini_analysis,
     }
     # report.update(trading_signal) # Không cập nhật toàn bộ trading_signal vì có thể gây trùng lặp key và lỗi JSON
     with open(f"vnstocks_data/{symbol}_report.json", "w", encoding="utf-8") as f:
@@ -962,7 +898,7 @@ def main():
     #     screen_stocks_parallel()
     # else:
     #     print("🔍 Không tìm được cổ phiếu nào phù hợp với tiêu chí lọc.")
-    print("\nNhập mã cổ phiếu để phân tích riêng lẻ (ví dụ: VCB, FPT) hoặc 'exit' để thoát:")
+    print("\nNhập mã cổ phiếu để phân tích riêng lẻ (ví dụ: VCB, FPT) hoặc 'exit' để thoát")
     user_input = input("Nhập mã cổ phiếu để phân tích: ").strip().upper()
     if user_input and user_input.lower() != 'exit':
         tickers = [ticker.strip() for ticker in user_input.split(',')]
