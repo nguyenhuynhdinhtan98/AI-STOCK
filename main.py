@@ -730,7 +730,7 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
         
         prompt += """
 Yêu cầu:
-- Nhận định phân tích kỹ thuật và tài chính.
+- Nhận định phân tích kỹ thuật và tài chính (quý gần nhất) về tình hình tái chính lãi vay, lợi nhuận có đến từ kinh doanh thuần....
 - Đánh giá theo mô hình kỹ thuật (nếu có).
 - Nhận định xu hướng ngắn hạn và trung hạn.
 - Kết luận rõ ràng: MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH.
