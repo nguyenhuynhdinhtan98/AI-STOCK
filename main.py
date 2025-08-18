@@ -897,7 +897,7 @@ def screen_stocks_parallel():
         return None
 
 # --- Lọc cổ phiếu ---
-def filter_stocks_low_pe_high_cap(min_market_cap= 1000):
+def filter_stocks_low_pe_high_cap(min_market_cap= 500):
     """Lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao."""
     try:
         df = Screener().stock(params={"exchangeName": "HOSE,HNX,UPCOM"}, limit=5000)
@@ -908,13 +908,16 @@ def filter_stocks_low_pe_high_cap(min_market_cap= 1000):
                          (df['pe'] > 0) &
                          (df['pe'] < 20) &
                          (df['pb'] > 0) &
-                         (df['revenue_growth_1y'] > 0) &
                          (df['last_quarter_revenue_growth'] > 0) &
                          (df['second_quarter_revenue_growth'] > 0) &
-                         (df['eps_growth_1y'] > 0) &
                          (df['last_quarter_profit_growth'] > 0) &
                          (df['second_quarter_profit_growth'] > 0) &
-                         (df['doe'] < 2)]
+                         (df['peg_forward'] < 1) &
+                         (df['peg_forward'] > 0) &
+                         (df['peg_trailing'] < 1) &
+                         (df['peg_trailing'] > 0)]
+        
+
         filtered_df.to_csv("market.csv", index=False, encoding="utf-8-sig")
         return filtered_df
     except Exception as e:
