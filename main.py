@@ -76,128 +76,28 @@ def get_stock_data(symbol):
         print(f"❌ Exception khi lấy dữ liệu cho mã {symbol}: {str(e)}")
         return None
 
+def safe_rename(df: pd.DataFrame, mapping: dict) -> pd.DataFrame:
+    # Lọc chỉ giữ lại những key có tồn tại trong df
+    valid_mapping = {k: v for k, v in mapping.items() if k in df.columns}
+    return df.rename(columns=valid_mapping)
 
-"""Lấy dữ liệu báo cáo tài chính (12 quý gần nhất) từ VCI và lưu vào file CSV."""
-def get_financial_data(symbol, period='quarter', lang='en'):
+def get_financial_data(symbol):
+    """Lấy dữ liệu báo cáo tài chính (12 quý gần nhất) từ VCI và lưu vào file CSV."""
     try:
-        # Khởi tạo đối tượng Finance
-        finance = Finance(symbol=symbol)
-        
-        # Tạo thư mục lưu trữ nếu chưa tồn tại
-        if not os.path.exists("vnstocks_data"):
-            os.makedirs("vnstocks_data")
-            print("✅ Đã tạo thư mục 'vnstocks_data' để lưu trữ dữ liệu")
-        
-        print(f"🔄 Bắt đầu lấy BCTC cho mã {symbol} ...")
-        
-        # Lấy 4 loại báo cáo tài chính
-        df_ratio = finance.ratio(period=period, lang=lang, flatten_columns=True)
-        df_bs = finance.balance_sheet(period=period, lang=lang)
-        df_is = finance.income_statement(period=period, lang=lang)
-        df_cf = finance.cash_flow(period=period, lang=lang)
-        
-        # Hàm kiểm tra và chuẩn hóa DataFrame
-        def standardize_df(df, report_type):
-            """Chuẩn hóa DataFrame trước khi merge"""
-            if df is None or df.empty:
-                print(f"⚠️ Cảnh báo: Báo cáo {report_type} trống hoặc không tồn tại")
-                return pd.DataFrame()
-            
-            # Đảm bảo cột key tồn tại
-            if 'ticker' not in df.columns:
-                # Tìm cột tương đương
-                ticker_col = [col for col in df.columns if 'ticker' in str(col).lower()]
-                if ticker_col:
-                    df.rename(columns={ticker_col[0]: 'ticker'}, inplace=True)
-                else:
-                    df['ticker'] = symbol
-            
-            if 'yearReport' not in df.columns:
-                year_col = [col for col in df.columns if 'year' in str(col).lower()]
-                if year_col:
-                    df.rename(columns={year_col[0]: 'yearReport'}, inplace=True)
-                else:
-                    # Thử trích xuất năm từ index nếu có
-                    if hasattr(df.index, 'names') and 'year' in str(df.index.names).lower():
-                        df = df.reset_index()
-                        df.rename(columns={'year': 'yearReport'}, inplace=True)
-            
-            if 'lengthReport' not in df.columns:
-                period_col = [col for col in df.columns if 'length' in str(col).lower() or 'period' in str(col).lower() or 'quarter' in str(col).lower()]
-                if period_col:
-                    df.rename(columns={period_col[0]: 'lengthReport'}, inplace=True)
-                else:
-                    # Thử trích xuất kỳ báo cáo từ index nếu có
-                    if hasattr(df.index, 'names') and ('quarter' in str(df.index.names).lower() or 'period' in str(df.index.names).lower()):
-                        df = df.reset_index()
-                        df.rename(columns={'quarter': 'lengthReport', 'period': 'lengthReport'}, inplace=True)
-            
-            # Chuẩn hóa kiểu dữ liệu cho các cột key
-            try:
-                df['ticker'] = df['ticker'].astype(str)
-                if 'yearReport' in df.columns:
-                    df['yearReport'] = pd.to_numeric(df['yearReport'], errors='coerce').fillna(0).astype(int)
-                if 'lengthReport' in df.columns:
-                    df['lengthReport'] = pd.to_numeric(df['lengthReport'], errors='coerce').fillna(0).astype(int)
-            except Exception as e:
-                print(f"⚠️ Lỗi chuẩn hóa kiểu dữ liệu cho {report_type}: {str(e)}")
-            
-            # Đổi tên cột trùng để tránh xung đột khi merge
-            suffix = f"_{report_type}" if report_type else ""
-            cols_to_rename = {}
-            for col in df.columns:
-                if col not in ['ticker', 'yearReport', 'lengthReport'] and not col.endswith(suffix):
-                    cols_to_rename[col] = f"{col}{suffix}"
-            df.rename(columns=cols_to_rename, inplace=True)
-            
-            return df
 
-        # Chuẩn hóa các DataFrame
-        df_ratio = standardize_df(df_ratio, "ratio")
-        df_bs = standardize_df(df_bs, "bs")
-        df_is = standardize_df(df_is, "is")
-        df_cf = standardize_df(df_cf, "cf")
-        
-        # Kiểm tra xem các DataFrame có dữ liệu không
-        valid_dfs = []
-        for df, name in [(df_ratio, "ratio"), (df_bs, "bs"), (df_is, "is"), (df_cf, "cf")]:
-            if not df.empty and all(col in df.columns for col in ['ticker', 'yearReport', 'lengthReport']):
-                valid_dfs.append((df, name))
-            else:
-                print(f"⚠️ Bỏ qua báo cáo {name} do thiếu dữ liệu hoặc cột key")
-        
-        if not valid_dfs:
-            print("❌ Không có báo cáo nào hợp lệ để gộp")
-            return None
-        
-        # Bắt đầu gộp từ DataFrame đầu tiên hợp lệ
-        financial_data = valid_dfs[0][0].copy()
-        
-        # Gộp các DataFrame còn lại
-        for df, name in valid_dfs[1:]:
-            financial_data = pd.merge(
-                financial_data,
-                df,
-                on=['ticker', 'yearReport', 'lengthReport'],
-                how='outer',
-                suffixes=('', f'_{name}')
-            )
-        
-        # Sắp xếp theo năm và quý
-        if 'yearReport' in financial_data.columns and 'lengthReport' in financial_data.columns:
-            financial_data = financial_data.sort_values(by=['yearReport', 'lengthReport'], ascending=[False, True])
-        
-        print(f"✅ Gộp thành công! Tổng số bản ghi: {len(financial_data)}, Tổng số cột: {len(financial_data.columns)}")
-        
-        # Lưu dữ liệu vào file CSV
-        if financial_data is not None and not financial_data.empty:
-            financial_data.to_csv(f"vnstocks_data/{symbol}_financial.csv", index=False)
-            print(f"✅ Đã lưu BCTC cho mã {symbol} vào file 'vnstocks_data/{symbol}_financial.csv'")
-            return financial_data
-        else:
-            print(f"⚠️ Không lấy được BCTC cho mã {symbol}")
-            return None
-            
+            # Khởi tạo đối tượng finance với source="VCI"
+            finance = Finance(symbol="DRI")
+
+            # Lấy 4 loại báo cáo tài chính
+            df_ratio = finance.ratio(period='quarter',flatten_columns=True)
+            df_bs = finance.balance_sheet(period='quarter')
+            df_is = finance.income_statement(period='quarter')
+            df_cf = finance.cash_flow(period='quarter')
+    
+            financial_data = df_bs.merge(df_is, on=["yearReport", "lengthReport"], how="outer") \
+                    .merge(df_cf, on=["yearReport", "lengthReport"], how="outer")
+
+            return df_ratio, financial_data
     except Exception as e:
         print(f"❌ Lỗi khi lấy BCTC cho {symbol}: {str(e)}")
         return None
@@ -403,7 +303,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             kijun_sen = df["Close"].rolling(26).mean().iloc[-1]
             senkou_span_a = ((tenkan_sen + kijun_sen) / 2) if not pd.isna(tenkan_sen) and not pd.isna(kijun_sen) else np.nan
             senkou_span_b = df["Close"].rolling(52).mean().shift(26).iloc[-1] if len(df) >= 78 else np.nan
-            chikou_span = df["Close"].shift(-26).iloc[-1] if len(df) > 26 else np.nan
+            chikou_span = df["Close"].shift(26).iloc[-1] if len(df) > 26 else np.nan
             
             # Lấy giá trị RS
             rs_value = last_row["RS"] if symbol.upper() != "VNINDEX" else 1.0
@@ -745,7 +645,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
         }
 # --- Phân tích bằng Google Gemini ---
-def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data: pd.DataFrame) -> str:
+def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_ratio: pd.DataFrame, financial_data_statement: pd.DataFrame) -> str:
     """Phân tích tổng hợp với Google Gemini, xử lý giá trị None an toàn"""
     try:
         # Hàm hỗ trợ định dạng an toàn
@@ -799,22 +699,32 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
             rs_point_252 = safe_float(trading_signal.get('rs_point_252'))
             
             prompt += f"""
-   - RS (Sức mạnh tương đối): C / VNINDEX → {safe_format(rs, '.4f')}
+   - RS (Sức mạnh tương đối so với thị trường): C / VNINDEX → {safe_format(rs, '.4f')}
      * RS_SMA_10: {safe_format(trading_signal.get('rs_sma_10'), '.4f')}
      * RS_SMA_20: {safe_format(trading_signal.get('rs_sma_20'), '.4f')}
      * RS_SMA_50: {safe_format(trading_signal.get('rs_sma_50'), '.4f')}
      * RS_SMA_200: {safe_format(trading_signal.get('rs_sma_200'), '.4f')}
 
-   - RS_Point (điểm sức mạnh): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252)
-     → {safe_format(rs_point)}
-     * SMA_10: {safe_format(trading_signal.get('rs_point_sma_10'))}, SMA_20: {safe_format(trading_signal.get('rs_point_sma_20'))}, SMA_50: {safe_format(trading_signal.get('rs_point_sma_50'))}, SMA_200: {safe_format(trading_signal.get('rs_point_sma_200'))}
+   - RS_Point (điểm sức mạnh IBD): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252) → {safe_format(rs_point)}
+     * SMA_10: {safe_format(trading_signal.get('rs_point_sma_10'))}*
+     * SMA_20: {safe_format(trading_signal.get('rs_point_sma_20'))}
+     * SMA_50: {safe_format(trading_signal.get('rs_point_sma_50'))}
+     * SMA_200: {safe_format(trading_signal.get('rs_point_sma_200'))}
 
    - RS_Point_252: ((C / Ref(C, -252)) - 1) * 100 → {safe_format(rs_point_252)}
-     * SMA_10: {safe_format(trading_signal.get('rs_point_252_sma_10'))}, SMA_20: {safe_format(trading_signal.get('rs_point_252_sma_20'))}, SMA_50: {safe_format(trading_signal.get('rs_point_252_sma_50'))}, SMA_200: {safe_format(trading_signal.get('rs_point_252_sma_200'))}
+     * SMA_10: {safe_format(trading_signal.get('rs_point_252_sma_10'))}
+     * SMA_20: {safe_format(trading_signal.get('rs_point_252_sma_20'))}
+     * SMA_50: {safe_format(trading_signal.get('rs_point_252_sma_50'))}
+     * SMA_200: {safe_format(trading_signal.get('rs_point_252_sma_200'))}
             """
         
-        if financial_data is not None and not financial_data.empty:
-            prompt += f"2. Tình hình tài chính gần nhất:\n{financial_data.head(4).to_string(index=False)}\n"
+        if (financial_data_ratio is not None and not financial_data_ratio.empty) or \
+           (financial_data_statement is not None and not financial_data_statement.empty):
+            prompt += f"2. Tình hình tài chính.\n"
+            if financial_data_ratio is not None and not financial_data_ratio.empty:
+                prompt += f"Tình hình tỷ lệ tài chính :\n{financial_data_ratio.to_string(index=False)}\n"
+            if financial_data_statement is not None and not financial_data_statement.empty:
+                prompt += f"Báo cáo tài chính :\n{financial_data_statement.to_string(index=False)}\n"
         else:
             prompt += "2. Không có dữ liệu tài chính.\n"
         
@@ -850,7 +760,7 @@ def analyze_stock(symbol):
     if df is None or df.empty:
         print(f"❌ Không thể phân tích mã {symbol} do thiếu dữ liệu")
         return None
-    financial_data = get_financial_data(symbol)
+    financial_data_ratio, financial_data_statement  = get_financial_data(symbol)
     df_processed = preprocess_stock_data(df)
     if df_processed is None or df_processed.empty:
         print(f"❌ Không thể tiền xử lý dữ liệu cho mã {symbol}")
@@ -861,7 +771,7 @@ def analyze_stock(symbol):
     print(f"📈 Đang phân tích kỹ thuật cho mã {symbol}...")
     trading_signal = plot_stock_analysis(symbol, df_processed)
     print(f"🤖 Đang phân tích bằng Google Gemini ...")
-    gemini_analysis = analyze_with_gemini(symbol, trading_signal, financial_data)
+    gemini_analysis = analyze_with_gemini(symbol, trading_signal, financial_data_ratio, financial_data_statement)
     print(f"\n{'='*20} KẾT QUẢ PHÂN TÍCH CHO MÃ {symbol} {'='*20}")
     print(f"💰 Giá hiện tại: {trading_signal['current_price']:,.2f} VND")
     print(f"📈 Tín hiệu: {trading_signal['signal']}")
@@ -1013,7 +923,7 @@ def main():
     print("=" * 60)
     min_cap = 500
     print(f"🔍 Đang lọc cổ phiếu có P/E thấp và vốn hóa > {min_cap} tỷ VND...")
-    filtered_stocks = filter_stocks_low_pe_high_cap(min_market_cap=min_cap)
+    #filtered_stocks = filter_stocks_low_pe_high_cap(min_market_cap=min_cap)
     # if filtered_stocks is not None and not filtered_stocks.empty:
     #     print("🚀 Bắt đầu quét và phân tích...")
     #     screen_stocks_parallel()
