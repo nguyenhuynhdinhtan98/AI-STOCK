@@ -738,7 +738,7 @@ Nhiệm vụ của bạn:
 - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
 """
 
-        model = genai.GenerativeModel("gemini-2.5-pro")
+        model = genai.GenerativeModel("gemini-2.5-flash")
         response = model.generate_content(prompt)
         if response and response.text:
             return response.text.strip()
