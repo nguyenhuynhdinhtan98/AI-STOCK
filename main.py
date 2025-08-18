@@ -730,12 +730,13 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
         
         prompt += """
 Yêu cầu:
-- Có thể dùng thêm dữ liệu bên ngoài như vietstock, fireant, cafef để đưa ra nhận định
+- Cho tôi thông tin ảnh hưởng ngành và vĩ mô đối với cổ phiếu.
+- Có thể dùng thêm dữ liệu bên ngoài như vietstock, fireant, cafef, tradingview ... để đưa ra nhận định. Lấy thông tin từ cộng đồng tôi biết câu chuyện đang có.
 - Nhận định phân tích kỹ thuật và tài chính.
 - Đánh giá theo mô hình kỹ thuật (nếu có).
 - Nhận định xu hướng ngắn hạn và trung hạn.
 - Kết luận rõ ràng: MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH.
-- Phân tích ngắn gọn, chuyên nghiệp.
+- Phân tích ngắn gọn, chuyên nghiệp dựa trên wyckoff, vsa, vpa, minervini, warren buffet.
 """
 
         model = genai.GenerativeModel("gemini-2.5-pro")
@@ -923,8 +924,8 @@ def main():
     print("TÍCH HỢP VNSTOCK & GOOGLE GEMINI")
     print("=" * 60)
     min_cap = 500
-    print(f"🔍 Đang lọc cổ phiếu có P/E thấp và vốn hóa > {min_cap} tỷ VND...")
-    #filtered_stocks = filter_stocks_low_pe_high_cap(min_market_cap=min_cap)
+    # print(f"🔍 Đang lọc cổ phiếu có P/E thấp và vốn hóa > {min_cap} tỷ VND...")
+    # filtered_stocks = filter_stocks_low_pe_high_cap(min_market_cap=min_cap)
     # if filtered_stocks is not None and not filtered_stocks.empty:
     #     print("🚀 Bắt đầu quét và phân tích...")
     #     screen_stocks_parallel()
