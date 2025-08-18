@@ -670,7 +670,7 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
    - Giá: {safe_format(current_price)}
    - RSI: {safe_format(rsi_value)}
    - MA: {safe_format(ma10)} (10), {safe_format(ma20)} (20), {safe_format(ma50)} (50), {safe_format(ma200)} (200)
-   - BB: {safe_format(bb_upper)} / {safe_format(bb_lower)}
+   - Bollinger bands Up: {safe_format(bb_upper)}, Bollinger bands Lower: / {safe_format(bb_lower)}
    - MACD: {safe_format(macd)}, Signal: {safe_format(macd_signal)}, Histogram: {safe_format(hist)}
    - Khối lượng: {safe_format(volume)}
    - Khối lượng trung bình 20 ngày: {safe_format(volume_ma_20)}
