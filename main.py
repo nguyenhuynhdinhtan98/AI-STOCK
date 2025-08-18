@@ -906,8 +906,7 @@ def filter_stocks_low_pe_high_cap(min_market_cap= 500):
             return None
         filtered_df = df[
             (df['market_cap'] >= min_market_cap) &
-            (df['pe'] > 0) &
-            (df['pe'] < 20) &
+            (df['pe'] > 0 & df['pe'] < 20) &
             (df['pb'] > 0) &
             (df['last_quarter_revenue_growth'] > 0) &
             (df['second_quarter_revenue_growth'] > 0) &
