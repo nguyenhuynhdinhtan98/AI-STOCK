@@ -904,19 +904,20 @@ def filter_stocks_low_pe_high_cap(min_market_cap= 500):
         if df is None or df.empty:
             print("❌ Không thể lấy dữ liệu danh sách công ty niêm yết.")
             return None
-        filtered_df = df[(df['market_cap'] > min_market_cap) &
-                         (df['pe'] > 0) &
-                         (df['pe'] < 20) &
-                         (df['pb'] > 0) &
-                         (df['last_quarter_revenue_growth'] > 0) &
-                         (df['second_quarter_revenue_growth'] > 0) &
-                         (df['last_quarter_profit_growth'] > 0) &
-                         (df['second_quarter_profit_growth'] > 0) &
-                         (df['peg_forward'] < 1) | pd.isna(df['peg_forward']) | (df['peg_forward'] == '') &
-                         (df['peg_forward'] >= 0) | pd.isna(df['peg_forward']) | (df['peg_forward'] == '') &
-                         (df['peg_trailing'] < 1) | pd.isna(df['peg_trailing']) | (df['peg_trailing'] == '') &
-                         (df['peg_trailing'] >= 0) | pd.isna(df['peg_trailing']) | (df['peg_trailing'] == '')]
-        
+        filtered_df = df[
+            (df['market_cap'] > min_market_cap) &
+            (df['pe'] > 0) &
+            (df['pe'] < 20) &
+            (df['pb'] > 0) &
+            (df['last_quarter_revenue_growth'] > 0) &
+            (df['second_quarter_revenue_growth'] > 0) &
+            (df['last_quarter_profit_growth'] > 0) &
+            (df['second_quarter_profit_growth'] > 0) &
+            (((df['peg_forward'] < 1) | pd.isna(df['peg_forward']) | (df['peg_forward'] == '')) &
+            ((df['peg_forward'] >= 0) | pd.isna(df['peg_forward']) | (df['peg_forward'] == ''))) &
+            (((df['peg_trailing'] < 1) | pd.isna(df['peg_trailing']) | (df['peg_trailing'] == '')) &
+            ((df['peg_trailing'] >= 0) | pd.isna(df['peg_trailing']) | (df['peg_trailing'] == '')))
+        ]
 
         filtered_df.to_csv("market.csv", index=False, encoding="utf-8-sig")
         return filtered_df
