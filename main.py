@@ -913,10 +913,8 @@ def filter_stocks_low_pe_high_cap(min_market_cap= 500):
             (df['second_quarter_revenue_growth'] > 0) &
             (df['last_quarter_profit_growth'] > 0) &
             (df['second_quarter_profit_growth'] > 0) &
-            (((df['peg_forward'] < 1) | pd.isna(df['peg_forward']) | (df['peg_forward'] == '')) &
-            ((df['peg_forward'] >= 0) | pd.isna(df['peg_forward']) | (df['peg_forward'] == ''))) &
-            (((df['peg_trailing'] < 1) | pd.isna(df['peg_trailing']) | (df['peg_trailing'] == '')) &
-            ((df['peg_trailing'] >= 0) | pd.isna(df['peg_trailing']) | (df['peg_trailing'] == '')))
+            (((df['peg_forward'] < 1 & df['peg_forward'] >= 0) | pd.isna(df['peg_forward']) | (df['peg_forward'] == '')) &
+            (((df['peg_trailing'] < 1 & df['peg_trailing'] >= 0) | pd.isna(df['peg_trailing']) | (df['peg_trailing'] == ''))))
         ]
 
         filtered_df.to_csv("market.csv", index=False, encoding="utf-8-sig")
