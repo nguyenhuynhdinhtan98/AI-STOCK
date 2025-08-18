@@ -659,6 +659,11 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data: pd.Da
         macd = safe_float(trading_signal.get('macd'))
         macd_signal = safe_float(trading_signal.get('macd_signal'))
         hist = safe_float(trading_signal.get('macd_hist'))
+        tenkan_val = safe_format(trading_signal.get("ichimoku_tenkan_sen"))
+        kijun_val = safe_format(trading_signal.get("ichimoku_kijun_sen"))
+        senkou_a_val = safe_format(trading_signal.get("ichimoku_senkou_span_a"))
+        senkou_b_val = safe_format(trading_signal.get("ichimoku_senkou_span_b"))
+        chikou_val = safe_format(trading_signal.get("ichimoku_chikou_span"))
         volume = safe_float(trading_signal.get('volume'))
         volume_ma_20 = safe_float(trading_signal.get('volume_ma_20'))
         volume_ma_50 = safe_float(trading_signal.get('volume_ma_50'))
@@ -672,6 +677,7 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
    - MA: {safe_format(ma10)} (10), {safe_format(ma20)} (20), {safe_format(ma50)} (50), {safe_format(ma200)} (200)
    - Bollinger bands Up: {safe_format(bb_upper)}, Bollinger bands Lower: / {safe_format(bb_lower)}
    - MACD: {safe_format(macd)}, Signal: {safe_format(macd_signal)}, Histogram: {safe_format(hist)}
+   - Ichimoku: Tenkan: {tenkan_val}| Kijun: {kijun_val}| Senkou_A: {senkou_a_val}| Senkou_B: {senkou_b_val}| Chikou: {chikou_val}"
    - Khối lượng: {safe_format(volume)}
    - Khối lượng trung bình 20 ngày: {safe_format(volume_ma_20)}
    - Khối lượng trung bình 50 ngày: {safe_format(volume_ma_50)}
