@@ -79,18 +79,17 @@ def get_stock_data(symbol):
 def get_financial_data(symbol):
     """Lấy dữ liệu báo cáo tài chính (12 quý gần nhất) từ VCI và lưu vào file CSV."""
     try:
-        financial_obj = Finance(symbol=symbol)
+        stock = Vnstock().stock(symbol=symbol, source="VCI")
 
-          # Lấy dữ liệu
-        df_ratio = financial_obj.ratio(period="quarter", lang="en")
-        df_bs = financial_obj.balance_sheet(period="quarter", lang="en")
-        df_is = financial_obj.income_statement(period="quarter", lang="en")
-        df_cf = financial_obj.cash_flow(period="quarter", lang="en")
+        df_ratio = stock.finance.ratio(period='quarter', lang='en')
+        df_bs = stock.finance.balance_sheet(period='quarter', lang='en')
+        df_is = stock.finance.income_statement(period='quarter', lang='en')
+        df_cf = stock.finance.cash_flow(period='quarter', lang='en')
 
-        # Merge theo cột 'period'
-        financial_data = df_ratio.merge(df_bs, on="period", how="outer", suffixes=("_ratio", "_bs"))
-        financial_data = financial_data.merge(df_is, on="period", how="outer", suffixes=("", "_is"))
-        financial_data = financial_data.merge(df_cf, on="period", how="outer", suffixes=("", "_cf"))
+        # Merge ngang theo 'period'
+        df_merged = df_ratio.merge(df_bs, on='period', how='outer', suffixes=('_ratio', '_bs'))
+        df_merged = df_merged.merge(df_is, on='period', how='outer', suffixes=('', '_is'))
+        df_merged = df_merged.merge(df_cf, on='period', how='outer', suffixes=('', '_cf'))
         if financial_data is not None and not financial_data.empty:
             financial_data.to_csv(f"vnstocks_data/{symbol}_financial.csv", index=False)
             print(f"✅ Đã lưu BCTC cho mã {symbol} vào file 'vnstocks_data/{symbol}_financial.csv'")
