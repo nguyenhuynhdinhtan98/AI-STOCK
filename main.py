@@ -730,6 +730,7 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
         
         prompt += """
 Yêu cầu:
+- Có thể dùng thêm dữ liệu bên ngoài như vietstock, fireant, cafef để đưa ra nhận định
 - Nhận định phân tích kỹ thuật và tài chính.
 - Đánh giá theo mô hình kỹ thuật (nếu có).
 - Nhận định xu hướng ngắn hạn và trung hạn.
