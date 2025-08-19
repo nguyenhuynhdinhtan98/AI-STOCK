@@ -1,6 +1,6 @@
 {
     "symbol": "DBC",
-    "timestamp": "2025-08-19 16:41:15",
+    "timestamp": "2025-08-19 16:59:15",
     "current_price": 29.3,
     "signal": "TĂNG MẠNH",
     "recommendation": "GIỮ - TĂNG",
@@ -40,5 +40,5 @@
     "rs_point_252_sma_20": 28.034358982632295,
     "rs_point_252_sma_50": 16.16144050068114,
     "rs_point_252_sma_200": 17.353840501572503,
-    "gemini_analysis": "Không nhận được phản hồi hợp lệ từ OpenRouter."
+    "gemini_analysis": "Không thể tạo phân tích bằng AI tại thời điểm này."
 }

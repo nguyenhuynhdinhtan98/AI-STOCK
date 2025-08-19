@@ -794,30 +794,32 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
         fileStatement = genai.upload_file(path=f'vnstocks_data/{symbol}_financial_statements.csv')
         print(f"✅ Upload file báo cáo tài chính thành công: {fileStatement.uri}")
         
-        # Gọi OpenRouter API sử dụng client có sẵn
-        print(f"🤖 Đang yêu cầu phân tích từ OpenRouter...")
-        
-        response = client.chat.completions.create(
-            extra_body={},
-            model="deepseek/deepseek-r1-0528:free",
-            messages=[
-                {"role": "user", "content": prompt}
-            ]
+        # Gọi AI sử dụng
+        print(f"🤖 Đang yêu cầu phân tích từ AI...")
+
+        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
+        response = model.generate_content(
+            contents=[
+                prompt, # Prompt văn bản
+                fileData, # File dữ liệu giá
+                fileStatement, # File báo cáo tài chính
+            ],
         )
-        print(response)
-        if response and response.choices and len(response.choices) > 0:
-            return response.choices[0].message.content.strip()
+        print(fileData)
+        if response and response.text:
+            return response.text.strip()
         else:
-            return "Không nhận được phản hồi hợp lệ từ OpenRouter."
+            return "Không nhận được phản hồi từ AI."
+    
+    except Exception as e:
+        print(f"❌ Lỗi khi phân tích bằng AI cho {symbol}: {str(e)}")
+        print("Chi tiết lỗi:")
+        traceback.print_exc()
+        return "Không thể tạo phân tích bằng AI tại thời điểm này."
 
     except FileNotFoundError as e:
         print(f"❌ Không tìm thấy file cho {symbol}: {str(e)}")
         return "Không tìm thấy dữ liệu cần thiết để phân tích."
-    except Exception as e:
-        print(f"❌ Lỗi khi phân tích bằng OpenRouter cho {symbol}: {str(e)}")
-        print("Chi tiết lỗi:")
-        traceback.print_exc()
-        return "Không thể tạo phân tích bằng OpenRouter tại thời điểm này."
 
 # --- Phân tích một mã cổ phiếu ---
 def analyze_stock(symbol):
