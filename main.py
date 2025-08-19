@@ -84,21 +84,40 @@ def safe_rename(df: pd.DataFrame, mapping: dict) -> pd.DataFrame:
 
 def get_financial_data(symbol):
     """Lấy dữ liệu báo cáo tài chính từ VCI và lưu vào file CSV."""
+    def flatten_columns(df):
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = ['_'.join(col).strip() if col[1] else col[0] for col in df.columns.values]
+        return df
+    
+    def standardize_columns(df):
+        column_mapping = {
+            'Meta_ticker': 'ticker',
+            'Meta_yearReport': 'yearReport',
+            'Meta_lengthReport': 'lengthReport'
+        }
+        return df.rename(columns=column_mapping)
+
     try:
 
             # Khởi tạo đối tượng finance 
             stock = Vnstock().stock(symbol=symbol)
 
             # Lấy 4 loại báo cáo tài chính
-            df_ratio = stock.finance.ratio(period='quarter',flatten_columns=True)
-            df_bs = stock.finance.balance_sheet(period='quarter')
-            df_is = stock.finance.income_statement(period='quarter')
-            df_cf = stock.finance.cash_flow(period='quarter')
-    
-            financial_data = df_bs.merge(df_is, on=["yearReport", "lengthReport"], how="outer") \
-                    .merge(df_cf, on=["yearReport", "lengthReport"], how="outer")
+            df_ratio = stock.finance.ratio(period='quarter',lang='en')
+            df_bs = stock.finance.balance_sheet(period='quarter',lang='en')
+            df_is = stock.finance.income_statement(period='quarter',lang='en')
+            df_cf = stock.finance.cash_flow(period='quarter',lang='en')
+            df_ratio = standardize_columns(flatten_columns(df_ratio))
 
-            return df_ratio, financial_data
+            financial_data = df_bs.merge(df_is, on=["yearReport", "lengthReport", "ticker"], how="outer") \
+                    .merge(df_cf, on=["yearReport", "lengthReport", "ticker"], how="outer").merge(df_ratio, on=["yearReport", "lengthReport", "ticker"], how="outer")
+
+            # Lưu financial_data vào CSV
+            financial_data.to_csv(f'vnstocks_data/{symbol}_financial_statements.csv', index=True, encoding='utf-8-sig')
+
+            print(f"Đã lưu dữ liệu tài chính của mã {symbol} vào file CSV")
+            return financial_data
+    
     except Exception as e:
         print(f"❌ Lỗi khi lấy BCTC cho {symbol}: {str(e)}")
         return None
@@ -529,7 +548,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             print(f" * Bollinger Bands: Trên: {bb_upper:,.2f}| Dưới: {bb_lower:,.2f}")
             if symbol.upper() != "VNINDEX":
                 print(f" - Sức mạnh tương đối (RS):")
-                print(f" * RS: {rs_value:.4f}")
+                print(f" * RS: {rs_value}")
                 print(f" * RS_Point: {rs_point_value:.2f}")
                 print(f" * RS_Point_252: {rs_point_252_value:.2f}")
             try:
@@ -647,17 +666,9 @@ def plot_stock_analysis(symbol, df, show_volume=True):
         }
 
 # --- Phân tích bằng Google Gemini ---
-def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_ratio: pd.DataFrame, financial_data_statement: pd.DataFrame) -> str:
+def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statement: pd.DataFrame) -> str:
     """Phân tích tổng hợp với Google Gemini, xử lý giá trị None an toàn và kèm theo dữ liệu giá"""
     try:
-        # Hàm hỗ trợ định dạng an toàn
-        def safe_format(value, fmt=".2f", default="N/A"):
-            if value is None or pd.isna(value):
-                return default
-            try:
-                return f"{float(value):{fmt}}"
-            except (TypeError, ValueError):
-                return default
 
         # --- MỚI: Đọc dữ liệu từ file CSV ---
         csv_file_path = f"vnstocks_data/{symbol}_data.csv"
@@ -680,90 +691,93 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_ratio:
         else:
              print(f"⚠️ Cảnh báo: File '{csv_file_path}' không tồn tại để gửi tới Gemini.")
         
-        # Lấy các giá trị cần thiết với xử lý an toàn
-        current_price = safe_float(trading_signal.get('current_price'))
-        rsi_value = safe_float(trading_signal.get('rsi_value'))
-        ma10 = safe_float(trading_signal.get('ma10'))
-        ma20 = safe_float(trading_signal.get('ma20'))
-        ma50 = safe_float(trading_signal.get('ma50'))
-        ma200 = safe_float(trading_signal.get('ma200'))
-        bb_upper = safe_float(trading_signal.get('bb_upper'))
-        bb_lower = safe_float(trading_signal.get('bb_lower'))
-        macd = safe_float(trading_signal.get('macd'))
-        macd_signal = safe_float(trading_signal.get('macd_signal'))
-        hist = safe_float(trading_signal.get('macd_hist'))
-        tenkan_val = safe_format(trading_signal.get("ichimoku_tenkan_sen"))
-        kijun_val = safe_format(trading_signal.get("ichimoku_kijun_sen"))
-        senkou_a_val = safe_format(trading_signal.get("ichimoku_senkou_span_a"))
-        senkou_b_val = safe_format(trading_signal.get("ichimoku_senkou_span_b"))
-        chikou_val = safe_format(trading_signal.get("ichimoku_chikou_span"))
-        volume = safe_float(trading_signal.get('volume'))
-        volume_ma_20 = safe_float(trading_signal.get('volume_ma_20'))
-        volume_ma_50 = safe_float(trading_signal.get('volume_ma_50'))
-        
-        # Tạo prompt với các giá trị đã được xử lý an toàn
+        # Hàm để chuyển giá trị thành chuỗi, nếu None thì trả về "N/A"
+        def to_str(value):
+            return str(value) if value is not None else "N/A"
+
+        # Lấy các giá trị trực tiếp từ trading_signal
+        current_price = trading_signal.get('current_price')
+        rsi_value = trading_signal.get('rsi_value')
+        ma10 = trading_signal.get('ma10')
+        ma20 = trading_signal.get('ma20')
+        ma50 = trading_signal.get('ma50')
+        ma200 = trading_signal.get('ma200')
+        bb_upper = trading_signal.get('bb_upper')
+        bb_lower = trading_signal.get('bb_lower')
+        macd = trading_signal.get('macd')
+        macd_signal = trading_signal.get('macd_signal')
+        hist = trading_signal.get('macd_hist')
+        tenkan_val = trading_signal.get("ichimoku_tenkan_sen")
+        kijun_val = trading_signal.get("ichimoku_kijun_sen")
+        senkou_a_val = trading_signal.get("ichimoku_senkou_span_a")
+        senkou_b_val = trading_signal.get("ichimoku_senkou_span_b")
+        chikou_val = trading_signal.get("ichimoku_chikou_span")
+        volume = trading_signal.get('volume')
+        volume_ma_20 = trading_signal.get('volume_ma_20')
+        volume_ma_50 = trading_signal.get('volume_ma_50')
+
+        # Tạo prompt với các giá trị trực tiếp
         prompt = f"""
-Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá mã {symbol}:
-1. Phân tích kỹ thuật:
-   - Giá: {safe_format(current_price)}
-   - RSI: {safe_format(rsi_value)}
-   - MA: {safe_format(ma10)} (10), {safe_format(ma20)} (20), {safe_format(ma50)} (50), {safe_format(ma200)} (200)
-   - Bollinger bands Up: {safe_format(bb_upper)}, Bollinger bands Lower: / {safe_format(bb_lower)}
-   - MACD: {safe_format(macd)}, Signal: {safe_format(macd_signal)}, Histogram: {safe_format(hist)}
-   - Ichimoku: Tenkan: {tenkan_val}| Kijun: {kijun_val}| Senkou_A: {senkou_a_val}| Senkou_B: {senkou_b_val}| Chikou: {chikou_val}"
-   - Khối lượng: {safe_format(volume)}
-   - Khối lượng trung bình 20 ngày: {safe_format(volume_ma_20)}
-   - Khối lượng trung bình 50 ngày: {safe_format(volume_ma_50)}
-   """
-        
+        Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá mã {symbol}:
+        1. Phân tích kỹ thuật:
+        - Giá: {to_str(current_price)}
+        - RSI: {to_str(rsi_value)}
+        - MA: {to_str(ma10)} (10), {to_str(ma20)} (20), {to_str(ma50)} (50), {to_str(ma200)} (200)
+        - Bollinger bands Up: {to_str(bb_upper)}, Bollinger bands Lower: {to_str(bb_lower)}
+        - MACD: {to_str(macd)}, Signal: {to_str(macd_signal)}, Histogram: {to_str(hist)}
+        - Ichimoku: Tenkan: {to_str(tenkan_val)} | Kijun: {to_str(kijun_val)} | Senkou_A: {to_str(senkou_a_val)} | Senkou_B: {to_str(senkou_b_val)} | Chikou: {to_str(chikou_val)}
+        - Khối lượng: {to_str(volume)}
+        - Khối lượng trung bình 20 ngày: {to_str(volume_ma_20)}
+        - Khối lượng trung bình 50 ngày: {to_str(volume_ma_50)}
+        """
+
         if symbol.upper() != "VNINDEX":
-            rs = safe_float(trading_signal.get('rs'))
-            rs_point = safe_float(trading_signal.get('rs_point'))
-            rs_point_252 = safe_float(trading_signal.get('rs_point_252'))
-            
+            rs = trading_signal.get('rs')
+            rs_point = trading_signal.get('rs')
+            rs_point_252 = trading_signal.get('rs_point_252')
+
             prompt += f"""
-   - RS (Sức mạnh tương đối so với thị trường): C / VNINDEX → {safe_format(rs, '.4f')}
-     * RS_SMA_10: {safe_format(trading_signal.get('rs_sma_10'), '.4f')}
-     * RS_SMA_20: {safe_format(trading_signal.get('rs_sma_20'), '.4f')}
-     * RS_SMA_50: {safe_format(trading_signal.get('rs_sma_50'), '.4f')}
-     * RS_SMA_200: {safe_format(trading_signal.get('rs_sma_200'), '.4f')}
+        - RS (Sức mạnh tương đối so với thị trường): C / VNINDEX → {to_str(rs)}
+            * RS_SMA_10: {trading_signal.get('rs_sma_10', 'N/A')}
+            * RS_SMA_20: {trading_signal.get('rs_sma_20', 'N/A')}
+            * RS_SMA_50: {trading_signal.get('rs_sma_50', 'N/A')}
+            * RS_SMA_200: {trading_signal.get('rs_sma_200', 'N/A')}
 
-   - RS_Point (điểm sức mạnh IBD): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252) → {safe_format(rs_point)}
-     * SMA_10: {safe_format(trading_signal.get('rs_point_sma_10'))}*
-     * SMA_20: {safe_format(trading_signal.get('rs_point_sma_20'))}
-     * SMA_50: {safe_format(trading_signal.get('rs_point_sma_50'))}
-     * SMA_200: {safe_format(trading_signal.get('rs_point_sma_200'))}
+        - RS_Point (điểm sức mạnh IBD): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252) → {to_str(rs_point)}
+            * SMA_10: {to_str(trading_signal.get('rs_point_sma_10'))}
+            * SMA_20: {to_str(trading_signal.get('rs_point_sma_20'))}
+            * SMA_50: {to_str(trading_signal.get('rs_point_sma_50'))}
+            * SMA_200: {to_str(trading_signal.get('rs_point_sma_200'))}
 
-   - RS_Point_252: ((C / Ref(C, -252)) - 1) * 100 → {safe_format(rs_point_252)}
-     * SMA_10: {safe_format(trading_signal.get('rs_point_252_sma_10'))}
-     * SMA_20: {safe_format(trading_signal.get('rs_point_252_sma_20'))}
-     * SMA_50: {safe_format(trading_signal.get('rs_point_252_sma_50'))}
-     * SMA_200: {safe_format(trading_signal.get('rs_point_252_sma_200'))}
-            """
-        
-        if (financial_data_ratio is not None and not financial_data_ratio.empty) or \
-           (financial_data_statement is not None and not financial_data_statement.empty):
-            prompt += f"2. Tình hình tài chính.\n"
-            if financial_data_ratio is not None and not financial_data_ratio.empty:
-                prompt += f"Tình hình tỷ lệ tài chính :\n{financial_data_ratio.to_string(index=False)}\n"
+        - RS_Point_252: ((C / Ref(C, -252)) - 1) * 100 → {to_str(rs_point_252)}
+            * SMA_10: {to_str(trading_signal.get('rs_point_252_sma_10'))}
+            * SMA_20: {to_str(trading_signal.get('rs_point_252_sma_20'))}
+            * SMA_50: {to_str(trading_signal.get('rs_point_252_sma_50'))}
+            * SMA_200: {to_str(trading_signal.get('rs_point_252_sma_200'))}
+                    """
+
+        if (financial_data_statement is not None and not financial_data_statement.empty):
+            prompt += "2. Tình hình tài chính.\n"
             if financial_data_statement is not None and not financial_data_statement.empty:
-                prompt += f"Báo cáo tài chính :\n{financial_data_statement.to_string(index=False)}\n"
+                prompt += f"Báo cáo tài chính:\n{financial_data_statement.to_string(index=False)}\n"
         else:
             prompt += "2. Không có dữ liệu tài chính.\n"
+
         prompt += f"""
-3. Dữ liệu lịch sử giá:
-{historical_data_str}
-"""
+        3. Dữ liệu lịch sử giá:
+        {historical_data_str}
+        """
+
         prompt += """
-Nhiệm vụ của bạn:
-- Phân tích kỹ thuật theo Wyckoff, VSA/VPA, Minervini, Alexander Elder: hành động giá, khối lượng, cấu trúc xu hướng, điểm mua/bán.
-- Phân tích cơ bản theo Warren Buffett, Charlie Munger, Peter Lynch, Seth Klarman: tăng trưởng, lợi nhuận, biên lợi nhuận, ROE, nợ, dòng tiền.
-- Đánh giá mô hình kỹ thuật (nếu có). 
-- Từ dữ liệu lịch sử giá có thểm thêm nhận định từ các chỉ báo từ AI tự phân tích.
-- Nhận định xu hướng ngắn hạn (1–4 tuần) và trung hạn (1–6 tháng).
-- Kết luận cuối cùng phải rõ ràng, súc tích: **MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH**.
-- Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
-"""
+        Nhiệm vụ của bạn:
+        - Phân tích kỹ thuật theo Wyckoff, VSA/VPA, Minervini, Alexander Elder: hành động giá, khối lượng, cấu trúc xu hướng, điểm mua/bán.
+        - Phân tích cơ bản theo Warren Buffett, Charlie Munger, Peter Lynch, Seth Klarman: tăng trưởng, lợi nhuận, biên lợi nhuận, ROE, nợ, dòng tiền, hàng tồn kho, tài sản cố định, người mua trả trước...
+        - Đánh giá mô hình kỹ thuật (nếu có). 
+        - Từ dữ liệu lịch sử giá có thể thêm nhận định từ các chỉ báo từ AI tự phân tích.
+        - Nhận định xu hướng ngắn hạn (1–4 tuần) và trung hạn (1–6 tháng).
+        - Kết luận cuối cùng phải rõ ràng, súc tích: **MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH**.
+        - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
+        """
 
         model = genai.GenerativeModel("gemini-2.5-flash")
         response = model.generate_content(prompt)
@@ -788,7 +802,7 @@ def analyze_stock(symbol):
     if df is None or df.empty:
         print(f"❌ Không thể phân tích mã {symbol} do thiếu dữ liệu")
         return None
-    financial_data_ratio, financial_data_statement  = get_financial_data(symbol)
+    financial_data_statement  = get_financial_data(symbol)
     df_processed = preprocess_stock_data(df)
     if df_processed is None or df_processed.empty:
         print(f"❌ Không thể tiền xử lý dữ liệu cho mã {symbol}")
@@ -799,7 +813,7 @@ def analyze_stock(symbol):
     print(f"📈 Đang phân tích kỹ thuật cho mã {symbol}...")
     trading_signal = plot_stock_analysis(symbol, df_processed)
     print(f"🤖 Đang phân tích bằng Google Gemini ...")
-    gemini_analysis = analyze_with_gemini(symbol, trading_signal, financial_data_ratio, financial_data_statement)
+    gemini_analysis = analyze_with_gemini(symbol, trading_signal, financial_data_statement)
     print(f"\n{'='*20} KẾT QUẢ PHÂN TÍCH CHO MÃ {symbol} {'='*20}")
     print(f"💰 Giá hiện tại: {trading_signal['current_price']:,.2f} VND")
     print(f"📈 Tín hiệu: {trading_signal['signal']}")
@@ -864,65 +878,6 @@ def analyze_stock(symbol):
     print(f"✅ Đã lưu báo cáo phân tích vào file 'vnstocks_data/{symbol}_report.json'")
     return report
 
-# --- Quét danh sách mã cổ phiếu ---
-def screen_stocks_parallel():
-    """Quét và phân tích nhiều mã chứng khoán tuần tự (sync)."""
-    print(f"\n{'=' * 60}")
-    print("QUÉT VÀ PHÂN TÍCH DANH SÁCH MÃ CHỨNG KHOÁN")
-    print(f"{'=' * 60}")
-    stock_list = get_vnstocks_list()
-    symbols_to_analyze = stock_list["symbol"]
-    results = []
-    for symbol in symbols_to_analyze:
-        try:
-            result = analyze_stock(symbol)
-            if result and result["signal"] != "LỖI":
-                results.append(result)
-                print(f"✅ Phân tích mã {symbol} hoàn tất.")
-            else:
-                print(f"⚠️ Phân tích mã {symbol} thất bại hoặc có lỗi.")
-        except Exception as e:
-            print(f"❌ Lỗi khi phân tích mã {symbol}: {e}")
-            traceback.print_exc()
-    if results:
-        results.sort(key=lambda x: x["score"], reverse=True)
-        def get_nested_value(report_dict, key_path, default=None):
-            keys = key_path.split(".")
-            current_dict = report_dict
-            try:
-                for key in keys:
-                    if isinstance(current_dict, dict) and key in current_dict:
-                        current_dict = current_dict[key]
-                    else:
-                        return default
-                if current_dict is None or (isinstance(current_dict, float) and (pd.isna(current_dict) or np.isinf(current_dict))):
-                    return default
-                return float(current_dict)
-            except (ValueError, TypeError):
-                return default
-        data_for_df = []
-        for r in results:
-            row_data = {
-                "Mã": r["symbol"], "Giá": r["current_price"], "Điểm": r["score"], "Tín hiệu": r["signal"],
-                "Đề xuất": r["recommendation"],
-                "RSI": r["rsi_value"], "MA10": r["ma10"], "MA20": r["ma20"], "MA50": r["ma50"], "MA200": r["ma200"],
-                "RS": r["rs"], "RS_Point": r["rs_point"],
-                "RS_Point_252": r["rs_point_252"],
-                "Ichimoku_Tenkan": r.get("ichimoku_tenkan_sen"),
-                "Ichimoku_Kijun": r.get("ichimoku_kijun_sen"),
-                "Ichimoku_Senkou_A": r.get("ichimoku_senkou_span_a"),
-                "Ichimoku_Senkou_B": r.get("ichimoku_senkou_span_b"),
-                "Ichimoku_Chikou": r.get("ichimoku_chikou_span"),
-            }
-            data_for_df.append(row_data)
-        df_results = pd.DataFrame(data_for_df)
-        df_results.to_csv("vnstocks_data/stock_screening_report.csv", index=False, encoding='utf-8-sig')
-        print(f"✅ Đã lưu báo cáo tổng hợp vào file 'vnstocks_data/stock_screening_report.csv'")
-        return df_results
-    else:
-        print("❌ Không có kết quả phân tích nào để tạo báo cáo tổng hợp.")
-        return None
-
 # --- Lọc cổ phiếu ---
 def filter_stocks_low_pe_high_cap(min_market_cap= 500):
     """Lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao."""
@@ -932,17 +887,11 @@ def filter_stocks_low_pe_high_cap(min_market_cap= 500):
             print("❌ Không thể lấy dữ liệu danh sách công ty niêm yết.")
             return None
         
-        filtered_df = df[
-            (df['market_cap'] >= min_market_cap) &
-            (df['pe'] > 0 & df['pe'] < 20) &
-            (df['pb'] > 0) &
-            (df['last_quarter_revenue_growth'] > 0) &
-            (df['second_quarter_revenue_growth'] > 0) &
-            (df['last_quarter_profit_growth'] > 0) &
-            (df['second_quarter_profit_growth'] > 0) &
-            ((df['peg_forward'] < 1 & df['peg_forward'] >= 0) | pd.isna(df['peg_forward']) &
-            ((df['peg_trailing'] < 1 & df['peg_trailing'] >= 0) | pd.isna(df['peg_trailing'])))
-        ]
+        filtered_df = df[(df['market_cap'] >= min_market_cap) & (df['pe'] > 0) & (df['pe'] < 20) & (df['pb'] > 0) & \
+                 (df['last_quarter_revenue_growth'] > 0) & (df['second_quarter_revenue_growth'] > 0) & \
+                 (df['last_quarter_profit_growth'] > 0) & (df['second_quarter_profit_growth'] > 0) & \
+                 (((df['peg_forward'] < 1) & (df['peg_forward'] >= 0)) | pd.isna(df['peg_forward'])) & \
+                 (((df['peg_trailing'] < 1) & (df['peg_trailing'] >= 0)) | pd.isna(df['peg_trailing']))]
 
         filtered_df.to_csv("market.csv", index=False, encoding="utf-8-sig")
         return filtered_df
@@ -957,13 +906,8 @@ def main():
     print("HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM")
     print("TÍCH HỢP VNSTOCK & GOOGLE GEMINI")
     print("=" * 60)
-    # print(f"🔍 Đang lọc cổ phiếu có P/E thấp và vốn hóa > {min_cap} tỷ VND...")
-    filtered_stocks = filter_stocks_low_pe_high_cap()
-    # if filtered_stocks is not None and not filtered_stocks.empty:
-    #     print("🚀 Bắt đầu quét và phân tích...")
-    #     screen_stocks_parallel()
-    # else:
-    #     print("🔍 Không tìm được cổ phiếu nào phù hợp với tiêu chí lọc.")
+    print(f"🔍 Đang lọc cổ phiếu có P/E thấp")
+    filter_stocks_low_pe_high_cap()
     print("\nNhập mã cổ phiếu để phân tích riêng lẻ (ví dụ: VCB, FPT) hoặc 'exit' để thoát")
     user_input = input("Nhập mã cổ phiếu để phân tích: ").strip().upper()
     if user_input and user_input.lower() != 'exit':
