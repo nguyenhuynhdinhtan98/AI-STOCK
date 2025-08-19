@@ -199,7 +199,7 @@ def calculate_relative_strength(df_stock, df_index):
         df_stock["RS_Point_252_SMA_50"] = 0.0
         df_stock["RS_Point_252_SMA_200"] = 0.0
         return df_stock
-    df_merged["Index_Close"] = df_merged["Index_Close"].ffill().bfill()
+    df_merged["Index_Close"] = df_merged["Index_Close"]
     # Tính RS
     df_merged["RS"] = df_merged["Close"] / df_merged["Index_Close"]
     # Tính các thành phần ROC cho RS_Point
