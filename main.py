@@ -28,9 +28,9 @@ GLOBAL_END_DATE = datetime.today().strftime("%Y-%m-%d")
 
 # --- Cấu hình API và thư mục lưu trữ ---
 load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") # Khóa API cho Google Gemini
-OPEN_ROUTER_API_KEY = os.getenv("OPEN_ROUTER_API_KEY") # Khóa API cho Google Gemini
-if not GOOGLE_API_KEY or OPEN_ROUTER_API_KEY:
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") # Khóa API cho AI
+OPEN_ROUTER_API_KEY = os.getenv("OPEN_ROUTER_API_KEY") # Khóa API cho AI
+if not GOOGLE_API_KEY or not OPEN_ROUTER_API_KEY:
     raise ValueError("Vui lòng đặt KEY trong file .env")
 # CHỈ CẤU HÌNH API KEY, KHÔNG GÁN KẾT QUẢ CHO BIẾN
 genai.configure(api_key=GOOGLE_API_KEY) 
@@ -671,9 +671,9 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
         }
 
-# --- Phân tích bằng Google Gemini ---
+# --- Phân tích bằng AI ---
 def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statement: pd.DataFrame) -> str:
-    """Phân tích tổng hợp với Google Gemini, xử lý giá trị None an toàn và kèm theo dữ liệu giá"""
+    """Phân tích tổng hợp với AI, xử lý giá trị None an toàn và kèm theo dữ liệu giá"""
     try:
 
         # --- MỚI: Đọc dữ liệu từ file CSV ---
@@ -794,27 +794,30 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
         fileStatement = genai.upload_file(path=f'vnstocks_data/{symbol}_financial_statements.csv')
         print(f"✅ Upload file báo cáo tài chính thành công: {fileStatement.uri}")
         
-        # Gọi model để tạo nội dung
-        model = genai.GenerativeModel(model_name="gemini-2.5-pro") # Hoặc model bạn muốn dùng
+        # Gọi OpenRouter API sử dụng client có sẵn
+        print(f"🤖 Đang yêu cầu phân tích từ OpenRouter...")
         
-        print(f"🤖 Đang yêu cầu phân tích từ Google Gemini...")
-        response = model.generate_content(
-            contents=[
-                prompt, # Prompt văn bản
-                fileData, # File dữ liệu giá
-                fileStatement, # File báo cáo tài chính
-            ],
+        response = client.chat.completions.create(
+            extra_body={},
+            model="deepseek/deepseek-r1-0528:free",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
         )
-        if response and response.text:
-            return response.text.strip()
+        print(response)
+        if response and response.choices and len(response.choices) > 0:
+            return response.choices[0].message.content.strip()
         else:
-            return "Không nhận được phản hồi từ Google Gemini."
-    
+            return "Không nhận được phản hồi hợp lệ từ OpenRouter."
+
+    except FileNotFoundError as e:
+        print(f"❌ Không tìm thấy file cho {symbol}: {str(e)}")
+        return "Không tìm thấy dữ liệu cần thiết để phân tích."
     except Exception as e:
-        print(f"❌ Lỗi khi phân tích bằng Google Gemini cho {symbol}: {str(e)}")
+        print(f"❌ Lỗi khi phân tích bằng OpenRouter cho {symbol}: {str(e)}")
         print("Chi tiết lỗi:")
         traceback.print_exc()
-        return "Không thể tạo phân tích bằng Google Gemini tại thời điểm này."
+        return "Không thể tạo phân tích bằng OpenRouter tại thời điểm này."
 
 # --- Phân tích một mã cổ phiếu ---
 def analyze_stock(symbol):
@@ -836,7 +839,7 @@ def analyze_stock(symbol):
         return None
     print(f"📈 Đang phân tích kỹ thuật cho mã {symbol}...")
     trading_signal = plot_stock_analysis(symbol, df_processed)
-    print(f"🤖 Đang phân tích bằng Google Gemini ...")
+    print(f"🤖 Đang phân tích bằng AI ...")
     gemini_analysis = analyze_with_gemini(symbol, trading_signal, financial_data_statement)
     print(f"\n{'='*20} KẾT QUẢ PHÂN TÍCH CHO MÃ {symbol} {'='*20}")
     print(f"💰 Giá hiện tại: {trading_signal['current_price']:,.2f} VND")
@@ -847,7 +850,7 @@ def analyze_stock(symbol):
         print(f"📊 RS (so với VNINDEX: {trading_signal['rs']:.4f}")
         print(f"📊 RS_Point: {trading_signal['rs_point']:.2f}")
         print(f"📊 RS_Point_252: {trading_signal['rs_point_252']:.2f}")
-    print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ GOOGLE GEMINI ---")
+    print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ AI ---")
     print(gemini_analysis)
     print(f"{'='*60}\n")
 
@@ -928,7 +931,7 @@ def main():
     """Hàm chính để chạy chương trình."""
     print("=" * 60)
     print("HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM")
-    print("TÍCH HỢP VNSTOCK & GOOGLE GEMINI")
+    print("TÍCH HỢP VNSTOCK & AI")
     print("=" * 60)
     print(f"🔍 Đang lọc cổ phiếu có P/E thấp")
     filter_stocks_low_pe_high_cap()
