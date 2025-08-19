@@ -13,12 +13,11 @@ import ta
 import warnings
 import google.generativeai as genai
 from dotenv import load_dotenv
-from vnstock import *
 import traceback
 from vnstock.explorer.vci import Quote, Finance
 import matplotlib.dates as mdates
 import mplfinance as mpf
-from vnstock import Vnstock
+from vnstock import *
 warnings.filterwarnings("ignore")
 
 # --- Cấu hình toàn cục cho phân tích dữ liệu ---
