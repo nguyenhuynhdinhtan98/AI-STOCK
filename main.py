@@ -103,12 +103,12 @@ def get_financial_data(symbol):
             stock = Vnstock().stock(symbol=symbol)
 
             # Lấy 4 loại báo cáo tài chính
-            df_ratio = stock.finance.ratio(period='quarter',lang='en')
-            df_bs = stock.finance.balance_sheet(period='quarter',lang='en')
-            df_is = stock.finance.income_statement(period='quarter',lang='en')
-            df_cf = stock.finance.cash_flow(period='quarter',lang='en')
+            df_ratio = stock.finance.ratio(period='quarter')
+            df_bs = stock.finance.balance_sheet(period='quarter')
+            df_is = stock.finance.income_statement(period='quarter')
+            df_cf = stock.finance.cash_flow(period='quarter')
             df_ratio = standardize_columns(flatten_columns(df_ratio))
-
+            
             financial_data = df_bs.merge(df_is, on=["yearReport", "lengthReport", "ticker"], how="outer") \
                     .merge(df_cf, on=["yearReport", "lengthReport", "ticker"], how="outer").merge(df_ratio, on=["yearReport", "lengthReport", "ticker"], how="outer")
 
