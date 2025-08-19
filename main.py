@@ -775,7 +775,7 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
         - Đánh giá mô hình kỹ thuật (nếu có). 
         - Từ dữ liệu lịch sử giá có thể thêm nhận định từ các chỉ báo từ AI tự phân tích.
         - Nhận định xu hướng ngắn hạn (1–4 tuần) và trung hạn (1–6 tháng).
-        - Kết luận cuối cùng phải rõ ràng, súc tích: **MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH**.
+        - Kết luận cuối cùng phải rõ ràng, súc tích: **MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH** và chấm điểm từ 1 đến 10 cổ phiếu.
         - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
         """
 
