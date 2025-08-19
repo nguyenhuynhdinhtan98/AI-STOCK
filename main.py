@@ -100,13 +100,13 @@ def get_financial_data(symbol):
     try:
 
             # Khởi tạo đối tượng finance 
-            stock = Finance(symbol=symbol)
+            stock = Finance(symbol=symbol,period='quarter')
 
             # Lấy 4 loại báo cáo tài chính
-            df_ratio = stock.finance.ratio(period='quarter')
-            df_bs = stock.finance.balance_sheet(period='quarter')
-            df_is = stock.finance.income_statement(period='quarter')
-            df_cf = stock.finance.cash_flow(period='quarter')
+            df_ratio = stock.ratio(period='quarter')
+            df_bs = stock.balance_sheet(period='quarter')
+            df_is = stock.income_statement(period='quarter')
+            df_cf = stock.cash_flow(period='quarter')
             df_ratio = standardize_columns(flatten_columns(df_ratio))
             
             financial_data = df_bs.merge(df_is, on=["yearReport", "lengthReport", "ticker"], how="outer") \
