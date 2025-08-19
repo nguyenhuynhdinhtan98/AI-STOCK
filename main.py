@@ -99,7 +99,7 @@ def get_financial_data(symbol):
     try:
 
             # Khởi tạo đối tượng finance 
-            stock = Vnstock().stock(symbol=symbol)
+            stock = Finance(symbol=symbol)
 
             # Lấy 4 loại báo cáo tài chính
             df_ratio = stock.finance.ratio(period='quarter')
@@ -778,7 +778,7 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
         - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
         """
 
-        model = genai.GenerativeModel("gemini-2.5-flash")
+        model = genai.GenerativeModel("gemini-2.5-pro")
         response = model.generate_content(prompt)
         if response and response.text:
             return response.text.strip()
