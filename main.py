@@ -56,7 +56,7 @@ def safe_format(val, fmt=".2f"):
 def get_stock_data(symbol):
     """Lấy dữ liệu lịch sử giá cổ phiếu từ VCI và lưu vào file CSV."""
     try:
-        stock = Quote(symbol= symbol, source='VCI')
+        stock = Quote(symbol= symbol)
         df = stock.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
         if df is not None and not df.empty:
             df.rename(columns={
