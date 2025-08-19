@@ -763,14 +763,14 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
                     """
 
         if (financial_data_statement is not None and not financial_data_statement.empty):
-            prompt += "2. Tình hình tài chính.\n"
+            prompt += "2. Tình hình tài chính (CSV).\n"
             if financial_data_statement is not None and not financial_data_statement.empty:
                 prompt += f"Báo cáo tài chính:\n{financial_data_statement.to_string(index=False)}\n"
         else:
             prompt += "2. Không có dữ liệu tài chính.\n"
 
         prompt += f"""
-        3. Dữ liệu lịch sử giá:
+        3. Dữ liệu lịch sử giá (CSV).\n
         {historical_data_str}
         """
 
