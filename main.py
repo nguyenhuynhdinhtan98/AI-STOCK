@@ -805,7 +805,7 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
                 fileStatement, # File báo cáo tài chính
             ],
         )
-        print(fileData)
+        
         if response and response.text:
             return response.text.strip()
         else:
