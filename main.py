@@ -797,7 +797,7 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
         # Gọi AI sử dụng
         print(f"🤖 Đang yêu cầu phân tích từ AI...")
 
-        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
+        model = genai.GenerativeModel(model_name="gemini-2.5-pro")
         response = model.generate_content(
             contents=[
                 prompt, # Prompt văn bản
