@@ -30,7 +30,8 @@ load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") # Khóa API cho Google Gemini
 if not GOOGLE_API_KEY:
     raise ValueError("Vui lòng đặt GOOGLE_API_KEY trong file .env")
-genai.configure(api_key=GOOGLE_API_KEY)
+# CHỈ CẤU HÌNH API KEY, KHÔNG GÁN KẾT QUẢ CHO BIẾN
+genai.configure(api_key=GOOGLE_API_KEY) 
 os.makedirs("vnstocks_data", exist_ok=True) # Tạo thư mục lưu trữ dữ liệu nếu chưa tồn tại
 
 # --- Hàm tiện ích ---
@@ -778,8 +779,25 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
         - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
         """
 
-        model = genai.GenerativeModel("gemini-2.5-pro")
-        response = model.generate_content(prompt)
+        print(f"📤 Đang upload file dữ liệu giá...")
+        fileData = genai.upload_file(path=f"vnstocks_data/{symbol}_data.csv")
+        print(f"✅ Upload file dữ liệu giá thành công: {fileData.uri}")
+        
+        print(f"📤 Đang upload file báo cáo tài chính...")
+        fileStatement = genai.upload_file(path=f'vnstocks_data/{symbol}_financial_statements.csv')
+        print(f"✅ Upload file báo cáo tài chính thành công: {fileStatement.uri}")
+        
+        # Gọi model để tạo nội dung
+        model = genai.GenerativeModel(model_name="gemini-2.5-pro") # Hoặc model bạn muốn dùng
+        
+        print(f"🤖 Đang yêu cầu phân tích từ Google Gemini...")
+        response = model.generate_content(
+            contents=[
+                prompt, # Prompt văn bản
+                fileData, # File dữ liệu giá
+                fileStatement, # File báo cáo tài chính
+            ],
+        )
         if response and response.text:
             return response.text.strip()
         else:
