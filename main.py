@@ -18,6 +18,7 @@ import traceback
 from vnstock.explorer.vci import Quote, Finance
 import matplotlib.dates as mdates
 import mplfinance as mpf
+from vnstock import Vnstock
 warnings.filterwarnings("ignore")
 
 # --- Cấu hình toàn cục cho phân tích dữ liệu ---
@@ -56,8 +57,8 @@ def safe_format(val, fmt=".2f"):
 def get_stock_data(symbol):
     """Lấy dữ liệu lịch sử giá cổ phiếu từ VCI và lưu vào file CSV."""
     try:
-        quote = Quote(symbol=symbol)
-        df = quote.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
+        stock = Vnstock().stock(symbol= symbol, source='VCI')
+        df = stock.quote.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
         if df is not None and not df.empty:
             df.rename(columns={
                 "time": "Date", "open": "Open", "high": "High",
@@ -82,17 +83,17 @@ def safe_rename(df: pd.DataFrame, mapping: dict) -> pd.DataFrame:
     return df.rename(columns=valid_mapping)
 
 def get_financial_data(symbol):
-    """Lấy dữ liệu báo cáo tài chính (12 quý gần nhất) từ VCI và lưu vào file CSV."""
+    """Lấy dữ liệu báo cáo tài chính từ VCI và lưu vào file CSV."""
     try:
 
-            # Khởi tạo đối tượng finance với source="VCI"
-            finance = Finance(symbol=symbol)
+            # Khởi tạo đối tượng finance 
+            stock = Vnstock().stock(symbol=symbol)
 
             # Lấy 4 loại báo cáo tài chính
-            df_ratio = finance.ratio(period='quarter',flatten_columns=True)
-            df_bs = finance.balance_sheet(period='quarter')
-            df_is = finance.income_statement(period='quarter')
-            df_cf = finance.cash_flow(period='quarter')
+            df_ratio = stock.finance.ratio(period='quarter',flatten_columns=True)
+            df_bs = stock.finance.balance_sheet(period='quarter')
+            df_is = stock.finance.income_statement(period='quarter')
+            df_cf = stock.finance.cash_flow(period='quarter')
     
             financial_data = df_bs.merge(df_is, on=["yearReport", "lengthReport"], how="outer") \
                     .merge(df_cf, on=["yearReport", "lengthReport"], how="outer")
@@ -644,9 +645,10 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
             "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
         }
+
 # --- Phân tích bằng Google Gemini ---
 def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_ratio: pd.DataFrame, financial_data_statement: pd.DataFrame) -> str:
-    """Phân tích tổng hợp với Google Gemini, xử lý giá trị None an toàn"""
+    """Phân tích tổng hợp với Google Gemini, xử lý giá trị None an toàn và kèm theo dữ liệu giá"""
     try:
         # Hàm hỗ trợ định dạng an toàn
         def safe_format(value, fmt=".2f", default="N/A"):
@@ -656,6 +658,27 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_ratio:
                 return f"{float(value):{fmt}}"
             except (TypeError, ValueError):
                 return default
+
+        # --- MỚI: Đọc dữ liệu từ file CSV ---
+        csv_file_path = f"vnstocks_data/{symbol}_data.csv"
+        historical_data_str = "Không có dữ liệu lịch sử."
+        if os.path.exists(csv_file_path):
+            try:
+                # Đọc file CSV
+                df_history = pd.read_csv(csv_file_path)
+                # Giới hạn số dòng dữ liệu gửi đi để tránh vượt quá giới hạn token của API
+                # Ví dụ: chỉ lấy 100 dòng cuối cùng
+                df_history_limited = df_history
+                # Chuyển DataFrame thành chuỗi (string) định dạng bảng dễ đọc
+                # Có thể điều chỉnh `float_format` nếu cần
+                historical_data_str = df_history_limited.to_string(index=False, float_format="{:.2f}".format)
+                #print(historical_data_str)
+                print(f"✅ Đã đọc dữ liệu lịch sử từ '{csv_file_path}' để gửi tới Gemini.")
+            except Exception as e:
+                print(f"⚠️ Cảnh báo: Không thể đọc file '{csv_file_path}' để gửi tới Gemini: {e}")
+                historical_data_str = "Không thể đọc dữ liệu lịch sử."
+        else:
+             print(f"⚠️ Cảnh báo: File '{csv_file_path}' không tồn tại để gửi tới Gemini.")
         
         # Lấy các giá trị cần thiết với xử lý an toàn
         current_price = safe_float(trading_signal.get('current_price'))
@@ -727,12 +750,16 @@ Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá m�
                 prompt += f"Báo cáo tài chính :\n{financial_data_statement.to_string(index=False)}\n"
         else:
             prompt += "2. Không có dữ liệu tài chính.\n"
-        
+        prompt += f"""
+3. Dữ liệu lịch sử giá:
+{historical_data_str}
+"""
         prompt += """
 Nhiệm vụ của bạn:
 - Phân tích kỹ thuật theo Wyckoff, VSA/VPA, Minervini, Alexander Elder: hành động giá, khối lượng, cấu trúc xu hướng, điểm mua/bán.
 - Phân tích cơ bản theo Warren Buffett, Charlie Munger, Peter Lynch, Seth Klarman: tăng trưởng, lợi nhuận, biên lợi nhuận, ROE, nợ, dòng tiền.
-- Đánh giá mô hình kỹ thuật (nếu có).
+- Đánh giá mô hình kỹ thuật (nếu có). 
+- Từ dữ liệu lịch sử giá có thểm thêm nhận định từ các chỉ báo từ AI tự phân tích.
 - Nhận định xu hướng ngắn hạn (1–4 tuần) và trung hạn (1–6 tháng).
 - Kết luận cuối cùng phải rõ ràng, súc tích: **MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH**.
 - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
@@ -844,7 +871,7 @@ def screen_stocks_parallel():
     print("QUÉT VÀ PHÂN TÍCH DANH SÁCH MÃ CHỨNG KHOÁN")
     print(f"{'=' * 60}")
     stock_list = get_vnstocks_list()
-    symbols_to_analyze = stock_list["symbol"].head(20)
+    symbols_to_analyze = stock_list["symbol"]
     results = []
     for symbol in symbols_to_analyze:
         try:
@@ -904,6 +931,7 @@ def filter_stocks_low_pe_high_cap(min_market_cap= 500):
         if df is None or df.empty:
             print("❌ Không thể lấy dữ liệu danh sách công ty niêm yết.")
             return None
+        
         filtered_df = df[
             (df['market_cap'] >= min_market_cap) &
             (df['pe'] > 0 & df['pe'] < 20) &
