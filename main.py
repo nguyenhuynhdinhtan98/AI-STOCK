@@ -15,9 +15,9 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 import traceback
 from vnstock.explorer.vci import Quote, Finance
+from vnstock import Screener
 import matplotlib.dates as mdates
 import mplfinance as mpf
-from vnstock import *
 warnings.filterwarnings("ignore")
 
 # --- Cấu hình toàn cục cho phân tích dữ liệu ---
@@ -56,8 +56,8 @@ def safe_format(val, fmt=".2f"):
 def get_stock_data(symbol):
     """Lấy dữ liệu lịch sử giá cổ phiếu từ VCI và lưu vào file CSV."""
     try:
-        stock = Vnstock().stock(symbol= symbol, source='VCI')
-        df = stock.quote.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
+        stock = Quote(symbol= symbol, source='VCI')
+        df = stock.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
         if df is not None and not df.empty:
             df.rename(columns={
                 "time": "Date", "open": "Open", "high": "High",
