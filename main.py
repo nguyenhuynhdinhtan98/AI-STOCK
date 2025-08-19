@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime, timedelta
 from sklearn.preprocessing import MinMaxScaler
+from openai import OpenAI
 import ta
 import warnings
 import google.generativeai as genai
@@ -28,10 +29,15 @@ GLOBAL_END_DATE = datetime.today().strftime("%Y-%m-%d")
 # --- Cấu hình API và thư mục lưu trữ ---
 load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") # Khóa API cho Google Gemini
-if not GOOGLE_API_KEY:
-    raise ValueError("Vui lòng đặt GOOGLE_API_KEY trong file .env")
+OPEN_ROUTER_API_KEY = os.getenv("OPEN_ROUTER_API_KEY") # Khóa API cho Google Gemini
+if not GOOGLE_API_KEY or OPEN_ROUTER_API_KEY:
+    raise ValueError("Vui lòng đặt KEY trong file .env")
 # CHỈ CẤU HÌNH API KEY, KHÔNG GÁN KẾT QUẢ CHO BIẾN
 genai.configure(api_key=GOOGLE_API_KEY) 
+client = OpenAI(
+  base_url="https://openrouter.ai/api/v1",
+  api_key=OPEN_ROUTER_API_KEY,
+)
 os.makedirs("vnstocks_data", exist_ok=True) # Tạo thư mục lưu trữ dữ liệu nếu chưa tồn tại
 
 # --- Hàm tiện ích ---
