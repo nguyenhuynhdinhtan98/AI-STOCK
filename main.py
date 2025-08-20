@@ -1075,13 +1075,14 @@ def analyze_with_gemini(
                 }
             ]
         )
-        
+
         # In ra câu trả lời
         if completion.choices and completion.choices[0].message.content:
             print("Trả lời từ AI:")
             print(completion.choices[0].message.content)
         else:
             print("Không có nội dung trả lời từ mô hình.")
+            print(completion)
 
         model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         response = model.generate_content(
