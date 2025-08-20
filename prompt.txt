@@ -1,27 +1,27 @@
 
         Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá mã DBC:
         1. Phân tích kỹ thuật:
-        - Giá: 29.55
-        - RSI: 50
-        - MA: 29.55 (10), 29.55 (20), 29.55 (50), 29.55 (200)
-        - Bollinger bands Up: N/A, Bollinger bands Lower: N/A
-        - MACD: N/A, Signal: N/A, Histogram: N/A
-        - Ichimoku: Tenkan: N/A | Kijun: N/A | Senkou_A: N/A | Senkou_B: N/A | Chikou: N/A
-        - Khối lượng: N/A
-        - Khối lượng trung bình 20 ngày: N/A
-        - Khối lượng trung bình 50 ngày: N/A
+        - Giá: 29.25
+        - RSI: 45.29250832509398
+        - MA: 30.4 (10), 30.166500000000003 (20), 29.208000000000002 (50), 25.38425 (200)
+        - Bollinger bands Up: 31.70591904626431, Bollinger bands Lower: 28.627080953735696
+        - MACD: 0.20232318274273453, Signal: 0.41771811861684327, Histogram: -0.21539493587410874
+        - Ichimoku: Tenkan: 30.700000000000003 | Kijun: 30.195 | Senkou_A: 30.4475 | Senkou_B: 28.96 | Chikou: 29.22
+        - Khối lượng: 2364300.0
+        - Khối lượng trung bình 20 ngày: 12131147.5
+        - Khối lượng trung bình 50 ngày: 11408810.58
         
-        - RS (Sức mạnh tương đối so với thị trường): C / VNINDEX → 1.0
-            * RS_SMA_10: None
-            * RS_SMA_20: None
-            * RS_SMA_50: None
-            * RS_SMA_200: None
+        - RS (Sức mạnh tương đối so với thị trường): C / VNINDEX → 0.01769338720994943
+            * RS_SMA_10: 0.018776965374560473
+            * RS_SMA_20: 0.019198681954537826
+            * RS_SMA_50: 0.01988083980591214
+            * RS_SMA_200: 0.01918741419496975
 
-        - RS_Point (điểm sức mạnh IBD): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252) → 0
-            * SMA_10: N/A
-            * SMA_20: N/A
-            * SMA_50: N/A
-            * SMA_200: N/A
+        - RS_Point (điểm sức mạnh IBD): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252) → 22.635099272464693
+            * SMA_10: 26.265863772454697
+            * SMA_20: 26.25371598861829
+            * SMA_50: 19.80506723715369
+            * SMA_200: 7.27577096781451
 2. Tình hình tài chính (CSV).
 Báo cáo tài chính:
 ticker  yearReport  lengthReport  CURRENT ASSETS (Bn. VND)  Cash and cash equivalents (Bn. VND)  Short-term investments (Bn. VND)  Accounts receivable (Bn. VND)  Net Inventories  Other current assets  LONG-TERM ASSETS (Bn. VND)  Fixed assets (Bn. VND)  Investment in properties  Long-term investments (Bn. VND)   Goodwill  Other non-current assets  TOTAL ASSETS (Bn. VND)  LIABILITIES (Bn. VND)  Current liabilities (Bn. VND)  Long-term liabilities (Bn. VND)  OWNER'S EQUITY(Bn.VND)  Capital and reserves (Bn. VND)  Other Reserves  Undistributed earnings (Bn. VND)  Budget sources and other funds  MINORITY INTERESTS  TOTAL RESOURCES (Bn. VND)  Prepayments to suppliers (Bn. VND)  Inventories, Net (Bn. VND)  Other current assets (Bn. VND)  Investment and development funds (Bn. VND)  Common shares (Bn. VND)  Paid-in capital (Bn. VND)  Long-term borrowings (Bn. VND)  Advances from customers (Bn. VND)  Short-term borrowings (Bn. VND)  Good will (Bn. VND)  Long-term prepayments (Bn. VND)  Other long-term assets (Bn. VND)  Other long-term receivables (Bn. VND)  Long-term trade receivables (Bn. VND)  Revenue YoY (%)  Revenue (Bn. VND)  Attribute to parent company (Bn. VND)  Attribute to parent company YoY (%)  Financial Income  Interest Expenses         Sales  Sales deductions     Net Sales  Cost of Sales  Gross Profit  Financial Expenses  Gain/(loss) from joint ventures  Selling Expenses  General & Admin Expenses  Operating Profit/Loss  Other income  Other Income/Expenses  Net other income/expenses  Profit before tax  Business income tax - current  Business income tax - deferred  Net Profit For the Year  Attributable to parent company  Net Profit/Loss before tax  Depreciation and Amortisation  Provision for credit losses  Unrealized foreign exchange gain/loss  Profit/Loss from investing activities  Interest Expense  Operating profit before changes in working capital  Increase/Decrease in receivables  Increase/Decrease in inventories  Increase/Decrease in payables  Increase/Decrease in prepaid expenses  Interest paid  Business Income Tax paid  Other receipts from operating activities  Other payments on operating activities  Net cash inflows/outflows from operating activities  Purchase of fixed assets  Proceeds from disposal of fixed assets  Loans granted, purchases of debt instruments (Bn. VND)  Collection of loans, proceeds from sales of debts instruments (Bn. VND)  Investment in other entities  Proceeds from divestment in other entities  Gain on Dividend  Net Cash Flows from Investing Activities  Increase in charter captial  Proceeds from borrowings  Repayment of borrowings  Finance lease principal payments  Dividends paid  Cash flows from financial activities  Net increase/decrease in cash and cash equivalents  Cash and cash equivalents  Foreign exchange differences Adjustment  Cash and Cash Equivalents at the end of period  Chỉ tiêu cơ cấu nguồn vốn_(ST+LT borrowings)/Equity  Chỉ tiêu cơ cấu nguồn vốn_Debt/Equity  Chỉ tiêu cơ cấu nguồn vốn_Fixed Asset-To-Equity  Chỉ tiêu cơ cấu nguồn vốn_Owners' Equity/Charter Capital  Chỉ tiêu hiệu quả hoạt động_Asset Turnover  Chỉ tiêu hiệu quả hoạt động_Fixed Asset Turnover  Chỉ tiêu hiệu quả hoạt động_Days Sales Outstanding  Chỉ tiêu hiệu quả hoạt động_Days Inventory Outstanding  Chỉ tiêu hiệu quả hoạt động_Days Payable Outstanding  Chỉ tiêu hiệu quả hoạt động_Cash Cycle  Chỉ tiêu hiệu quả hoạt động_Inventory Turnover  Chỉ tiêu khả năng sinh lợi_EBIT Margin (%)  Chỉ tiêu khả năng sinh lợi_Gross Profit Margin (%)  Chỉ tiêu khả năng sinh lợi_Net Profit Margin (%)  Chỉ tiêu khả năng sinh lợi_ROE (%)  Chỉ tiêu khả năng sinh lợi_ROIC (%)  Chỉ tiêu khả năng sinh lợi_ROA (%)  Chỉ tiêu khả năng sinh lợi_EBITDA (Bn. VND)  Chỉ tiêu khả năng sinh lợi_EBIT (Bn. VND)  Chỉ tiêu khả năng sinh lợi_Dividend yield (%)  Chỉ tiêu thanh khoản_Current Ratio  Chỉ tiêu thanh khoản_Cash Ratio  Chỉ tiêu thanh khoản_Quick Ratio  Chỉ tiêu thanh khoản_Interest Coverage  Chỉ tiêu thanh khoản_Financial Leverage  Chỉ tiêu định giá_Market Capital (Bn. VND)  Chỉ tiêu định giá_Outstanding Share (Mil. Shares)  Chỉ tiêu định giá_P/E  Chỉ tiêu định giá_P/B  Chỉ tiêu định giá_P/S  Chỉ tiêu định giá_P/Cash Flow  Chỉ tiêu định giá_EPS (VND)  Chỉ tiêu định giá_BVPS (VND)  Chỉ tiêu định giá_EV/EBITDA
@@ -2573,7 +2573,7 @@ ticker  yearReport  lengthReport  CURRENT ASSETS (Bn. VND)  Cash and cash equiva
 2025-08-15 31.30 31.40 30.30  30.35 10778344
 2025-08-18 30.35 30.35 29.35  29.45 12584052
 2025-08-19 29.50 29.85 29.20  29.30 10976848
-2025-08-20 29.30 29.90 29.05  29.55  1869200
+2025-08-20 29.30 29.90 29.05  29.25  2364300
 
         Nhiệm vụ của bạn:
         - Phân tích kỹ thuật theo Wyckoff, VSA/VPA, Minervini, Alexander Elder: hành động giá, khối lượng, cấu trúc xu hướng, điểm mua/bán.
