@@ -1063,7 +1063,7 @@ def analyze_with_gemini(
         # Gọi AI sử dụng
         print(f"🤖 Đang yêu cầu phân tích từ AI...")
 
-        model = genai.GenerativeModel(model_name="gemini-2.5-pro")
+        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         response = model.generate_content(
             contents=[
                 prompt,  # Prompt văn bản
