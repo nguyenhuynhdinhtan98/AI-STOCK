@@ -304,16 +304,12 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             ma200_value = (last_row["SMA_200"] if not pd.isna(last_row["SMA_200"]) else current_price)
             
             # Lấy giá trị Ichimoku
-            tenkan_sen_series = df["Close"].rolling(window=9).mean()
-            tenkan_sen = tenkan_sen_series.iloc[-1] if len(tenkan_sen_series) > 0 else np.nan
-            kijun_sen_series = df["Close"].rolling(window=26).mean()
-            kijun_sen = kijun_sen_series.iloc[-1] if len(kijun_sen_series) > 0 else np.nan
-            senkou_span_a_value = ((tenkan_sen + kijun_sen) / 2) if not pd.isna(tenkan_sen) and not pd.isna(kijun_sen) else np.nan
-            senkou_span_a = senkou_span_a_value
-            senkou_span_b_series = df["Close"].rolling(window=52).mean()
-            senkou_span_b_value = senkou_span_b_series.iloc[-1] if len(senkou_span_b_series) > 0 else np.nan
-            senkou_span_b = senkou_span_b_value
-            chikou_span = df["Close"].iloc[-26] if len(df) > 26 else np.nan
+            ichimoku_indicator = ta.trend.IchimokuIndicator(high=df['High'], low=df['Low'], window1=9, window2=26, window3=52)
+            tenkan_sen = ichimoku_indicator.ichimoku_conversion_line()
+            kijun_sen = ichimoku_indicator.ichimoku_base_line()
+            senkou_span_a = ichimoku_indicator.ichimoku_a()
+            senkou_span_b = ichimoku_indicator.ichimoku_b()
+            chikou_span = ichimoku_indicator.ichimoku_chikou_span() 
             
             # Lấy giá trị RS
             rs_value = last_row["RS"] if symbol.upper() != "VNINDEX" else 1.0
@@ -913,11 +909,54 @@ def filter_stocks_low_pe_high_cap(min_market_cap= 500):
             print("❌ Không thể lấy dữ liệu danh sách công ty niêm yết.")
             return None
         
-        filtered_df = df[(df['market_cap'] >= min_market_cap) & (df['pe'] > 0) & (df['pe'] < 20) & (df['pb'] > 0) & \
-                 (df['last_quarter_revenue_growth'] > 0) & (df['second_quarter_revenue_growth'] > 0) & \
-                 (df['last_quarter_profit_growth'] > 0) & (df['second_quarter_profit_growth'] > 0) & \
-                 (((df['peg_forward'] < 1) & (df['peg_forward'] >= 0)) | pd.isna(df['peg_forward'])) & \
-                 (((df['peg_trailing'] < 1) & (df['peg_trailing'] >= 0)) | pd.isna(df['peg_trailing']))]
+          # --- Áp dụng các điều kiện lọc ---
+        # 1. Vốn hóa thị trường >= ngưỡng tối thiểu
+        condition1 = df['market_cap'] >= min_market_cap
+
+        # 2. P/E dương và thấp hơn 20
+        condition2_pe = (df['pe'] > 0) & (df['pe'] < 20)
+
+        # 3. P/B dương
+        condition3_pb = df['pb'] > 0
+
+        # 4. Tăng trưởng doanh thu quý gần nhất > 0
+        condition4_rev_growth_last = df['last_quarter_revenue_growth'] > 0
+
+        # 5. Tăng trưởng doanh thu quý trước đó > 0
+        condition5_rev_growth_second = df['second_quarter_revenue_growth'] > 0
+
+        # 6. Tăng trưởng lợi nhuận quý gần nhất > 0
+        condition6_profit_growth_last = df['last_quarter_profit_growth'] > 0
+
+        # 7. Tăng trưởng lợi nhuận quý trước đó > 0
+        condition7_profit_growth_second = df['second_quarter_profit_growth'] > 0
+
+        # 8. PEG (Forward) < 1 hoặc NaN (sử dụng pd.isna())
+        # Giả sử PEG âm không hợp lệ hoặc không có sẵn
+        condition8_peg_forward = (
+            (df['peg_forward'] < 1) & (df['peg_forward'] >= 0)
+        ) | pd.isna(df['peg_forward']) # Sử dụng pd.isna() thay cho pd.isnull()
+
+        # 9. PEG (Trailing) < 1 hoặc NaN (sử dụng pd.isna())
+        condition9_peg_trailing = (
+            (df['peg_trailing'] < 1) & (df['peg_trailing'] >= 0)
+        ) | pd.isna(df['peg_trailing']) # Sử dụng pd.isna() thay cho pd.isnull()
+
+        # --- Kết hợp tất cả các điều kiện ---
+        filtered_conditions = (
+            condition1 &
+            condition2_pe &
+            condition3_pb &
+            condition4_rev_growth_last &
+            condition5_rev_growth_second &
+            condition6_profit_growth_last &
+            condition7_profit_growth_second &
+            condition8_peg_forward &
+            condition9_peg_trailing
+        )
+
+        # Lọc DataFrame dựa trên các điều kiện kết hợp
+        filtered_df = df[filtered_conditions]
 
         filtered_df.to_csv("market.csv", index=False, encoding="utf-8-sig")
         return filtered_df
