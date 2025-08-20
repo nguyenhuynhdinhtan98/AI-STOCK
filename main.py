@@ -786,6 +786,11 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
         - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
         """
 
+        with open("prompt.txt", "w", encoding="utf-8") as file:
+                file.write(prompt)
+
+        print(f"✅ Đã lưu nội dung vào file.")
+
         print(f"📤 Đang upload file dữ liệu giá...")
         fileData = genai.upload_file(path=f"vnstocks_data/{symbol}_data.csv")
         print(f"✅ Upload file dữ liệu giá thành công: {fileData.uri}")
