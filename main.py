@@ -304,11 +304,16 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             ma200_value = (last_row["SMA_200"] if not pd.isna(last_row["SMA_200"]) else current_price)
             
             # Lấy giá trị Ichimoku
-            tenkan_sen = df["Close"].rolling(9).mean().iloc[-1]
-            kijun_sen = df["Close"].rolling(26).mean().iloc[-1]
-            senkou_span_a = ((tenkan_sen + kijun_sen) / 2) if not pd.isna(tenkan_sen) and not pd.isna(kijun_sen) else np.nan
-            senkou_span_b = df["Close"].rolling(52).mean().shift(26).iloc[-1] if len(df) >= 78 else np.nan
-            chikou_span = df["Close"].shift(26).iloc[-1] if len(df) > 26 else np.nan
+            tenkan_sen_series = df["Close"].rolling(window=9).mean()
+            tenkan_sen = tenkan_sen_series.iloc[-1] if len(tenkan_sen_series) > 0 else np.nan
+            kijun_sen_series = df["Close"].rolling(window=26).mean()
+            kijun_sen = kijun_sen_series.iloc[-1] if len(kijun_sen_series) > 0 else np.nan
+            senkou_span_a_value = ((tenkan_sen + kijun_sen) / 2) if not pd.isna(tenkan_sen) and not pd.isna(kijun_sen) else np.nan
+            senkou_span_a = senkou_span_a_value
+            senkou_span_b_series = df["Close"].rolling(window=52).mean()
+            senkou_span_b_value = senkou_span_b_series.iloc[-1] if len(senkou_span_b_series) > 0 else np.nan
+            senkou_span_b = senkou_span_b_value
+            chikou_span = df["Close"].iloc[-26] if len(df) > 26 else np.nan
             
             # Lấy giá trị RS
             rs_value = last_row["RS"] if symbol.upper() != "VNINDEX" else 1.0
@@ -412,32 +417,52 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             
             score += ichimoku_score
             
-            # 5. Volume - 14 điểm (cân bằng với các chỉ báo khác)
+            # 5. Volume - 14 điểm
             volume_score = 0
             if "Volume" in last_row and not pd.isna(last_row["Volume"]):
-                # So sánh với MA20 (ngắn hạn)
-                if last_row["Volume"] > volume_ma_20:
-                    volume_score += 7
-                elif last_row["Volume"] < volume_ma_20 * 0.7:
-                    volume_score -= 3.5
+                current_volume = last_row["Volume"]
                 
-                # So sánh với MA50 (dài hạn)
-                if last_row["Volume"] > volume_ma_50:
-                    volume_score += 3.5
-                elif last_row["Volume"] < volume_ma_50 * 0.7:
-                    volume_score -= 3.5
-                
-                # Đánh giá xu hướng volume
+                # 1. So sánh với MA20 (4 điểm)
+                vol_ratio_to_ma20 = current_volume / volume_ma_20 if volume_ma_20 and volume_ma_20 > 0 else 0
+                if vol_ratio_to_ma20 > 2.0: volume_score += 4
+                elif vol_ratio_to_ma20 > 1.5: volume_score += 3
+                elif vol_ratio_to_ma20 > 1.0: volume_score += 1
+                elif vol_ratio_to_ma20 < 0.5: volume_score -= 2
+
+                # 2. So sánh với MA50 (3 điểm)
+                vol_ratio_to_ma50 = current_volume / volume_ma_50 if volume_ma_50 and volume_ma_50 > 0 else 0
+                if vol_ratio_to_ma50 > 2.0: volume_score += 3
+                elif vol_ratio_to_ma50 > 1.5: volume_score += 2
+                elif vol_ratio_to_ma50 > 1.0: volume_score += 1
+                elif vol_ratio_to_ma50 < 0.5: volume_score -= 1
+
+                # 3. Xu hướng volume 3 ngày (4 điểm)
                 if len(df) > 2:
                     vol_prev = df["Volume"].iloc[-2]
                     vol_prev2 = df["Volume"].iloc[-3]
-                    if last_row["Volume"] > vol_prev > vol_prev2:
-                        volume_score += 3.5  # Volume tăng dần
-                    elif last_row["Volume"] < vol_prev < vol_prev2:
-                        volume_score -= 3.5  # Volume giảm dần
-            
+                    if current_volume > vol_prev > vol_prev2:
+                        # Tăng mạnh
+                        if current_volume / vol_prev2 > 1.5: volume_score += 4
+                        else: volume_score += 2
+                    elif current_volume < vol_prev < vol_prev2:
+                        # Giảm mạnh
+                        if current_volume / vol_prev2 < 0.7: volume_score -= 4
+                        else: volume_score -= 2
+
+                # 4. Volume bùng nổ (3 điểm) - So sánh MA20 hiện tại với MA20 của 20 ngày trước
+                if len(df) > 40:
+                    vol_ma20_prev = df["Volume"].iloc[-21:-1].mean()
+                    if vol_ma20_prev > 0 and volume_ma_20 > 0:
+                        vol_acc_ratio = volume_ma_20 / vol_ma20_prev
+                        if vol_acc_ratio > 2.0: volume_score += 3
+                        elif vol_acc_ratio > 1.5: volume_score += 1.5
+                        elif vol_acc_ratio < 0.5: volume_score -= 2
+
+                # Giới hạn điểm volume trong khoảng hợp lý nếu cần
+                volume_score = np.clip(volume_score, -14, 14)
+
             score += volume_score
-            
+                        
             # 6. RS (Relative Strength) & RS_Point - 14 điểm (cân bằng với các chỉ báo khác)
             # Đảm bảo cả RS và RS_Point đều có ảnh hưởng như nhau đến tổng điểm (7 điểm mỗi cái)
             if symbol.upper() != "VNINDEX":
