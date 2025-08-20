@@ -1,4 +1,5 @@
-         Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá mã DBC:
+
+        Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá mã DBC:
         1. Phân tích kỹ thuật:
         - Giá: 29.3
         - RSI: 45.648052151275564

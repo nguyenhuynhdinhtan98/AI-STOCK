@@ -192,7 +192,6 @@ def calculate_relative_strength(df_stock, df_index):
         # Gán giá trị mặc định cho tất cả các chỉ báo RS
         df_stock["RS"] = 1.0
         df_stock["RS_Point"] = 0.0
-        df_stock["RS_Point_252"] = 0.0
         df_stock["RS_SMA_10"] = 1.0
         df_stock["RS_SMA_20"] = 1.0
         df_stock["RS_SMA_50"] = 1.0
@@ -201,10 +200,6 @@ def calculate_relative_strength(df_stock, df_index):
         df_stock["RS_Point_SMA_20"] = 0.0
         df_stock["RS_Point_SMA_50"] = 0.0
         df_stock["RS_Point_SMA_200"] = 0.0
-        df_stock["RS_Point_252_SMA_10"] = 0.0
-        df_stock["RS_Point_252_SMA_20"] = 0.0
-        df_stock["RS_Point_252_SMA_50"] = 0.0
-        df_stock["RS_Point_252_SMA_200"] = 0.0
         return df_stock
     df_merged["Index_Close"] = df_merged["Index_Close"]
     # Tính RS
@@ -213,18 +208,17 @@ def calculate_relative_strength(df_stock, df_index):
     roc_63 = (df_merged["Close"] / df_merged["Close"].shift(63) - 1) * 100
     roc_126 = (df_merged["Close"] / df_merged["Close"].shift(126) - 1) * 100
     roc_189 = (df_merged["Close"] / df_merged["Close"].shift(189) - 1) * 100
-    roc_252_for_rs_point = (df_merged["Close"] / df_merged["Close"].shift(252) - 1) * 100
+    roc_252 = (df_merged["Close"] / df_merged["Close"].shift(252) - 1) * 100
     # Tính RS_Point theo công thức: (ROC(63)*0.4 + ROC(126)*0.2 + ROC(189)*0.2 + ROC(252)*0.2)
     # Vì ROC đã được nhân 100, kết quả không cần nhân thêm.
     df_merged["RS_Point"] = (
         roc_63.fillna(0) * 0.4 +
         roc_126.fillna(0) * 0.2 +
         roc_189.fillna(0) * 0.2 +
-        roc_252_for_rs_point.fillna(0) * 0.2
+        roc_252.fillna(0) * 0.2
     )
-    # Tính RS_Point_252 = ((C / Ref(C, -252)) - 1) * 100
-    df_merged["RS_Point_252"] = ((df_merged["Close"] / df_merged["Close"].shift(252)) - 1) * 100
-    # Tính các đường trung bình cho RS, RS_Point, RS_Point_252
+   
+    # Tính các đường trung bình cho RS, RS_Point
     df_merged["RS_SMA_10"] = ta.trend.sma_indicator(df_merged["RS"], window=10)
     df_merged["RS_SMA_20"] = ta.trend.sma_indicator(df_merged["RS"], window=20)
     df_merged["RS_SMA_50"] = ta.trend.sma_indicator(df_merged["RS"], window=50)
@@ -233,22 +227,16 @@ def calculate_relative_strength(df_stock, df_index):
     df_merged["RS_Point_SMA_20"] = ta.trend.sma_indicator(df_merged["RS_Point"], window=20)
     df_merged["RS_Point_SMA_50"] = ta.trend.sma_indicator(df_merged["RS_Point"], window=50)
     df_merged["RS_Point_SMA_200"] = ta.trend.sma_indicator(df_merged["RS_Point"], window=200)
-    df_merged["RS_Point_252_SMA_10"] = ta.trend.sma_indicator(df_merged["RS_Point_252"], window=10)
-    df_merged["RS_Point_252_SMA_20"] = ta.trend.sma_indicator(df_merged["RS_Point_252"], window=20)
-    df_merged["RS_Point_252_SMA_50"] = ta.trend.sma_indicator(df_merged["RS_Point_252"], window=50)
-    df_merged["RS_Point_252_SMA_200"] = ta.trend.sma_indicator(df_merged["RS_Point_252"], window=200)
     # Gán các chỉ báo trở lại dataframe gốc
     cols_to_join = [
-        "RS", "RS_Point", "RS_Point_252",
+        "RS", "RS_Point",
         "RS_SMA_10", "RS_SMA_20", "RS_SMA_50", "RS_SMA_200",
-        "RS_Point_SMA_10", "RS_Point_SMA_20", "RS_Point_SMA_50", "RS_Point_SMA_200",
-        "RS_Point_252_SMA_10", "RS_Point_252_SMA_20", "RS_Point_252_SMA_50", "RS_Point_252_SMA_200"
+        "RS_Point_SMA_10", "RS_Point_SMA_20", "RS_Point_SMA_50", "RS_Point_SMA_200"
     ]
     df_stock = df_stock.join(df_merged[cols_to_join], how="left")
     # Xử lý giá trị NaN
     df_stock["RS"].fillna(1.0, inplace=True)
     df_stock["RS_Point"].fillna(0.0, inplace=True)
-    df_stock["RS_Point_252"].fillna(0.0, inplace=True)
     df_stock["RS_SMA_10"].fillna(1.0, inplace=True)
     df_stock["RS_SMA_20"].fillna(1.0, inplace=True)
     df_stock["RS_SMA_50"].fillna(1.0, inplace=True)
@@ -257,10 +245,6 @@ def calculate_relative_strength(df_stock, df_index):
     df_stock["RS_Point_SMA_20"].fillna(0.0, inplace=True)
     df_stock["RS_Point_SMA_50"].fillna(0.0, inplace=True)
     df_stock["RS_Point_SMA_200"].fillna(0.0, inplace=True)
-    df_stock["RS_Point_252_SMA_10"].fillna(0.0, inplace=True)
-    df_stock["RS_Point_252_SMA_20"].fillna(0.0, inplace=True)
-    df_stock["RS_Point_252_SMA_50"].fillna(0.0, inplace=True)
-    df_stock["RS_Point_252_SMA_200"].fillna(0.0, inplace=True)
     return df_stock
 
 # --- Phân tích kỹ thuật và vẽ biểu đồ ---
@@ -272,7 +256,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             return {
                 "signal": "LỖI", "score": 50, "current_price": 0, "rsi_value": 0,
                 "ma10": 0, "ma20": 0, "ma50": 0, "ma200": 0, "rs": 1.0, "rs_point": 0,
-                "rs_point_252": 0.0,
                 "recommendation": "KHÔNG XÁC ĐỊNH",
                 "open": None, "high": None, "low": None, "volume": None,
                 "macd": None, "macd_signal": None, "macd_hist": None,
@@ -284,8 +267,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "ichimoku_chikou_span": None,
                 "rs_sma_10": None, "rs_sma_20": None, "rs_sma_50": None, "rs_sma_200": None,
                 "rs_point_sma_10": None, "rs_point_sma_20": None, "rs_point_sma_50": None, "rs_point_sma_200": None,
-                "rs_point_252_sma_10": None, "rs_point_252_sma_20": None,
-                "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
                 "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
             }
         
@@ -334,7 +315,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             # Lấy giá trị RS
             rs_value = last_row["RS"] if symbol.upper() != "VNINDEX" else 1.0
             rs_point_value = last_row["RS_Point"] if symbol.upper() != "VNINDEX" else 0.0
-            rs_point_252_value = last_row["RS_Point_252"] if symbol.upper() != "VNINDEX" else 0.0
             
             # Lấy giá trị Volume MA
             volume_ma_20 = last_row["Volume_MA_20"] if "Volume_MA_20" in last_row else last_row["Volume"].rolling(20).mean().iloc[-1]
@@ -460,28 +440,41 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             
             score += volume_score
             
-            # 6. RS (Relative Strength) - 14 điểm (cân bằng với các chỉ báo khác)
+            # 6. RS (Relative Strength) & RS_Point - 14 điểm (cân bằng với các chỉ báo khác)
+            # Đảm bảo cả RS và RS_Point đều có ảnh hưởng như nhau đến tổng điểm (7 điểm mỗi cái)
             if symbol.upper() != "VNINDEX":
                 rs_score = 0
+                
+                # --- Tính điểm cho RS (7 điểm) ---
                 # So sánh với SMA ngắn hạn
                 if rs_value > last_row.get("RS_SMA_10", rs_value):
                     rs_score += 3.5
-                
+                elif rs_value < last_row.get("RS_SMA_10", rs_value):
+                     rs_score -= 3.5 # Thêm điều kiện ngược lại
+
                 # So sánh với SMA trung hạn
                 if rs_value > last_row.get("RS_SMA_50", rs_value):
                     rs_score += 3.5
-                
-                # Đánh giá xu hướng RS_Point
+                elif rs_value < last_row.get("RS_SMA_50", rs_value):
+                     rs_score -= 3.5 # Thêm điều kiện ngược lại
+
+                # --- Tính điểm cho RS_Point (7 điểm) ---
+                # Đánh giá xu hướng RS_Point so với SMA20
                 rs_point_sma20 = last_row.get("RS_Point_SMA_20", 0)
                 if rs_point_value > rs_point_sma20:
                     rs_score += 3.5
-                
-                # Đánh giá xu hướng RS_Point_252
-                rs_point_252_sma50 = last_row.get("RS_Point_252_SMA_50", 0)
-                if rs_point_252_value > rs_point_252_sma50:
+                elif rs_point_value < rs_point_sma20:
+                    rs_score -= 3.5 # Thêm điều kiện ngược lại
+
+                # Đánh giá mức độ mạnh/yếu của RS_Point (so với 1.0)
+                if rs_point_value > 1.0:  # Mạnh hơn thị trường
                     rs_score += 3.5
-                
-                score += rs_score
+                elif rs_point_value < -1.0: # Yếu hơn thị trường đáng kể (giả sử ngưỡng -1.0)
+                     rs_score -= 3.5
+                # Ghi chú: Bạn có thể điều chỉnh ngưỡng -1.0 cho phù hợp hoặc bỏ điều kiện này nếu thấy chưa cần thiết.
+                # Mục tiêu là đảm bảo tổng điểm cho RS_Point là 7.
+
+                score += rs_score  # Cộng điểm RS & RS_Point vào tổng điểm
             
             # 7. Bollinger Bands - 14 điểm (cân bằng với các chỉ báo khác)
             bb_score = 0
@@ -556,7 +549,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 print(f" - Sức mạnh tương đối (RS):")
                 print(f" * RS: {rs_value}")
                 print(f" * RS_Point: {rs_point_value:.2f}")
-                print(f" * RS_Point_252: {rs_point_252_value:.2f}")
             try:
                 print(f" - Mô hình Ichimoku:")
                 print(f" * Tenkan-sen (Chuyển đổi): {tenkan_sen:.2f}")
@@ -587,7 +579,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "ma200": float(ma200_value),
                 "rs": float(rs_value), 
                 "rs_point": float(rs_point_value),
-                "rs_point_252": float(rs_point_252_value),
                 "recommendation": recommendation,
                 "open": safe_float(last_row.get("Open")), 
                 "high": safe_float(last_row.get("High")),
@@ -613,10 +604,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "rs_point_sma_20": safe_float(last_row.get("RS_Point_SMA_20")) if symbol.upper() != "VNINDEX" else None,
                 "rs_point_sma_50": safe_float(last_row.get("RS_Point_SMA_50")) if symbol.upper() != "VNINDEX" else None,
                 "rs_point_sma_200": safe_float(last_row.get("RS_Point_SMA_200")) if symbol.upper() != "VNINDEX" else None,
-                "rs_point_252_sma_10": safe_float(last_row.get("RS_Point_252_SMA_10")) if symbol.upper() != "VNINDEX" else None,
-                "rs_point_252_sma_20": safe_float(last_row.get("RS_Point_252_SMA_20")) if symbol.upper() != "VNINDEX" else None,
-                "rs_point_252_sma_50": safe_float(last_row.get("RS_Point_252_SMA_50")) if symbol.upper() != "VNINDEX" else None,
-                "rs_point_252_sma_200": safe_float(last_row.get("RS_Point_252_SMA_200")) if symbol.upper() != "VNINDEX" else None,
                 "forecast_dates": [], 
                 "forecast_prices": [], 
                 "forecast_plot_path": ""
@@ -632,7 +619,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "ma20": df["Close"].iloc[-1] if len(df) > 0 else 0,
                 "ma50": df["Close"].iloc[-1] if len(df) > 0 else 0,
                 "ma200": df["Close"].iloc[-1] if len(df) > 0 else 0,
-                "rs": 1.0, "rs_point": 0, "rs_point_252": 0.0,
+                "rs": 1.0, "rs_point": 0, 
                 "recommendation": "KHÔNG XÁC ĐỊNH",
                 "open": None, "high": None, "low": None, "volume": None,
                 "macd": None, "macd_signal": None, "macd_hist": None,
@@ -644,8 +631,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "ichimoku_chikou_span": None,
                 "rs_sma_10": None, "rs_sma_20": None, "rs_sma_50": None, "rs_sma_200": None,
                 "rs_point_sma_10": None, "rs_point_sma_20": None, "rs_point_sma_50": None, "rs_point_sma_200": None,
-                "rs_point_252_sma_10": None, "rs_point_252_sma_20": None,
-                "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
                 "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
             }
     except Exception as e:
@@ -654,7 +639,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
         return {
             "signal": "LỖI", "score": 50, "current_price": 0, "rsi_value": 0,
             "ma10": 0, "ma20": 0, "ma50": 0, "ma200": 0, "rs": 1.0, "rs_point": 0,
-            "rs_point_252": 0.0,
             "recommendation": "KHÔNG XÁC ĐỊNH",
             "open": None, "high": None, "low": None, "volume": None,
             "macd": None, "macd_signal": None, "macd_hist": None,
@@ -666,8 +650,6 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             "ichimoku_chikou_span": None,
             "rs_sma_10": None, "rs_sma_20": None, "rs_sma_50": None, "rs_sma_200": None,
             "rs_point_sma_10": None, "rs_point_sma_20": None, "rs_point_sma_50": None, "rs_point_sma_200": None,
-            "rs_point_252_sma_10": None, "rs_point_252_sma_20": None,
-            "rs_point_252_sma_50": None, "rs_point_252_sma_200": None,
             "forecast_dates": [], "forecast_prices": [], "forecast_plot_path": ""
         }
 
@@ -739,8 +721,7 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
 
         if symbol.upper() != "VNINDEX":
             rs = trading_signal.get('rs')
-            rs_point = trading_signal.get('rs')
-            rs_point_252 = trading_signal.get('rs_point_252')
+            rs_point = trading_signal.get('rs_point')
 
             prompt += f"""
         - RS (Sức mạnh tương đối so với thị trường): C / VNINDEX → {to_str(rs)}
@@ -754,12 +735,6 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
             * SMA_20: {to_str(trading_signal.get('rs_point_sma_20'))}
             * SMA_50: {to_str(trading_signal.get('rs_point_sma_50'))}
             * SMA_200: {to_str(trading_signal.get('rs_point_sma_200'))}
-
-        - RS_Point_252: ((C / Ref(C, -252)) - 1) * 100 → {to_str(rs_point_252)}
-            * SMA_10: {to_str(trading_signal.get('rs_point_252_sma_10'))}
-            * SMA_20: {to_str(trading_signal.get('rs_point_252_sma_20'))}
-            * SMA_50: {to_str(trading_signal.get('rs_point_252_sma_50'))}
-            * SMA_200: {to_str(trading_signal.get('rs_point_252_sma_200'))}
                     """
 
         if (financial_data_statement is not None and not financial_data_statement.empty):
@@ -856,7 +831,6 @@ def analyze_stock(symbol):
     if symbol.upper() != "VNINDEX":
         print(f"📊 RS (so với VNINDEX: {trading_signal['rs']:.4f}")
         print(f"📊 RS_Point: {trading_signal['rs_point']:.2f}")
-        print(f"📊 RS_Point_252: {trading_signal['rs_point_252']:.2f}")
     print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ AI ---")
     print(gemini_analysis)
     print(f"{'='*60}\n")
@@ -875,7 +849,6 @@ def analyze_stock(symbol):
         "ma200": safe_float(trading_signal.get("ma200")),
         "rs": safe_float(trading_signal.get("rs")) if symbol.upper() != "VNINDEX" else None,
         "rs_point": safe_float(trading_signal.get("rs_point")) if symbol.upper() != "VNINDEX" else None,
-        "rs_point_252": safe_float(trading_signal.get("rs_point_252")) if symbol.upper() != "VNINDEX" else None,
         # Thêm các chỉ báo còn thiếu
         "open": safe_float(trading_signal.get("open")),
         "high": safe_float(trading_signal.get("high")),
@@ -900,10 +873,6 @@ def analyze_stock(symbol):
         "rs_point_sma_20": safe_float(trading_signal.get("rs_point_sma_20")) if symbol.upper() != "VNINDEX" else None,
         "rs_point_sma_50": safe_float(trading_signal.get("rs_point_sma_50")) if symbol.upper() != "VNINDEX" else None,
         "rs_point_sma_200": safe_float(trading_signal.get("rs_point_sma_200")) if symbol.upper() != "VNINDEX" else None,
-        "rs_point_252_sma_10": safe_float(trading_signal.get("rs_point_252_sma_10")) if symbol.upper() != "VNINDEX" else None,
-        "rs_point_252_sma_20": safe_float(trading_signal.get("rs_point_252_sma_20")) if symbol.upper() != "VNINDEX" else None,
-        "rs_point_252_sma_50": safe_float(trading_signal.get("rs_point_252_sma_50")) if symbol.upper() != "VNINDEX" else None,
-        "rs_point_252_sma_200": safe_float(trading_signal.get("rs_point_252_sma_200")) if symbol.upper() != "VNINDEX" else None,
         "gemini_analysis": gemini_analysis,
     }
     # report.update(trading_signal) # Không cập nhật toàn bộ trading_signal vì có thể gây trùng lặp key và lỗi JSON
