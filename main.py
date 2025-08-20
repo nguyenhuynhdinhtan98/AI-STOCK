@@ -170,17 +170,15 @@ def create_features(df):
     df["SMA_20"] = ta.trend.sma_indicator(df["Close"], window=20)
     df["SMA_50"] = ta.trend.sma_indicator(df["Close"], window=50)
     df["SMA_200"] = ta.trend.sma_indicator(df["Close"], window=200)
-    df["EMA_12"] = ta.trend.ema_indicator(df["Close"], window=12)
-    df["EMA_26"] = ta.trend.ema_indicator(df["Close"], window=26)
     df["RSI"] = ta.momentum.rsi(df["Close"], window=14)
-    df["MACD"] = df["EMA_12"] - df["EMA_26"]
-    df["MACD_Signal"] = ta.trend.ema_indicator(df["MACD"], window=9)
-    df["MACD_Hist"] = df["MACD"] - df["MACD_Signal"]
+    df["MACD"] = ta.trend.macd(df["Close"])
+    df["MACD_Signal"] = ta.trend.macd_signal(df["Close"])
+    df["MACD_Hist"] = ta.trend.macd_diff(df["Close"])
     df["BB_Upper"] = ta.volatility.bollinger_hband(df["Close"])
     df["BB_Middle"] = ta.volatility.bollinger_mavg(df["Close"])
     df["BB_Lower"] = ta.volatility.bollinger_lband(df["Close"])
-    df["Volume_MA_20"] = df["Volume"].rolling(window=20).mean()
-    df["Volume_MA_50"] = df["Volume"].rolling(window=50).mean()
+    df["Volume_MA_20"] = ta.trend.sma_indicator(df["Volume"], window=20)
+    df["Volume_MA_50"] = ta.trend.sma_indicator(df["Volume"], window=50)
     return df
 
 # --- Tính toán Relative Strength ---
@@ -205,17 +203,17 @@ def calculate_relative_strength(df_stock, df_index):
     # Tính RS
     df_merged["RS"] = df_merged["Close"] / df_merged["Index_Close"]
     # Tính các thành phần ROC cho RS_Point
-    roc_63 = (df_merged["Close"] / df_merged["Close"].shift(63) - 1) * 100
-    roc_126 = (df_merged["Close"] / df_merged["Close"].shift(126) - 1) * 100
-    roc_189 = (df_merged["Close"] / df_merged["Close"].shift(189) - 1) * 100
-    roc_252 = (df_merged["Close"] / df_merged["Close"].shift(252) - 1) * 100
+    roc_63 = ta.momentum.roc(df_merged["Close"], window=63)
+    roc_126 = ta.momentum.roc(df_merged["Close"], window=126)
+    roc_189 = ta.momentum.roc(df_merged["Close"], window=189)
+    roc_252 = ta.momentum.roc(df_merged["Close"], window=252)
     # Tính RS_Point theo công thức: (ROC(63)*0.4 + ROC(126)*0.2 + ROC(189)*0.2 + ROC(252)*0.2)
     # Vì ROC đã được nhân 100, kết quả không cần nhân thêm.
     df_merged["RS_Point"] = (
-        roc_63.fillna(0) * 0.4 +
-        roc_126.fillna(0) * 0.2 +
-        roc_189.fillna(0) * 0.2 +
-        roc_252.fillna(0) * 0.2
+        roc_63 * 0.4 +
+        roc_126 * 0.2 +
+        roc_189 * 0.2 +
+        roc_252 * 0.2
     )
    
     # Tính các đường trung bình cho RS, RS_Point
@@ -735,7 +733,7 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
             * SMA_20: {to_str(trading_signal.get('rs_point_sma_20'))}
             * SMA_50: {to_str(trading_signal.get('rs_point_sma_50'))}
             * SMA_200: {to_str(trading_signal.get('rs_point_sma_200'))}
-                    """
+"""
 
         if (financial_data_statement is not None and not financial_data_statement.empty):
             prompt += "2. Tình hình tài chính (CSV).\n"
@@ -747,7 +745,7 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
         prompt += f"""
         3. Dữ liệu lịch sử giá (CSV).\n
         {historical_data_str}
-        """
+"""
 
         prompt += """
         Nhiệm vụ của bạn:
@@ -759,7 +757,7 @@ def analyze_with_gemini(symbol: str, trading_signal: dict, financial_data_statem
         - Kết luận cuối cùng phải rõ ràng, súc tích: **MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH**
         - Chấm điểm từ 1 đến 10 cổ phiếu mua vị thế giá hiện tại.
         - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
-        """
+"""
 
         with open("prompt.txt", "w", encoding="utf-8") as file:
                 file.write(prompt)

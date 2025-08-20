@@ -1,28 +1,28 @@
 
         Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá mã DBC:
         1. Phân tích kỹ thuật:
-        - Giá: 29.5
-        - RSI: 47.30273526133917
-        - MA: 30.425 (10), 30.179000000000002 (20), 29.213 (50), 25.3855 (200)
-        - Bollinger bands Up: 31.692286489730655, Bollinger bands Lower: 28.66571351026935
-        - MACD: 0.2222662026857556, Signal: 0.42170672260544745, Histogram: -0.19944051991969186
-        - Ichimoku: Tenkan: 30.444444444444443 | Kijun: 29.991153846153846 | Senkou_A: 30.217799145299146 | Senkou_B: 26.42115384615385 | Chikou: 29.22
-        - Khối lượng: 164500.0
-        - Khối lượng trung bình 20 ngày: 12021157.5
-        - Khối lượng trung bình 50 ngày: 11364814.58
+        - Giá: 29.1
+        - RSI: 44.258349226327105
+        - MA: 30.385 (10), 30.159000000000002 (20), 29.205 (50), 25.383499999999998 (200)
+        - Bollinger bands Up: 31.717549325495124, Bollinger bands Lower: 28.60045067450488
+        - MACD: 0.19035737077692616, Signal: 0.4153249562236816, Histogram: -0.22496758544675544
+        - Ichimoku: Tenkan: 30.400000000000002 | Kijun: 29.97576923076923 | Senkou_A: 30.18788461538462 | Senkou_B: 26.42115384615385 | Chikou: 29.22
+        - Khối lượng: 614100.0
+        - Khối lượng trung bình 20 ngày: 12043637.5
+        - Khối lượng trung bình 50 ngày: 11373806.58
         
-        - RS (Sức mạnh tương đối so với thị trường): C / VNINDEX → 0.017778474185052823
-            * RS_SMA_10: 0.01878547407207081
-            * RS_SMA_20: 0.019202936303293
-            * RS_SMA_50: 0.019882541545414203
-            * RS_SMA_200: 0.01918783962984526
+        - RS (Sức mạnh tương đối so với thị trường): C / VNINDEX → 0.017624080186536654
+            * RS_SMA_10: 0.018770034672219195
+            * RS_SMA_20: 0.019195216603367187
+            * RS_SMA_50: 0.019879453665443882
+            * RS_SMA_200: 0.019187067659852685
 
-        - RS_Point (điểm sức mạnh IBD): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252) → 23.683262514109693
-            * SMA_10: 26.370680096619196
-            * SMA_20: 26.306124150700537
-            * SMA_50: 19.82603050198659
-            * SMA_200: 7.281011784022736
-                    2. Tình hình tài chính (CSV).
+        - RS_Point (điểm sức mạnh IBD): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252) → 22.006201327477704
+            * SMA_10: 26.202973977956
+            * SMA_20: 26.222271091368942
+            * SMA_50: 19.792489278253953
+            * SMA_200: 7.272626478089576
+2. Tình hình tài chính (CSV).
 Báo cáo tài chính:
 ticker  yearReport  lengthReport  CURRENT ASSETS (Bn. VND)  Cash and cash equivalents (Bn. VND)  Short-term investments (Bn. VND)  Accounts receivable (Bn. VND)  Net Inventories  Other current assets  LONG-TERM ASSETS (Bn. VND)  Fixed assets (Bn. VND)  Investment in properties  Long-term investments (Bn. VND)   Goodwill  Other non-current assets  TOTAL ASSETS (Bn. VND)  LIABILITIES (Bn. VND)  Current liabilities (Bn. VND)  Long-term liabilities (Bn. VND)  OWNER'S EQUITY(Bn.VND)  Capital and reserves (Bn. VND)  Other Reserves  Undistributed earnings (Bn. VND)  Budget sources and other funds  MINORITY INTERESTS  TOTAL RESOURCES (Bn. VND)  Prepayments to suppliers (Bn. VND)  Inventories, Net (Bn. VND)  Other current assets (Bn. VND)  Investment and development funds (Bn. VND)  Common shares (Bn. VND)  Paid-in capital (Bn. VND)  Long-term borrowings (Bn. VND)  Advances from customers (Bn. VND)  Short-term borrowings (Bn. VND)  Good will (Bn. VND)  Long-term prepayments (Bn. VND)  Other long-term assets (Bn. VND)  Other long-term receivables (Bn. VND)  Long-term trade receivables (Bn. VND)  Revenue YoY (%)  Revenue (Bn. VND)  Attribute to parent company (Bn. VND)  Attribute to parent company YoY (%)  Financial Income  Interest Expenses         Sales  Sales deductions     Net Sales  Cost of Sales  Gross Profit  Financial Expenses  Gain/(loss) from joint ventures  Selling Expenses  General & Admin Expenses  Operating Profit/Loss  Other income  Other Income/Expenses  Net other income/expenses  Profit before tax  Business income tax - current  Business income tax - deferred  Net Profit For the Year  Attributable to parent company  Net Profit/Loss before tax  Depreciation and Amortisation  Provision for credit losses  Unrealized foreign exchange gain/loss  Profit/Loss from investing activities  Interest Expense  Operating profit before changes in working capital  Increase/Decrease in receivables  Increase/Decrease in inventories  Increase/Decrease in payables  Increase/Decrease in prepaid expenses  Interest paid  Business Income Tax paid  Other receipts from operating activities  Other payments on operating activities  Net cash inflows/outflows from operating activities  Purchase of fixed assets  Proceeds from disposal of fixed assets  Loans granted, purchases of debt instruments (Bn. VND)  Collection of loans, proceeds from sales of debts instruments (Bn. VND)  Investment in other entities  Proceeds from divestment in other entities  Gain on Dividend  Net Cash Flows from Investing Activities  Increase in charter captial  Proceeds from borrowings  Repayment of borrowings  Finance lease principal payments  Dividends paid  Cash flows from financial activities  Net increase/decrease in cash and cash equivalents  Cash and cash equivalents  Foreign exchange differences Adjustment  Cash and Cash Equivalents at the end of period  Chỉ tiêu cơ cấu nguồn vốn_(ST+LT borrowings)/Equity  Chỉ tiêu cơ cấu nguồn vốn_Debt/Equity  Chỉ tiêu cơ cấu nguồn vốn_Fixed Asset-To-Equity  Chỉ tiêu cơ cấu nguồn vốn_Owners' Equity/Charter Capital  Chỉ tiêu hiệu quả hoạt động_Asset Turnover  Chỉ tiêu hiệu quả hoạt động_Fixed Asset Turnover  Chỉ tiêu hiệu quả hoạt động_Days Sales Outstanding  Chỉ tiêu hiệu quả hoạt động_Days Inventory Outstanding  Chỉ tiêu hiệu quả hoạt động_Days Payable Outstanding  Chỉ tiêu hiệu quả hoạt động_Cash Cycle  Chỉ tiêu hiệu quả hoạt động_Inventory Turnover  Chỉ tiêu khả năng sinh lợi_EBIT Margin (%)  Chỉ tiêu khả năng sinh lợi_Gross Profit Margin (%)  Chỉ tiêu khả năng sinh lợi_Net Profit Margin (%)  Chỉ tiêu khả năng sinh lợi_ROE (%)  Chỉ tiêu khả năng sinh lợi_ROIC (%)  Chỉ tiêu khả năng sinh lợi_ROA (%)  Chỉ tiêu khả năng sinh lợi_EBITDA (Bn. VND)  Chỉ tiêu khả năng sinh lợi_EBIT (Bn. VND)  Chỉ tiêu khả năng sinh lợi_Dividend yield (%)  Chỉ tiêu thanh khoản_Current Ratio  Chỉ tiêu thanh khoản_Cash Ratio  Chỉ tiêu thanh khoản_Quick Ratio  Chỉ tiêu thanh khoản_Interest Coverage  Chỉ tiêu thanh khoản_Financial Leverage  Chỉ tiêu định giá_Market Capital (Bn. VND)  Chỉ tiêu định giá_Outstanding Share (Mil. Shares)  Chỉ tiêu định giá_P/E  Chỉ tiêu định giá_P/B  Chỉ tiêu định giá_P/S  Chỉ tiêu định giá_P/Cash Flow  Chỉ tiêu định giá_EPS (VND)  Chỉ tiêu định giá_BVPS (VND)  Chỉ tiêu định giá_EV/EBITDA
    DBC        2009             2              471461508777                          95563839879                                 0                    87842930732     275210916206           12843821960                379065308035            360689163404                         0                      13794700000          0                4581444631            850526816812           496591644896                   313764404402                     182827240494            342135171916                    336281238465      4702786745                       46546159835                      5853933451                   0               850526816812                                   0                275210916206                     12843821960                                 43404364262             177000000000               177000000000                    182827240494                                  0                     313764404402                    0                                0                       13794700000                                      0                                      0         0.000000       442105505521                            30946276734                             0.000000         304672211                  0  442105505521      -21296077621  420809427900  -367518608471   53290819429         -4243898195                                0       -7424116780               -6858207705            35069268960    1932459235            -2160365895                 -227906660        34841362300                    -3895085566                               0              30946276734                     30946276734                0.000000e+00                   0.000000e+00                 0.000000e+00                           0.000000e+00                           0.000000e+00      0.000000e+00                                        0.000000e+00                      0.000000e+00                      0.000000e+00                   0.000000e+00                           0.000000e+00   0.000000e+00              0.000000e+00                              0.000000e+00                            0.000000e+00                                         0.000000e+00              0.000000e+00                            0.000000e+00                                            0.000000e+00                                                             0.000000e+00                  0.000000e+00                                0.000000e+00      0.000000e+00                              0.000000e+00                 0.000000e+00              0.000000e+00             0.000000e+00                      0.000000e+00    0.000000e+00                          0.000000e+00                                        0.000000e+00               0.000000e+00                                      0.0                                    0.000000e+00                                             0.000000                               0.000000                                         1.054230                                                  0.088897                                    0.000000                                          0.000000                                            0.000000                                                0.000000                                              0.000000                                0.000000                                        0.000000                                    0.092699                                            0.126639                                          0.073540                            0.000000                             0.000000                            0.000000                                 0.000000e+00                                39008494944                                       0.000000                            0.000000                         0.000000                          0.000000                                0.000000                                 2.485938                                852394704896                                                0.0              10.233525               2.491397               0.432028                      10.076330                     0.000000                  18182.566406                    11.978847
@@ -2573,8 +2573,8 @@ ticker  yearReport  lengthReport  CURRENT ASSETS (Bn. VND)  Cash and cash equiva
 2025-08-15 31.30 31.40 30.30  30.35 10778344
 2025-08-18 30.35 30.35 29.35  29.45 12584052
 2025-08-19 29.50 29.85 29.20  29.30 10976848
-2025-08-20 29.30 29.50 29.25  29.50   164500
-        
+2025-08-20 29.30 29.50 29.05  29.10   614100
+
         Nhiệm vụ của bạn:
         - Phân tích kỹ thuật theo Wyckoff, VSA/VPA, Minervini, Alexander Elder: hành động giá, khối lượng, cấu trúc xu hướng, điểm mua/bán.
         - Phân tích cơ bản theo Warren Buffett, Charlie Munger, Peter Lynch, Seth Klarman: tăng trưởng, lợi nhuận, biên lợi nhuận, ROE, nợ, dòng tiền, hàng tồn kho, tài sản cố định, người mua trả trước...
@@ -2584,4 +2584,3 @@ ticker  yearReport  lengthReport  CURRENT ASSETS (Bn. VND)  Cash and cash equiva
         - Kết luận cuối cùng phải rõ ràng, súc tích: **MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH**
         - Chấm điểm từ 1 đến 10 cổ phiếu mua vị thế giá hiện tại.
         - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
-        
