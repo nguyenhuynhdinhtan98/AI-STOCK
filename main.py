@@ -1064,13 +1064,10 @@ def analyze_with_gemini(
 
         # Gọi AI sử dụng
         print(f"🤖 Đang yêu cầu phân tích từ AI...")
-
-
-
     
         completion = client.chat.completions.create(
             extra_body={},
-            model="qwen/qwen3-coder:free",
+            model="z-ai/glm-4.5-air:free",
             messages=[
                 {
                     "role": "user",
