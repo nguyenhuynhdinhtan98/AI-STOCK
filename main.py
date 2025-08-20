@@ -1065,19 +1065,26 @@ def analyze_with_gemini(
         # Gọi AI sử dụng
         print(f"🤖 Đang yêu cầu phân tích từ AI...")
 
-        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
-        response = model.generate_content(
-            contents=[
-                prompt,  # Prompt văn bản
-                fileData,  # File dữ liệu giá
-                fileStatement,  # File báo cáo tài chính
-            ],
-        )
 
-        if response and response.text:
-            return response.text.strip()
+
+    
+        completion = client.chat.completions.create(
+            extra_body={},
+            model="qwen/qwen3-coder:free",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+        print(completion)
+        # In ra câu trả lời
+        if completion.choices and completion.choices[0].message.content:
+            print("Trả lời từ AI:")
+            print(completion.choices[0].message.content)
         else:
-            return "Không nhận được phản hồi từ AI."
+            print("Không có nội dung trả lời từ mô hình.")
 
     except Exception as e:
         print(f"❌ Lỗi khi phân tích bằng AI cho {symbol}: {str(e)}")
