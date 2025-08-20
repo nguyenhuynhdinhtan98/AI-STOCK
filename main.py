@@ -10,6 +10,8 @@ import seaborn as sns
 from datetime import datetime, timedelta
 from sklearn.preprocessing import MinMaxScaler
 from openai import OpenAI
+from openpyxl import load_workbook
+from openpyxl.worksheet.table import Table, TableStyleInfo
 import ta
 import warnings
 import google.generativeai as genai
@@ -1255,10 +1257,72 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
         # Lọc DataFrame dựa trên các điều kiện kết hợp
         filtered_df = df[filtered_conditions]
 
-        filtered_df.to_csv("market.csv", index=False, encoding="utf-8-sig")
+       # --- Kiểm tra kết quả sau khi lọc ---
+        if filtered_df.empty:
+            print("⚠️ Không tìm thấy cổ phiếu nào đáp ứng tất cả các tiêu chí lọc.")
+            # Có thể trả về DataFrame rỗng thay vì None nếu muốn nhất quán kiểu trả về
+            # return filtered_df
+            return None # Trả về None như yêu cầu ban đầu nếu không có kết quả
+
+        # --- Lưu kết quả vào file CSV ---
+        # Đổi tên file để phân biệt rõ hơn
+        output_csv_file = "market_filtered.csv"
+        filtered_df.to_csv(output_csv_file, index=False, encoding="utf-8-sig")
+        print(f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_csv_file}'")
+
+        # --- (Tùy chọn) Lưu kết quả vào file Excel dưới dạng bảng ---
+        try:
+
+            output_excel_file = "market_filtered.xlsx"
+            # 1. Lưu DataFrame vào Excel (chưa phải bảng)
+            filtered_df.to_excel(output_excel_file, index=False, sheet_name='Filtered_Stocks', engine='openpyxl')
+
+            # 2. Mở lại file Excel bằng openpyxl để định dạng
+            wb = load_workbook(output_excel_file)
+            ws = wb['Filtered_Stocks'] # Chỉ định rõ tên sheet
+
+            # 3. Kiểm tra dữ liệu và tạo bảng
+            if ws.max_row > 1 and ws.max_column > 1: # Kiểm tra có dữ liệu không
+                # Tạo định danh bảng (table name) hợp lệ
+                table_name = "FilteredStocksTable"
+
+                # Tạo đối tượng Table
+                tab = Table(displayName=table_name, ref=ws.dimensions) # ws.dimensions tự động lấy phạm vi
+
+                # (Tùy chọn) Thêm kiểu dáng cho bảng
+                style = TableStyleInfo(
+                    name="TableStyleMedium2", # Có thể thay đổi kiểu khác như TableStyleLight1, TableStyleDark1
+                    showFirstColumn=False,
+                    showLastColumn=False,
+                    showRowStripes=True, # Kẻ sọc hàng
+                    showColumnStripes=False # Kẻ sọc cột
+                )
+                tab.tableStyleInfo = style
+
+                # Thêm bảng vào worksheet
+                ws.add_table(tab)
+
+                # Lưu lại file Excel đã được định dạng
+                wb.save(output_excel_file)
+                print(f"✅ Đã lưu danh sách cổ phiếu được lọc vào '{output_excel_file}' dưới dạng bảng Excel.")
+            else:
+                print("⚠️ Dữ liệu trống, không tạo được bảng trong Excel.")
+                # Vẫn lưu file Excel ngay cả khi trống
+                wb.save(output_excel_file)
+
+        except ImportError:
+            print("ℹ️  Thư viện 'openpyxl' chưa được cài đặt. Bỏ qua lưu file Excel.")
+            # Nếu cần, có thể cài đặt bằng: pip install openpyxl
+        except Exception as e:
+             print(f"⚠️ Lỗi khi lưu file Excel/bảng cho danh sách lọc: {e}")
+             # traceback.print_exc() # Bỏ comment nếu muốn xem chi tiết lỗi
+
+        # --- Trả về DataFrame kết quả ---
         return filtered_df
+
     except Exception as e:
         print(f"❌ Đã xảy ra lỗi trong quá trình lọc cổ phiếu: {e}")
+        # traceback.print_exc() # Bỏ comment nếu muốn xem chi tiết lỗi
         return None
 
 
