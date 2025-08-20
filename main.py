@@ -1075,7 +1075,7 @@ def analyze_with_gemini(
                 }
             ]
         )
-        print(completion)
+        
         # In ra câu trả lời
         if completion.choices and completion.choices[0].message.content:
             print("Trả lời từ AI:")
@@ -1083,6 +1083,20 @@ def analyze_with_gemini(
         else:
             print("Không có nội dung trả lời từ mô hình.")
 
+        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
+        response = model.generate_content(
+            contents=[
+                prompt,  # Prompt văn bản
+                fileData,  # File dữ liệu giá
+                fileStatement,  # File báo cáo tài chính
+            ],
+        )
+
+        if response and response.text:
+            return response.text.strip()
+        else:
+            return "Không nhận được phản hồi từ AI."
+        
     except Exception as e:
         print(f"❌ Lỗi khi phân tích bằng AI cho {symbol}: {str(e)}")
         print("Chi tiết lỗi:")
