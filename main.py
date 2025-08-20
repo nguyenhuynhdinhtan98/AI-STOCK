@@ -264,7 +264,7 @@ def calculate_relative_strength(df_stock, df_index):
     roc_252 = ta.momentum.roc(df_merged["Close"], window=252)
     # Tính RS_Point theo công thức: (ROC(63)*0.4 + ROC(126)*0.2 + ROC(189)*0.2 + ROC(252)*0.2)
     # Vì ROC đã được nhân 100, kết quả không cần nhân thêm.
-    df_merged["RS_Point"] = roc_63 * 0.4 + roc_126 * 0.2 + roc_189 * 0.2 + roc_252 * 0.2
+    df_merged["RS_Point"] = (roc_63 * 0.4 + roc_126 * 0.2 + roc_189 * 0.2 + roc_252 * 0.2) * 100
 
     # Tính các đường trung bình cho RS, RS_Point
     df_merged["RS_SMA_10"] = ta.trend.sma_indicator(df_merged["RS"], window=10)
