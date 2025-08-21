@@ -159,12 +159,17 @@ def get_financial_data(symbol):
             .merge(df_ratio, on=["yearReport", "lengthReport", "ticker"], how="outer")
         )
 
+        renameFinance =  safe_rename(financial_data, {
+            "yearReport": "year",
+            "lengthReport": "quarter"
+        })
+
         # Lưu dữ liệu
         csv_path = f"vnstocks_data/{symbol}_financial_statements.csv"
-        financial_data.to_csv(csv_path, index=False, encoding="utf-8")
+        renameFinance.to_csv(csv_path, index=False, encoding="utf-8")
         print(f"✅ Đã lưu dữ liệu tài chính của mã {symbol} vào file {csv_path}")
 
-        return financial_data
+        return renameFinance
     except Exception as e:
         print(f"❌ Lỗi khi lấy BCTC cho {symbol}: {str(e)}")
         return None
