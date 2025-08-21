@@ -1164,10 +1164,11 @@ def analyze_with_gemini(
         fileStatement = genai.upload_file(
             path=f"vnstocks_data/{symbol}_financial_statements.xlsx"
         )
+        print(f"✅ Upload file báo cáo tài chính thành công: {fileStatement.uri}")
 
         print(f"📤 Đang upload file tổng quan từ TCBS...")
         fileInfor = genai.upload_file(path=f"vnstocks_data/{symbol}_infor.xlsx")
-        print(f"✅ Upload file báo cáo tài chính thành công: {fileStatement.uri}")
+        print(f"✅ Upload file dữ liệu TCBS thành công: {fileInfor.uri}")
 
         # Gọi AI sử dụng
         print(f"🤖 Đang yêu cầu phân tích từ AI...")
@@ -1186,20 +1187,20 @@ def analyze_with_gemini(
         #     print("Không có nội dung trả lời từ mô hình.")
         #     print(completion)
 
-        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
-        response = model.generate_content(
-            contents=[
-                prompt,  # Prompt văn bản
-                fileData,  # File dữ liệu giá
-                fileStatement,  # File báo cáo tài chính,
-                fileInfor,  # File TCBS
-            ],
-        )
+        # model = genai.GenerativeModel(model_name="gemini-2.5-flash")
+        # response = model.generate_content(
+        #     contents=[
+        #         prompt,  # Prompt văn bản
+        #         fileData,  # File dữ liệu giá
+        #         fileStatement,  # File báo cáo tài chính,
+        #         fileInfor,  # File TCBS
+        #     ],
+        # )
 
-        if response and response.text:
-            return response.text.strip()
-        else:
-            return "Không nhận được phản hồi từ AI."
+        # if response and response.text:
+        #     return response.text.strip()
+        # else:
+        #     return "Không nhận được phản hồi từ AI."
 
     except Exception as e:
         print(f"❌ Lỗi khi phân tích bằng AI cho {symbol}: {str(e)}")
