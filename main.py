@@ -1117,9 +1117,9 @@ def analyze_with_gemini(
             * SMA_200: {to_str(trading_signal.get("rs_point_sma_200"))}
         
         - Sức mạnh RS từ TCBS:
-            * RS 1M: {to_str(trading_signal.get("rs_value_1m"))}
-            * RS 3M: {to_str(trading_signal.get("rs_value_3m"))}
-            * RS 1Y: {to_str(trading_signal.get("rs_value_1y"))}
+            * RS 1M: {to_str(trading_signal.get("relative_strength_1m"))}
+            * RS 3M: {to_str(trading_signal.get("relative_strength_3m"))}
+            * RS 1Y: {to_str(trading_signal.get("relative_strength_1y"))}
 """
 
         if financial_data_statement is not None and not financial_data_statement.empty:
