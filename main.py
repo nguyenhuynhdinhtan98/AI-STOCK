@@ -755,7 +755,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
         print(f" * MA Khối lượng (20): {trading_signal['volume_ma_20']:,.2f}")
         print(f" * MA Khối lượng (50): {trading_signal['volume_ma_50']:,.2f}")
         print(f" 🎯 ĐỀ XUẤT CUỐI CÙNG: {trading_signal['recommendation']}")
-        print(f" 📊 TỔNG ĐIỂM PHÂN TÍCH: {trading_signal['score']:.1f}/100")
+        print(f" 📊 TỔNG ĐIỂM PHÂN TÍCH: {score:.1f}/100")
         print(f" 📈 TÍN HIỆU: {trading_signal['signal']}")
 
         return trading_signal
