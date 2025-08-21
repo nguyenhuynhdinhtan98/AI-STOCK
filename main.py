@@ -1141,16 +1141,23 @@ def analyze_with_gemini(
 """
 
         prompt += """
+
         Nhiệm vụ của bạn:
-        - Có thể sử dụng thông tin cung cấp được phân điểm mua đẹp và nhận định báo cáo tài chính.
-        - Phân tích kỹ thuật theo Wyckoff, VSA/VPA, Minervini, Alexander Elder: hành động giá, khối lượng, cấu trúc xu hướng, điểm mua/bán.
-        - Phân tích cơ bản theo Warren Buffett, Charlie Munger, Peter Lynch, Seth Klarman: tăng trưởng, lợi nhuận, biên lợi nhuận, ROE, nợ, dòng tiền, hàng tồn kho, tài sản cố định, người mua trả trước...
-        - Đánh giá mô hình kỹ thuật (nếu có). 
-        - Từ dữ liệu lịch sử giá có thể thêm nhận định từ các chỉ báo từ AI tự phân tích.
-        - Nhận định xu hướng 1 tuần 1 tháng 3 tháng sắp tới.
-        - Kết luận cuối cùng phải rõ ràng, súc tích: **MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH**
-        - Chấm điểm từ 1 đến 10 cổ phiếu mua vị thế giá hiện tại.
-        - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
+
+        1) Điểm mua/bán: Xác định điểm mua đẹp dựa trên hành động giá + khối lượng.
+        2) Kỹ thuật (Wyckoff, VSA/VPA, Minervini, Alexander Elder):
+        - Hành động giá, khối lượng
+        - Cấu trúc xu hướng (tăng/giảm/tích lũy)
+        - Điểm mua/bán quan trọng
+        - Mô hình kỹ thuật (nếu có)
+        3) Cơ bản (Buffett, Munger, Lynch, Klarman):
+        - Doanh thu, lợi nhuận, tăng trưởng
+        - Biên LN, ROE, nợ, dòng tiền
+        - Hàng tồn kho, TSCĐ, người mua trả trước...
+        4) Nhận định từ dữ liệu: Thêm tín hiệu từ AI/chỉ báo (nêu rõ chỉ báo).
+        5) Dự báo xu hướng: 1 tuần / 1 tháng / 3 tháng.
+        6) Kết luận cuối: MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH.
+        7) Chấm điểm: 1–10 cho khả năng mua tại giá hiện tại.
 """
 
         with open("prompt.txt", "w", encoding="utf-8") as file:
