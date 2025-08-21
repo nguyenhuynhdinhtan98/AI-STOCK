@@ -962,7 +962,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement):
 
         if os.path.exists(csv_file_path):
             try:
-                df_history = pd.read_csv(csv_file_path).tail(500)
+                df_history = pd.read_csv(csv_file_path).tail(1000)
                 historical_data_str = df_history.to_string(
                     index=False, float_format="{:.2f}".format
                 )
