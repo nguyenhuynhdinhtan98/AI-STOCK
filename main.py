@@ -71,7 +71,7 @@ def safe_format(val, fmt=".2f"):
 
 # --- Hàm lấy dữ liệu ---
 def get_stock_data(symbol):
-    """Lấy dữ liệu lịch sử giá cổ phiếu từ VCI và lưu vào file CSV."""
+    """Lấy dữ liệu lịch sử giá cổ phiếu từ VCI và lưu vào file xlsx."""
     try:
         stock = Quote(symbol=symbol)
         df = stock.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
@@ -90,9 +90,9 @@ def get_stock_data(symbol):
             df["Date"] = pd.to_datetime(df["Date"])
             df.set_index("Date", inplace=True)
             df.sort_index(inplace=True)
-            df.to_csv(f"vnstocks_data/{symbol}_data.csv")
+            df.to_excel(f"vnstocks_data/{symbol}_data.xlsx")
             print(
-                f"✅ Đã lưu dữ liệu cho mã {symbol} vào file 'vnstocks_data/{symbol}_data.csv'"
+                f"✅ Đã lưu dữ liệu cho mã {symbol} vào file 'vnstocks_data/{symbol}_data.xlsx'"
             )
             return df
         else:
@@ -110,7 +110,7 @@ def safe_rename(df: pd.DataFrame, mapping: dict) -> pd.DataFrame:
 
 
 def get_financial_data(symbol):
-    """Lấy dữ liệu báo cáo tài chính từ VCI và lưu vào file CSV."""
+    """Lấy dữ liệu báo cáo tài chính từ VCI và lưu vào file xlsx."""
 
     def flatten_columns(df):
         if isinstance(df.columns, pd.MultiIndex):
@@ -144,14 +144,14 @@ def get_financial_data(symbol):
             .merge(df_ratio, on=["yearReport", "lengthReport", "ticker"], how="outer")
         )
 
-        # Lưu financial_data vào CSV
-        financial_data.to_csv(
-            f"vnstocks_data/{symbol}_financial_statements.csv",
+        # Lưu financial_data vào xlsx
+        financial_data.to_excel(
+            f"vnstocks_data/{symbol}_financial_statements.xlsx",
             index=True,
             encoding="utf-8-sig",
         )
 
-        print(f"Đã lưu dữ liệu tài chính của mã {symbol} vào file CSV")
+        print(f"Đã lưu dữ liệu tài chính của mã {symbol} vào file xlsx")
         return financial_data
 
     except Exception as e:
@@ -160,7 +160,7 @@ def get_financial_data(symbol):
 
 
 def get_market_data():
-    """Lấy dữ liệu lịch sử của VNINDEX từ VCI và lưu vào file CSV."""
+    """Lấy dữ liệu lịch sử của VNINDEX từ VCI và lưu vào file xlsx."""
     try:
         quoteVNI = Quote(symbol="VNINDEX")
         vnindex = quoteVNI.history(
@@ -181,9 +181,9 @@ def get_market_data():
             vnindex["Date"] = pd.to_datetime(vnindex["Date"])
             vnindex.set_index("Date", inplace=True)
             vnindex.sort_index(inplace=True)
-            vnindex.to_csv("vnstocks_data/VNINDEX_data.csv")
+            vnindex.to_excel("vnstocks_data/VNINDEX_data.xlsx")
             print(
-                f"✅ Đã lưu dữ liệu VNINDEX vào file 'vnstocks_data/VNINDEX_data.csv'"
+                f"✅ Đã lưu dữ liệu VNINDEX vào file 'vnstocks_data/VNINDEX_data.xlsx'"
             )
             return vnindex
         else:
@@ -383,9 +383,9 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                     vnindex["Date"] = pd.to_datetime(vnindex["Date"])
                     vnindex.set_index("Date", inplace=True)
                     vnindex.sort_index(inplace=True)
-                    vnindex.to_csv("vnstocks_data/VNINDEX_data.csv")
+                    vnindex.to_excel("vnstocks_data/VNINDEX_data.xlsx")
                     print(
-                        f"✅ Đã lưu dữ liệu VNINDEX vào file 'vnstocks_data/VNINDEX_data.csv'"
+                        f"✅ Đã lưu dữ liệu VNINDEX vào file 'vnstocks_data/VNINDEX_data.xlsx'"
                     )
 
                     df = calculate_relative_strength(df, vnindex)
@@ -933,13 +933,13 @@ def analyze_with_gemini(
 ) -> str:
     """Phân tích tổng hợp với AI, xử lý giá trị None an toàn và kèm theo dữ liệu giá"""
     try:
-        # --- MỚI: Đọc dữ liệu từ file CSV ---
-        csv_file_path = f"vnstocks_data/{symbol}_data.csv"
+        # --- MỚI: Đọc dữ liệu từ file xlsx ---
+        xlsx_file_path = f"vnstocks_data/{symbol}_data.xlsx"
         historical_data_str = "Không có dữ liệu lịch sử."
-        if os.path.exists(csv_file_path):
+        if os.path.exists(xlsx_file_path):
             try:
-                # Đọc file CSV
-                df_history = pd.read_csv(csv_file_path)
+                # Đọc file xlsx
+                df_history = pd.read_xlsx(xlsx_file_path)
                 # Giới hạn số dòng dữ liệu gửi đi để tránh vượt quá giới hạn token của API
                 # Ví dụ: chỉ lấy 100 dòng cuối cùng
                 df_history_limited = df_history
@@ -950,16 +950,16 @@ def analyze_with_gemini(
                 )
                 # print(historical_data_str)
                 print(
-                    f"✅ Đã đọc dữ liệu lịch sử từ '{csv_file_path}' để gửi tới Gemini."
+                    f"✅ Đã đọc dữ liệu lịch sử từ '{xlsx_file_path}' để gửi tới Gemini."
                 )
             except Exception as e:
                 print(
-                    f"⚠️ Cảnh báo: Không thể đọc file '{csv_file_path}' để gửi tới Gemini: {e}"
+                    f"⚠️ Cảnh báo: Không thể đọc file '{xlsx_file_path}' để gửi tới Gemini: {e}"
                 )
                 historical_data_str = "Không thể đọc dữ liệu lịch sử."
         else:
             print(
-                f"⚠️ Cảnh báo: File '{csv_file_path}' không tồn tại để gửi tới Gemini."
+                f"⚠️ Cảnh báo: File '{xlsx_file_path}' không tồn tại để gửi tới Gemini."
             )
 
         # Hàm để chuyển giá trị thành chuỗi, nếu None thì trả về "N/A"
@@ -1021,7 +1021,7 @@ def analyze_with_gemini(
 """
 
         if financial_data_statement is not None and not financial_data_statement.empty:
-            prompt += "2. Tình hình tài chính (CSV).\n"
+            prompt += "2. Tình hình tài chính (xlsx).\n"
             if (
                 financial_data_statement is not None
                 and not financial_data_statement.empty
@@ -1031,7 +1031,7 @@ def analyze_with_gemini(
             prompt += "2. Không có dữ liệu tài chính.\n"
 
         prompt += f"""
-        3. Dữ liệu lịch sử giá (CSV).\n
+        3. Dữ liệu lịch sử giá (xlsx).\n
         {historical_data_str}
 """
 
@@ -1053,12 +1053,12 @@ def analyze_with_gemini(
         print(f"✅ Đã lưu nội dung vào file.")
 
         print(f"📤 Đang upload file dữ liệu giá...")
-        fileData = genai.upload_file(path=f"vnstocks_data/{symbol}_data.csv")
+        fileData = genai.upload_file(path=f"vnstocks_data/{symbol}_data.xlsx")
         print(f"✅ Upload file dữ liệu giá thành công: {fileData.uri}")
 
         print(f"📤 Đang upload file báo cáo tài chính...")
         fileStatement = genai.upload_file(
-            path=f"vnstocks_data/{symbol}_financial_statements.csv"
+            path=f"vnstocks_data/{symbol}_financial_statements.xlsx"
         )
         print(f"✅ Upload file báo cáo tài chính thành công: {fileStatement.uri}")
 
@@ -1283,63 +1283,14 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
             # return filtered_df
             return None # Trả về None như yêu cầu ban đầu nếu không có kết quả
 
-        # --- Lưu kết quả vào file CSV ---
+        # --- Lưu kết quả vào file xlsx ---
         # Đổi tên file để phân biệt rõ hơn
-        output_csv_file = "market_filtered.csv"
-        output_csv_file_pe = "market_filtered_pe.csv"
-        filtered_df.to_csv(output_csv_file_pe, index=False, encoding="utf-8-sig")
-        df.to_csv(output_csv_file, index=False, encoding="utf-8-sig")
-        print(f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_csv_file_pe}'")
-
-        # --- (Tùy chọn) Lưu kết quả vào file Excel dưới dạng bảng ---
-        try:
-
-            output_excel_file = "market_filtered_pe.xlsx"
-            # 1. Lưu DataFrame vào Excel (chưa phải bảng)
-            filtered_df.to_excel(output_excel_file, index=False, sheet_name='Filtered_Stocks', engine='openpyxl')
-
-            # 2. Mở lại file Excel bằng openpyxl để định dạng
-            wb = load_workbook(output_excel_file)
-            ws = wb['Filtered_Stocks'] # Chỉ định rõ tên sheet
-
-            # 3. Kiểm tra dữ liệu và tạo bảng
-            if ws.max_row > 1 and ws.max_column > 1: # Kiểm tra có dữ liệu không
-                # Tạo định danh bảng (table name) hợp lệ
-                table_name = "FilteredStocksTable"
-
-                # Tạo đối tượng Table
-                tab = Table(displayName=table_name, ref=ws.dimensions) # ws.dimensions tự động lấy phạm vi
-
-                # (Tùy chọn) Thêm kiểu dáng cho bảng
-                style = TableStyleInfo(
-                    name="TableStyleMedium2", # Có thể thay đổi kiểu khác như TableStyleLight1, TableStyleDark1
-                    showFirstColumn=False,
-                    showLastColumn=False,
-                    showRowStripes=True, # Kẻ sọc hàng
-                    showColumnStripes=False # Kẻ sọc cột
-                )
-                tab.tableStyleInfo = style
-
-                # Thêm bảng vào worksheet
-                ws.add_table(tab)
-
-                # Lưu lại file Excel đã được định dạng
-                wb.save(output_excel_file)
-                print(f"✅ Đã lưu danh sách cổ phiếu được lọc vào '{output_excel_file}' dưới dạng bảng Excel.")
-            else:
-                print("⚠️ Dữ liệu trống, không tạo được bảng trong Excel.")
-                # Vẫn lưu file Excel ngay cả khi trống
-                wb.save(output_excel_file)
-
-        except ImportError:
-            print("ℹ️  Thư viện 'openpyxl' chưa được cài đặt. Bỏ qua lưu file Excel.")
-            # Nếu cần, có thể cài đặt bằng: pip install openpyxl
-        except Exception as e:
-             print(f"⚠️ Lỗi khi lưu file Excel/bảng cho danh sách lọc: {e}")
-             # traceback.print_exc() # Bỏ comment nếu muốn xem chi tiết lỗi
-
-        # --- Trả về DataFrame kết quả ---
-        return filtered_df
+        output_xlsx_file = "market_filtered.xlsx"
+        output_xlsx_file_pe = "market_filtered_pe.xlsx"
+        filtered_df.to_excel(output_xlsx_file_pe, index=False)
+        df.to_excel(output_xlsx_file, index=False)
+        filtered_df.to_excel(output_xlsx_file_pe, index=False)
+        print(f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_xlsx_file_pe}'")
 
     except Exception as e:
         print(f"❌ Đã xảy ra lỗi trong quá trình lọc cổ phiếu: {e}")
