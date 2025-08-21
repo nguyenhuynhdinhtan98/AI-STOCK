@@ -1117,6 +1117,7 @@ def analyze_with_gemini(
             * SMA_200: {to_str(trading_signal.get("rs_point_sma_200"))}
         
         - Sức mạnh RS từ TCBS:
+            * RS 3D: {to_str(trading_signal.get("relative_strength_3d"))}
             * RS 1M: {to_str(trading_signal.get("relative_strength_1m"))}
             * RS 3M: {to_str(trading_signal.get("relative_strength_3m"))}
             * RS 1Y: {to_str(trading_signal.get("relative_strength_1y"))}
