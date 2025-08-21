@@ -1209,24 +1209,14 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 6. SỨC MẠNH TƯƠNG ĐỐI (RS):
 - RS so với VNINDEX: {format_value(trading_signal.get("rs", "N/A"))}
 - RS Point (IBD): {format_value(trading_signal.get("rs_point", "N/A"))}
+- RS 3 ngày: {format_value(trading_signal.get("relative_strength_3d", "N/A"))}
+- RS 1 tháng: {format_value(trading_signal.get("relative_strength_1m", "N/A"))}
 - RS 3 tháng: {format_value(trading_signal.get("relative_strength_3m", "N/A"))}
 - RS 1 năm: {format_value(trading_signal.get("relative_strength_1y", "N/A"))}
 
-7. Chỉ báo kỹ thuật:
-{technical_indicators}
-
-8. Tổng hợp
+7. Tổng hợp
 """
-
-    # Thêm dữ liệu so sánh ngành nếu có
-    if sector_data:
-        prompt += f"""
-7. SO SÁNH VỚI NGÀNH:
-- P/E ngành: {format_value(sector_data.get("pe_ratio", "N/A"))}
-- P/B ngành: {format_value(sector_data.get("pb_ratio", "N/A"))}
-- ROE ngành: {format_value(sector_data.get("roe", "N/A"))}%
-"""
-
+    
     # Thêm dữ liệu cơ bản
     if financial_data is not None and not financial_data.empty:
         prompt += f"""
@@ -1239,11 +1229,14 @@ DỮ LIỆU CƠ BẢN:
         prompt += "\nKHÔNG CÓ DỮ LIỆU TÀI CHÍNH CƠ BẢN\n"
 
     prompt += f"""
-DỮ LIỆU LỊCH SỬ GIÁ:
+THÔNG TIN DỮ LIỆU LỊCH SỬ GIÁ:
 {historical_data}
 
 THÔNG TIN CHUNG:
 {info_data}
+
+THÔNG TIN PHÂN TÍCH KỸ THUẬT:
+{technical_indicators}
 
 YÊU CẦU PHÂN TÍCH CHUYÊN SÂU:
 
