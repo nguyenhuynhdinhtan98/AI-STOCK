@@ -950,7 +950,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement):
         contents.extend(uploaded_files)
         
         # Sử dụng model Gemini
-        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
+        model = genai.GenerativeModel(model_name="gemini-2.5-pro")
         response = model.generate_content(contents=contents)
         
         if response and response.text:
@@ -1003,8 +1003,8 @@ def generate_advanced_stock_analysis_prompt(symbol, current_price, technical_ind
     volume_data = technical_indicators.get('volume', {})
     
     prompt = f"""
-BẠN LÀ: Một chuyên gia phân tích đầu tư chứng khoán Việt Nam với 20 năm kinh nghiệm, kết hợp nhuần nhuyễn 
-phân tích kỹ thuật cao cấp và phân tích cơ bản sâu. Bạn làm việc cho quỹ đầu tư lớn và cần đưa ra khuyến nghị đầu tư chính xác.
+BẠN LÀ: Một chuyên gia phân tích đầu cơ chứng khoán Việt Nam với 20 năm kinh nghiệm, kết hợp nhuần nhuyễn 
+phân tích kỹ thuật cao cấp và phân tích cơ bản sâu. Bạn làm việc cho quỹ đầu cơ lớn và cần đưa ra khuyến nghị đầu cơ chính xác.
 
 MÃ PHÂN TÍCH: {symbol.upper()}
 GIÁ HIỆN TẠI: {format_value(current_price)} VND
