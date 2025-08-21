@@ -958,7 +958,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement):
             result = response.text.strip()
             
             # Lưu kết quả vào file để tham khảo
-            with open(f"analysis_result_{symbol}.txt", "w", encoding="utf-8") as f:
+            with open(f"vnstocks_data/analysis_result_{symbol}.txt", "w", encoding="utf-8") as f:
                 f.write(result)
             
             return result
