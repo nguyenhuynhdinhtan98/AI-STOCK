@@ -86,7 +86,7 @@ def get_stock_data(symbol):
     try:
         stock = Quote(symbol=symbol)
         df = stock.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
-
+        
         if df is None or df.empty:
             print(f"⚠️ Không lấy được dữ liệu cho mã {symbol}")
             return None
@@ -106,9 +106,8 @@ def get_stock_data(symbol):
         df["Date"] = pd.to_datetime(df["Date"])
         df.set_index("Date", inplace=True)
         df.sort_index(inplace=True)
-
         csv_path = f"vnstocks_data/{symbol}_data.csv"
-        df.to_csv(csv_path, index=False, encoding="utf-8")
+        df.to_csv(csv_path, index=True, encoding="utf-8")
         print(f"✅ Đã lưu dữ liệu cho mã {symbol} vào file {csv_path}")
 
         return df
@@ -963,7 +962,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement):
 
         if os.path.exists(csv_file_path):
             try:
-                df_history = pd.read_csv(csv_file_path)
+                df_history = pd.read_csv(csv_file_path).tail(500)
                 historical_data_str = df_history.to_string(
                     index=False, float_format="{:.2f}".format
                 )
@@ -1140,8 +1139,7 @@ def generate_advanced_stock_analysis_prompt(
     trading_signal,
     financial_data,
     historical_data,
-    info_data,
-    sector_data=None,
+    info_data
 ):
     """
     Tạo prompt phân tích chứng khoán nâng cao với đầy đủ thông tin kỹ thuật và cơ bản
