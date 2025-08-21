@@ -160,6 +160,7 @@ def get_financial_data(symbol):
         )
 
         renameFinance =  safe_rename(financial_data, {
+            "ticker": "symbol",
             "yearReport": "year",
             "lengthReport": "quarter"
         })
