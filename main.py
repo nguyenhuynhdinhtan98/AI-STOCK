@@ -146,7 +146,7 @@ def get_financial_data(symbol):
 
         # Lưu financial_data vào xlsx
         financial_data.to_excel(
-            f"vnstocks_data/{symbol}_financial_statements.xlsx", index=True
+            f"vnstocks_data/{symbol}_financial_statements.xlsx", index=False
         )
 
         print(f"Đã lưu dữ liệu tài chính của mã {symbol} vào file xlsx")
@@ -1187,13 +1187,14 @@ def analyze_with_gemini(
         #     print("Không có nội dung trả lời từ mô hình.")
         #     print(completion)
 
+        # Xử lý lỗi: return hoặc raise exception
         model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         response = model.generate_content(
             contents=[
                 prompt,  # Prompt văn bản
                 fileData,  # File dữ liệu giá
                 fileStatement,  # File báo cáo tài chính,
-                fileInfor,  # File TCBS
+                fileInfor  # File TCBS
             ],
         )
 
