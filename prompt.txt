@@ -1,27 +1,27 @@
 
-BẠN LÀ: Một chuyên gia phân tích đầu tư chứng khoán Việt Nam với 20 năm kinh nghiệm, kết hợp nhuần nhuyễn 
-phân tích kỹ thuật cao cấp và phân tích cơ bản sâu. Bạn làm việc cho quỹ đầu tư lớn và cần đưa ra khuyến nghị đầu tư chính xác.
+BẠN LÀ: Một chuyên gia phân tích đầu cơ chứng khoán Việt Nam với 20 năm kinh nghiệm, kết hợp nhuần nhuyễn 
+phân tích kỹ thuật cao cấp và phân tích cơ bản sâu. Bạn làm việc cho quỹ đầu cơ lớn và cần đưa ra khuyến nghị đầu cơ chính xác.
 
 MÃ PHÂN TÍCH: DBC
-GIÁ HIỆN TẠI: 27.50 VND
+GIÁ HIỆN TẠI: 27.45 VND
 
 DỮ LIỆU KỸ THUẬT CHI TIẾT:
 
 1. CHỈ BÁO XUNG LƯỢNG:
-- RSI (14): 35.29 
+- RSI (14): 35.06 
 - MACD: -0.07 | Signal: 0.31 | Histogram: -0.38
 
 2. ĐƯỜNG TRUNG BÌNH (MA):
 - MA10: 30.04
-- MA20: 30.01
+- MA20: 30.00
 - MA50: 29.21 
 - MA200: 25.40
 - Vị trí giá so với MA: Hỗn hợp - Xu hướng đi ngang/thiếu định hướng
 
 3. DẢI BOLLINGER:
-- Band trên: 32.04
-- Band dưới: 27.98
-- Độ rộng dải: 4.06
+- Band trên: 32.05
+- Band dưới: 27.96
+- Độ rộng dải: 4.09
 - Vị trí giá: Gần band dưới - Có thể quá bán
 
 4. ICHIMOKU CLOUD:
@@ -33,13 +33,13 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 - Vị trí giá so với đám mây: Dưới đám mây - Giảm giá
 
 5. KHỐI LƯỢNG GIAO DỊCH:
-- Khối lượng hiện tại: 12.95M
-- Khối lượng trung bình 20 ngày: 12.81M
-- Tỷ lệ khối lượng: 1.01 (Thấp hơn trung bình - Khối lượng yếu)
+- Khối lượng hiện tại: 13.20M
+- Khối lượng trung bình 20 ngày: 12.82M
+- Tỷ lệ khối lượng: 1.03 (Thấp hơn trung bình - Khối lượng yếu)
 
 6. SỨC MẠNH TƯƠNG ĐỐI (RS):
 - RS so với VNINDEX: 0.02
-- RS Point (IBD): 1.44K
+- RS Point (IBD): 1.42K
 - RS 3 tháng: 62.00
 - RS 1 năm: 53.00
 
@@ -2595,11 +2595,11 @@ DỮ LIỆU LỊCH SỬ GIÁ:
 30.35 30.35 29.35  29.45 12584052
 29.50 29.85 29.20  29.30 10976848
 29.30 29.90 28.35  28.40 11135100
-28.45 28.70 27.35  27.50 12947400
+28.45 28.70 27.35  27.45 13197600
 
 THÔNG TIN CHUNG:
 ticker exchange             industry  market_cap   roe  stock_rating  business_operation  business_model  financial_health  alpha  beta  uptrend  active_buy_pct  strong_buy_pct  high_vol_match  forecast_vol_ratio   pe   pb  ev_ebitda  dividend_yield  price_vs_sma5       price_vs_sma20  revenue_growth_1y  revenue_growth_5y  eps_growth_1y  eps_growth_5y  gross_margin  net_margin  doe  avg_trading_value_5d  avg_trading_value_10d  avg_trading_value_20d  relative_strength_3d  rel_strength_1m  rel_strength_3m  rel_strength_1y  total_trading_value foreign_transaction  price_near_realtime  rsi14  foreign_vol_pct  tc_rs tcbs_recommend tcbs_buy_sell_signal  foreign_buysell_20s  num_increase_continuous_day  num_decrease_continuous_day     eps                 macd_histogram  vol_vs_sma5  vol_vs_sma10  vol_vs_sma20  vol_vs_sma50  price_vs_sma10       price_vs_sma50  price_break_out52_week  price_wash_out52_week  sar_vs_macd_hist  bolling_band_signal  dmi_signal rsi14_status  price_growth_1w  price_growth_1m  breakout  prev_1d_growth_pct  prev_1m_growth_pct  prev_1y_growth_pct  prev_5y_growth_pct has_financial_report  free_transfer_rate  net_cash_per_market_cap  net_cash_per_total_assets  profit_last_4q  last_quarter_revenue_growth  second_quarter_revenue_growth  last_quarter_profit_growth  second_quarter_profit_growth  pct_1y_from_peak  pct_away_from_hist_peak  pct_1y_from_bottom  pct_off_hist_bottom       price_vs_sma100  heating_up  price_growth1_day   vsma5   vsma10   vsma20   vsma50  corporate_percentage    ev  quarter_revenue_growth  quarter_income_growth  peg_forward  peg_trailing  quarterly_income  quarterly_revenue   ps   roa  npl  nim  price_vs_sma200  eps_ttm_growth1_year  eps_ttm_growth5_year  equity_mi  eps_recently  percent_price_vs_ma200  percent_price_vs_ma20  percent_price_vs_ma50  percent_price_vs_ma100
-   DBC      HSX Thực phẩm và đồ uống    10930.00 25.10          2.70                3.00            3.80              3.60   0.00  1.20      NaN           36.60           65.80            0.50                1.30 7.00 1.40       6.20            0.00            NaN Giá nằm dưới SMA(20)              22.17              13.56        2975.45          -5.47         21.60       13.27 0.70                363.74                 357.33                 423.74                  4.00            20.00            62.00            53.00               358.79           Mua > Bán                27.45  35.10             4.24  35.00        Chờ bán             Bán mạnh             -6976.00                          NaN                         4.00 4070.00 MACD Histogram < 0 và giảm dần         1.40          1.20          1.10          1.10             NaN Giá nằm dưới SMA(50)                     NaN                    NaN               NaN                  NaN         NaN   Trung tính           -11.31            -6.33       NaN               -3.35               -6.33               10.95               94.58                   Có               65.00                   -41.90                     -31.40         1566.30                        20.00                          11.00                      248.60                        600.00            -15.20                   -12.20               43.80              2392.80 Giá nằm trên SMA(100)         NaN              -3.35 9100.60 10506.60 12164.90 11355.60                 27.80 16.00                    5.80                  -0.30         0.10          0.00            507.00            3820.00 0.80 11.20  NaN  NaN              NaN                560.99                 -4.16    7576.00       4070.00                    8.10                  -8.50                  -6.00                    3.00
+   DBC      HSX Thực phẩm và đồ uống    10930.00 25.10          2.70                3.00            3.80              3.60   0.00  1.20      NaN           36.90           66.20            0.90                1.30 7.00 1.40       6.20            0.00            NaN Giá nằm dưới SMA(20)              22.17              13.56        2975.45          -5.47         21.60       13.27 0.70                363.74                 357.33                 423.74                  4.00            20.00            62.00            53.00               366.17           Mua > Bán                27.45  35.10             4.24  35.00        Chờ bán             Bán mạnh             -6976.00                          NaN                         4.00 4070.00 MACD Histogram < 0 và giảm dần         1.40          1.30          1.10          1.20             NaN Giá nằm dưới SMA(50)                     NaN                    NaN               NaN                  NaN         NaN   Trung tính           -11.31            -6.33       NaN               -3.35               -6.33               10.95               94.58                   Có               65.00                   -41.90                     -31.40         1566.30                        20.00                          11.00                      248.60                        600.00            -15.20                   -12.20               43.80              2392.80 Giá nằm trên SMA(100)         NaN              -3.35 9104.80 10508.70 12165.90 11356.00                 27.80 16.00                    5.80                  -0.30         0.10          0.00            507.00            3820.00 0.80 11.20  NaN  NaN              NaN                560.99                 -4.16    7576.00       4070.00                    8.10                  -8.50                  -6.00                    3.00
 
 YÊU CẦU PHÂN TÍCH CHUYÊN SÂU:
 

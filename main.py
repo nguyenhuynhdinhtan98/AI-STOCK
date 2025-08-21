@@ -1044,6 +1044,8 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 6. SỨC MẠNH TƯƠNG ĐỐI (RS):
 - RS so với VNINDEX: {format_value(trading_signal.get('rs', 'N/A'))}
 - RS Point (IBD): {format_value(trading_signal.get('rs_point', 'N/A'))}
+- RS 3 ngày: {format_value(trading_signal.get('relative_strength_3d', 'N/A'))}
+- RS 1 tháng: {format_value(trading_signal.get('relative_strength_1m', 'N/A'))}
 - RS 3 tháng: {format_value(trading_signal.get('relative_strength_3m', 'N/A'))}
 - RS 1 năm: {format_value(trading_signal.get('relative_strength_1y', 'N/A'))}
 """
