@@ -1286,13 +1286,15 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
         # --- Lưu kết quả vào file CSV ---
         # Đổi tên file để phân biệt rõ hơn
         output_csv_file = "market_filtered.csv"
-        filtered_df.to_csv(output_csv_file, index=False, encoding="utf-8-sig")
-        print(f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_csv_file}'")
+        output_csv_file_pe = "market_filtered_pe.csv"
+        filtered_df.to_csv(output_csv_file_pe, index=False, encoding="utf-8-sig")
+        df.to_csv(output_csv_file, index=False, encoding="utf-8-sig")
+        print(f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_csv_file_pe}'")
 
         # --- (Tùy chọn) Lưu kết quả vào file Excel dưới dạng bảng ---
         try:
 
-            output_excel_file = "market_filtered.xlsx"
+            output_excel_file = "market_filtered_pe.xlsx"
             # 1. Lưu DataFrame vào Excel (chưa phải bảng)
             filtered_df.to_excel(output_excel_file, index=False, sheet_name='Filtered_Stocks', engine='openpyxl')
 
