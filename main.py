@@ -71,7 +71,7 @@ def safe_format(val, fmt=".2f"):
 
 # --- Hàm lấy dữ liệu ---
 def get_stock_data(symbol):
-    """Lấy dữ liệu lịch sử giá cổ phiếu từ VCI và lưu vào file csv."""
+    """Lấy dữ liệu lịch sử giá cổ phiếu từ VCI và lưu vào file xlsx."""
     try:
         stock = Quote(symbol=symbol)
         df = stock.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
@@ -90,9 +90,9 @@ def get_stock_data(symbol):
             df["Date"] = pd.to_datetime(df["Date"])
             df.set_index("Date", inplace=True)
             df.sort_index(inplace=True)
-            df.to_csv(f"vnstocks_data/{symbol}_data.csv")
+            df.to_excel(f"vnstocks_data/{symbol}_data.xlsx")
             print(
-                f"✅ Đã lưu dữ liệu cho mã {symbol} vào file 'vnstocks_data/{symbol}_data.csv'"
+                f"✅ Đã lưu dữ liệu cho mã {symbol} vào file 'vnstocks_data/{symbol}_data.xlsx'"
             )
             return df
         else:
@@ -110,7 +110,7 @@ def safe_rename(df: pd.DataFrame, mapping: dict) -> pd.DataFrame:
 
 
 def get_financial_data(symbol):
-    """Lấy dữ liệu báo cáo tài chính từ VCI và lưu vào file csv."""
+    """Lấy dữ liệu báo cáo tài chính từ VCI và lưu vào file xlsx."""
 
     def flatten_columns(df):
         if isinstance(df.columns, pd.MultiIndex):
@@ -144,12 +144,12 @@ def get_financial_data(symbol):
             .merge(df_ratio, on=["yearReport", "lengthReport", "ticker"], how="outer")
         )
 
-        # Lưu financial_data vào csv
-        financial_data.to_csv(
-            f"vnstocks_data/{symbol}_financial_statements.csv", index=False
+        # Lưu financial_data vào xlsx
+        financial_data.to_excel(
+            f"vnstocks_data/{symbol}_financial_statements.xlsx", index=False
         )
 
-        print(f"Đã lưu dữ liệu tài chính của mã {symbol} vào file csv")
+        print(f"Đã lưu dữ liệu tài chính của mã {symbol} vào file xlsx")
         return financial_data
 
     except Exception as e:
@@ -158,7 +158,7 @@ def get_financial_data(symbol):
 
 
 def get_market_data():
-    """Lấy dữ liệu lịch sử của VNINDEX từ VCI và lưu vào file csv."""
+    """Lấy dữ liệu lịch sử của VNINDEX từ VCI và lưu vào file xlsx."""
     try:
         quoteVNI = Quote(symbol="VNINDEX")
         vnindex = quoteVNI.history(
@@ -179,9 +179,9 @@ def get_market_data():
             vnindex["Date"] = pd.to_datetime(vnindex["Date"])
             vnindex.set_index("Date", inplace=True)
             vnindex.sort_index(inplace=True)
-            vnindex.to_csv("vnstocks_data/VNINDEX_data.csv")
+            vnindex.to_excel("vnstocks_data/VNINDEX_data.xlsx")
             print(
-                f"✅ Đã lưu dữ liệu VNINDEX vào file 'vnstocks_data/VNINDEX_data.csv'"
+                f"✅ Đã lưu dữ liệu VNINDEX vào file 'vnstocks_data/VNINDEX_data.xlsx'"
             )
             return vnindex
         else:
@@ -387,9 +387,9 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                     vnindex["Date"] = pd.to_datetime(vnindex["Date"])
                     vnindex.set_index("Date", inplace=True)
                     vnindex.sort_index(inplace=True)
-                    vnindex.to_csv("vnstocks_data/VNINDEX_data.csv")
+                    vnindex.to_excel("vnstocks_data/VNINDEX_data.xlsx")
                     print(
-                        f"✅ Đã lưu dữ liệu VNINDEX vào file 'vnstocks_data/VNINDEX_data.csv'"
+                        f"✅ Đã lưu dữ liệu VNINDEX vào file 'vnstocks_data/VNINDEX_data.xlsx'"
                     )
 
                     df = calculate_relative_strength(df, vnindex)
@@ -477,11 +477,11 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 else last_row["Volume"].rolling(50).mean().iloc[-1]
             )
 
-            # Đọc dữ liệu từ file market_filtered.csv nếu có
+            # Đọc dữ liệu từ file market_filtered.xlsx nếu có
             try:
-                file_path = "market_filtered.csv"
+                file_path = "market_filtered.xlsx"
                 # 1. Đọc file Excel vào DataFrame
-                market_df = pd.read_csv(file_path)
+                market_df = pd.read_excel(file_path)
 
                 # Kiểm tra xem cột 'ticker' có tồn tại không
                 if "ticker" not in market_df.columns:
@@ -492,8 +492,8 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                     filtered_df = market_df[
                         market_df["ticker"].str.upper() == symbol.upper()
                     ]
-                    output_csv_file = f"vnstocks_data/{symbol}_infor.csv"
-                    filtered_df.to_csv(output_csv_file, index=False)
+                    output_xlsx_file = f"vnstocks_data/{symbol}_infor.xlsx"
+                    filtered_df.to_excel(output_xlsx_file, index=False)
                     # 3. Kiểm tra kết quả lọc
                     if not filtered_df.empty:
                         rs_value_3d = (
@@ -521,7 +521,7 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                             else 1.0
                         )
                         print(
-                            f"Đã tìm thấy dữ liệu cho mã '{symbol}' trong file market_filtered.csv"
+                            f"Đã tìm thấy dữ liệu cho mã '{symbol}' trong file market_filtered.xlsx"
                         )
                     else:
                         print(
@@ -1020,16 +1020,16 @@ def analyze_with_gemini(
 ) -> str:
     """Phân tích tổng hợp với AI, xử lý giá trị None an toàn và kèm theo dữ liệu giá"""
     try:
-        # --- MỚI: Đọc dữ liệu từ file csv ---
-        csv_file_path = f"vnstocks_data/{symbol}_data.csv"
-        infor_csv_file_path = f"vnstocks_data/{symbol}_infor.csv"
+        # --- MỚI: Đọc dữ liệu từ file xlsx ---
+        xlsx_file_path = f"vnstocks_data/{symbol}_data.xlsx"
+        infor_xlsx_file_path = f"vnstocks_data/{symbol}_infor.xlsx"
         historical_data_str = "Không có dữ liệu lịch sử."
         infor_data_str = "Không có dữ liệu lịch sử."
-        if os.path.exists(csv_file_path):
+        if os.path.exists(xlsx_file_path):
             try:
-                # Đọc file csv
-                df_history = pd.read_csv(csv_file_path)
-                df_infor_history = pd.read_csv(infor_csv_file_path)
+                # Đọc file xlsx
+                df_history = pd.read_excel(xlsx_file_path)
+                df_infor_history = pd.read_excel(infor_xlsx_file_path)
                 # Chuyển DataFrame thành chuỗi (string) định dạng bảng dễ đọc
                 # Có thể điều chỉnh `float_format` nếu cần
                 historical_data_str = df_history.to_string(
@@ -1040,23 +1040,23 @@ def analyze_with_gemini(
                 )
                 # print(historical_data_str)
                 print(
-                    f"✅ Đã đọc dữ liệu lịch sử từ '{csv_file_path}' để gửi tới Gemini."
+                    f"✅ Đã đọc dữ liệu lịch sử từ '{xlsx_file_path}' để gửi tới Gemini."
                 )
                 print(
-                    f"✅ Đã đọc dữ liệu lịch sử từ '{infor_csv_file_path}' để gửi tới Gemini."
+                    f"✅ Đã đọc dữ liệu lịch sử từ '{infor_xlsx_file_path}' để gửi tới Gemini."
                 )
             except Exception as e:
                 print(
-                    f"⚠️ Cảnh báo: Không thể đọc file '{csv_file_path}' để gửi tới Gemini: {e}"
+                    f"⚠️ Cảnh báo: Không thể đọc file '{xlsx_file_path}' để gửi tới Gemini: {e}"
                 )
                 print(
-                    f"⚠️ Cảnh báo: Không thể đọc file '{infor_csv_file_path}' để gửi tới Gemini: {e}"
+                    f"⚠️ Cảnh báo: Không thể đọc file '{infor_xlsx_file_path}' để gửi tới Gemini: {e}"
                 )
                 historical_data_str = "Không thể đọc dữ liệu lịch sử."
 
         else:
             print(
-                f"⚠️ Cảnh báo: File '{csv_file_path}' không tồn tại để gửi tới Gemini."
+                f"⚠️ Cảnh báo: File '{xlsx_file_path}' không tồn tại để gửi tới Gemini."
             )
 
         # Hàm để chuyển giá trị thành chuỗi, nếu None thì trả về "N/A"
@@ -1123,7 +1123,7 @@ def analyze_with_gemini(
 """
 
         if financial_data_statement is not None and not financial_data_statement.empty:
-            prompt += "2. Tình hình tài chính (csv).\n"
+            prompt += "2. Tình hình tài chính (xlsx).\n"
             if (
                 financial_data_statement is not None
                 and not financial_data_statement.empty
@@ -1133,7 +1133,7 @@ def analyze_with_gemini(
             prompt += "2. Không có dữ liệu tài chính.\n"
 
         prompt += f"""
-        3. Dữ liệu lịch sử giá (csv).\n
+        3. Dữ liệu lịch sử giá (xlsx).\n
         {historical_data_str}
         4. Dữ liệu chung từ TCBS.\n
         {infor_data_str}
@@ -1157,17 +1157,17 @@ def analyze_with_gemini(
         print(f"✅ Đã lưu nội dung vào file.")
 
         print(f"📤 Đang upload file dữ liệu giá...")
-        fileData = genai.upload_file(path=f"vnstocks_data/{symbol}_data.csv")
+        fileData = genai.upload_file(path=f"vnstocks_data/{symbol}_data.xlsx")
         print(f"✅ Upload file dữ liệu giá thành công: {fileData.uri}")
 
         print(f"📤 Đang upload file báo cáo tài chính...")
         fileStatement = genai.upload_file(
-            path=f"vnstocks_data/{symbol}_financial_statements.csv"
+            path=f"vnstocks_data/{symbol}_financial_statements.xlsx"
         )
         print(f"✅ Upload file báo cáo tài chính thành công: {fileStatement.uri}")
 
         print(f"📤 Đang upload file tổng quan từ TCBS...")
-        fileInfor = genai.upload_file(path=f"vnstocks_data/{symbol}_infor.csv")
+        fileInfor = genai.upload_file(path=f"vnstocks_data/{symbol}_infor.xlsx")
         print(f"✅ Upload file dữ liệu TCBS thành công: {fileInfor.uri}")
 
         # Gọi AI sử dụng
@@ -1187,13 +1187,14 @@ def analyze_with_gemini(
         #     print("Không có nội dung trả lời từ mô hình.")
         #     print(completion)
 
+        # Xử lý lỗi: return hoặc raise exception
         model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         response = model.generate_content(
             contents=[
-                prompt,
-                fileData,
-                fileStatement,
-                fileInfor 
+                prompt,  # Prompt văn bản
+                fileData,  # File dữ liệu giá
+                fileStatement,  # File báo cáo tài chính,
+                fileInfor  # File TCBS
             ],
         )
 
@@ -1387,15 +1388,15 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
             # return filtered_df
             return None  # Trả về None như yêu cầu ban đầu nếu không có kết quả
 
-        # --- Lưu kết quả vào file csv ---
+        # --- Lưu kết quả vào file xlsx ---
         # Đổi tên file để phân biệt rõ hơn
-        output_csv_file = "market_filtered.csv"
-        output_csv_file_pe = "market_filtered_pe.csv"
-        filtered_df.to_csv(output_csv_file_pe, index=False)
-        df.to_csv(output_csv_file, index=False)
-        filtered_df.to_csv(output_csv_file_pe, index=False)
+        output_xlsx_file = "market_filtered.xlsx"
+        output_xlsx_file_pe = "market_filtered_pe.xlsx"
+        filtered_df.to_excel(output_xlsx_file_pe, index=False)
+        df.to_excel(output_xlsx_file, index=False)
+        filtered_df.to_excel(output_xlsx_file_pe, index=False)
         print(
-            f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_csv_file_pe}'"
+            f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_xlsx_file_pe}'"
         )
 
     except Exception as e:
