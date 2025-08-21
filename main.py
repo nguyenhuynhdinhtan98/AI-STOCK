@@ -1105,7 +1105,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement):
         contents.extend(uploaded_files)
 
         # Sử dụng model Gemini
-        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
+        model = genai.GenerativeModel(model_name="gemini-2.5-pro")
         response = model.generate_content(contents=contents)
 
         if response and response.text:
