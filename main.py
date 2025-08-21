@@ -1046,6 +1046,11 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 - RS Point (IBD): {format_value(trading_signal.get('rs_point', 'N/A'))}
 - RS 3 tháng: {format_value(trading_signal.get('relative_strength_3m', 'N/A'))}
 - RS 1 năm: {format_value(trading_signal.get('relative_strength_1y', 'N/A'))}
+
+7. Chỉ báo kỹ thuật:
+{technical_indicators}
+
+8. Tổng hợp
 """
 
     # Thêm dữ liệu so sánh ngành nếu có
