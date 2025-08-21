@@ -1142,11 +1142,12 @@ def analyze_with_gemini(
 
         prompt += """
         Nhiệm vụ của bạn:
+        - Có thể sử dụng thông tin cung cấp được phân điểm mua đẹp và nhận định báo cáo tài chính.
         - Phân tích kỹ thuật theo Wyckoff, VSA/VPA, Minervini, Alexander Elder: hành động giá, khối lượng, cấu trúc xu hướng, điểm mua/bán.
         - Phân tích cơ bản theo Warren Buffett, Charlie Munger, Peter Lynch, Seth Klarman: tăng trưởng, lợi nhuận, biên lợi nhuận, ROE, nợ, dòng tiền, hàng tồn kho, tài sản cố định, người mua trả trước...
         - Đánh giá mô hình kỹ thuật (nếu có). 
         - Từ dữ liệu lịch sử giá có thể thêm nhận định từ các chỉ báo từ AI tự phân tích.
-        - Nhận định xu hướng ngắn hạn (1–4 tuần) và trung hạn (1–6 tháng).
+        - Nhận định xu hướng 1 tuần 1 tháng 3 tháng sắp tới.
         - Kết luận cuối cùng phải rõ ràng, súc tích: **MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH**
         - Chấm điểm từ 1 đến 10 cổ phiếu mua vị thế giá hiện tại.
         - Trình bày phân tích ngắn gọn, chuyên nghiệp, dễ hành động.
