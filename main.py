@@ -163,7 +163,7 @@ def get_financial_data(symbol):
             "ticker": "Symbol",
             "yearReport": "Year",
             "lengthReport": "Quarter"
-        })
+        }).tail(20)
 
         # Lưu dữ liệu
         csv_path = f"vnstocks_data/{symbol}_financial_statements.csv"
