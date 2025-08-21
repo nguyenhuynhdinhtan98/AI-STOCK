@@ -146,9 +146,7 @@ def get_financial_data(symbol):
 
         # Lưu financial_data vào xlsx
         financial_data.to_excel(
-            f"vnstocks_data/{symbol}_financial_statements.xlsx",
-            index=True,
-            encoding="utf-8-sig",
+            f"vnstocks_data/{symbol}_financial_statements.xlsx", index=True
         )
 
         print(f"Đã lưu dữ liệu tài chính của mã {symbol} vào file xlsx")
@@ -264,7 +262,9 @@ def calculate_relative_strength(df_stock, df_index):
     roc_252 = ta.momentum.roc(df_merged["Close"], window=252)
     # Tính RS_Point theo công thức: (ROC(63)*0.4 + ROC(126)*0.2 + ROC(189)*0.2 + ROC(252)*0.2)
     # Vì ROC đã được nhân 100, kết quả không cần nhân thêm.
-    df_merged["RS_Point"] = (roc_63 * 0.4 + roc_126 * 0.2 + roc_189 * 0.2 + roc_252 * 0.2) * 100
+    df_merged["RS_Point"] = (
+        roc_63 * 0.4 + roc_126 * 0.2 + roc_189 * 0.2 + roc_252 * 0.2
+    ) * 100
 
     # Tính các đường trung bình cho RS, RS_Point
     df_merged["RS_SMA_10"] = ta.trend.sma_indicator(df_merged["RS"], window=10)
@@ -353,6 +353,10 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "rs_point_sma_20": None,
                 "rs_point_sma_50": None,
                 "rs_point_sma_200": None,
+                "relative_strength_3d": None,
+                "relative_strength_1m": None,
+                "relative_strength_3m": None,
+                "relative_strength_1y": None,
                 "forecast_dates": [],
                 "forecast_prices": [],
                 "forecast_plot_path": "",
@@ -472,6 +476,73 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 if "Volume_MA_50" in last_row
                 else last_row["Volume"].rolling(50).mean().iloc[-1]
             )
+
+            # Đọc dữ liệu từ file market_filtered.xlsx nếu có
+            try:
+                file_path = "market_filtered.xlsx"
+                # 1. Đọc file Excel vào DataFrame
+                market_df = pd.read_excel(file_path)
+
+                # Kiểm tra xem cột 'ticker' có tồn tại không
+                if "ticker" not in market_df.columns:
+                    print(f"Lỗi: Không tìm thấy cột 'ticker' trong file {file_path}")
+                    print(f"Các cột có trong file: {list(market_df.columns)}")
+                else:
+                    # 2. Lọc DataFrame theo symbol (không phân biệt chữ hoa/thường)
+                    filtered_df = market_df[
+                        market_df["ticker"].str.upper() == symbol.upper()
+                    ]
+                    output_xlsx_file = f"vnstocks_data/{symbol}_infor.xlsx"
+                    filtered_df.to_excel(output_xlsx_file, index=False)
+                    # 3. Kiểm tra kết quả lọc
+                    if not filtered_df.empty:
+                        rs_value_3d = (
+                            filtered_df["relative_strength_3d"].iloc[0]
+                            if symbol.upper() != "VNINDEX"
+                            and "relative_strength_3d" in filtered_df.columns
+                            else 1.0
+                        )
+                        rs_value_1m = (
+                            filtered_df["rel_strength_1m"].iloc[0]
+                            if symbol.upper() != "VNINDEX"
+                            and "rel_strength_1m" in filtered_df.columns
+                            else 1.0
+                        )
+                        rs_value_3m = (
+                            filtered_df["rel_strength_3m"].iloc[0]
+                            if symbol.upper() != "VNINDEX"
+                            and "rel_strength_3m" in filtered_df.columns
+                            else 1.0
+                        )
+                        rs_value_1y = (
+                            filtered_df["rel_strength_1y"].iloc[0]
+                            if symbol.upper() != "VNINDEX"
+                            and "rel_strength_1y" in filtered_df.columns
+                            else 1.0
+                        )
+                        print(
+                            f"Đã tìm thấy dữ liệu cho mã '{symbol}' trong file market_filtered.xlsx"
+                        )
+                    else:
+                        print(
+                            f"Không tìm thấy dữ liệu cho mã cổ phiếu '{symbol}' trong file."
+                        )
+                        rs_value_3d = 1.0
+                        rs_value_1m = 1.0
+                        rs_value_3m = 1.0
+                        rs_value_1y = 1.0
+            except FileNotFoundError:
+                print(f"Lỗi: Không tìm thấy file '{file_path}'")
+                rs_value_3d = 1.0
+                rs_value_1m = 1.0
+                rs_value_3m = 1.0
+                rs_value_1y = 1.0
+            except Exception as e:
+                print(f"Lỗi khi đọc hoặc lọc file: {e}")
+                rs_value_3d = 1.0
+                rs_value_1m = 1.0
+                rs_value_3m = 1.0
+                rs_value_1y = 1.0
 
             # Tính điểm tổng hợp (phiên bản CÂN BẰNG HOÀN TOÀN)
             score = 50  # Điểm cơ bản
@@ -764,6 +835,10 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 print(f" - Sức mạnh tương đối (RS):")
                 print(f" * RS: {rs_value}")
                 print(f" * RS_Point: {rs_point_value:.2f}")
+                print(f" * RS3D: {rs_value_3d}")
+                print(f" * RS1M: {rs_value_1m}")
+                print(f" * RS3M: {rs_value_3m}")
+                print(f" * RS1y: {rs_value_1y}")
             try:
                 print(f" - Mô hình Ichimoku:")
                 print(f" * Tenkan-sen (Chuyển đổi): {tenkan_sen:.2f}")
@@ -811,7 +886,11 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "ichimoku_senkou_span_a": safe_float(senkou_span_a),
                 "ichimoku_senkou_span_b": safe_float(senkou_span_b),
                 "ichimoku_chikou_span": safe_float(chikou_span),
-                "rs_sma_10": safe_float(last_row.get("RS_SMA_10"))
+                "rs_sma_10": safe_float(last_row.get("RS_SMA_10")),
+                "relative_strength_3d": safe_float(rs_value_3d),
+                "relative_strength_1m": safe_float(rs_value_1m),
+                "relative_strength_3m": safe_float(rs_value_3m),
+                "relative_strength_1y": safe_float(rs_value_1y)
                 if symbol.upper() != "VNINDEX"
                 else None,
                 "rs_sma_20": safe_float(last_row.get("RS_SMA_20"))
@@ -878,6 +957,10 @@ def plot_stock_analysis(symbol, df, show_volume=True):
                 "rs_point_sma_20": None,
                 "rs_point_sma_50": None,
                 "rs_point_sma_200": None,
+                "relative_strength_3d": None,
+                "relative_strength_1m": None,
+                "relative_strength_3m": None,
+                "relative_strength_1y": None,
                 "forecast_dates": [],
                 "forecast_prices": [],
                 "forecast_plot_path": "",
@@ -921,6 +1004,10 @@ def plot_stock_analysis(symbol, df, show_volume=True):
             "rs_point_sma_20": None,
             "rs_point_sma_50": None,
             "rs_point_sma_200": None,
+            "relative_strength_3d": None,
+            "relative_strength_1m": None,
+            "relative_strength_3m": None,
+            "relative_strength_1y": None,
             "forecast_dates": [],
             "forecast_prices": [],
             "forecast_plot_path": "",
@@ -935,28 +1022,38 @@ def analyze_with_gemini(
     try:
         # --- MỚI: Đọc dữ liệu từ file xlsx ---
         xlsx_file_path = f"vnstocks_data/{symbol}_data.xlsx"
+        infor_xlsx_file_path = f"vnstocks_data/{symbol}_infor.xlsx"
         historical_data_str = "Không có dữ liệu lịch sử."
+        infor_data_str = "Không có dữ liệu lịch sử."
         if os.path.exists(xlsx_file_path):
             try:
                 # Đọc file xlsx
-                df_history = pd.read_xlsx(xlsx_file_path)
-                # Giới hạn số dòng dữ liệu gửi đi để tránh vượt quá giới hạn token của API
-                # Ví dụ: chỉ lấy 100 dòng cuối cùng
-                df_history_limited = df_history
+                df_history = pd.read_excel(xlsx_file_path)
+                df_infor_history = pd.read_excel(infor_xlsx_file_path)
                 # Chuyển DataFrame thành chuỗi (string) định dạng bảng dễ đọc
                 # Có thể điều chỉnh `float_format` nếu cần
-                historical_data_str = df_history_limited.to_string(
+                historical_data_str = df_history.to_string(
+                    index=False, float_format="{:.2f}".format
+                )
+                infor_data_str = df_infor_history.to_string(
                     index=False, float_format="{:.2f}".format
                 )
                 # print(historical_data_str)
                 print(
                     f"✅ Đã đọc dữ liệu lịch sử từ '{xlsx_file_path}' để gửi tới Gemini."
                 )
+                print(
+                    f"✅ Đã đọc dữ liệu lịch sử từ '{infor_xlsx_file_path}' để gửi tới Gemini."
+                )
             except Exception as e:
                 print(
                     f"⚠️ Cảnh báo: Không thể đọc file '{xlsx_file_path}' để gửi tới Gemini: {e}"
                 )
+                print(
+                    f"⚠️ Cảnh báo: Không thể đọc file '{infor_xlsx_file_path}' để gửi tới Gemini: {e}"
+                )
                 historical_data_str = "Không thể đọc dữ liệu lịch sử."
+
         else:
             print(
                 f"⚠️ Cảnh báo: File '{xlsx_file_path}' không tồn tại để gửi tới Gemini."
@@ -1018,6 +1115,11 @@ def analyze_with_gemini(
             * SMA_20: {to_str(trading_signal.get("rs_point_sma_20"))}
             * SMA_50: {to_str(trading_signal.get("rs_point_sma_50"))}
             * SMA_200: {to_str(trading_signal.get("rs_point_sma_200"))}
+        
+        - Sức mạnh RS từ TCBS:
+            * RS 1M: {to_str(trading_signal.get("rs_value_1m"))}
+            * RS 3M: {to_str(trading_signal.get("rs_value_3m"))}
+            * RS 1Y: {to_str(trading_signal.get("rs_value_1y"))}
 """
 
         if financial_data_statement is not None and not financial_data_statement.empty:
@@ -1033,6 +1135,8 @@ def analyze_with_gemini(
         prompt += f"""
         3. Dữ liệu lịch sử giá (xlsx).\n
         {historical_data_str}
+        4. Dữ liệu chung từ TCBS.\n
+        {infor_data_str}
 """
 
         prompt += """
@@ -1060,36 +1164,35 @@ def analyze_with_gemini(
         fileStatement = genai.upload_file(
             path=f"vnstocks_data/{symbol}_financial_statements.xlsx"
         )
+
+        print(f"📤 Đang upload file tổng quan từ TCBS...")
+        fileInfor = genai.upload_file(path=f"vnstocks_data/{symbol}_infor.xlsx")
         print(f"✅ Upload file báo cáo tài chính thành công: {fileStatement.uri}")
 
         # Gọi AI sử dụng
         print(f"🤖 Đang yêu cầu phân tích từ AI...")
-    
-        completion = client.chat.completions.create(
-            extra_body={},
-            model="z-ai/glm-4.5-air:free",
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ]
-        )
 
-        # In ra câu trả lời
-        if completion.choices and completion.choices[0].message.content:
-            print("Trả lời từ AI:")
-            print(completion.choices[0].message.content)
-        else:
-            print("Không có nội dung trả lời từ mô hình.")
-            print(completion)
+        # completion = client.chat.completions.create(
+        #     extra_body={},
+        #     model="z-ai/glm-4.5-air:free",
+        #     messages=[{"role": "user", "content": prompt}],
+        # )
+
+        # # In ra câu trả lời
+        # if completion.choices and completion.choices[0].message.content:
+        #     print("Trả lời từ AI:")
+        #     print(completion.choices[0].message.content)
+        # else:
+        #     print("Không có nội dung trả lời từ mô hình.")
+        #     print(completion)
 
         model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         response = model.generate_content(
             contents=[
                 prompt,  # Prompt văn bản
                 fileData,  # File dữ liệu giá
-                fileStatement,  # File báo cáo tài chính
+                fileStatement,  # File báo cáo tài chính,
+                fileInfor,  # File TCBS
             ],
         )
 
@@ -1097,7 +1200,7 @@ def analyze_with_gemini(
             return response.text.strip()
         else:
             return "Không nhận được phản hồi từ AI."
-        
+
     except Exception as e:
         print(f"❌ Lỗi khi phân tích bằng AI cho {symbol}: {str(e)}")
         print("Chi tiết lỗi:")
@@ -1276,12 +1379,12 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
         # Lọc DataFrame dựa trên các điều kiện kết hợp
         filtered_df = df[filtered_conditions]
 
-       # --- Kiểm tra kết quả sau khi lọc ---
+        # --- Kiểm tra kết quả sau khi lọc ---
         if filtered_df.empty:
             print("⚠️ Không tìm thấy cổ phiếu nào đáp ứng tất cả các tiêu chí lọc.")
             # Có thể trả về DataFrame rỗng thay vì None nếu muốn nhất quán kiểu trả về
             # return filtered_df
-            return None # Trả về None như yêu cầu ban đầu nếu không có kết quả
+            return None  # Trả về None như yêu cầu ban đầu nếu không có kết quả
 
         # --- Lưu kết quả vào file xlsx ---
         # Đổi tên file để phân biệt rõ hơn
@@ -1290,7 +1393,9 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
         filtered_df.to_excel(output_xlsx_file_pe, index=False)
         df.to_excel(output_xlsx_file, index=False)
         filtered_df.to_excel(output_xlsx_file_pe, index=False)
-        print(f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_xlsx_file_pe}'")
+        print(
+            f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_xlsx_file_pe}'"
+        )
 
     except Exception as e:
         print(f"❌ Đã xảy ra lỗi trong quá trình lọc cổ phiếu: {e}")
