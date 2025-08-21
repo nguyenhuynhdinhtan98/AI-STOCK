@@ -1187,14 +1187,30 @@ def analyze_with_gemini(
         #     print("Không có nội dung trả lời từ mô hình.")
         #     print(completion)
 
-        # Xử lý lỗi: return hoặc raise exception
+        print(f"Debug - Type of prompt: {type(prompt)}")
+        print(f"Debug - Prompt is None: {prompt is None}")
+        print(f"Debug - Length of prompt: {len(prompt) if isinstance(prompt, str) else 'N/A'}")
+        print(f"Debug - fileData is None: {fileData is None}")
+        print(f"Debug - fileStatement is None: {fileStatement is None}")
+        print(f"Debug - fileInfor is None: {fileInfor is None}")
+        print(f"Debug - fileData type: {type(fileData)}")
+        print(f"Debug - fileStatement type: {type(fileStatement)}")
+        print(f"Debug - fileInfor type: {type(fileInfor)}")
+        if fileData:
+            print(f"Debug - fileData.uri: {getattr(fileData, 'uri', 'No URI attribute')}")
+        if fileStatement:
+            print(f"Debug - fileStatement.uri: {getattr(fileStatement, 'uri', 'No URI attribute')}")
+        if fileInfor:
+            print(f"Debug - fileInfor.uri: {getattr(fileInfor, 'uri', 'No URI attribute')}")
+        
+
         model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         response = model.generate_content(
             contents=[
-                prompt,  # Prompt văn bản
-                fileData,  # File dữ liệu giá
-                fileStatement,  # File báo cáo tài chính,
-                fileInfor  # File TCBS
+                prompt,
+                fileData,
+                fileStatement,
+                fileInfor 
             ],
         )
 

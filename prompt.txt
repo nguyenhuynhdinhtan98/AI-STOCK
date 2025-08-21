@@ -1,27 +1,27 @@
 
         Bạn là chuyên gia phân tích chứng khoán Việt Nam. Hãy đánh giá mã DBC:
         1. Phân tích kỹ thuật:
-        - Giá: 27.7
-        - RSI: 36.23861813958092
-        - MA: 30.060000000000002 (10), 30.017499999999995 (20), 29.2128 (50), 25.396749999999997 (200)
-        - Bollinger bands Up: 32.0002241361322, Bollinger bands Lower: 28.034775863867786
-        - MACD: -0.05187267243802651, Signal: 0.3129509575568669, Histogram: -0.36482362999489343
+        - Giá: 27.8
+        - RSI: 36.73164571798233
+        - MA: 30.07 (10), 30.022499999999997 (20), 29.2148 (50), 25.39725 (200)
+        - Bollinger bands Up: 31.982192577931855, Bollinger bands Lower: 28.06280742206814
+        - MACD: -0.04389546446081738, Signal: 0.31454639915230875, Histogram: -0.35844186361312613
         - Ichimoku: Tenkan: 29.950000000000003 | Kijun: 29.950000000000003 | Senkou_A: 29.950000000000003 | Senkou_B: 28.96 | Chikou: 29.22
-        - Khối lượng: 5635500.0
-        - Khối lượng trung bình 20 ngày: 12445251.75
-        - Khối lượng trung bình 50 ngày: 11467719.38
+        - Khối lượng: 6218100.0
+        - Khối lượng trung bình 20 ngày: 12474381.75
+        - Khối lượng trung bình 50 ngày: 11479371.38
         
-        - RS (Sức mạnh tương đối so với thị trường): C / VNINDEX → 0.016450884903195153
-            * RS_SMA_10: 0.01844671053495716
-            * RS_SMA_20: 0.019009145670253164
-            * RS_SMA_50: 0.019794991466378812
-            * RS_SMA_200: 0.019170235124914226
+        - RS (Sức mạnh tương đối so với thị trường): C / VNINDEX → 0.016485992836302393
+            * RS_SMA_10: 0.01845022132826788
+            * RS_SMA_20: 0.019010901066908524
+            * RS_SMA_50: 0.019795693625040956
+            * RS_SMA_200: 0.01917041066457976
 
-        - RS_Point (điểm sức mạnh IBD): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252) → 1524.0429803395537
-            * SMA_10: 2493.4581966406345
-            * SMA_20: 2573.150885382278
-            * SMA_50: 1993.5260605874917
-            * SMA_200: 722.2099638068593
+        - RS_Point (điểm sức mạnh IBD): 0.4*ROC(63) + 0.2*ROC(126) + 0.2*ROC(189) + 0.2*ROC(252) → 1565.6460235898776
+            * SMA_10: 2497.618500965667
+            * SMA_20: 2575.2310375447937
+            * SMA_50: 1994.358121452498
+            * SMA_200: 722.417979023111
         
         - Sức mạnh RS từ TCBS:
             * RS 1M: 20.0
@@ -2579,11 +2579,11 @@ ticker  yearReport  lengthReport  CURRENT ASSETS (Bn. VND)  Cash and cash equiva
 2025-08-18 30.35 30.35 29.35  29.45 12584052
 2025-08-19 29.50 29.85 29.20  29.30 10976848
 2025-08-20 29.30 29.90 28.35  28.40 11135100
-2025-08-21 28.45 28.70 27.55  27.70  5635500
+2025-08-21 28.45 28.70 27.55  27.80  6218100
         4. Dữ liệu chung từ TCBS.
 
-        ticker exchange             industry  market_cap   roe  stock_rating  business_operation  business_model  financial_health  alpha  beta  uptrend  active_buy_pct  strong_buy_pct  high_vol_match  forecast_vol_ratio  pe   pb  ev_ebitda  dividend_yield  price_vs_sma5       price_vs_sma20  revenue_growth_1y  revenue_growth_5y  eps_growth_1y  eps_growth_5y  gross_margin  net_margin  doe  avg_trading_value_5d  avg_trading_value_10d  avg_trading_value_20d  relative_strength_3d  rel_strength_1m  rel_strength_3m  rel_strength_1y  total_trading_value foreign_transaction  price_near_realtime  rsi14  foreign_vol_pct  tc_rs tcbs_recommend tcbs_buy_sell_signal  foreign_buysell_20s  num_increase_continuous_day  num_decrease_continuous_day  eps                 macd_histogram  vol_vs_sma5  vol_vs_sma10  vol_vs_sma20  vol_vs_sma50  price_vs_sma10       price_vs_sma50  price_break_out52_week  price_wash_out52_week  sar_vs_macd_hist  bolling_band_signal  dmi_signal rsi14_status  price_growth_1w  price_growth_1m  breakout  prev_1d_growth_pct  prev_1m_growth_pct  prev_1y_growth_pct  prev_5y_growth_pct has_financial_report  free_transfer_rate  net_cash_per_market_cap  net_cash_per_total_assets  profit_last_4q  last_quarter_revenue_growth  second_quarter_revenue_growth  last_quarter_profit_growth  second_quarter_profit_growth  pct_1y_from_peak  pct_away_from_hist_peak  pct_1y_from_bottom  pct_off_hist_bottom       price_vs_sma100  heating_up  price_growth1_day   vsma5   vsma10   vsma20   vsma50  corporate_percentage  ev  quarter_revenue_growth  quarter_income_growth  peg_forward  peg_trailing  quarterly_income  quarterly_revenue   ps   roa  npl  nim  price_vs_sma200  eps_ttm_growth1_year  eps_ttm_growth5_year  equity_mi  eps_recently  percent_price_vs_ma200  percent_price_vs_ma20  percent_price_vs_ma50  percent_price_vs_ma100
-   DBC      HSX Thực phẩm và đồ uống       10930 25.10          2.70                   3            3.80              3.60      0  1.20      NaN           38.60           77.30            2.20                1.20   7 1.40       6.20               0            NaN Giá nằm dưới SMA(20)              22.17              13.56        2975.45          -5.47         21.60       13.27 0.70                363.74                 357.33                 423.74                     4               20               62               53               157.49           Mua < Bán                27.65     36             4.24     35        Chờ bán                  Bán                -6976                          NaN                            4 4070 MACD Histogram < 0 và giảm dần         0.60          0.50          0.50          0.50             NaN Giá nằm dưới SMA(50)                     NaN                    NaN               NaN                  NaN         NaN   Trung tính           -10.66            -5.65       NaN               -2.64               -5.65               11.76                  96                   Có                  65                   -41.90                     -31.40         1566.30                           20                             11                      248.60                           600            -14.50                   -11.60               44.90              2410.90 Giá nằm trên SMA(100)         NaN              -2.64 9118.40 10515.50 12169.40 11357.40                 27.80  16                    5.80                  -0.30         0.10             0               507               3820 0.80 11.20  NaN  NaN              NaN                560.99                 -4.16       7576          4070                    8.90                  -7.90                  -5.30                    3.70
+        ticker exchange             industry  market_cap   roe  stock_rating  business_operation  business_model  financial_health  alpha  beta  uptrend  active_buy_pct  strong_buy_pct  high_vol_match  forecast_vol_ratio  pe   pb  ev_ebitda  dividend_yield  price_vs_sma5       price_vs_sma20  revenue_growth_1y  revenue_growth_5y  eps_growth_1y  eps_growth_5y  gross_margin  net_margin  doe  avg_trading_value_5d  avg_trading_value_10d  avg_trading_value_20d  relative_strength_3d  rel_strength_1m  rel_strength_3m  rel_strength_1y  total_trading_value foreign_transaction  price_near_realtime  rsi14  foreign_vol_pct  tc_rs tcbs_recommend tcbs_buy_sell_signal  foreign_buysell_20s  num_increase_continuous_day  num_decrease_continuous_day  eps                 macd_histogram  vol_vs_sma5  vol_vs_sma10  vol_vs_sma20  vol_vs_sma50  price_vs_sma10       price_vs_sma50  price_break_out52_week  price_wash_out52_week  sar_vs_macd_hist  bolling_band_signal  dmi_signal rsi14_status  price_growth_1w  price_growth_1m  breakout  prev_1d_growth_pct  prev_1m_growth_pct  prev_1y_growth_pct  prev_5y_growth_pct has_financial_report  free_transfer_rate  net_cash_per_market_cap  net_cash_per_total_assets  profit_last_4q  last_quarter_revenue_growth  second_quarter_revenue_growth  last_quarter_profit_growth  second_quarter_profit_growth  pct_1y_from_peak  pct_away_from_hist_peak  pct_1y_from_bottom  pct_off_hist_bottom       price_vs_sma100  heating_up  price_growth1_day   vsma5  vsma10   vsma20   vsma50  corporate_percentage  ev  quarter_revenue_growth  quarter_income_growth  peg_forward  peg_trailing  quarterly_income  quarterly_revenue   ps   roa  npl  nim  price_vs_sma200  eps_ttm_growth1_year  eps_ttm_growth5_year  equity_mi  eps_recently  percent_price_vs_ma200  percent_price_vs_ma20  percent_price_vs_ma50  percent_price_vs_ma100
+   DBC      HSX Thực phẩm và đồ uống       10930 25.10          2.70                   3            3.80              3.60      0  1.20      NaN           39.50           69.90            0.10                1.30   7 1.40       6.20               0            NaN Giá nằm dưới SMA(20)              22.17              13.56        2975.45          -5.47         21.60       13.27 0.70                363.74                 357.33                 423.74                     4               20               62               53               173.61           Mua < Bán                27.85     37             4.24     35        Chờ bán                  Bán                -6976                          NaN                            4 4070 MACD Histogram < 0 và giảm dần         0.70          0.60          0.50          0.50             NaN Giá nằm dưới SMA(50)                     NaN                    NaN               NaN                  NaN         NaN   Trung tính           -10.02            -4.97       NaN               -1.94               -4.97               12.57               97.42                   Có                  65                   -41.90                     -31.40         1566.30                           20                             11                      248.60                           600            -13.90                   -10.90               45.90              2429.10 Giá nằm trên SMA(100)         NaN              -1.94 9097.40   10505 12164.10 11355.30                 27.80  16                    5.80                  -0.30         0.10             0               507               3820 0.80 11.20  NaN  NaN              NaN                560.99                 -4.16       7576          4070                    9.70                  -7.20                  -4.70                    4.50
 
         Nhiệm vụ của bạn:
         - Phân tích kỹ thuật theo Wyckoff, VSA/VPA, Minervini, Alexander Elder: hành động giá, khối lượng, cấu trúc xu hướng, điểm mua/bán.
