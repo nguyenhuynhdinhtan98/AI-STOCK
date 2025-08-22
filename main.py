@@ -774,7 +774,7 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 {market_data_str}
 **PHÂN TÍCH THEO CÁC KHÚC CHÍNH SAU:**
 
-**1. Phân tích kỹ thuật (Wyckoff, VSA/VPA):**
+**1. Phân tích kỹ thuật (Wyckoff, VSA & VPA):**
 - **Giai đoạn thị trường:** Xác định mã đang ở giai đoạn nào (Tích lũy, Tăng trưởng, Phân phối, Suy thoái) theo Wyckoff. Giải thích tại sao.
 - **Phân tích Giá & Khối lượng (VSA/VPA):** Phân tích mối quan hệ giữa biến động giá và khối lượng giao dịch gần đây. Có dấu hiệu tích lũy hay phân phối mạnh không? Khối lượng có xác nhận (hoặc không xác nhận) xu hướng giá không? (Ví dụ: Khối lượng lớn khi giá tăng = xác nhận; Khối lượng lớn khi giá giảm = không xác nhận).
 - **Mô hình & Dấu hiệu Wyckoff:** Tìm kiếm và bình luận về các dấu hiệu Wyckoff như Spring, Upthrust, Selling Climax, Buying Climax.
@@ -797,18 +797,32 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 - **Chỉ số Định giá:** Phân tích các chỉ số P/E, P/B, P/S, EV/EBITDA... ở hiện tại và so sánh với lịch sử.
 - **So sánh Ngành:** So sánh các chỉ số định giá và tăng trưởng của mã với trung bình ngành và các đối thủ cạnh tranh chính.
 
-**5. Chiến lược giao dịch & Quản lý rủi ro:**
+**5. Nhận định vị thế mua ngắn hạn:**
+- **Khả năng bật tăng ngắn hạn:** Dựa trên phân tích kỹ thuật (RSI, MACD, MA, Volume, Ichimoku, Bollinger, Sức mạnh Giá, RS...) và tin tức gần đây, đánh giá khả năng tăng giá trong ngắn hạn (1-4 tuần) là cao, trung bình hay thấp.
+- **Các tín hiệu mua/bán gần đây:** Liệt kê và phân tích các tín hiệu mua/bán kỹ thuật gần đây (nếu có).
+- **Tâm lý thị trường ngắn hạn:** Nhận định tâm lý chung của NĐT với mã này trong ngắn hạn (lạc quan, bi quan, thận trọng).
+
+**6. Chiến lược giao dịch & Quản lý rủi ro:**
 - **Điểm vào:** Đề xuất các điểm vào lệnh tiềm năng dựa trên phân tích kỹ thuật và cơ bản.
 - **Stop-loss & Take-profit:** Đề xuất mức dừng lỗ và chốt lời hợp lý cho từng kịch bản.
 - **Risk/Reward:** Ước lượng tỷ lệ lợi nhuận trên rủi ro cho các phương án đề xuất.
 
-**6. Dự báo xu hướng:**
+**7. Dự báo xu hướng:**
 - **Ngắn hạn (1-2 tuần):** Dự báo ngắn hạn dựa trên phân tích kỹ thuật.
 - **Trung hạn (1-3 tháng):** Dự báo trung hạn kết hợp kỹ thuật và cơ bản.
 - **Dài hạn (3-12 tháng):** Dự báo dài hạn dựa trên triển vọng ngành và phân tích cơ bản.
 
-**7. Kết luận & Khuyến nghị cuối cùng:**
-- **Khuyến nghị MUA/MUA MẠNH/GIỮ/BÁN/BÁN MẠNH:** Chọn một trong năm và giải thích rõ lý do chính.
+**8. Kết luận & Khuyến nghị cuối cùng:**
+Dựa trên toàn bộ phân tích ở trên, hãy đưa ra khuyến nghị cuối cùng cho mã {symbol}. Bạn **BẮT BUỘC** phải chọn **MỘT** trong 5 khuyến nghị sau và giải thích rõ lý do:
+
+- **MUA MẠNH:** Khi có tín hiệu kỹ thuật và cơ bản rất tích cực, điểm vào tốt, rủi ro thấp, tiềm năng tăng giá mạnh trong ngắn hạn. (Ví dụ: Vượt breakout khỏi vùng tích lũy, volume bùng nổ, RS tăng mạnh, fundamentals tốt).
+- **MUA:** Khi có tín hiệu kỹ thuật và cơ bản tích cực, điểm vào hợp lý, rủi ro chấp nhận được, tiềm năng tăng giá tốt. (Ví dụ: Đáy tăng, MA hỗ trợ, RSI phục hồi, fundamentals ổn định).
+- **GIỮ:** Khi xu hướng đi ngang hoặc đang chờ xác nhận tín hiệu tiếp theo, không có điểm vào rõ ràng hoặc rủi ro/ng reward không hấp dẫn. (Ví dụ: Trong đám mây Ichimoku, volume yếu, RS trung lập).
+- **BÁN:** Khi có tín hiệu kỹ thuật và cơ bản tiêu cực, điểm vào rủi ro cao, hoặc đang ở vùng kháng cự mạnh. (Ví dụ: Vỡ đáy, cắt xuống MA, volume lớn khi giảm, RS yếu).
+- **BÁN MẠNH:** Khi có tín hiệu kỹ thuật và cơ bản rất tiêu cực, điểm vào rủi ro rất cao, hoặc đang trong giai đoạn phân phối rõ ràng. (Ví dụ: Vỡ đáy quan trọng, volume selling climax, RS giảm mạnh, fundamentals xấu đi).
+
+**Yêu cầu cụ thể cho phần này:**
+- **Khuyến nghị MUA/MUA MẠNH/GIỮ/BÁN/BÁN MẠNH:** Chọn một trong năm và giải thích rõ lý do chính dựa trên phân tích đã trình bày.
 - **Điểm số đánh giá (1-10):** Đánh giá mã trên thang điểm 10 (1: Rất xấu, 10: Rất tốt).
 - **Tóm tắt ngắn gọn:** Tóm tắt lý do chính cho khuyến nghị trong 2-3 câu.
 - **Rủi ro chính:** Liệt kê những rủi ro lớn nhất cần lưu ý đối với mã này.
