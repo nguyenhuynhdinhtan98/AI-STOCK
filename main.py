@@ -717,7 +717,7 @@ def generate_advanced_stock_analysis_prompt(
     prompt = f"""
 Yêu cầu phân tích chuyên sâu:
 
-Bạn hãy đóng vai một chuyên gia phân tích đầu tư chứng khoán hàng đầu, am hiểu cả phân tích kỹ thuật (Wyckoff, Minervini, VSA, VPA) và phân tích cơ bản (Buffett, Lynch). Hãy phân tích mã {symbol} một cách toàn diện, logic và có dẫn chứng cụ thể từ dữ liệu được cung cấp, sau đó đưa ra khuyến nghị cuối cùng.
+Bạn hãy đóng vai một chuyên gia phân tích đầu tư chứng khoán hàng đầu, am hiểu cả phân tích kỹ thuật (Wyckoff, Minervini, VSA/VPA) và phân tích cơ bản (Buffett, Lynch). Hãy phân tích mã {symbol} một cách toàn diện, logic và có dẫn chứng cụ thể từ dữ liệu được cung cấp, sau đó đưa ra khuyến nghị cuối cùng.
 
 MÃ PHÂN TÍCH: {symbol.upper()}
 GIÁ HIỆN TẠI: {format_value(current_price)} VND
@@ -774,7 +774,7 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 {market_data_str}
 **PHÂN TÍCH THEO CÁC KHÚC CHÍNH SAU:**
 
-**1. Phân tích kỹ thuật (Wyckoff, VSA & VPA):**
+**1. Phân tích kỹ thuật (Wyckoff, VSA/VPA):**
 - **Giai đoạn thị trường:** Xác định mã đang ở giai đoạn nào (Tích lũy, Tăng trưởng, Phân phối, Suy thoái) theo Wyckoff. Giải thích tại sao.
 - **Phân tích Giá & Khối lượng (VSA/VPA):** Phân tích mối quan hệ giữa biến động giá và khối lượng giao dịch gần đây. Có dấu hiệu tích lũy hay phân phối mạnh không? Khối lượng có xác nhận (hoặc không xác nhận) xu hướng giá không? (Ví dụ: Khối lượng lớn khi giá tăng = xác nhận; Khối lượng lớn khi giá giảm = không xác nhận).
 - **Mô hình & Dấu hiệu Wyckoff:** Tìm kiếm và bình luận về các dấu hiệu Wyckoff như Spring, Upthrust, Selling Climax, Buying Climax.
