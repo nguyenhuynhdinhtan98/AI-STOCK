@@ -1027,10 +1027,6 @@ def analyze_with_openrouter(symbol):
         response = client.chat.completions.create(
             model="deepseek/deepseek-chat-v3-0324:free",
             messages=[
-                {
-                    "role": "system",
-                    "content": prompt_text,
-                },
                 {"role": "user", "content": prompt_text},
             ],
         )
