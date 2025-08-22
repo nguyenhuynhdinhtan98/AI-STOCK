@@ -1,4 +1,72 @@
-﻿Kính gửi Quý nhà đầu tư,
+2025-08-22 19:44:11,435 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-22 19:44:14,112 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-22 19:44:17,130 - INFO - ============================================================
+2025-08-22 19:44:17,131 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DBC
+2025-08-22 19:44:17,131 - INFO - ============================================================
+2025-08-22 19:44:17,131 - INFO - Đang lấy dữ liệu cho mã DBC
+2025-08-22 19:44:17,679 - INFO - Đã lưu dữ liệu cho mã DBC vào file vnstocks_data/DBC_data.csv
+2025-08-22 19:44:17,679 - INFO - Đang lấy dữ liệu tài chính cho DBC
+2025-08-22 19:44:20,616 - INFO - Đã lưu dữ liệu tài chính của mã DBC vào file vnstocks_data/DBC_financial_statements.csv
+2025-08-22 19:44:20,617 - INFO - Đang lấy thông tin công ty cho DBC
+2025-08-22 19:44:20,905 - INFO - Đã lấy thông tin công ty DBC thành công
+2025-08-22 19:44:20,908 - INFO - Đang phân tích kỹ thuật cho mã DBC...
+2025-08-22 19:44:20,916 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-22 19:44:21,281 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-22 19:44:21,302 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DBC' trong file market_filtered.csv
+2025-08-22 19:44:21,302 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DBC (22/08/2025):
+2025-08-22 19:44:21,302 - INFO -  - Giá hiện tại: 27.50 VND
+2025-08-22 19:44:21,302 - INFO -  - Đường trung bình:
+2025-08-22 19:44:21,302 - INFO -  * MA10: 29.69| MA20: 29.82| MA50: 29.23| MA200: 25.41
+2025-08-22 19:44:21,302 - INFO -  - Chỉ báo dao động:
+2025-08-22 19:44:21,302 - INFO -  * RSI (14): 35.51
+2025-08-22 19:44:21,302 - INFO -  * MACD: -0.23| Signal: 0.20| Histogram: -0.43
+2025-08-22 19:44:21,302 - INFO -  * Bollinger Bands: Trên: 32.06| Dưới: 27.58
+2025-08-22 19:44:21,302 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-22 19:44:21,302 - INFO -  * RS: 0.016712550213616777
+2025-08-22 19:44:21,302 - INFO -  * RS_Point: 1325.33
+2025-08-22 19:44:21,302 - INFO -  * RS3D: 8.0
+2025-08-22 19:44:21,303 - INFO -  * RS1M: 11.0
+2025-08-22 19:44:21,303 - INFO -  * RS3M: 54.0
+2025-08-22 19:44:21,303 - INFO -  * RS1y: 50.0
+2025-08-22 19:44:21,303 - INFO -  - Mô hình Ichimoku:
+2025-08-22 19:44:21,303 - INFO -  * Tenkan-sen (Chuyển đổi): 29.62
+2025-08-22 19:44:21,303 - INFO -  * Kijun-sen (Cơ sở): 29.62
+2025-08-22 19:44:21,303 - INFO -  * Senkou Span A (Leading Span A): 29.62
+2025-08-22 19:44:21,303 - INFO -  * Senkou Span B (Leading Span B): 28.96
+2025-08-22 19:44:21,303 - INFO -  * Chikou Span (Trễ): 29.57
+2025-08-22 19:44:21,303 - INFO -  - Khối lượng:
+2025-08-22 19:44:21,303 - INFO -  * Khối lượng hiện tại: 10282700.0
+2025-08-22 19:44:21,303 - INFO -  * MA Khối lượng (20): 12,271,985.60
+2025-08-22 19:44:21,303 - INFO -  * MA Khối lượng (50): 11,606,044.42
+2025-08-22 19:44:21,303 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: GIỮ - GIẢM
+2025-08-22 19:44:21,303 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 39.0/100
+2025-08-22 19:44:21,303 - INFO -  📈 TÍN HIỆU: GIẢM MẠNH
+2025-08-22 19:44:21,343 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DBC_data.csv'
+2025-08-22 19:44:21,352 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DBC_infor.csv'
+2025-08-22 19:44:21,367 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-22 19:44:21,387 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-22 19:44:21,387 - INFO - Đang phân tích bằng Gemini...
+2025-08-22 19:44:21,388 - INFO - Đang gửi prompt tới Gemini...
+2025-08-22 19:45:37,737 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_DBC.txt
+2025-08-22 19:45:37,737 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-22 19:45:37,739 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-22 19:45:41,624 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 19:45:41,625 - INFO - Retrying request to /chat/completions in 0.424827 seconds
+2025-08-22 19:45:43,758 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 19:45:43,759 - INFO - Retrying request to /chat/completions in 0.936450 seconds
+2025-08-22 19:45:46,613 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 19:45:46,616 - ERROR - Lỗi khi phân tích bằng OpenRouter cho DBC: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1755907200000'}, 'provider_name': None}}, 'user_id': 'user_30FfMOpnOYBQ9YyYvXiEgeWHOJM'}
+2025-08-22 19:45:46,616 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DBC ====================
+2025-08-22 19:45:46,616 - INFO - 💰 Giá hiện tại: 27.50 VND
+2025-08-22 19:45:46,616 - INFO - 📈 Tín hiệu: GIẢM MẠNH
+2025-08-22 19:45:46,616 - INFO - 🎯 Đề xuất: GIỮ - GIẢM
+2025-08-22 19:45:46,617 - INFO - 📊 Điểm phân tích: 39.00/100
+2025-08-22 19:45:46,617 - INFO - 📊 RS (so với VNINDEX): 0.0167
+2025-08-22 19:45:46,617 - INFO - 📊 RS_Point: 1325.33
+2025-08-22 19:45:46,617 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-22 19:45:46,617 - INFO - Kính gửi Quý nhà đầu tư,
 
 Với vai trò là chuyên gia phân tích đầu tư chứng khoán, tôi xin đưa ra phân tích chuyên sâu về mã cổ phiếu DBC dựa trên dữ liệu được cung cấp, kết hợp các phương pháp phân tích kỹ thuật (Wyckoff, Minervini, VSA/VPA) và phân tích cơ bản (Buffett, Lynch).
 
@@ -148,3 +216,9 @@ Sự tương phản giữa bức tranh kỹ thuật và cơ bản là rất lớ
     1.  **Biến động giá hàng hóa:** Giá heo là yếu tố tác động lớn đến lợi nhuận của DBC, và sự biến động này khó dự đoán.
     2.  **Dịch bệnh:** Rủi ro dịch bệnh trong chăn nuôi luôn hiện hữu và có thể ảnh hưởng nghiêm trọng đến kết quả kinh doanh.
     3.  **Áp lực kỹ thuật:** Mặc dù cơ bản tốt, áp lực giảm giá ngắn hạn và sức mạnh tương đối yếu có thể khiến cổ phiếu chưa thể tăng giá bền vững ngay lập tức.
+2025-08-22 19:45:46,618 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-22 19:45:46,618 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-22 19:45:46,619 - INFO - ============================================================
+
+2025-08-22 19:45:46,633 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DBC_report.json'
