@@ -1185,7 +1185,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement, compan
         print(f"🤖 Đang yêu cầu phân tích từ AI...")
 
         # Sử dụng model Gemini
-        model = genai.GenerativeModel(model_name="gemini-2.5-pro")
+        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         response = model.generate_content(contents=prompt)
 
         if response and response.text:
@@ -1593,7 +1593,7 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
         output_csv_file = "market_filtered.csv"
         output_csv_file_pe = "market_filtered_pe.csv"
         filtered_df.to_csv(output_csv_file_pe, index=False, encoding="utf-8-sig")
-        df.to_csv(output_csv_file, index=False, encoding="utf-8-sig")
+        df[condition1].to_csv(output_csv_file, index=False, encoding="utf-8-sig")
         print(
             f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_csv_file_pe}'"
         )
