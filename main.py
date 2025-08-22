@@ -22,7 +22,7 @@ from vnstock import Screener
 import matplotlib.dates as mdates
 import mplfinance as mpf
 
-warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", message=".*pkg_resources.*deprecated", category=UserWarning)
 
 # --- Cấu hình toàn cục ---
 GLOBAL_START_DATE = (datetime.today() - timedelta(days=365 * 10)).strftime("%Y-%m-%d")
