@@ -1030,7 +1030,7 @@ def analyze_with_openrouter(symbol):
                 {"role": "user", "content": prompt_text},
             ],
         )
-
+        print(response)
         if response and response.choices:
             result = response.choices[0].message.content
             # Lưu kết quả
@@ -1182,14 +1182,15 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement, compan
         fileData = genai.upload_file(path=f"market_filtered_pe.csv")
         print(f"✅ Upload file dữ liệu giá thành công: {fileData.uri}")
 
+        response = "";
         # Sử dụng model Gemini
         model = genai.GenerativeModel(model_name="gemini-2.5-flash")
-        response =  model.generate_content(
-            contents=[
-                prompt, # Prompt văn bản
-                fileData, 
-            ],
-        )
+        # response =  model.generate_content(
+        #     contents=[
+        #         prompt, # Prompt văn bản
+        #         fileData, 
+        #     ],
+        # )
 
         if response and response.text:
             # Lưu kết quả phân tích
