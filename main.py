@@ -1063,9 +1063,10 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement, compan
         # Đọc dữ liệu lịch sử
         csv_file_path = f"vnstocks_data/{symbol}_data.csv"
         infor_csv_file_path = f"vnstocks_data/{symbol}_infor.csv"
+        market_file_path = "market_filtered.csv"
         historical_data_str = "Không có dữ liệu lịch sử."
         infor_data_str = "Không có dữ liệu thông tin công ty."
-
+        market_data_str = "Không có dữ liệu thông tin thị trường."
         if os.path.exists(csv_file_path):
             try:
                 df_history = pd.read_csv(csv_file_path).tail(2000)
@@ -1085,6 +1086,15 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement, compan
                 print(f"✅ Đã đọc dữ liệu thông tin từ '{infor_csv_file_path}'")
             except Exception as e:
                 print(f"⚠️ Cảnh báo: Không thể đọc file '{infor_csv_file_path}': {e}")
+        if os.path.exists(market_file_path):
+            try:
+                df_infor = pd.read_csv(market_file_path)
+                market_data_str = df_infor.to_string(
+                    index=False, float_format="{:.2f}".format
+                )
+                print(f"✅ Đã đọc dữ liệu thông tin từ '{market_file_path}'")
+            except Exception as e:
+                print(f"⚠️ Cảnh báo: Không thể đọc file '{market_file_path}': {e}")
 
         technical_indicators = {
             # Giá
@@ -1163,6 +1173,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement, compan
             company_info=company_info_data,
             historical_data=historical_data_str,
             info_data=infor_data_str,
+            market_data_str=market_data_str
         )
 
         # Lưu prompt để kiểm tra
@@ -1210,7 +1221,8 @@ def generate_advanced_stock_analysis_prompt(
     financial_data,
     company_info,
     historical_data,
-    info_data
+    info_data,
+    market_data_str
 ):
     """
     Tạo prompt phân tích chứng khoán nâng cao với đầy đủ thông tin kỹ thuật và cơ bản
@@ -1319,6 +1331,9 @@ THÔNG TIN CHUNG TỪ TCBS:
 
 THÔNG TIN PHÂN TÍCH KỸ THUẬT:
 {technical_indicators}
+
+DỮ LIỆU THỊ TRƯỜNG:
+{market_data_str}
 
 YÊU CẦU PHÂN TÍCH CHUYÊN SÂU:
 
