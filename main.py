@@ -1016,7 +1016,7 @@ def create_empty_trading_signal():
         "forecast_plot_path": "",
     }
 
-def analyze_with_openrouter(symbol, trading_signal, financial_data_statement, company_info_data):
+def analyze_with_openrouter(symbol):
     """Phân tích tổng hợp với OpenRouter (DeepSeek)"""
     try:
         # Đọc prompt từ file đã lưu (được tạo bởi Gemini)
@@ -1025,16 +1025,14 @@ def analyze_with_openrouter(symbol, trading_signal, financial_data_statement, co
 
         # Gọi OpenRouter API
         response = client.chat.completions.create(
-            model="deepseek/deepseek-chat",  # Model DeepSeek miễn phí
+            model="deepseek/deepseek-chat-v3-0324:free",
             messages=[
                 {
                     "role": "system",
-                    "content": "Bạn là chuyên gia phân tích chứng khoán Việt Nam với 20 năm kinh nghiệm.",
+                    "content": prompt_text,
                 },
                 {"role": "user", "content": prompt_text},
             ],
-            max_tokens=4000,
-            temperature=0.7,
         )
 
         if response and response.choices:
@@ -1437,7 +1435,7 @@ def analyze_stock(symbol):
     # Phân tích AI - OpenRouter (DeepSeek)
     print(f"🤖 Đang phân tích bằng OpenRouter (DeepSeek) ...")
     openrouter_analysis = analyze_with_openrouter(
-        symbol, trading_signal, financial_data_statement, company_info_data
+        symbol
     )
 
     # Hiển thị kết quả
