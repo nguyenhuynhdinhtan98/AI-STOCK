@@ -951,6 +951,41 @@ def create_empty_trading_signal():
         "forecast_plot_path": "",
     }
 
+def analyze_with_openrouter(symbol, trading_signal, financial_data_statement):
+    """Phân tích tổng hợp với OpenRouter (DeepSeek)"""
+    try:
+        # Đọc prompt từ file đã lưu (được tạo bởi Gemini)
+        with open("prompt.txt", "r", encoding="utf-8") as file:
+            prompt_text = file.read()
+
+        # Gọi OpenRouter API
+        response = client.chat.completions.create(
+            model="deepseek/deepseek-chat",  # Model DeepSeek miễn phí
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Bạn là chuyên gia phân tích chứng khoán Việt Nam với 20 năm kinh nghiệm.",
+                },
+                {"role": "user", "content": prompt_text},
+            ],
+            max_tokens=4000,
+            temperature=0.7,
+        )
+
+        if response and response.choices:
+            result = response.choices[0].message.content
+            # Lưu kết quả
+            with open(
+                f"vnstocks_data/openrouter_analysis_{symbol}.txt", "w", encoding="utf-8"
+            ) as f:
+                f.write(result)
+            return result
+        else:
+            return "Không nhận được phản hồi từ OpenRouter."
+
+    except Exception as e:
+        print(f"❌ Lỗi khi phân tích bằng OpenRouter cho {symbol}: {str(e)}")
+        return "Không thể tạo phân tích bằng OpenRouter tại thời điểm này."
 
 # --- Phân tích bằng AI ---
 def analyze_with_gemini(symbol, trading_signal, financial_data_statement):
@@ -1110,7 +1145,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement):
         contents.extend(uploaded_files)
 
         # Sử dụng model Gemini
-        model = genai.GenerativeModel(model_name="gemini-2.5-pro")
+        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         response = model.generate_content(contents=contents)
 
         if response and response.text:
@@ -1326,9 +1361,15 @@ def analyze_stock(symbol):
     print(f"📈 Đang phân tích kỹ thuật cho mã {symbol}...")
     trading_signal = plot_stock_analysis(symbol, df_processed)
 
-    # Phân tích AI
-    print(f"🤖 Đang phân tích bằng AI ...")
+   # Phân tích AI - Gemini
+    print(f"🤖 Đang phân tích bằng Gemini ...")
     gemini_analysis = analyze_with_gemini(
+        symbol, trading_signal, financial_data_statement
+    )
+
+    # Phân tích AI - OpenRouter (DeepSeek)
+    print(f"🤖 Đang phân tích bằng OpenRouter (DeepSeek) ...")
+    openrouter_analysis = analyze_with_openrouter(
         symbol, trading_signal, financial_data_statement
     )
 
@@ -1343,8 +1384,12 @@ def analyze_stock(symbol):
         print(f"📊 RS (so với VNINDEX: {trading_signal['rs']:.4f}")
         print(f"📊 RS_Point: {trading_signal['rs_point']:.2f}")
 
-    print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ AI ---")
+    print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---")
     print(gemini_analysis)
+
+    print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER (DEEPSEEK) ---")
+    print(openrouter_analysis)
+
     print(f"{'=' * 60}\n")
 
     # Tạo báo cáo
