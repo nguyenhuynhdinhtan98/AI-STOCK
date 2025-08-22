@@ -17,7 +17,7 @@ import warnings
 import google.generativeai as genai
 from dotenv import load_dotenv
 import traceback
-from vnstock.explorer.vci import Quote, Finance
+from vnstock.explorer.vci import Quote, Finance, Company
 from vnstock import Screener
 import matplotlib.dates as mdates
 import mplfinance as mpf
@@ -114,6 +114,72 @@ def get_stock_data(symbol):
     except Exception as e:
         print(f"❌ Lỗi khi lấy dữ liệu cho mã {symbol}: {str(e)}")
         return None
+    
+def get_company_info(symbol):
+    """Lấy toàn bộ thông tin công ty từ vnstock và trả về chuỗi văn bản"""
+    try:
+        # Tạo đối tượng Company
+        company = Company(symbol)
+        
+        # Lấy tất cả thông tin có sẵn từ các phương thức khác nhau
+        overview_info = company.overview()
+        shareholders_info = company.shareholders()
+        officers_info = company.officers(filter_by='working')
+        event_info = company.events()
+        news_info = company.news()
+        reports_info = company.reports()
+        trading_stats_info = company.trading_stats()
+        ratio_summary_info = company.ratio_summary()
+        
+        # Xây dựng chuỗi kết quả
+        result = ""
+        
+        # Hàm chuyển đổi dữ liệu thành chuỗi
+        def convert_to_string(data, section_name):
+            section_result = f"=== {section_name} ===\n"
+            if isinstance(data, pd.DataFrame):
+                if not data.empty:
+                    # Chuyển DataFrame thành chuỗi
+                    section_result += data.to_string() + "\n"
+                else:
+                    section_result += "Không có dữ liệu\n"
+            elif isinstance(data, dict):
+                if data:
+                    section_result += json.dumps(data, ensure_ascii=False, indent=2) + "\n"
+                else:
+                    section_result += "Không có dữ liệu\n"
+            elif data is not None:
+                section_result += str(data) + "\n"
+            else:
+                section_result += "Không có dữ liệu\n"
+            section_result += "\n"
+            return section_result
+        
+        # Thêm từng phần thông tin vào chuỗi kết quả
+        result += convert_to_string(overview_info, "OVERVIEW")
+        result += convert_to_string(shareholders_info, "SHAREHOLDERS")
+        result += convert_to_string(officers_info, "OFFICERS")
+        result += convert_to_string(event_info, "EVENTS")
+        result += convert_to_string(news_info, "NEWS")
+        result += convert_to_string(reports_info, "REPORTS")
+        result += convert_to_string(trading_stats_info, "TRADING STATS")
+        result += convert_to_string(ratio_summary_info, "RATIO SUMMARY")
+        
+        file_path = f"vnstocks_data/{symbol}_company_info.txt"
+        
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(result)
+
+        print(f"✅ Đã lấy thông tin công ty {symbol} thành công")
+
+        
+        return result
+        
+    except Exception as e:
+        error_msg = f"❌ Lỗi khi lấy thông tin công ty {symbol}: {str(e)}"
+        print(error_msg)
+        traceback.print_exc()
+        return error_msg, None
 
 
 def safe_rename(df, mapping):
@@ -951,7 +1017,7 @@ def create_empty_trading_signal():
         "forecast_plot_path": "",
     }
 
-def analyze_with_openrouter(symbol, trading_signal, financial_data_statement):
+def analyze_with_openrouter(symbol, trading_signal, financial_data_statement, company_info_data):
     """Phân tích tổng hợp với OpenRouter (DeepSeek)"""
     try:
         # Đọc prompt từ file đã lưu (được tạo bởi Gemini)
@@ -988,7 +1054,7 @@ def analyze_with_openrouter(symbol, trading_signal, financial_data_statement):
         return "Không thể tạo phân tích bằng OpenRouter tại thời điểm này."
 
 # --- Phân tích bằng AI ---
-def analyze_with_gemini(symbol, trading_signal, financial_data_statement):
+def analyze_with_gemini(symbol, trading_signal, financial_data_statement, company_info_data):
     """Phân tích tổng hợp với AI, xử lý giá trị None an toàn và kèm theo dữ liệu giá"""
     try:
         # Hàm để chuyển giá trị thành chuỗi, nếu None thì trả về "N/A"
@@ -1095,6 +1161,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement):
             technical_indicators=technical_indicators,
             trading_signal=trading_signal,
             financial_data=financial_data_statement,
+            company_info=company_info_data,
             historical_data=historical_data_str,
             info_data=infor_data_str,
         )
@@ -1104,49 +1171,12 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement):
             file.write(prompt)
         print(f"✅ Đã lưu nội dung prompt vào file prompt.txt")
 
-        # Upload các file cần thiết lên Gemini
-        uploaded_files = []
-
-        if os.path.exists(csv_file_path):
-            try:
-                print(f"📤 Đang upload file dữ liệu giá...")
-                file_data = genai.upload_file(path=csv_file_path)
-                uploaded_files.append(file_data)
-                print(f"✅ Upload file dữ liệu giá thành công: {file_data.uri}")
-            except Exception as e:
-                print(f"⚠️ Lỗi khi upload file dữ liệu giá: {e}")
-
-        financial_csv_path = f"vnstocks_data/{symbol}_financial_statements.csv"
-        if os.path.exists(financial_csv_path):
-            try:
-                print(f"📤 Đang upload file báo cáo tài chính...")
-                file_statement = genai.upload_file(path=financial_csv_path)
-                uploaded_files.append(file_statement)
-                print(
-                    f"✅ Upload file báo cáo tài chính thành công: {file_statement.uri}"
-                )
-            except Exception as e:
-                print(f"⚠️ Lỗi khi upload file báo cáo tài chính: {e}")
-
-        if os.path.exists(infor_csv_file_path):
-            try:
-                print(f"📤 Đang upload file tổng quan từ TCBS...")
-                file_infor = genai.upload_file(path=infor_csv_file_path)
-                uploaded_files.append(file_infor)
-                print(f"✅ Upload file dữ liệu TCBS thành công: {file_infor.uri}")
-            except Exception as e:
-                print(f"⚠️ Lỗi khi upload file TCBS: {e}")
-
         # Gọi AI để phân tích
         print(f"🤖 Đang yêu cầu phân tích từ AI...")
 
-        # Tạo nội dung cho model
-        contents = [prompt]
-        contents.extend(uploaded_files)
-
         # Sử dụng model Gemini
         model = genai.GenerativeModel(model_name="gemini-2.5-flash")
-        response = model.generate_content(contents=contents)
+        response = model.generate_content(contents=prompt)
 
         if response and response.text:
             # Lưu kết quả phân tích
@@ -1179,6 +1209,7 @@ def generate_advanced_stock_analysis_prompt(
     technical_indicators,
     trading_signal,
     financial_data,
+    company_info,
     historical_data,
     info_data
 ):
@@ -1205,6 +1236,16 @@ def generate_advanced_stock_analysis_prompt(
     macd = technical_indicators.get("macd", {})
     ichimoku = technical_indicators.get("ichimoku", {})
     volume_data = technical_indicators.get("volume", {})
+
+    # Chuẩn bị thông tin công ty
+    company_info_str = "Không có thông tin công ty"
+    if company_info is not None:
+        try:
+            # Trích xuất các thông tin quan trọng từ dữ liệu công ty
+            company_info_str = f"""{company_info}"""
+        except Exception as e:
+            print(f"⚠️ Lỗi khi xử lý thông tin công ty: {e}")
+            company_info_str = "Không thể xử lý thông tin công ty"
 
     prompt = f"""
 BẠN LÀ: Một chuyên gia phân tích đầu cơ chứng khoán Việt Nam với 20 năm kinh nghiệm, kết hợp nhuần nhuyễn 
@@ -1271,7 +1312,10 @@ DỮ LIỆU CƠ BẢN:
 THÔNG TIN DỮ LIỆU LỊCH SỬ GIÁ:
 {historical_data}
 
-THÔNG TIN CHUNG:
+THÔNG TIN CÔNG TY:
+{company_info_str}
+
+THÔNG TIN CHUNG TỪ TCBS:
 {info_data}
 
 THÔNG TIN PHÂN TÍCH KỸ THUẬT:
@@ -1345,6 +1389,7 @@ def analyze_stock(symbol):
         return None
 
     financial_data_statement = get_financial_data(symbol)
+    company_info_data = get_company_info(symbol)
     df_processed = preprocess_stock_data(df)
 
     if df_processed is None or df_processed.empty:
@@ -1364,13 +1409,13 @@ def analyze_stock(symbol):
    # Phân tích AI - Gemini
     print(f"🤖 Đang phân tích bằng Gemini ...")
     gemini_analysis = analyze_with_gemini(
-        symbol, trading_signal, financial_data_statement
+        symbol, trading_signal, financial_data_statement, company_info_data
     )
 
     # Phân tích AI - OpenRouter (DeepSeek)
     print(f"🤖 Đang phân tích bằng OpenRouter (DeepSeek) ...")
     openrouter_analysis = analyze_with_openrouter(
-        symbol, trading_signal, financial_data_statement
+        symbol, trading_signal, financial_data_statement, company_info_data
     )
 
     # Hiển thị kết quả
@@ -1545,7 +1590,6 @@ def main():
     print("HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM")
     print("TÍCH HỢP VNSTOCK & AI")
     print("=" * 60)
-
     print(f"🔍 Đang lọc cổ phiếu có P/E thấp")
     filter_stocks_low_pe_high_cap()
 
