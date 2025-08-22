@@ -1345,11 +1345,11 @@ HÃY PHÂN TÍCH MÃ {symbol} THEO 7 PHẦN CHÍNH SAU:
 - Đánh giá hiệu quả sử dụng vốn (ROE, ROA, ROIC)
 - Phân tích cơ cấu nợ và khả năng thanh khoản
 - Đánh giá dòng tiền tự do (FCF) và chất lượng dòng tiền
-- Đánh giá nội bộ công ty
-- Đánh giá ban lãnh đạo
-- Đánh giá việc chia cổ tức
-- Đánh giá và tìm kiếm từ internet
-- Đánh giá tin tức
+- Đánh giá và phân tích nội bộ công ty
+- Đánh giá và phân tích ban lãnh đạo
+- Đánh giá và phân tích việc chia cổ tức
+- Đánh giá và phân tích và tìm kiếm từ internet
+- Đánh giá và phân tích tin tức
 - Đánh giá toàn bộ thông tin tôi cung cấp được
 
 4. ĐỊNH GIÁ & SO SÁNH:
