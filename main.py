@@ -1017,7 +1017,7 @@ def create_empty_trading_signal():
     }
 
 def analyze_with_openrouter(symbol):
-    """Phân tích tổng hợp với OpenRouter (DeepSeek)"""
+    """Phân tích tổng hợp với OpenRouter """
     try:
         # Đọc prompt từ file đã lưu (được tạo bởi Gemini)
         with open("prompt.txt", "r", encoding="utf-8-sig") as file:
@@ -1432,8 +1432,8 @@ def analyze_stock(symbol):
         symbol, trading_signal, financial_data_statement, company_info_data
     )
 
-    # Phân tích AI - OpenRouter (DeepSeek)
-    print(f"🤖 Đang phân tích bằng OpenRouter (DeepSeek) ...")
+    # Phân tích AI - OpenRouter
+    print(f"🤖 Đang phân tích bằng OpenRouter ...")
     openrouter_analysis = analyze_with_openrouter(
         symbol
     )
@@ -1452,7 +1452,7 @@ def analyze_stock(symbol):
     print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---")
     print(gemini_analysis)
 
-    print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER (DEEPSEEK) ---")
+    print(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---")
     print(openrouter_analysis)
 
     print(f"{'=' * 60}\n")
