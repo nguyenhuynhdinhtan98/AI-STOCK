@@ -1330,12 +1330,14 @@ HÃY PHÂN TÍCH MÃ {symbol} THEO 7 PHẦN CHÍNH SAU:
 - Phân tích quan hệ giá-khối lượng: Khối lượng có xác nhận xu hướng giá?
 - Tìm kiếm dấu hiệu Spring/Upthrust, Selling/Buying Climax
 - Đánh giá mức độ tích lũy/phân phối
+- Đánh giá toàn bộ thông tin tôi cung cấp được
 
 2. PHÂN TÍCH THEO PHƯƠNG PHÁP MINERVINI:
 - Đánh giá xu hướng chính và xu hướng phụ
 - Phân tích cấu trúc thị trường (đỉnh/đáy cao hơn/thấp hơn)
 - Xác định điểm pivot và vùng hỗ trợ/kháng cự quan trọng
 - Đánh giá sức mạnh tương đối so với thị trường
+- Đánh giá toàn bộ thông tin tôi cung cấp được
 
 3. PHÂN TÍCH CƠ BẢN THEO WARRENT BUFFETT $ CHARLIE MUNGER & PETER LYNCH:
 - Chất lượng doanh thu và lợi nhuận (ổn định, tăng trưởng)
@@ -1343,9 +1345,15 @@ HÃY PHÂN TÍCH MÃ {symbol} THEO 7 PHẦN CHÍNH SAU:
 - Đánh giá hiệu quả sử dụng vốn (ROE, ROA, ROIC)
 - Phân tích cơ cấu nợ và khả năng thanh khoản
 - Đánh giá dòng tiền tự do (FCF) và chất lượng dòng tiền
+- Đánh giá nội bộ công ty
+- Đánh giá ban lãnh đạo
+- Đánh giá việc chia cổ tức
+- Đánh giá và tìm kiếm từ internet
+- Đánh giá tin tức
+- Đánh giá toàn bộ thông tin tôi cung cấp được
 
 4. ĐỊNH GIÁ & SO SÁNH:
-- Phân tích các chỉ số định giá (P/E, P/B, EV/EBITDA)
+- Phân tích các chỉ số định giá
 - So sánh với trung bình ngành và đối thủ
 - Đánh giá mức độ hấp dẫn về giá
 
