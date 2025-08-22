@@ -715,9 +715,9 @@ def generate_advanced_stock_analysis_prompt(
     company_info_str = company_info if company_info else "Không có thông tin công ty"
     
     prompt = f"""
-YÊU CẦU PHÂN TÍCH CHUYÊN SÂU:
+Yêu cầu phân tích chuyên sâu:
 
-Bạn hãy đóng vai một chuyên gia phân tích đầu tư chứng khoán hàng đầu, am hiểu cả phân tích kỹ thuật (Wyckoff, Minervini, Vsa, Vpa) và phân tích cơ bản (Buffett, Lynch). Hãy phân tích mã {symbol} một cách toàn diện, logic và có dẫn chứng cụ thể từ dữ liệu được cung cấp, sau đó đưa ra khuyến nghị cuối cùng.
+Bạn hãy đóng vai một chuyên gia phân tích đầu tư chứng khoán hàng đầu, am hiểu cả phân tích kỹ thuật (Wyckoff, Minervini, VSA, VPA) và phân tích cơ bản (Buffett, Lynch). Hãy phân tích mã {symbol} một cách toàn diện, logic và có dẫn chứng cụ thể từ dữ liệu được cung cấp, sau đó đưa ra khuyến nghị cuối cùng.
 
 MÃ PHÂN TÍCH: {symbol.upper()}
 GIÁ HIỆN TẠI: {format_value(current_price)} VND
@@ -774,18 +774,18 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 {market_data_str}
 **PHÂN TÍCH THEO CÁC KHÚC CHÍNH SAU:**
 
-**1. PHÂN TÍCH KỸ THUẬT (Wyckoff & VSA & VPA):**
+**1. Phân tích kỹ thuật (Wyckoff, VSA & VPA):**
 - **Giai đoạn thị trường:** Xác định mã đang ở giai đoạn nào (Tích lũy, Tăng trưởng, Phân phối, Suy thoái) theo Wyckoff. Giải thích tại sao.
-- **Phân tích Giá & Khối lượng (VSA & VPA):** Phân tích mối quan hệ giữa biến động giá và khối lượng giao dịch gần đây. Có dấu hiệu tích lũy hay phân phối mạnh không?
+- **Phân tích Giá & Khối lượng (VSA/VPA):** Phân tích mối quan hệ giữa biến động giá và khối lượng giao dịch gần đây. Có dấu hiệu tích lũy hay phân phối mạnh không? Khối lượng có xác nhận (hoặc không xác nhận) xu hướng giá không? (Ví dụ: Khối lượng lớn khi giá tăng = xác nhận; Khối lượng lớn khi giá giảm = không xác nhận).
 - **Mô hình & Dấu hiệu Wyckoff:** Tìm kiếm và bình luận về các dấu hiệu Wyckoff như Spring, Upthrust, Selling Climax, Buying Climax.
 
-**2. PHÂN TÍCH THEO PHƯƠNG PHÁP MARK MINERVINI:**
+**2. Phân tích theo phương pháp Mark Minervini:**
 - **Xu hướng:** Nhận định xu hướng chính (dài hạn) và xu hướng phụ (ngắn hạn).
 - **Cấu trúc thị trường:** Phân tích các đỉnh/đáy để xác định xu hướng (đỉnh/đáy cao hơn hay thấp hơn).
 - **Pivot & Hỗ trợ/Kháng cự:** Xác định các điểm pivot quan trọng và các vùng hỗ trợ/kháng cự gần đây.
 - **Sức mạnh tương đối (RS):** Đánh giá sức mạnh tương đối của mã so với thị trường (VNINDEX) dựa trên dữ liệu RS đã cung cấp.
 
-**3. PHÂN TÍCH CƠ BẢN (Buffett, Lynch, dữ liệu TCBS):**
+**3. Phân tích cơ bản (Buffett, Lynch, dữ liệu TCBS):**
 - **Chất lượng Doanh thu & Lợi nhuận:** Đánh giá tính ổn định và xu hướng tăng trưởng của doanh thu và lợi nhuận từ dữ liệu BCTC.
 - **Hiệu quả Sử dụng Vốn:** Phân tích các chỉ số ROE, ROA, ROIC để đánh giá năng lực sử dụng vốn.
 - **Tình hình Tài chính:** Đánh giá cơ cấu nợ, khả năng thanh khoản và chất lượng dòng tiền tự do (FCF).
@@ -793,27 +793,27 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 - **Chia cổ tức:** Nhận xét về lịch sử và xu hướng chia cổ tức.
 - **Tin tức & Internet:** Tổng hợp những tin tức quan trọng gần đây ảnh hưởng đến mã và tìm kiếm thông tin từ internet (nếu có) để bổ sung góc nhìn.
 
-**4. ĐỊNH GIÁ & SO SÁNH NGÀNH:**
+**4. Định giá & So sánh ngành:**
 - **Chỉ số Định giá:** Phân tích các chỉ số P/E, P/B, P/S, EV/EBITDA... ở hiện tại và so sánh với lịch sử.
 - **So sánh Ngành:** So sánh các chỉ số định giá và tăng trưởng của mã với trung bình ngành và các đối thủ cạnh tranh chính.
 
-**5. CHIẾN LƯỢC GIAO DỊCH & QUẢN LÝ RỦI RO:**
+**5. Chiến lược giao dịch & Quản lý rủi ro:**
 - **Điểm vào:** Đề xuất các điểm vào lệnh tiềm năng dựa trên phân tích kỹ thuật và cơ bản.
 - **Stop-loss & Take-profit:** Đề xuất mức dừng lỗ và chốt lời hợp lý cho từng kịch bản.
 - **Risk/Reward:** Ước lượng tỷ lệ lợi nhuận trên rủi ro cho các phương án đề xuất.
 
-**6. DỰ BÁO XU HƯỚNG:**
+**6. Dự báo xu hướng:**
 - **Ngắn hạn (1-2 tuần):** Dự báo ngắn hạn dựa trên phân tích kỹ thuật.
 - **Trung hạn (1-3 tháng):** Dự báo trung hạn kết hợp kỹ thuật và cơ bản.
 - **Dài hạn (3-12 tháng):** Dự báo dài hạn dựa trên triển vọng ngành và phân tích cơ bản.
 
-**7. KẾT LUẬN & KHUYẾN NGHỊ CUỐI CÙNG:**
+**7. Kết luận & Khuyến nghị cuối cùng:**
 - **Khuyến nghị MUA/MUA MẠNH/GIỮ/BÁN/BÁN MẠNH:** Chọn một trong năm và giải thích rõ lý do chính.
 - **Điểm số đánh giá (1-10):** Đánh giá mã trên thang điểm 10 (1: Rất xấu, 10: Rất tốt).
 - **Tóm tắt ngắn gọn:** Tóm tắt lý do chính cho khuyến nghị trong 2-3 câu.
 - **Rủi ro chính:** Liệt kê những rủi ro lớn nhất cần lưu ý đối với mã này.
 
-**YÊU CẦU VỀ ĐỊNH DẠNG:**
+**Yêu cầu về định dạng:**
 - Trình bày rõ ràng, logic theo từng phần như trên.
 - Luôn đưa ra dẫn chứng cụ thể từ dữ liệu đã cung cấp (giá, chỉ báo, BCTC, tin tức...).
 - Kết hợp cả phân tích định lượng (số liệu) và định tính (giải thích, nhận định).
