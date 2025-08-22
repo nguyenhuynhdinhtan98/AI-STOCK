@@ -1,3 +1,5 @@
+import warnings
+warnings.filterwarnings("ignore", message=".*pkg_resources.*deprecated", category=UserWarning)
 import os
 import time
 import json
@@ -13,7 +15,6 @@ from openai import OpenAI
 from openpyxl import load_workbook
 from openpyxl.worksheet.table import Table, TableStyleInfo
 import ta
-import warnings
 import google.generativeai as genai
 from dotenv import load_dotenv
 import traceback
@@ -21,8 +22,6 @@ from vnstock.explorer.vci import Quote, Finance, Company
 from vnstock import Screener
 import matplotlib.dates as mdates
 import mplfinance as mpf
-
-warnings.filterwarnings("ignore", message=".*pkg_resources.*deprecated", category=UserWarning)
 
 # --- Cấu hình toàn cục ---
 GLOBAL_START_DATE = (datetime.today() - timedelta(days=365 * 10)).strftime("%Y-%m-%d")
