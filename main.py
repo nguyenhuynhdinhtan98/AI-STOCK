@@ -755,11 +755,11 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 """
     if financial_data is not None and not financial_data.empty:
         prompt += f"""
-DỮ LIỆU CƠ BẢN:
+BÁO CÁO TÀI CHÍNH:
 {financial_data.to_string(index=False)}
 """
     else:
-        prompt += "\nKHÔNG CÓ DỮ LIỆU TÀI CHÍNH CƠ BẢN\n"
+        prompt += "\nKHÔNG CÓ DỮ LIỆU BÁO CÁO TÀI CHÍNH\n"
         
     prompt += f"""
 THÔNG TIN DỮ LIỆU LỊCH SỬ GIÁ:
