@@ -107,7 +107,7 @@ def get_stock_data(symbol):
         df.set_index("Date", inplace=True)
         df.sort_index(inplace=True)
         csv_path = f"vnstocks_data/{symbol}_data.csv"
-        df.to_csv(csv_path, index=True, encoding="utf-8")
+        df.to_csv(csv_path, index=True, encoding="utf-8-sig")
         print(f"✅ Đã lưu dữ liệu cho mã {symbol} vào file {csv_path}")
 
         return df
@@ -167,7 +167,7 @@ def get_company_info(symbol):
         
         file_path = f"vnstocks_data/{symbol}_company_info.txt"
         
-        with open(file_path, 'w', encoding='utf-8') as f:
+        with open(file_path, 'w', encoding='utf-8-sig') as f:
             f.write(result)
 
         print(f"✅ Đã lấy thông tin công ty {symbol} thành công")
@@ -233,7 +233,7 @@ def get_financial_data(symbol):
 
         # Lưu dữ liệu
         csv_path = f"vnstocks_data/{symbol}_financial_statements.csv"
-        renameFinance.to_csv(csv_path, index=False, encoding="utf-8")
+        renameFinance.to_csv(csv_path, index=False, encoding="utf-8-sig")
         print(f"✅ Đã lưu dữ liệu tài chính của mã {symbol} vào file {csv_path}")
 
         return renameFinance
@@ -271,7 +271,7 @@ def get_market_data():
         vnindex.sort_index(inplace=True)
 
         csv_path = "vnstocks_data/VNINDEX_data.csv"
-        vnindex.to_csv(csv_path, index=False, encoding="utf-8")
+        vnindex.to_csv(csv_path, index=False, encoding="utf-8-sig")
         print(f"✅ Đã lưu dữ liệu VNINDEX vào file {csv_path}")
 
         return vnindex
@@ -457,7 +457,7 @@ def get_rs_from_market_data(symbol):
 
         # Lưu dữ liệu lọc
         output_csv_file = f"vnstocks_data/{symbol}_infor.csv"
-        filtered_df.to_csv(output_csv_file, index=False, encoding="utf-8")
+        filtered_df.to_csv(output_csv_file, index=False, encoding="utf-8-sig")
 
         # Trích xuất giá trị RS
         rs_value_3d = (
@@ -1021,7 +1021,7 @@ def analyze_with_openrouter(symbol, trading_signal, financial_data_statement, co
     """Phân tích tổng hợp với OpenRouter (DeepSeek)"""
     try:
         # Đọc prompt từ file đã lưu (được tạo bởi Gemini)
-        with open("prompt.txt", "r", encoding="utf-8") as file:
+        with open("prompt.txt", "r", encoding="utf-8-sig") as file:
             prompt_text = file.read()
 
         # Gọi OpenRouter API
@@ -1042,7 +1042,7 @@ def analyze_with_openrouter(symbol, trading_signal, financial_data_statement, co
             result = response.choices[0].message.content
             # Lưu kết quả
             with open(
-                f"vnstocks_data/openrouter_analysis_{symbol}.txt", "w", encoding="utf-8"
+                f"vnstocks_data/openrouter_analysis_{symbol}.txt", "w", encoding="utf-8-sig"
             ) as f:
                 f.write(result)
             return result
@@ -1167,7 +1167,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement, compan
         )
 
         # Lưu prompt để kiểm tra
-        with open("prompt.txt", "w", encoding="utf-8") as file:
+        with open("prompt.txt", "w", encoding="utf-8-sig") as file:
             file.write(prompt)
         print(f"✅ Đã lưu nội dung prompt vào file prompt.txt")
 
@@ -1184,7 +1184,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement, compan
 
             # Lưu kết quả vào file để tham khảo
             with open(
-                f"vnstocks_data/analysis_result_{symbol}.txt", "w", encoding="utf-8"
+                f"vnstocks_data/analysis_result_{symbol}.txt", "w", encoding="utf-8-sig"
             ) as f:
                 f.write(result)
 
@@ -1517,7 +1517,7 @@ def analyze_stock(symbol):
 
     # Lưu báo cáo
     report_path = f"vnstocks_data/{symbol}_report.json"
-    with open(report_path, "w", encoding="utf-8") as f:
+    with open(report_path, "w", encoding="utf-8-sig") as f:
         json.dump(report, f, ensure_ascii=False, indent=4)
     print(f"✅ Đã lưu báo cáo phân tích vào file '{report_path}'")
 
@@ -1570,8 +1570,8 @@ def filter_stocks_low_pe_high_cap(min_market_cap=500):
         # Lưu kết quả
         output_csv_file = "market_filtered.csv"
         output_csv_file_pe = "market_filtered_pe.csv"
-        filtered_df.to_csv(output_csv_file_pe, index=False, encoding="utf-8")
-        df.to_csv(output_csv_file, index=False, encoding="utf-8")
+        filtered_df.to_csv(output_csv_file_pe, index=False, encoding="utf-8-sig")
+        df.to_csv(output_csv_file, index=False, encoding="utf-8-sig")
         print(
             f"✅ Đã lưu danh sách cổ phiếu được lọc ({len(filtered_df)} mã) vào '{output_csv_file_pe}'"
         )
