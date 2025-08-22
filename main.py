@@ -1057,7 +1057,7 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement, compan
         # Đọc dữ liệu lịch sử
         csv_file_path = f"vnstocks_data/{symbol}_data.csv"
         infor_csv_file_path = f"vnstocks_data/{symbol}_infor.csv"
-        market_file_path = "market_filtered.csv"
+        market_file_path = f"market_filtered_pe.csv"
         historical_data_str = "Không có dữ liệu lịch sử."
         infor_data_str = "Không có dữ liệu thông tin công ty."
         market_data_str = "Không có dữ liệu thông tin thị trường."
@@ -1179,12 +1179,12 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement, compan
         print(f"🤖 Đang yêu cầu phân tích từ AI...")
 
         print(f"📤 Đang upload file dữ liệu...")
-        fileData = genai.upload_file(path=f"market_filtered.csv")
+        fileData = genai.upload_file(path=f"market_filtered_pe.csv")
         print(f"✅ Upload file dữ liệu giá thành công: {fileData.uri}")
 
         # Sử dụng model Gemini
         model = genai.GenerativeModel(model_name="gemini-2.5-flash")
-        response = model.generate_content(
+        response =  model.generate_content(
             contents=[
                 prompt, # Prompt văn bản
                 fileData, 
@@ -1334,6 +1334,9 @@ THÔNG TIN CHUNG TỪ TCBS:
 
 THÔNG TIN PHÂN TÍCH KỸ THUẬT:
 {technical_indicators}
+
+THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
+{market_data_str}
 
 YÊU CẦU PHÂN TÍCH CHUYÊN SÂU:
 
