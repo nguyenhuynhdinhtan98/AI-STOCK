@@ -715,8 +715,10 @@ def generate_advanced_stock_analysis_prompt(
     company_info_str = company_info if company_info else "Không có thông tin công ty"
     
     prompt = f"""
-BẠN LÀ: Một chuyên gia phân tích đầu cơ chứng khoán Việt Nam với 20 năm kinh nghiệm, kết hợp nhuần nhuyễn 
-phân tích kỹ thuật cao cấp và phân tích cơ bản sâu. Bạn làm việc cho quỹ đầu cơ lớn và cần đưa ra khuyến nghị đầu cơ chính xác.
+YÊU CẦU PHÂN TÍCH CHUYÊN SÂU:
+
+Bạn hãy đóng vai một chuyên gia phân tích đầu tư chứng khoán hàng đầu, am hiểu cả phân tích kỹ thuật (Wyckoff, Minervini, Vsa, Vpa) và phân tích cơ bản (Buffett, Lynch). Hãy phân tích mã {symbol} một cách toàn diện, logic và có dẫn chứng cụ thể từ dữ liệu được cung cấp, sau đó đưa ra khuyến nghị cuối cùng.
+
 MÃ PHÂN TÍCH: {symbol.upper()}
 GIÁ HIỆN TẠI: {format_value(current_price)} VND
 DỮ LIỆU KỸ THUẬT CHI TIẾT:
@@ -770,54 +772,52 @@ THÔNG TIN CHUNG TỪ TCBS:
 {info_data}
 THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 {market_data_str}
-YÊU CẦU PHÂN TÍCH CHUYÊN SÂU:
-HÃY PHÂN TÍCH MÃ {symbol} THEO 7 PHẦN CHÍNH SAU:
-1. PHÂN TÍCH KỸ THUẬT THEO WYCKOFF & VSA:
-- Xác định giai đoạn thị trường (Tích lũy, Tăng trưởng, Phân phối, Suy thoái)
-- Phân tích quan hệ giá-khối lượng: Khối lượng có xác nhận xu hướng giá?
-- Tìm kiếm dấu hiệu Spring/Upthrust, Selling/Buying Climax
-- Đánh giá mức độ tích lũy/phân phối
-- Đánh giá toàn bộ thông tin tôi cung cấp được
-2. PHÂN TÍCH THEO PHƯƠNG PHÁP MINERVINI:
-- Đánh giá xu hướng chính và xu hướng phụ
-- Phân tích cấu trúc thị trường (đỉnh/đáy cao hơn/thấp hơn)
-- Xác định điểm pivot và vùng hỗ trợ/kháng cự quan trọng
-- Đánh giá sức mạnh tương đối so với thị trường
-- Đánh giá toàn bộ thông tin tôi cung cấp được
-3. PHÂN TÍCH CƠ BẢN THEO WARRENT BUFFETT $ CHARLIE MUNGER & PETER LYNCH:
-- Chất lượng doanh thu và lợi nhuận (ổn định, tăng trưởng)
-- Phân tích biên lợi nhuận và xu hướng
-- Đánh giá hiệu quả sử dụng vốn (ROE, ROA, ROIC)
-- Phân tích cơ cấu nợ và khả năng thanh khoản
-- Đánh giá dòng tiền tự do (FCF) và chất lượng dòng tiền
-- Đánh giá và phân tích nội bộ công ty
-- Đánh giá và phân tích ban lãnh đạo
-- Đánh giá và phân tích việc chia cổ tức
-- Đánh giá và phân tích và tìm kiếm từ internet
-- Đánh giá và phân tích tin tức
-- Đánh giá toàn bộ thông tin tôi cung cấp được
-4. ĐỊNH GIÁ & SO SÁNH:
-- Phân tích các chỉ số định giá
-- So sánh với trung bình ngành và đối thủ
-- Đánh giá mức độ hấp dẫn về giá
-5. ĐIỂM VÀO LỆCH & QUẢN LÝ RỦI RO:
-- Xác định điểm mua tiềm năng (theo kỹ thuật và cơ bản)
-- Đề xuất điểm dừng lỗ (stop-loss) và chốt lời (take-profit)
-- Tính toán tỷ lệ risk/reward
-6. DỰ BÁU XU HƯỚNG:
-- Dự báo ngắn hạn (1 tuần): Phân tích kỹ thuật chi tiết
-- Dự báo trung hạn (1 tháng): Kết hợp kỹ thuật và cơ bản
-- Dự báo dài hạn (3 tháng): Phân tích cơ bản và xu hướng
-7. KẾT LUẬN & KHUYẾN NGHỊ:
-- [CHỌN 1 TRONG 5] MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH
-- Điểm số đánh giá (1-10): [X]/10
-- Tóm tắt lý do chính cho khuyến nghị
-- Rủi ro chính cần lưu ý
-YÊU CẦU FORMAT:
-- Trình bày rõ ràng, mạch lạc theo từng phần
-- Đưa ra dẫn chứng cụ thể từ dữ liệu đã cung cấp
-- Kết hợp cả phân tích định lượng và định tính
-- Ưu tiên chất lượng phân tích hơn số lượng
+**PHÂN TÍCH THEO CÁC KHÚC CHÍNH SAU:**
+
+**1. PHÂN TÍCH KỸ THUẬT (Wyckoff & VSA & VPA):**
+- **Giai đoạn thị trường:** Xác định mã đang ở giai đoạn nào (Tích lũy, Tăng trưởng, Phân phối, Suy thoái) theo Wyckoff. Giải thích tại sao.
+- **Phân tích Giá & Khối lượng (VSA & VPA):** Phân tích mối quan hệ giữa biến động giá và khối lượng giao dịch gần đây. Có dấu hiệu tích lũy hay phân phối mạnh không?
+- **Mô hình & Dấu hiệu Wyckoff:** Tìm kiếm và bình luận về các dấu hiệu Wyckoff như Spring, Upthrust, Selling Climax, Buying Climax.
+
+**2. PHÂN TÍCH THEO PHƯƠNG PHÁP MARK MINERVINI:**
+- **Xu hướng:** Nhận định xu hướng chính (dài hạn) và xu hướng phụ (ngắn hạn).
+- **Cấu trúc thị trường:** Phân tích các đỉnh/đáy để xác định xu hướng (đỉnh/đáy cao hơn hay thấp hơn).
+- **Pivot & Hỗ trợ/Kháng cự:** Xác định các điểm pivot quan trọng và các vùng hỗ trợ/kháng cự gần đây.
+- **Sức mạnh tương đối (RS):** Đánh giá sức mạnh tương đối của mã so với thị trường (VNINDEX) dựa trên dữ liệu RS đã cung cấp.
+
+**3. PHÂN TÍCH CƠ BẢN (Buffett, Lynch, dữ liệu TCBS):**
+- **Chất lượng Doanh thu & Lợi nhuận:** Đánh giá tính ổn định và xu hướng tăng trưởng của doanh thu và lợi nhuận từ dữ liệu BCTC.
+- **Hiệu quả Sử dụng Vốn:** Phân tích các chỉ số ROE, ROA, ROIC để đánh giá năng lực sử dụng vốn.
+- **Tình hình Tài chính:** Đánh giá cơ cấu nợ, khả năng thanh khoản và chất lượng dòng tiền tự do (FCF).
+- **Ban lãnh đạo & Nội bộ:** Dựa trên thông tin công ty và tin tức, đánh giá chất lượng ban lãnh đạo và hoạt động nội bộ.
+- **Chia cổ tức:** Nhận xét về lịch sử và xu hướng chia cổ tức.
+- **Tin tức & Internet:** Tổng hợp những tin tức quan trọng gần đây ảnh hưởng đến mã và tìm kiếm thông tin từ internet (nếu có) để bổ sung góc nhìn.
+
+**4. ĐỊNH GIÁ & SO SÁNH NGÀNH:**
+- **Chỉ số Định giá:** Phân tích các chỉ số P/E, P/B, P/S, EV/EBITDA... ở hiện tại và so sánh với lịch sử.
+- **So sánh Ngành:** So sánh các chỉ số định giá và tăng trưởng của mã với trung bình ngành và các đối thủ cạnh tranh chính.
+
+**5. CHIẾN LƯỢC GIAO DỊCH & QUẢN LÝ RỦI RO:**
+- **Điểm vào:** Đề xuất các điểm vào lệnh tiềm năng dựa trên phân tích kỹ thuật và cơ bản.
+- **Stop-loss & Take-profit:** Đề xuất mức dừng lỗ và chốt lời hợp lý cho từng kịch bản.
+- **Risk/Reward:** Ước lượng tỷ lệ lợi nhuận trên rủi ro cho các phương án đề xuất.
+
+**6. DỰ BÁO XU HƯỚNG:**
+- **Ngắn hạn (1-2 tuần):** Dự báo ngắn hạn dựa trên phân tích kỹ thuật.
+- **Trung hạn (1-3 tháng):** Dự báo trung hạn kết hợp kỹ thuật và cơ bản.
+- **Dài hạn (3-12 tháng):** Dự báo dài hạn dựa trên triển vọng ngành và phân tích cơ bản.
+
+**7. KẾT LUẬN & KHUYẾN NGHỊ CUỐI CÙNG:**
+- **Khuyến nghị MUA/MUA MẠNH/GIỮ/BÁN/BÁN MẠNH:** Chọn một trong năm và giải thích rõ lý do chính.
+- **Điểm số đánh giá (1-10):** Đánh giá mã trên thang điểm 10 (1: Rất xấu, 10: Rất tốt).
+- **Tóm tắt ngắn gọn:** Tóm tắt lý do chính cho khuyến nghị trong 2-3 câu.
+- **Rủi ro chính:** Liệt kê những rủi ro lớn nhất cần lưu ý đối với mã này.
+
+**YÊU CẦU VỀ ĐỊNH DẠNG:**
+- Trình bày rõ ràng, logic theo từng phần như trên.
+- Luôn đưa ra dẫn chứng cụ thể từ dữ liệu đã cung cấp (giá, chỉ báo, BCTC, tin tức...).
+- Kết hợp cả phân tích định lượng (số liệu) và định tính (giải thích, nhận định).
+- Ưu tiên chất lượng, độ sâu và tính chính xác của phân tích hơn là liệt kê dài dòng.
 """
     return prompt.upper()
 
