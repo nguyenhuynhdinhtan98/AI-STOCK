@@ -1182,9 +1182,18 @@ def analyze_with_gemini(symbol, trading_signal, financial_data_statement, compan
         # Gọi AI để phân tích
         print(f"🤖 Đang yêu cầu phân tích từ AI...")
 
+        print(f"📤 Đang upload file dữ liệu...")
+        fileData = genai.upload_file(path=f"market_filtered.csv")
+        print(f"✅ Upload file dữ liệu giá thành công: {fileData.uri}")
+
         # Sử dụng model Gemini
         model = genai.GenerativeModel(model_name="gemini-2.5-flash")
-        response = model.generate_content(contents=prompt)
+        response = model.generate_content(
+            contents=[
+                prompt, # Prompt văn bản
+                fileData, 
+            ],
+        )
 
         if response and response.text:
             # Lưu kết quả phân tích
@@ -1329,9 +1338,6 @@ THÔNG TIN CHUNG TỪ TCBS:
 
 THÔNG TIN PHÂN TÍCH KỸ THUẬT:
 {technical_indicators}
-
-DỮ LIỆU THỊ TRƯỜNG:
-{market_data_str}
 
 YÊU CẦU PHÂN TÍCH CHUYÊN SÂU:
 
