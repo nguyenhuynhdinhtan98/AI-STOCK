@@ -1372,7 +1372,7 @@ YÊU CẦU FORMAT:
 - Ưu tiên chất lượng phân tích hơn số lượng
 """
 
-    return prompt
+    return prompt.upper()
 
 
 # --- Phân tích một mã cổ phiếu ---
