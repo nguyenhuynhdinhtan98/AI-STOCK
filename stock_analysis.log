@@ -222,3 +222,471 @@ Sự tương phản giữa bức tranh kỹ thuật và cơ bản là rất lớ
 2025-08-22 19:45:46,619 - INFO - ============================================================
 
 2025-08-22 19:45:46,633 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DBC_report.json'
+2025-08-22 20:06:40,757 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-22 20:06:43,522 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-22 20:06:48,043 - INFO - ============================================================
+2025-08-22 20:06:48,044 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DRI
+2025-08-22 20:06:48,044 - INFO - ============================================================
+2025-08-22 20:06:48,044 - INFO - Đang lấy dữ liệu cho mã DRI
+2025-08-22 20:06:48,530 - INFO - Đã lưu dữ liệu cho mã DRI vào file vnstocks_data/DRI_data.csv
+2025-08-22 20:06:48,530 - INFO - Đang lấy dữ liệu tài chính cho DRI
+2025-08-22 20:06:51,550 - INFO - Đã lưu dữ liệu tài chính của mã DRI vào file vnstocks_data/DRI_financial_statements.csv
+2025-08-22 20:06:51,551 - INFO - Đang lấy thông tin công ty cho DRI
+2025-08-22 20:06:51,795 - INFO - Đã lấy thông tin công ty DRI thành công
+2025-08-22 20:06:51,799 - INFO - Đang phân tích kỹ thuật cho mã DRI...
+2025-08-22 20:06:51,809 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-22 20:06:52,168 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-22 20:06:52,191 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DRI' trong file market_filtered.csv
+2025-08-22 20:06:52,192 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DRI (22/08/2025):
+2025-08-22 20:06:52,192 - INFO -  - Giá hiện tại: 11.70 VND
+2025-08-22 20:06:52,192 - INFO -  - Đường trung bình:
+2025-08-22 20:06:52,192 - INFO -  * MA10: 12.60| MA20: 12.75| MA50: 12.67| MA200: 12.41
+2025-08-22 20:06:52,192 - INFO -  - Chỉ báo dao động:
+2025-08-22 20:06:52,192 - INFO -  * RSI (14): 27.50
+2025-08-22 20:06:52,192 - INFO -  * MACD: -0.15| Signal: -0.02| Histogram: -0.13
+2025-08-22 20:06:52,192 - INFO -  * Bollinger Bands: Trên: 13.50| Dưới: 12.00
+2025-08-22 20:06:52,192 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-22 20:06:52,192 - INFO -  * RS: 0.007110430454520592
+2025-08-22 20:06:52,192 - INFO -  * RS_Point: 112.52
+2025-08-22 20:06:52,192 - INFO -  * RS3D: 26.0
+2025-08-22 20:06:52,192 - INFO -  * RS1M: 8.0
+2025-08-22 20:06:52,192 - INFO -  * RS3M: 42.0
+2025-08-22 20:06:52,192 - INFO -  * RS1y: 60.0
+2025-08-22 20:06:52,192 - INFO -  - Mô hình Ichimoku:
+2025-08-22 20:06:52,192 - INFO -  * Tenkan-sen (Chuyển đổi): 12.45
+2025-08-22 20:06:52,192 - INFO -  * Kijun-sen (Cơ sở): 12.80
+2025-08-22 20:06:52,192 - INFO -  * Senkou Span A (Leading Span A): 12.62
+2025-08-22 20:06:52,192 - INFO -  * Senkou Span B (Leading Span B): 12.79
+2025-08-22 20:06:52,192 - INFO -  * Chikou Span (Trễ): 12.92
+2025-08-22 20:06:52,192 - INFO -  - Khối lượng:
+2025-08-22 20:06:52,193 - INFO -  * Khối lượng hiện tại: 1271300.0
+2025-08-22 20:06:52,193 - INFO -  * MA Khối lượng (20): 1,403,692.25
+2025-08-22 20:06:52,193 - INFO -  * MA Khối lượng (50): 1,367,406.50
+2025-08-22 20:06:52,193 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: GIỮ - GIẢM
+2025-08-22 20:06:52,193 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 37.8/100
+2025-08-22 20:06:52,193 - INFO -  📈 TÍN HIỆU: GIẢM MẠNH
+2025-08-22 20:06:52,214 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DRI_data.csv'
+2025-08-22 20:06:52,222 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DRI_infor.csv'
+2025-08-22 20:06:52,240 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-22 20:06:52,260 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-22 20:06:52,260 - INFO - Đang phân tích bằng Gemini...
+2025-08-22 20:06:52,262 - INFO - Đang gửi prompt tới Gemini...
+2025-08-22 20:08:10,672 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_DRI.txt
+2025-08-22 20:08:10,685 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-22 20:08:10,689 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-22 20:08:12,885 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 20:08:12,887 - INFO - Retrying request to /chat/completions in 0.377398 seconds
+2025-08-22 20:08:15,149 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 20:08:15,151 - INFO - Retrying request to /chat/completions in 0.821928 seconds
+2025-08-22 20:08:17,480 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 20:08:17,485 - ERROR - Lỗi khi phân tích bằng OpenRouter cho DRI: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1755907200000'}, 'provider_name': None}}, 'user_id': 'user_30FfMOpnOYBQ9YyYvXiEgeWHOJM'}
+2025-08-22 20:08:17,485 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DRI ====================
+2025-08-22 20:08:17,485 - INFO - 💰 Giá hiện tại: 11.70 VND
+2025-08-22 20:08:17,485 - INFO - 📈 Tín hiệu: GIẢM MẠNH
+2025-08-22 20:08:17,485 - INFO - 🎯 Đề xuất: GIỮ - GIẢM
+2025-08-22 20:08:17,485 - INFO - 📊 Điểm phân tích: 37.75/100
+2025-08-22 20:08:17,485 - INFO - 📊 RS (so với VNINDEX): 0.0071
+2025-08-22 20:08:17,485 - INFO - 📊 RS_Point: 112.52
+2025-08-22 20:08:17,486 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-22 20:08:17,486 - INFO - Chào bạn,
+
+Với vai trò là một chuyên gia phân tích đầu tư chứng khoán, tôi đã thực hiện phân tích chuyên sâu mã DRI dựa trên dữ liệu bạn cung cấp, kết hợp các trường phái phân tích kỹ thuật (Wyckoff, Minervini, VSA/VPA) và phân tích cơ bản (Buffett, Lynch).
+
+---
+
+## **PHÂN TÍCH CHUYÊN SÂU MÃ DRI**
+
+**MÃ PHÂN TÍCH:** DRI
+**GIÁ HIỆN TẠI:** 11.70 VND
+
+### **1. Phân tích kỹ thuật (Wyckoff, VSA & VPA)**
+
+*   **Giai đoạn thị trường (Theo Wyckoff):**
+    Dựa trên các chỉ báo kỹ thuật, mã DRI đang ở giai đoạn **Suy thoái (Markdown Phase)**.
+    *   Giá hiện tại 11.70 VND nằm dưới tất cả các đường trung bình động (MA10, MA20, MA50, MA200), cho thấy một xu hướng giảm mạnh mẽ và không có dấu hiệu phục hồi rõ ràng ở mọi khung thời gian.
+    *   Chỉ báo Ichimoku Cloud cũng xác nhận xu hướng giảm khi giá nằm dưới đám mây.
+    *   Chưa có tín hiệu của một giai đoạn Tích lũy (Accumulation Phase) theo Wyckoff, chẳng hạn như Selling Climax (SC) với khối lượng cực lớn cho thấy sự kiệt sức của phe bán, hay Spring (pha kiểm định đáy giả) để rũ bỏ các nhà đầu tư yếu kém.
+
+*   **Phân tích Giá & Khối lượng (VSA/VPA):**
+    *   **Xu hướng giảm không có khối lượng lớn: **
+        *   Khối lượng giao dịch hiện tại là 1.27M, thấp hơn khối lượng trung bình 20 ngày (1.40M) với tỷ lệ 0.91. Trong một xu hướng giảm mạnh, khối lượng giao dịch thấp hơn mức trung bình cho thấy thiếu đi sự quan tâm của cả bên mua và bên bán tại vùng giá này. Đây không phải là dấu hiệu của một "Selling Climax" hay sự hoảng loạn tột độ mà thường thấy ở đáy. Thay vào đó, nó có thể là dấu hiệu của sự yếu ớt, giá tiếp tục trượt dốc do không có lực cầu đủ mạnh để hấp thụ.
+        *   Kiểm tra dữ liệu lịch sử, các đợt giảm giá mạnh từ tháng 5 đến tháng 8/2025 cũng diễn ra với khối lượng không quá đột biến, ngoại trừ một số phiên tăng giảm mạnh. Điều này cho thấy giai đoạn suy thoái của DRI diễn ra một cách từ tốn, không có sự kiện capitulation rõ ràng.
+    *   **Giá đóng cửa gần Band dưới Bollinger và RSI quá bán:** Giá nằm gần Band dưới (12.00) và RSI ở mức 27.50 (quá bán) cho thấy áp lực bán đã ở mức cao và có thể xuất hiện một nhịp hồi kỹ thuật ngắn hạn. Tuy nhiên, nếu không có sự tăng đột biến về khối lượng giao dịch mua trong những ngày tới, tín hiệu quá bán này có thể không đủ mạnh để đảo chiều xu hướng giảm chính.
+
+### **2. Phân tích theo phương pháp Mark Minervini**
+
+*   **Xu hướng:**
+    *   **Xu hướng chính (Dài hạn):** Hoàn toàn tiêu cực. Giá 11.70 VND thấp hơn tất cả các đường MA dài hạn (MA50: 12.67, MA200: 12.41). Điều này xác nhận mã DRI đang nằm trong xu hướng giảm dài hạn.
+    *   **Xu hướng phụ (Ngắn hạn):** Cũng rất tiêu cực. Giá thấp hơn MA10 (12.60) và MA20 (12.75). Các đường MA ngắn hạn đang dốc xuống và nằm dưới các đường MA dài hạn, thể hiện áp lực bán mạnh và sự thiếu vắng của lực cầu.
+*   **Cấu trúc thị trường:**
+    *   Từ dữ liệu lịch sử giá, sau khi đạt đỉnh quanh 15.43 VND vào tháng 2/2025, DRI đã liên tục tạo ra các đỉnh sau thấp hơn đỉnh trước và các đáy sau thấp hơn đáy trước. Đây là cấu trúc điển hình của một xu hướng giảm rõ ràng, không có dấu hiệu tạo đáy.
+*   **Pivot & Hỗ trợ/Kháng cự:**
+    *   **Kháng cự ngắn hạn:** Các đường trung bình động đang đóng vai trò là kháng cự mạnh: MA10 (12.60 VND), MA20 (12.75 VND), MA50 (12.67 VND). Đặc biệt là vùng giao thoa của các MA này quanh 12.60 - 12.75 VND.
+    *   **Hỗ trợ gần nhất:** Dựa trên lịch sử giá gần đây, đáy gần nhất là 11.60 VND (ngày 21/08/2025). Nếu mức này bị phá vỡ, mã có thể kiểm tra các mức thấp hơn, có thể là vùng giá 10.00-10.50 VND đã xuất hiện vào tháng 4/2025.
+*   **Sức mạnh tương đối (RS):**
+    *   **RS so với VNINDEX:** Chỉ số RS là 0.01, cho thấy DRI đang hoạt động cực kỳ yếu kém so với thị trường chung, xác nhận việc mã này đang bị bán mạnh và không được thị trường ưu tiên.
+    *   **RS Point (IBD):** 112.52. Mặc dù chỉ số này cao, nó phản ánh sức mạnh tương đối trong quá khứ (thường là 1 năm). Tuy nhiên, các chỉ số RS ngắn hạn lại cho thấy sự sụt giảm nhanh chóng: RS 3 ngày (26.00), RS 1 tháng (8.00), RS 3 tháng (42.00). Điều này có nghĩa là DRI đã từng có giai đoạn mạnh mẽ, nhưng hiện tại đang mất đi sức mạnh một cách trầm trọng và bị thị trường bỏ rơi.
+    *   Theo Minervini, một cổ phiếu tiềm năng cần có RS cao và đang tăng tốc. DRI hiện tại hoàn toàn không đáp ứng tiêu chí này.
+
+### **3. Phân tích cơ bản (Buffett, Lynch, dữ liệu TCBS)**
+
+*   **Chất lượng Doanh thu & Lợi nhuận:**
+    *   **Tăng trưởng ấn tượng:** Dù doanh thu có sự biến động theo quý (phản ánh tính thời vụ của ngành cao su), nhưng xu hướng tăng trưởng YoY lại rất tích cực.
+        *   Doanh thu quý 2/2025 đạt 113.32 tỷ VND, tăng 81.4% so với cùng kỳ năm 2024 (62.47 tỷ VND).
+        *   Lợi nhuận sau thuế lũy kế 6 tháng đầu năm 2025 đạt 76.8 tỷ VND, **gấp 2.5 lần** so với cùng kỳ năm trước. Điều này được xác nhận bởi cả báo cáo tài chính và tin tức (Tinnhanhchungkhoan.vn). Đây là điểm sáng vượt trội về cơ bản, cho thấy khả năng kinh doanh cốt lõi của công ty đang phục hồi mạnh mẽ.
+    *   **Biên lợi nhuận:** Biên lợi nhuận gộp (Gross Profit Margin) đạt 34.11% (từ Ratio Summary), biên lợi nhuận ròng (Net Profit Margin) đạt 18.55%. Các con số này cho thấy công ty đang quản lý tốt chi phí và đạt được hiệu quả lợi nhuận tốt từ hoạt động kinh doanh.
+*   **Hiệu quả Sử dụng Vốn:**
+    *   **ROE (Return on Equity):** 27.40% (TCBS) / 25.17% (Ratio Summary). Đây là một mức ROE rất cao, cho thấy công ty tạo ra lợi nhuận xuất sắc trên mỗi đồng vốn chủ sở hữu. Mức này vượt trội so với nhiều doanh nghiệp trên thị trường.
+    *   **ROA (Return on Assets):** 21.70% (TCBS) / 21.22% (Ratio Summary). Tương tự ROE, ROA cao cho thấy công ty sử dụng tài sản rất hiệu quả để tạo ra lợi nhuận.
+    *   **ROIC (Return on Invested Capital):** 26.27% (Ratio Summary). ROIC cao hơn chi phí sử dụng vốn là dấu hiệu của một doanh nghiệp có lợi thế cạnh tranh bền vững và khả năng tái đầu tư hiệu quả.
+    *   Các chỉ số hiệu quả này rất hấp dẫn đối với các nhà đầu tư giá trị như Buffett và Lynch.
+*   **Tình hình Tài chính:**
+    *   **Cơ cấu nợ:** Chỉ tiêu Debt/Equity (TCBS) là 0.25875 (hoặc 0.179 tính toán từ BCTC quý 2/2025). Đây là mức nợ rất thấp, cho thấy cấu trúc tài chính lành mạnh và rủi ro tài chính thấp. Nợ ngắn hạn chiếm phần lớn (36.81 tỷ VND) nhưng được hỗ trợ bởi lượng tiền mặt dồi dào.
+    *   **Khả năng thanh khoản:**
+        *   Current Ratio: 1.738304 (Ratio Summary). Mức này cho thấy khả năng thanh toán nợ ngắn hạn tốt.
+        *   Cash and cash equivalents: 115.29 tỷ VND (Q2 2025). Lượng tiền mặt lớn là một điểm cộng về tính an toàn và linh hoạt tài chính.
+    *   **Chất lượng dòng tiền tự do (FCF):** Dòng tiền từ hoạt động kinh doanh (Net cash inflows/outflows from operating activities) vẫn dương và tăng trưởng mạnh mẽ trong các quý gần đây (Q1 2025 đạt 93.38 tỷ VND, Q2 2025 đạt 18.51 tỷ VND), cho thấy công ty có khả năng tự chủ tài chính và tạo ra tiền mặt từ hoạt động cốt lõi.
+*   **Ban lãnh đạo & Nội bộ:**
+    *   Công ty Cổ phần Cao su Đắk Lắk (Công ty Mẹ DAKRUCO) là cổ đông lớn nhất với 45% cổ phần. Nhiều thành viên ban lãnh đạo cũng sở hữu cổ phiếu với tỷ lệ đáng kể (ví dụ: Chủ tịch HĐQT Nguyễn Viết Tượng nắm 0.1366% cổ phần). Điều này thể hiện sự đồng thuận lợi ích giữa ban lãnh đạo và cổ đông.
+*   **Chia cổ tức:**
+    *   DRI có lịch sử chia cổ tức bằng tiền mặt đều đặn qua các năm, từ 2017 đến các đợt chia gần đây nhất cho năm 2024 và 2025 (tổng 800 VND cho 2024 và 500 VND cho đợt 2 2024, đợt 1 2025 là 400 VND). Tỷ suất cổ tức (Dividend Yield) theo TCBS là 7.40%, rất hấp dẫn so với lãi suất tiết kiệm. Điều này cho thấy công ty là một doanh nghiệp tạo tiền mặt tốt và cam kết chia sẻ lợi nhuận với cổ đông.
+*   **Tin tức & Internet:**
+    *   Các tin tức gần đây tập trung vào kết quả kinh doanh Q2/2025 tích cực (lợi nhuận 6 tháng đầu năm 2025 gấp 2,5 lần cùng kỳ) và thông báo chi trả cổ tức còn lại năm 2024. Những tin tức này hoàn toàn ủng hộ luận điểm cơ bản vững chắc của công ty.
+
+### **4. Định giá & So sánh ngành**
+
+*   **Chỉ số Định giá:**
+    *   **P/E (Price/Earnings):** 5.70 (TCBS) / 5.73 (Ratio Summary). Mức P/E này cực kỳ thấp, đặc biệt khi so sánh với mức tăng trưởng lợi nhuận 6 tháng đầu năm 2025 (2.5 lần) và ROE cao (27.4%). Điều này cho thấy DRI đang bị định giá rất thấp so với tiềm năng tăng trưởng và hiệu quả hoạt động.
+    *   **P/B (Price/Book):** 1.40 (TCBS) / 1.37 (Ratio Summary). Mức P/B này cũng khá thấp cho một công ty có ROE cao. BVPS là 8855.45 VND, giá hiện tại 11.70 VND, P/B ~ 1.32, phù hợp với các chỉ số.
+    *   **P/S (Price/Sales):** 1.46 (Ratio Summary). Mức P/S này cho thấy thị trường đang định giá doanh thu của công ty khá hợp lý, nhưng khi đặt cạnh biên lợi nhuận cao thì vẫn có phần thấp.
+    *   **EV/EBITDA:** 3.50 (TCBS) / 3.53 (Ratio Summary). Mức EV/EBITDA này cực kỳ hấp dẫn, cho thấy giá trị doanh nghiệp thấp so với khả năng tạo ra dòng tiền từ hoạt động kinh doanh.
+*   **So sánh Ngành (Hóa chất):**
+    *   So với các mã cùng ngành "Hóa chất" như DDV (P/E 13.0), HVT (P/E 9.1), NFC (P/E 9.6), TRC (P/E 7.0), DRI có P/E thấp nhất (5.7) trong số các công ty có lợi nhuận dương và tăng trưởng. Chỉ có VAF có P/E thấp hơn (6.5), nhưng lại có tăng trưởng lợi nhuận âm.
+    *   DRI có ROE (27.4%) và tăng trưởng lợi nhuận ròng 1 năm (47.98%) rất cạnh tranh, thậm chí vượt trội so với nhiều đối thủ trong khi lại được định giá thấp hơn đáng kể.
+    *   **Kết luận định giá:** DRI đang bị thị trường đánh giá thấp một cách đáng kể, tạo ra một cơ hội đầu tư giá trị mạnh mẽ nếu nhìn vào các chỉ số cơ bản.
+
+### **5. Nhận định vị thế mua ngắn hạn**
+
+*   **Khả năng bật tăng ngắn hạn:** Khả năng bật tăng ngắn hạn của DRI là **có thể nhưng không chắc chắn và tiềm ẩn rủi ro**.
+    *   **Tín hiệu oversold:** RSI 27.50 và giá gần Band dưới Bollinger báo hiệu tình trạng quá bán, thường là tiền đề cho một nhịp hồi kỹ thuật.
+    *   **Thiếu động lực:** Tuy nhiên, khối lượng giao dịch dưới mức trung bình và các đường MA đều dốc xuống cho thấy thiếu động lực mua vào mạnh mẽ để đảo chiều xu hướng. TCBS cũng đưa ra tín hiệu "Bán mạnh" và "Giá nằm dưới SMA(20), SMA(50), SMA(100)".
+    *   **Minervini cảnh báo:** Theo Minervini, việc mua vào trong xu hướng giảm mạnh, ngay cả khi quá bán, là rất rủi ro và không khuyến khích.
+*   **Các tín hiệu mua/bán gần đây:**
+    *   **Bán mạnh:** Từ các chỉ báo động lượng (MACD âm, RSI quá bán trong xu hướng giảm) và vị trí giá so với MA, tín hiệu kỹ thuật tổng thể là "Bán mạnh".
+    *   **Mua > Bán của khối ngoại:** Khối ngoại đang mua ròng (Mua > Bán) nhưng tỷ lệ khối lượng giao dịch của khối ngoại rất thấp (0.85% tổng khối lượng), không đủ để tạo ra ảnh hưởng lớn.
+*   **Tâm lý thị trường ngắn hạn:** Tâm lý thị trường đối với DRI trong ngắn hạn là **tiêu cực và thận trọng**. Các nhà đầu tư đang lo ngại về xu hướng giảm giá, thể hiện qua việc giá liên tục phá vỡ các ngưỡng hỗ trợ và thanh khoản yếu đi khi giá xuống thấp.
+
+### **6. Chiến lược giao dịch & Quản lý rủi ro**
+
+Đây là một trường hợp cổ phiếu có cơ bản rất tốt nhưng kỹ thuật rất xấu.
+
+*   **Quan điểm Phân tích Kỹ thuật (Minervini, VSA):** Không có điểm vào tối ưu hiện tại. Việc mua vào trong một xu hướng giảm mạnh là đi ngược lại nguyên tắc. Cần chờ đợi các dấu hiệu tạo đáy rõ ràng hơn:
+    *   Giá ngừng tạo đáy thấp hơn.
+    *   Sự xuất hiện của pha tích lũy (accumulation phase) với khối lượng lớn vào các phiên tăng và khối lượng thấp vào các phiên giảm.
+    *   Giá cắt lên các đường MA ngắn hạn (MA10, MA20) và sau đó là các MA dài hạn (MA50, MA200) với khối lượng xác nhận.
+    *   Sức mạnh tương đối (RS) bắt đầu cải thiện và tăng tốc so với thị trường chung.
+*   **Quan điểm Phân tích Cơ bản (Buffett, Lynch):** Với những nhà đầu tư giá trị dài hạn, đây có thể là một cơ hội mua tích lũy ở vùng giá chiết khấu sâu. Tuy nhiên, cũng cần cân nhắc rủi ro về thời gian chờ đợi.
+*   **Điểm vào tiềm năng (dành cho nhà đầu tư kiên nhẫn):**
+    *   **Mua thăm dò:** Có thể cân nhắc mua thăm dò một phần nhỏ vị thế tại vùng giá hiện tại (quanh 11.70 VND) hoặc khi giá tiệm cận các vùng hỗ trợ lịch sử mạnh hơn (ví dụ: vùng 10.00-10.50 VND nếu giá tiếp tục giảm).
+    *   **Mua xác nhận:** Chờ đợi khi giá có dấu hiệu tạo đáy rõ ràng hơn, ví dụ, giá bật tăng mạnh với khối lượng lớn từ vùng quá bán và vượt lên trên MA10 hoặc MA20, hoặc tạo ra một cấu trúc đáy cao hơn.
+*   **Stop-loss & Take-profit:**
+    *   **Stop-loss:** Nếu mua thăm dò tại 11.70 VND, mức dừng lỗ có thể đặt dưới đáy lịch sử gần đây của các đợt giảm mạnh (ví dụ: dưới 10.00 VND nếu xu hướng giảm tiếp tục) hoặc dưới mức 11.00 VND để quản lý rủi ro ngắn hạn.
+    *   **Take-profit:**
+        *   Ngắn hạn: Các vùng kháng cự từ các đường MA (12.60 - 12.75 VND).
+        *   Dài hạn: Dựa trên định giá hấp dẫn, nếu P/E của DRI có thể mở rộng về mức trung bình ngành (ví dụ: P/E 9-10 lần), giá mục tiêu có thể đạt 18.00 - 20.00 VND (từ EPS TTM 2122 VND * P/E 9 = 19098 VND).
+*   **Risk/Reward:** Tỷ lệ rủi ro/lợi nhuận hiện tại là cao nếu nhìn theo góc độ kỹ thuật ngắn hạn. Tuy nhiên, nếu nhìn theo góc độ dài hạn với tiềm năng tái định giá về mức trung bình ngành, tỷ lệ lợi nhuận/rủi ro là rất hấp dẫn (Lợi nhuận tiềm năng > 50% so với rủi ro 10-15%).
+
+### **7. Dự báo xu hướng**
+
+*   **Ngắn hạn (1-2 tuần):** Giá nhiều khả năng sẽ tiếp tục đi ngang trong vùng 11.60 - 12.50 VND hoặc có thể giảm nhẹ nếu không có lực cầu bắt đáy đủ mạnh. Một nhịp hồi kỹ thuật ngắn hạn có thể xảy ra do tình trạng quá bán, nhưng xu hướng giảm tổng thể vẫn chiếm ưu thế.
+*   **Trung hạn (1-3 tháng):** Phụ thuộc vào việc thị trường có nhận ra giá trị cơ bản của DRI hay không. Nếu kết quả kinh doanh quý tiếp theo tiếp tục khả quan và thị trường ổn định hơn, DRI có thể bắt đầu tạo đáy và chuyển sang giai đoạn tích lũy. Tuy nhiên, nếu không có xúc tác mạnh, xu hướng giảm giá có thể vẫn tiếp diễn, nhưng với tốc độ chậm hơn.
+*   **Dài hạn (3-12 tháng):** Triển vọng dài hạn là **tích cực** do các yếu tố cơ bản cực kỳ vững chắc (ROE cao, tăng trưởng lợi nhuận mạnh, định giá hấp dẫn, tài chính lành mạnh, cổ tức đều đặn). Nếu giá cao su tiếp tục duy trì ở mức tốt và công ty tiếp tục duy trì đà tăng trưởng lợi nhuận, DRI có tiềm năng tái định giá lên các vùng giá cao hơn đáng kể.
+
+### **8. Kết luận & Khuyến nghị cuối cùng**
+
+Dựa trên phân tích toàn diện, mã DRI đang ở một tình thế khá đặc biệt với sự đối lập rõ rệt giữa bức tranh kỹ thuật và cơ bản:
+*   **Kỹ thuật:** Rất yếu, đang trong xu hướng giảm mạnh, RS kém, không có dấu hiệu tạo đáy vững chắc.
+*   **Cơ bản:** Cực kỳ vững chắc, tăng trưởng lợi nhuận ấn tượng, hiệu quả sử dụng vốn vượt trội, tài chính lành mạnh và định giá siêu hấp dẫn so với nội tại và ngành.
+
+Đây là một trường hợp "cổ phiếu giá trị sâu" (deep value stock) mà nhà đầu tư huyền thoại Peter Lynch và Warren Buffett sẽ rất quan tâm. Thị trường đang "ném bỏ" cổ phiếu này, tạo ra cơ hội mua vào với chiết khấu lớn cho những nhà đầu tư có tầm nhìn dài hạn và kiên nhẫn. Tuy nhiên, rủi ro ngắn hạn về giá vẫn còn do xu hướng kỹ thuật tiêu cực và sự thiếu tin tưởng của thị trường.
+
+**Khuyến nghị cuối cùng:** **MUA**
+
+**Điểm số đánh giá (1-10):** **7.5/10** (Đánh giá cao tiềm năng cơ bản và định giá, nhưng vẫn cân nhắc rủi ro kỹ thuật ngắn hạn).
+
+**Tóm tắt ngắn gọn:** DRI là một doanh nghiệp có nền tảng cơ bản cực kỳ vững chắc với tăng trưởng lợi nhuận ấn tượng, hiệu quả sử dụng vốn cao và định giá hấp dẫn, đang tạo ra một cơ hội đầu tư giá trị lớn mặc dù đang chịu áp lực kỹ thuật ngắn hạn.
+
+**Rủi ro chính cần lưu ý:**
+1.  **Xu hướng giảm kỹ thuật có thể tiếp diễn:** Giá có thể giảm sâu hơn trong ngắn hạn nếu không có lực cầu mạnh mẽ.
+2.  **Biến động giá hàng hóa:** Doanh thu và lợi nhuận của công ty phụ thuộc vào giá cao su và các mặt hàng nông nghiệp khác, vốn rất biến động.
+3.  **Thanh khoản thấp:** Khối lượng giao dịch thấp hơn mức trung bình có thể gây khó khăn trong việc mua/bán với số lượng lớn mà không ảnh hưởng đến giá.
+4.  **Rủi ro địa chính trị/vận hành tại Lào:** Hoạt động chính tại Lào có thể gặp phải các rủi ro liên quan đến chính sách, thời tiết hoặc logistics.
+
+**Lời khuyên bổ sung:** Đối với khuyến nghị MUA, nhà đầu tư nên phân bổ vốn theo chiến lược tích lũy dần (averaging down) và chuẩn bị tâm lý cho những biến động giá ngắn hạn. Nên ưu tiên tầm nhìn dài hạn để tận dụng tiềm năng tăng trưởng và sự tái định giá của thị trường.
+
+---
+
+Chúc bạn có những quyết định đầu tư sáng suốt!
+2025-08-22 20:08:17,489 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-22 20:08:17,489 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-22 20:08:17,489 - INFO - ============================================================
+
+2025-08-22 20:08:17,499 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DRI_report.json'
+2025-08-22 22:24:45,065 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-22 22:24:47,933 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-22 22:24:48,006 - INFO - ============================================================
+2025-08-22 22:24:48,006 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VHC
+2025-08-22 22:24:48,006 - INFO - ============================================================
+2025-08-22 22:24:48,006 - INFO - Đang lấy dữ liệu cho mã VHC
+2025-08-22 22:24:48,579 - INFO - Đã lưu dữ liệu cho mã VHC vào file vnstocks_data/VHC_data.csv
+2025-08-22 22:24:48,579 - INFO - Đang lấy dữ liệu tài chính cho VHC
+2025-08-22 22:24:49,746 - INFO - Đã lưu dữ liệu tài chính của mã VHC vào file vnstocks_data/VHC_financial_statements.csv
+2025-08-22 22:24:49,746 - INFO - Đang lấy thông tin công ty cho VHC
+2025-08-22 22:24:49,827 - INFO - Đã lấy thông tin công ty VHC thành công
+2025-08-22 22:24:49,830 - INFO - Đang phân tích kỹ thuật cho mã VHC...
+2025-08-22 22:24:49,836 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-22 22:24:49,937 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-22 22:24:49,952 - INFO - Đã tìm thấy dữ liệu RS cho mã 'VHC' trong file market_filtered.csv
+2025-08-22 22:24:49,952 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO VHC (22/08/2025):
+2025-08-22 22:24:49,952 - INFO -  - Giá hiện tại: 55.70 VND
+2025-08-22 22:24:49,952 - INFO -  - Đường trung bình:
+2025-08-22 22:24:49,952 - INFO -  * MA10: 58.64| MA20: 58.11| MA50: 57.78| MA200: 62.62
+2025-08-22 22:24:49,952 - INFO -  - Chỉ báo dao động:
+2025-08-22 22:24:49,952 - INFO -  * RSI (14): 41.29
+2025-08-22 22:24:49,952 - INFO -  * MACD: -0.09| Signal: 0.33| Histogram: -0.42
+2025-08-22 22:24:49,952 - INFO -  * Bollinger Bands: Trên: 61.89| Dưới: 54.33
+2025-08-22 22:24:49,952 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-22 22:24:49,952 - INFO -  * RS: 0.03385051079630744
+2025-08-22 22:24:49,952 - INFO -  * RS_Point: -1477.68
+2025-08-22 22:24:49,952 - INFO -  * RS3D: 40.0
+2025-08-22 22:24:49,952 - INFO -  * RS1M: 28.0
+2025-08-22 22:24:49,952 - INFO -  * RS3M: 35.0
+2025-08-22 22:24:49,952 - INFO -  * RS1y: 7.0
+2025-08-22 22:24:49,952 - INFO -  - Mô hình Ichimoku:
+2025-08-22 22:24:49,952 - INFO -  * Tenkan-sen (Chuyển đổi): 59.10
+2025-08-22 22:24:49,952 - INFO -  * Kijun-sen (Cơ sở): 58.85
+2025-08-22 22:24:49,952 - INFO -  * Senkou Span A (Leading Span A): 58.98
+2025-08-22 22:24:49,952 - INFO -  * Senkou Span B (Leading Span B): 58.00
+2025-08-22 22:24:49,952 - INFO -  * Chikou Span (Trễ): 57.60
+2025-08-22 22:24:49,952 - INFO -  - Khối lượng:
+2025-08-22 22:24:49,952 - INFO -  * Khối lượng hiện tại: 1405900.0
+2025-08-22 22:24:49,952 - INFO -  * MA Khối lượng (20): 2,196,130.00
+2025-08-22 22:24:49,952 - INFO -  * MA Khối lượng (50): 1,953,692.00
+2025-08-22 22:24:49,953 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: BÁN
+2025-08-22 22:24:49,953 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 20.0/100
+2025-08-22 22:24:49,953 - INFO -  📈 TÍN HIỆU: BÁN
+2025-08-22 22:24:49,967 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/VHC_data.csv'
+2025-08-22 22:24:49,974 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/VHC_infor.csv'
+2025-08-22 22:24:49,991 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-22 22:24:50,012 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-22 22:24:50,013 - INFO - Đang phân tích bằng Gemini...
+2025-08-22 22:24:50,013 - INFO - Đang gửi prompt tới Gemini...
+2025-08-22 22:25:59,148 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VHC.txt
+2025-08-22 22:25:59,148 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-22 22:25:59,150 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-22 22:26:01,746 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 22:26:01,747 - INFO - Retrying request to /chat/completions in 0.385527 seconds
+2025-08-22 22:26:03,687 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 22:26:03,688 - INFO - Retrying request to /chat/completions in 0.817081 seconds
+2025-08-22 22:26:06,070 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 22:26:06,075 - ERROR - Lỗi khi phân tích bằng OpenRouter cho VHC: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1755907200000'}, 'provider_name': None}}, 'user_id': 'user_30FfMOpnOYBQ9YyYvXiEgeWHOJM'}
+2025-08-22 22:26:06,075 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã VHC ====================
+2025-08-22 22:26:06,075 - INFO - 💰 Giá hiện tại: 55.70 VND
+2025-08-22 22:26:06,075 - INFO - 📈 Tín hiệu: BÁN
+2025-08-22 22:26:06,075 - INFO - 🎯 Đề xuất: BÁN
+2025-08-22 22:26:06,075 - INFO - 📊 Điểm phân tích: 20.00/100
+2025-08-22 22:26:06,075 - INFO - 📊 RS (so với VNINDEX): 0.0339
+2025-08-22 22:26:06,076 - INFO - 📊 RS_Point: -1477.68
+2025-08-22 22:26:06,076 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-22 22:26:06,076 - INFO - Kính gửi Quý nhà đầu tư,
+
+Với vai trò là chuyên gia phân tích đầu tư chứng khoán, tôi xin trình bày phân tích chuyên sâu về mã cổ phiếu VHC (Công ty Cổ phần Vĩnh Hoàn) dựa trên dữ liệu được cung cấp, kết hợp các phương pháp phân tích kỹ thuật (Wyckoff, Minervini, VSA/VPA) và phân tích cơ bản (Buffett, Lynch).
+
+---
+
+## PHÂN TÍCH CHUYÊN SÂU MÃ CỔ PHIẾU VHC
+
+**Mã phân tích:** VHC
+**Giá hiện tại:** 55.70 VND
+
+---
+
+### 1. Phân tích kỹ thuật (Wyckoff, VSA & VPA)
+
+#### Giai đoạn thị trường (Wyckoff):
+Dựa trên các chỉ báo kỹ thuật, VHC đang nằm trong **giai đoạn Suy thoái (Mark Down Phase)**.
+*   **Giá dưới tất cả các đường trung bình động (MA10, MA20, MA50, MA200):** Đây là một tín hiệu cực kỳ mạnh mẽ xác nhận xu hướng giảm giá kéo dài. Cụ thể, giá 55.70 đang thấp hơn rất nhiều so với MA200 (62.62), cho thấy xu hướng giảm dài hạn đã được thiết lập.
+*   **Chỉ báo MACD:** MACD Histogram đang âm (-0.42) và đường MACD (-0.09) nằm dưới đường Signal (0.33), cho thấy động lượng giảm giá đang chiếm ưu thế.
+*   **Ichimoku Cloud:** Giá nằm dưới đám mây Ichimoku, củng cố thêm nhận định về xu hướng giảm giá.
+*   Không có các tín hiệu rõ ràng về giai đoạn tích lũy (như Spring, SOS - Sign of Strength với khối lượng lớn) mà chỉ cho thấy sự suy yếu của phe mua.
+
+#### Phân tích Giá & Khối lượng (VSA/VPA):
+*   **Biến động giá và khối lượng hiện tại:** Giá hiện tại 55.70 đang giao dịch gần vùng biên dưới của Dải Bollinger Band (54.33), cho thấy cổ phiếu có thể đang trong vùng quá bán ngắn hạn. Tuy nhiên, điều này không đồng nghĩa với việc sẽ có một sự bật tăng mạnh.
+*   **Khối lượng giao dịch:** Khối lượng hiện tại (1.41M) thấp hơn đáng kể so với khối lượng trung bình 20 ngày (2.20M), với tỷ lệ 0.64. Khối lượng yếu khi giá giảm cho thấy sự thiếu vắng của lực cầu bắt đáy mạnh mẽ hoặc lực bán đang chậm lại, nhưng quan trọng hơn là không có khối lượng lớn để hấp thụ lực bán, cũng không có khối lượng lớn để đẩy giá lên, cho thấy sự thiếu quan tâm của thị trường.
+*   **Dấu hiệu tích lũy hay phân phối:** Hiện tại, không có dấu hiệu rõ ràng của tích lũy với khối lượng lớn đẩy giá lên hay tạo nền giá vững chắc. Ngược lại, xu hướng giảm giá trên khối lượng thấp cho thấy cổ phiếu đang trôi dạt xuống, chưa có sự hấp thụ cung mạnh mẽ từ tổ chức. Cũng không có dấu hiệu phân phối đỉnh với khối lượng lớn vì giá đã giảm sâu.
+
+---
+
+### 2. Phân tích theo phương pháp Mark Minervini
+
+#### Xu hướng:
+*   **Xu hướng chính (dài hạn):** Rõ ràng là **giảm giá**. Giá 55.70 nằm dưới tất cả các đường MA dài hạn (MA50: 57.78, MA200: 62.62).
+*   **Xu hướng phụ (ngắn hạn):** Cũng là **giảm giá**. Giá 55.70 nằm dưới các đường MA ngắn hạn (MA10: 58.64, MA20: 58.11).
+
+#### Cấu trúc thị trường:
+VHC đang thể hiện cấu trúc thị trường với **đỉnh thấp hơn và đáy thấp hơn** trong xu hướng giảm hiện tại. Giá hiện tại nằm dưới các mức đóng cửa của 1 tuần, 1 tháng, 3 tháng và 1 năm trước (thông tin giá lịch sử cho thấy giá đã giảm đáng kể từ các đỉnh gần đây).
+
+#### Pivot & Hỗ trợ/Kháng cự:
+*   **Kháng cự gần nhất:** Các đường trung bình động đang đóng vai trò là các ngưỡng kháng cự mạnh mẽ. Cụ thể, vùng 57.78 - 58.64 (MA10, MA20, MA50) là kháng cự ngắn hạn. Biên trên Dải Bollinger (61.89) cũng là kháng cự.
+*   **Hỗ trợ tiềm năng:** Vùng hỗ trợ gần nhất là biên dưới Dải Bollinger (54.33). Nếu vùng này bị phá vỡ, VHC có thể tìm về các mức thấp hơn.
+
+#### Sức mạnh tương đối (RS):
+Các chỉ số Sức mạnh tương đối (RS) của VHC đều **rất yếu**, đây là một điểm trừ lớn theo phương pháp của Minervini:
+*   RS so với VNINDEX: 0.03 (gần như không có sức mạnh so với thị trường chung).
+*   RS Point (IBD): -1.48K (điểm RS thấp cho thấy hiệu suất yếu).
+*   RS 3 ngày: 40.00
+*   RS 1 tháng: 28.00
+*   RS 3 tháng: 35.00
+*   RS 1 năm: 7.00
+Tất cả các chỉ số này đều dưới 50, đặc biệt RS 1 năm chỉ ở mức 7.00, cho thấy VHC đang hoạt động cực kỳ kém hiệu quả so với thị trường trong mọi khung thời gian. Minervini luôn tìm kiếm những cổ phiếu có RS trên 80-90, do đó VHC không đáp ứng tiêu chí này.
+
+---
+
+### 3. Phân tích cơ bản (Buffett, Lynch, dữ liệu TCBS)
+
+#### Chất lượng Doanh thu & Lợi nhuận:
+*   **Doanh thu:** VHC đã trải qua giai đoạn tăng trưởng doanh thu mạnh mẽ vào năm 2022 (Q1: +82.9%, Q2: +84.4%). Tuy nhiên, từ Q4/2022 đến Q3/2023, doanh thu liên tục sụt giảm YoY (-7.3% đến -36.8%). Đến Q4/2023, mức giảm là -3.8% và Q1/2024 tiếp tục giảm -27.7%. Mặc dù Q4/2024 có sự tăng trưởng dương 33.4%, nhưng Q1/2025 lại giảm -7.1% và Q2/2025 gần như đi ngang (-0.001%).
+    *   **Tin tức:** "Vĩnh Hoàn chững lại sau giai đoạn tăng tốc xuất khẩu" và "doanh số xuất khẩu sang thị trường Mỹ bắt đầu sụt giảm từ tháng 3/2025". Ban lãnh đạo đã hạ dự báo doanh thu 2025 trong kịch bản cơ bản (giảm 12.9% YoY) và kịch bản tích cực (giảm 1.3% YoY). Điều này cho thấy triển vọng doanh thu đang đối mặt với nhiều thách thức, đặc biệt từ thị trường xuất khẩu chính là Mỹ (lo ngại thuế quan, hiệu ứng "frontloading" suy yếu).
+*   **Lợi nhuận:** Tương tự doanh thu, lợi nhuận sau thuế của VHC cũng có sự biến động lớn. Sau mức tăng trưởng ấn tượng năm 2022, lợi nhuận giảm mạnh vào năm 2023. Tuy nhiên, tin tức gần đây (8138124) cho thấy "Nửa đầu 2025, Vĩnh Hoàn (VHC) báo lãi sau thuế tăng 39% so với cùng kỳ và hoàn thành 73% mục tiêu lợi nhuận theo kịch bản cơ bản". Lợi nhuận quý 2/2025 tăng 54% YoY, đạt 522.5 tỷ VND, là mức cao nhất trong 7 quý. VHC giải trình do "sản lượng bán tăng và giá thành sản xuất giảm". Đây là một điểm sáng, cho thấy khả năng quản lý chi phí và tối ưu hóa hoạt động sản xuất.
+
+#### Hiệu quả Sử dụng Vốn:
+*   **ROE (Return on Equity):** ROE TTM là 16.10% (TCBS) / 16.06% (Ratio Summary Q2 2025). Mặc dù thấp hơn mức đỉnh năm 2022 (trên 30%), mức ROE hiện tại vẫn là một con số tốt, cho thấy khả năng tạo ra lợi nhuận từ vốn chủ sở hữu hiệu quả.
+*   **ROA (Return on Assets):** ROA TTM là 11.35% (Ratio Summary Q2 2025). Mức này cũng khá tốt, phản ánh khả năng quản lý tài sản để tạo ra lợi nhuận.
+*   **ROIC (Return on Invested Capital):** ROIC TTM là 12.70% (Ratio Summary Q2 2025). Đây là một chỉ số quan trọng, cho thấy hiệu quả sử dụng tổng vốn đầu tư (vốn chủ sở hữu và nợ). Mức này cho thấy VHC vẫn tạo ra giá trị cho nhà đầu tư.
+
+#### Tình hình Tài chính:
+*   **Cơ cấu nợ:** Tổng nợ phải trả của VHC tại Q2/2025 là 3.063 tỷ VND, giảm 5% so với đầu kỳ. Đặc biệt, nợ vay ngắn hạn giảm 17% về 1.870 tỷ VND. Tỷ lệ Debt/Equity là 0.315 (Q2/2025) và (ST+LT borrowings)/Equity là 0.192, là các mức rất an toàn, cho thấy VHC không phụ thuộc nhiều vào nợ vay và có cấu trúc tài chính lành mạnh.
+*   **Khả năng thanh khoản:**
+    *   Current Ratio: 2.89 (Q2/2025)
+    *   Quick Ratio: 1.87 (Q2/2025)
+    *   Cash Ratio: 0.42 (Q2/2025)
+    Tất cả các chỉ số này đều rất tốt, cho thấy VHC có khả năng thanh toán các nghĩa vụ ngắn hạn một cách thoải mái. Tiền và các khoản tương đương tiền tăng 95% lên 1.117 tỷ VND cũng là một điểm cộng.
+*   **Chất lượng dòng tiền tự do (FCF):** Dữ liệu trực tiếp về FCF không được cung cấp đầy đủ. Tuy nhiên, với việc tiền và tương đương tiền tăng mạnh, cùng với việc giảm nợ vay ngắn hạn, có thể suy đoán dòng tiền hoạt động của VHC đang ở trạng thái tích cực.
+
+#### Ban lãnh đạo & Nội bộ:
+*   **Sở hữu:** Chủ tịch Trương Thị Lệ Khanh sở hữu 42.32% cổ phần, cùng với các thành viên ban lãnh đạo và người thân khác có tỷ lệ sở hữu đáng kể. Điều này cho thấy sự gắn bó và lợi ích của ban lãnh đạo được đồng bộ với lợi ích của công ty.
+*   **Quản trị:** Có một tin tức "VHC: Nhắc nhở chậm CBTT BCTC quý 2/2025" từ HSX, dù đã có giải trình. Đây là một vấn đề nhỏ về tuân thủ nhưng cần lưu ý.
+*   **Tin tức:** Có thông tin VHC dự phòng gần 28 tỷ đồng cho đầu tư chứng khoán, đây là một hoạt động có thể tiềm ẩn rủi ro nếu thị trường không thuận lợi.
+
+#### Chia cổ tức:
+VHC có lịch sử chia cổ tức bằng tiền mặt đều đặn, với 2000 VND/CP cho Đợt 1 năm 2021, 2022, 2023 và 2024. Tỷ suất cổ tức (Dividend Yield) hiện tại là 2.80% (TCBS), đây là một mức khá hấp dẫn đối với các nhà đầu tư tìm kiếm thu nhập ổn định.
+
+#### Tin tức & Internet:
+*   **Tích cực:** Lợi nhuận sau thuế nửa đầu năm 2025 tăng 39% YoY nhờ sản lượng bán tăng và giá thành sản xuất giảm. Công ty vẫn là đơn vị dẫn đầu ngành cá tra Việt Nam với các chứng nhận quốc tế và mạng lưới phân phối rộng khắp.
+*   **Tiêu cực:** Hoạt động xuất khẩu chững lại, đặc biệt sang Mỹ do hiệu ứng "frontloading" suy yếu và lo ngại thuế quan đối ứng. Ban lãnh đạo đã hạ kế hoạch kinh doanh năm 2025. Cổ phiếu hồi phục yếu hơn so với thị trường chung.
+
+---
+
+### 4. Định giá & So sánh ngành
+
+#### Chỉ số Định giá:
+*   **P/E (TTM):** 8.70 (TCBS) / 8.85 (Ratio Summary Q2 2025). So với P/E trung bình thị trường và lịch sử của VHC ở các giai đoạn tăng trưởng mạnh (ví dụ 2022 P/E khoảng 5-14), mức này có vẻ không quá cao. Nếu lợi nhuận phục hồi bền vững, P/E có thể trở nên hấp dẫn.
+*   **P/B (TTM):** 1.30 (TCBS) / 1.35 (Ratio Summary Q2 2025). Mức P/B này được coi là khá thấp, cho thấy cổ phiếu đang giao dịch gần với giá trị sổ sách, tiềm năng tăng giá nếu triển vọng kinh doanh cải thiện.
+*   **P/S (TTM):** 1.00 (TCBS) / 1.02 (Ratio Summary Q2 2025). Thấp, cho thấy doanh thu của công ty được định giá khiêm tốn.
+*   **EV/EBITDA (TTM):** 7.10 (TCBS) / 7.07 (Ratio Summary Q2 2025). Mức này được coi là hợp lý và hấp dẫn đối với một công ty có vị thế đầu ngành, đặc biệt khi so sánh với các doanh nghiệp cùng ngành.
+*   **EPS (TTM):** 6372 VND (TCBS).
+*   **BVPS (TTM):** 41715 VND (TCBS).
+
+#### So sánh Ngành (ngành "Thực phẩm và đồ uống" - từ dữ liệu thị trường):
+| Mã  | P/E    | P/B    | ROE    |
+| --- | ------ | ------ | ------ |
+| VHC | 8.70   | 1.30   | 16.10  |
+| DBC | 6.80   | 1.40   | 25.10  |
+| NCS | 10.70  | 3.10   | 33.70  |
+| GCF | 15.80  | 3.20   | 21.10  |
+| TFC | 5.90   | 2.50   | 52.60  |
+
+*   **P/E:** VHC có P/E cao hơn DBC và TFC nhưng thấp hơn NCS và GCF. Định giá P/E của VHC có vẻ ở mức hợp lý trong ngành, không quá đắt đỏ.
+*   **P/B:** VHC có P/B thấp nhất trong nhóm, cho thấy nó có thể đang bị định giá thấp hơn so với giá trị tài sản sổ sách.
+*   **ROE:** ROE của VHC (16.10%) thấp hơn một số đối thủ như DBC, NCS, GCF, TFC, nhưng vẫn là mức tốt.
+*   **Kết luận:** VHC có vẻ đang được định giá khá **hấp dẫn** so với giá trị sổ sách (P/B thấp) và ở mức hợp lý so với lợi nhuận (P/E trung bình ngành). Tuy nhiên, mức ROE thấp hơn một số đối thủ mạnh khác cần được cân nhắc. Định giá hiện tại phản ánh một phần những lo ngại về tăng trưởng doanh thu trong ngắn hạn.
+
+---
+
+### 5. Nhận định vị thế mua ngắn hạn
+
+#### Khả năng bật tăng ngắn hạn (1-4 tuần):
+*   **Rất thấp.** Tất cả các chỉ báo kỹ thuật đều chỉ ra xu hướng giảm mạnh và không có tín hiệu đảo chiều rõ ràng. Giá dưới tất cả các đường MA, MACD tiêu cực, Ichimoku giảm giá, và đặc biệt là Sức mạnh tương đối cực kỳ yếu so với thị trường (RS 1 năm chỉ 7.00).
+*   Mặc dù giá đang ở gần biên dưới Bollinger Band (có thể quá bán), nhưng khối lượng giao dịch thấp cho thấy sự thờ ơ của thị trường, không có lực cầu mạnh để đẩy giá lên.
+
+#### Các tín hiệu mua/bán gần đây:
+*   **Chỉ báo TCBS:** Đưa ra tín hiệu "Chờ bán" và "Bán mạnh". "Foreign buysell_20s" là -236.00 (Net Sell) cho thấy nhà đầu tư nước ngoài đang bán ròng.
+*   **Các chỉ báo kỹ thuật khác:** Không có tín hiệu mua nào được kích hoạt. Ngược lại, đều là tín hiệu bán hoặc xu hướng giảm.
+
+#### Tâm lý thị trường ngắn hạn:
+*   **Tiêu cực.** Tâm lý thị trường đang bị ảnh hưởng bởi những lo ngại về triển vọng xuất khẩu, đặc biệt là sang Mỹ, và việc VHC hạ mục tiêu kinh doanh. Việc cổ phiếu hồi phục yếu hơn thị trường chung cũng làm giảm sự hứng thú của nhà đầu tư ngắn hạn.
+
+---
+
+### 6. Chiến lược giao dịch & Quản lý rủi ro
+
+*   **Điểm vào:** Hiện tại, không có điểm vào hấp dẫn cho vị thế mua mới. Với xu hướng giảm mạnh và thiếu tín hiệu tích lũy, việc mua vào lúc này tiềm ẩn rủi ro cao. Nếu nhà đầu tư quan tâm đến VHC cho dài hạn, cần chờ đợi những tín hiệu đảo chiều rõ ràng hơn:
+    *   Giá vượt lên trên các đường MA ngắn hạn (MA10, MA20) với khối lượng lớn.
+    *   Sự hình thành các đáy cao hơn và đỉnh cao hơn.
+    *   Sự cải thiện đáng kể của chỉ số Sức mạnh Tương đối (RS).
+    *   Các tin tức tích cực rõ ràng về thị trường xuất khẩu hoặc kết quả kinh doanh vượt kỳ vọng.
+*   **Stop-loss & Take-profit:**
+    *   **Đối với vị thế hiện có (nếu đang nắm giữ):** Nếu giá phá vỡ và đóng cửa dưới mức hỗ trợ 54.33 (biên dưới Bollinger Band) hoặc các mức hỗ trợ lịch sử quan trọng tiếp theo, cân nhắc cắt lỗ để bảo toàn vốn.
+    *   **Điểm chốt lời (nếu có vị thế mua từ trước và giá tăng):** Các ngưỡng kháng cự đầu tiên là các đường MA ngắn hạn (57.78 - 58.64), sau đó là MA50 (57.78) và MA200 (62.62).
+*   **Risk/Reward:** Tỷ lệ Rủi ro/Lợi nhuận hiện tại không thuận lợi cho vị thế mua mới do xu hướng giảm mạnh và rủi ro còn cao.
+
+---
+
+### 7. Dự báo xu hướng
+
+*   **Ngắn hạn (1-2 tuần):**
+    *   **Dự báo:** Tiêu cực. Giá có khả năng tiếp tục điều chỉnh hoặc đi ngang trong biên độ hẹp quanh vùng hỗ trợ 54.33. Rủi ro thủng đáy Bollinger Band và giảm về các vùng hỗ trợ sâu hơn là hiện hữu.
+    *   **Lý do:** Các chỉ báo kỹ thuật đều ở trạng thái tiêu cực, RS yếu, khối lượng giao dịch thấp, và tâm lý thị trường e ngại.
+*   **Trung hạn (1-3 tháng):**
+    *   **Dự báo:** Đi ngang tích lũy hoặc tiếp tục điều chỉnh nhẹ.
+    *   **Lý do:** Mặc dù có thông tin tích cực về lợi nhuận quý 2/2025 và tài chính vững mạnh, những lo ngại về thị trường xuất khẩu, đặc biệt là chính sách thuế quan từ Mỹ và việc VHC hạ mục tiêu kinh doanh, sẽ tiếp tục là áp lực. Cổ phiếu cần thời gian để hấp thụ các thông tin tiêu cực và xây dựng nền giá mới trước khi có thể phục hồi bền vững.
+*   **Dài hạn (3-12 tháng):**
+    *   **Dự báo:** Phụ thuộc nhiều vào khả năng phục hồi của thị trường xuất khẩu và chiến lược đa dạng hóa thị trường của VHC.
+    *   **Lý do:** VHC là một doanh nghiệp đầu ngành với nền tảng cơ bản tốt, tài chính lành mạnh và ban lãnh đạo có kinh nghiệm. Nếu công ty có thể vượt qua được giai đoạn khó khăn về thuế quan và tìm được các thị trường tiềm năng mới, đồng thời duy trì được hiệu quả quản lý chi phí, VHC vẫn có tiềm năng tăng trưởng trong dài hạn. Tuy nhiên, rủi ro về ngành và chính sách vẫn là các yếu tố cần theo dõi chặt chẽ.
+
+---
+
+### 8. Kết luận & Khuyến nghị cuối cùng
+
+Dựa trên phân tích toàn diện VHC, cân nhắc cả yếu tố kỹ thuật (Wyckoff, Minervini, VSA/VPA) và cơ bản (Buffett, Lynch), tôi đưa ra khuyến nghị cuối cùng như sau:
+
+**Khuyến nghị:** **BÁN**
+
+**Điểm số đánh giá:** 3/10 (Rủi ro cao, không có động lực tăng giá rõ ràng trong ngắn hạn và trung hạn).
+
+**Tóm tắt ngắn gọn:**
+VHC đang trong một xu hướng giảm mạnh được xác nhận bởi các chỉ báo kỹ thuật tiêu cực và sức mạnh tương đối rất yếu so với thị trường. Mặc dù có dấu hiệu phục hồi lợi nhuận gần đây nhờ quản lý chi phí tốt, nhưng triển vọng doanh thu xuất khẩu gặp nhiều thách thức và ban lãnh đạo đã hạ mục tiêu, tạo ra rủi ro lớn trong ngắn và trung hạn.
+
+**Giải thích lý do chính:**
+1.  **Kỹ thuật cực kỳ tiêu cực:** Giá đang nằm dưới tất cả các đường trung bình động quan trọng (MA10, MA20, MA50, MA200), MACD và Ichimoku đều cho tín hiệu giảm giá. Sức mạnh tương đối (RS) của VHC là cực kỳ yếu (RS 1 năm chỉ 7.00), cho thấy cổ phiếu này đang bị thị trường bỏ rơi và hoạt động kém hiệu quả hơn rất nhiều so với VNINDEX.
+2.  **Rủi ro từ triển vọng doanh thu:** Mặc dù có sự phục hồi về lợi nhuận nhờ quản lý chi phí, doanh thu của VHC đã chững lại và thậm chí giảm trong nhiều quý gần đây. Các tin tức về việc "hiệu ứng frontloading" suy yếu và sự không chắc chắn về thuế quan từ thị trường Mỹ (thị trường xuất khẩu chính) là những yếu tố rủi ro lớn, khiến ban lãnh đạo phải hạ mục tiêu kinh doanh cho năm 2025.
+3.  **Thiếu động lực tăng trưởng ngắn hạn:** Với khối lượng giao dịch thấp và tâm lý thị trường bi quan, không có tín hiệu rõ ràng cho một sự đảo chiều hoặc tăng giá mạnh trong ngắn hạn.
+
+**Rủi ro chính cần lưu ý:**
+*   **Rủi ro chính sách thương mại:** Bất ổn về thuế quan đối ứng và các chính sách bảo hộ từ các thị trường xuất khẩu lớn (như Mỹ) có thể ảnh hưởng nghiêm trọng đến doanh thu và lợi nhuận của VHC.
+*   **Rủi ro cạnh tranh và giá thành:** Mặc dù đã quản lý tốt chi phí gần đây, sự cạnh tranh gay gắt trong ngành thủy sản và biến động giá nguyên liệu đầu vào có thể ảnh hưởng đến biên lợi nhuận.
+*   **Rủi ro thị trường chung:** Với chỉ số RS rất thấp, VHC dễ bị ảnh hưởng tiêu cực bởi biến động chung của thị trường, và có thể giảm sâu hơn nếu thị trường chung điều chỉnh.
+
+---
+**Disclaimer:** *Phân tích này chỉ dựa trên dữ liệu được cung cấp và mang tính chất tham khảo. Nhà đầu tư nên tự mình thực hiện nghiên cứu chuyên sâu và tham khảo ý kiến của các chuyên gia tài chính trước khi đưa ra bất kỳ quyết định đầu tư nào.*
+2025-08-22 22:26:06,079 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-22 22:26:06,079 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-22 22:26:06,080 - INFO - ============================================================
+
+2025-08-22 22:26:06,117 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VHC_report.json'
