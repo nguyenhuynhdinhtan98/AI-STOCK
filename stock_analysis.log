@@ -2387,3 +2387,402 @@ Trong bối cảnh thị trường chung tiêu cực, chúng ta ưu tiên các c
 2025-08-23 14:10:10,736 - INFO - Đang lấy dữ liệu cho mã DBC
 2025-08-23 14:10:11,303 - INFO - Đã lưu dữ liệu cho mã DBC vào file vnstocks_data/DBC_data.csv
 2025-08-23 14:10:11,303 - INFO - Đang lấy dữ liệu tài chính cho DBC
+2025-08-23 14:10:13,126 - INFO - Đã lưu dữ liệu tài chính của mã DBC vào file vnstocks_data/DBC_financial_statements.csv
+2025-08-23 14:10:13,126 - INFO - Đang lấy thông tin công ty cho DBC
+2025-08-23 14:10:13,234 - INFO - Đã lấy thông tin công ty DBC thành công
+2025-08-23 14:10:13,238 - INFO - Đang phân tích kỹ thuật cho mã DBC...
+2025-08-23 14:10:13,247 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-23 14:10:13,356 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-23 14:10:13,374 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DBC' trong file market_filtered.csv
+2025-08-23 14:10:13,374 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DBC (22/08/2025):
+2025-08-23 14:10:13,374 - INFO -  - Giá hiện tại: 27.50 VND
+2025-08-23 14:10:13,374 - INFO -  - Đường trung bình:
+2025-08-23 14:10:13,374 - INFO -  * MA10: 29.69| MA20: 29.82| MA50: 29.23| MA200: 25.41
+2025-08-23 14:10:13,374 - INFO -  - Chỉ báo dao động:
+2025-08-23 14:10:13,374 - INFO -  * RSI (14): 35.51
+2025-08-23 14:10:13,374 - INFO -  * MACD: -0.23| Signal: 0.20| Histogram: -0.43
+2025-08-23 14:10:13,374 - INFO -  * Bollinger Bands: Trên: 32.06| Dưới: 27.58
+2025-08-23 14:10:13,374 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-23 14:10:13,374 - INFO -  * RS: 0.016712550213616777
+2025-08-23 14:10:13,374 - INFO -  * RS_Point: 1325.33
+2025-08-23 14:10:13,374 - INFO -  * RS3D: 28.0
+2025-08-23 14:10:13,374 - INFO -  * RS1M: 22.0
+2025-08-23 14:10:13,375 - INFO -  * RS3M: 57.0
+2025-08-23 14:10:13,375 - INFO -  * RS1y: 53.0
+2025-08-23 14:10:13,375 - INFO -  - Mô hình Ichimoku:
+2025-08-23 14:10:13,375 - INFO -  * Tenkan-sen (Chuyển đổi): 29.62
+2025-08-23 14:10:13,375 - INFO -  * Kijun-sen (Cơ sở): 29.62
+2025-08-23 14:10:13,375 - INFO -  * Senkou Span A (Leading Span A): 29.62
+2025-08-23 14:10:13,375 - INFO -  * Senkou Span B (Leading Span B): 28.96
+2025-08-23 14:10:13,375 - INFO -  * Chikou Span (Trễ): 29.57
+2025-08-23 14:10:13,375 - INFO -  - Khối lượng:
+2025-08-23 14:10:13,375 - INFO -  * Khối lượng hiện tại: 10282700.0
+2025-08-23 14:10:13,375 - INFO -  * MA Khối lượng (20): 12,271,985.60
+2025-08-23 14:10:13,375 - INFO -  * MA Khối lượng (50): 11,606,044.42
+2025-08-23 14:10:13,375 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: GIỮ - GIẢM
+2025-08-23 14:10:13,375 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 39.0/100
+2025-08-23 14:10:13,375 - INFO -  📈 TÍN HIỆU: GIẢM MẠNH
+2025-08-23 14:10:13,393 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DBC_data.csv'
+2025-08-23 14:10:13,399 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DBC_infor.csv'
+2025-08-23 14:10:13,415 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-23 14:10:13,433 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-23 14:10:13,433 - INFO - Đang phân tích bằng Gemini...
+2025-08-23 14:10:13,434 - INFO - Đang gửi prompt tới Gemini...
+2025-08-23 14:11:52,483 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_DBC.txt
+2025-08-23 14:11:52,497 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-23 14:11:52,500 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-23 14:12:00,671 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-23 14:12:01,089 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DBC ====================
+2025-08-23 14:12:01,089 - INFO - 💰 Giá hiện tại: 27.50 VND
+2025-08-23 14:12:01,089 - INFO - 📈 Tín hiệu: GIẢM MẠNH
+2025-08-23 14:12:01,089 - INFO - 🎯 Đề xuất: GIỮ - GIẢM
+2025-08-23 14:12:01,089 - INFO - 📊 Điểm phân tích: 39.00/100
+2025-08-23 14:12:01,089 - INFO - 📊 RS (so với VNINDEX): 0.0167
+2025-08-23 14:12:01,089 - INFO - 📊 RS_Point: 1325.33
+2025-08-23 14:12:01,090 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-23 14:12:01,090 - INFO - Chắc chắn rồi. Với vai trò là một chuyên gia phân tích đầu tư, tôi sẽ thực hiện một bài phân tích chuyên sâu và toàn diện về mã cổ phiếu DBC, kết hợp hài hòa giữa lăng kính kỹ thuật của Wyckoff, Minervini, VSA/VPA và lăng kính cơ bản của Buffett và Lynch.
+
+***
+
+### **BÁO CÁO PHÂN TÍCH CHUYÊN SÂU CỔ PHIẾU DBC – TẬP ĐOÀN DABACO VIỆT NAM**
+
+*   **Ngày phân tích:** 22/08/2025
+*   **Giá hiện tại:** 27.500 VND
+*   **Chuyên gia:** [Tên chuyên gia]
+*   **Xếp hạng:** MUA
+
+***
+
+### **TỔNG QUAN ĐIỀU HÀNH**
+
+DBC đang ở một giao điểm thú vị: một bức tranh **kỹ thuật ngắn hạn đang trong giai đoạn điều chỉnh và suy yếu** sau một đợt tăng giá mạnh, nhưng lại được củng cố bởi một câu chuyện **cơ bản cực kỳ hấp dẫn về sự phục hồi mạnh mẽ của lợi nhuận và định giá rẻ**. Đây là một cổ phiếu chu kỳ điển hình, mà thành công trong đầu tư đòi hỏi phải nhận diện được điểm uốn của chu kỳ kinh doanh và chấp nhận biến động giá trong ngắn hạn. Phân tích của chúng tôi cho thấy, giai đoạn điều chỉnh hiện tại là một cơ hội để tích lũy cổ phiếu với tầm nhìn trung và dài hạn.
+
+***
+
+### **1. PHÂN TÍCH KỸ THUẬT (WYCKOFF, VSA & VPA)**
+
+#### **Giai đoạn thị trường (Wyckoff):**
+
+Sau khi hoàn thành giai đoạn Tích lũy (Accumulation) kéo dài từ cuối năm 2022 đến cuối năm 2023, DBC đã bước vào giai đoạn Tăng trưởng (Mark-Up - Phase E) mạnh mẽ từ tháng 11/2023 đến tháng 07/2024, đưa giá từ vùng 18.x lên đỉnh cao tại 32.x.
+
+Hiện tại, DBC đang trong một giai đoạn **Điều chỉnh / Tái tích lũy (Re-accumulation) ngắn hạn**.
+
+*   **Bằng chứng:**
+    *   **Buying Climax (BC):** Đỉnh giá vào đầu tháng 07/2024 được xác lập với khối lượng giao dịch rất lớn (nhiều phiên trên 15-20 triệu cổ phiếu), cho thấy sự cao trào mua và bắt đầu có áp lực chốt lời mạnh.
+    *   **Automatic Reaction (AR) và Secondary Test (ST):** Sau đỉnh, giá giảm mạnh về vùng 29.x, tạo ra một phản ứng tự nhiên (AR). Các nỗ lực hồi phục sau đó không thể vượt đỉnh cũ, tạo ra các đỉnh sau thấp hơn (ST in Phase B).
+    *   **Shakeout (Phase C):** Cú giảm giá mạnh từ vùng 30.x về 27.50 hiện tại có thể được xem là một cú "Shakeout" trong giai đoạn Tái tích lũy. Mục đích của pha này là rũ bỏ các nhà đầu tư yếu tay, tạo sự hoảng loạn trước khi bắt đầu một đợt tăng giá mới.
+
+#### **Phân tích Giá & Khối lượng (VSA/VPA):**
+
+Mối quan hệ giá và khối lượng cung cấp những tín hiệu trái chiều nhưng rất quan trọng:
+
+*   **Dấu hiệu Phân phối tại đỉnh:** Các phiên giao dịch tại vùng đỉnh 31.x - 32.x vào tháng 7/2024 có **khối lượng cực lớn nhưng giá không tăng tương xứng (Upthrust)**, sau đó là những phiên giảm điểm với biên độ rộng. Đây là tín hiệu VSA kinh điển cho thấy "Smart Money" đang chốt lời.
+*   **Dấu hiệu Cạn kiệt Nguồn cung hiện tại:** Ngược lại, trong quá trình giảm giá từ 30.x về 27.50, khối lượng giao dịch đã **giảm dần**. Phiên gần nhất có khối lượng 10.28M, thấp hơn mức trung bình 20 ngày (12.27M). Đây là tín hiệu VPA cho thấy **áp lực bán đang yếu đi (No Supply)**. Lực bán không còn mạnh mẽ, cho thấy sự hoảng loạn đã giảm và phe bán đang kiệt sức.
+
+**Kết luận Kỹ thuật Sơ bộ:** Mặc dù có dấu hiệu phân phối ở vùng đỉnh, hành động giá và khối lượng hiện tại lại nghiêng về kịch bản rũ bỏ trong một cấu trúc tái tích lũy. Giai đoạn nguy hiểm nhất của đợt điều chỉnh có thể sắp kết thúc.
+
+### **2. PHÂN TÍCH THEO PHƯƠNG PHÁP MARK MINERVINI**
+
+#### **Xu hướng và Cấu trúc (Trend Template):**
+
+DBC hiện tại **KHÔNG ĐẠT** tiêu chuẩn vào lệnh nghiêm ngặt của Minervini:
+
+1.  **Giá > MA150 và MA200:** **ĐẠT**. Giá 27.50 > MA200 (25.41). Xu hướng dài hạn vẫn được bảo toàn.
+2.  **MA150 > MA200:** **ĐẠT**.
+3.  **MA50 nằm trên MA150 và MA200:** **ĐẠT**. Giá trị MA50 (29.23) vẫn cao hơn MA200.
+4.  **Giá hiện tại > MA50:** **KHÔNG ĐẠT**. Giá 27.50 < MA50 (29.23).
+5.  **Giá hiện tại cao hơn ít nhất 30% so với đáy 52 tuần:** **ĐẠT**. Đáy 52 tuần ~19.088, giá hiện tại cao hơn 44%.
+6.  **Giá hiện tại cách đỉnh 52 tuần không quá 25%:** **ĐẠT**. Đỉnh 52 tuần ~32.35, giá hiện tại thấp hơn 15%.
+
+#### **Pivot & Hỗ trợ/Kháng cự:**
+
+*   **Kháng cự mạnh:** Vùng 29.20 - 30.00 (tập trung các đường MA ngắn hạn và vùng giá đi ngang trước đó). Kháng cự tâm lý mạnh tại đỉnh cũ ~32.00.
+*   **Hỗ trợ quan trọng:** Hỗ trợ gần nhất là **MA200 tại 25.41**. Đây là "lằn ranh đỏ" cho xu hướng tăng dài hạn. Nếu thủng vùng này, triển vọng kỹ thuật sẽ xấu đi đáng kể.
+
+#### **Sức mạnh tương đối (RS):**
+
+*   Chỉ số RS so với VNINDEX hiện tại rất thấp (RS 1 tháng: 22.00, RS 3 tháng: 57.00). Điều này cho thấy DBC đang yếu hơn thị trường chung trong ngắn và trung hạn. Đây là một điểm trừ lớn theo lăng kính của Minervini, người luôn tìm kiếm các cổ phiếu dẫn dắt thị trường.
+
+### **3. PHÂN TÍCH CƠ BẢN (BUFFETT, LYNCH, DỮ LIỆU TCBS)**
+
+Đây là phần hấp dẫn nhất của câu chuyện DBC.
+
+#### **Chất lượng Doanh thu & Lợi nhuận (Câu chuyện Turnaround):**
+
+*   **Sự phục hồi thần kỳ:** Sau một năm 2023 kinh doanh bết bát với lợi nhuận âm (LNST Q1/2023: -320 tỷ), DBC đã có sự trở lại ngoạn mục.
+    *   **Q2/2024:** Lợi nhuận sau thuế đạt **145,4 tỷ đồng**, trong khi cùng kỳ năm 2023 lỗ 55,5 tỷ. Đây là một sự đảo chiều ấn tượng, chủ yếu do giá heo hơi phục hồi mạnh mẽ và công ty kiểm soát tốt chi phí, đặc biệt là hưởng lợi từ việc tự chủ vaccine dịch tả lợn châu Phi.
+    *   **Dự phóng:** Các báo cáo phân tích và dữ liệu tài chính dự phóng cho thấy xu hướng này sẽ tiếp tục. LNST dự kiến cho Q3/2024 là **312 tỷ** và Q4/2024 là **238 tỷ**.
+*   **Mô hình 3F (Feed - Farm - Food):** Đây là "con hào kinh tế" của DBC. Mô hình kinh doanh khép kín từ sản xuất thức ăn chăn nuôi, trang trại đến chế biến thực phẩm giúp công ty tối ưu hóa biên lợi nhuận và kiểm soát chất lượng, tạo ra lợi thế cạnh tranh bền vững so với các đối thủ nhỏ lẻ.
+
+#### **Hiệu quả Sử dụng Vốn:**
+
+*   **ROE (25.1%) và ROA (11.2%)** theo TCBS là những con số rất tốt, cho thấy khả năng sinh lời trên vốn chủ sở hữu và tài sản hiệu quả. Khi chu kỳ giá heo thuận lợi, các chỉ số này của DBC thường ở mức cao trong ngành.
+
+#### **Tình hình Tài chính:**
+
+*   **Cơ cấu nợ:** Tỷ lệ Nợ/Vốn chủ sở hữu (TCBS) ở mức 0.70 là chấp nhận được đối với một doanh nghiệp sản xuất thâm dụng vốn. Tuy nhiên, phần lớn là nợ vay ngắn hạn, cần theo dõi khả năng luân chuyển vốn.
+*   **Thanh khoản:** Tỷ lệ thanh toán hiện hành (Current Ratio) ở mức ~1.0 (Q2/2024 là 1.01) là khá thấp, cho thấy áp lực về vốn lưu động.
+*   **Dòng tiền:** Dòng tiền từ hoạt động kinh doanh (CFO) của DBC khá biến động, phụ thuộc nhiều vào chu kỳ hàng tồn kho và các khoản phải thu/phải trả, đặc trưng của ngành nông nghiệp.
+
+#### **Ban lãnh đạo & Nội bộ:**
+
+*   Chủ tịch HĐQT **Nguyễn Như So** nắm giữ gần 24% cổ phần. Đây là một tỷ lệ sở hữu rất lớn, cho thấy lợi ích của ban lãnh đạo gắn liền với lợi ích của cổ đông ("skin in the game"). Điều này tạo ra sự tin tưởng rằng các quyết định sẽ hướng tới sự phát triển dài hạn của công ty.
+
+#### **Tin tức & Sự kiện:**
+
+*   **Tích cực:**
+    1.  **Giá heo hơi duy trì ở mức cao:** Đây là động lực tăng trưởng lợi nhuận chính.
+    2.  **Vaccine DTLCP:** Việc tự chủ và tiêm phòng thành công vaccine giúp giảm thiểu rủi ro dịch bệnh, ổn định chi phí và tăng quy mô đàn.
+    3.  **Mở rộng sản xuất:** Tin tức về việc mua lại công ty con chăn nuôi CNC Lam Sơn Như Xuân cho thấy tham vọng mở rộng quy mô.
+*   **Tiêu cực/Rủi ro:**
+    1.  **Phát hành cổ phiếu:** Các kế hoạch trả cổ tức bằng cổ phiếu và phát hành thêm (event ngày 10/07/2024) sẽ gây ra hiệu ứng pha loãng trong ngắn hạn.
+
+### **4. ĐỊNH GIÁ & SO SÁNH NGÀNH**
+
+*   **Chỉ số Định giá:**
+    *   **P/E (TCBS): 6.8x**. Con số này cực kỳ hấp dẫn so với mức trung bình của VNINDEX (~15x).
+    *   **P/E Forward:** Nếu DBC hoàn thành kế hoạch lợi nhuận dự phóng cho năm 2024 (~770 tỷ theo báo cáo Vietcap), EPS forward sẽ vào khoảng ~2.300 VND/cp. Tại giá 27.5, P/E forward chỉ khoảng **11.9x**, vẫn còn hợp lý. Nếu lợi nhuận năm 2025 bùng nổ như dự phóng, P/E còn hấp dẫn hơn nữa.
+    *   **P/B: 1.4x (TCBS)**. Đây là mức định giá hợp lý, không quá cao so với giá trị sổ sách của công ty.
+*   **So sánh Ngành:** So với các doanh nghiệp cùng ngành, DBC có các chỉ số sinh lời (ROE) vượt trội và định giá (P/E) hấp dẫn hơn. Dù không thể so sánh trực tiếp với các ông lớn ngành hàng tiêu dùng như VNM, MSN, nhưng trong phân khúc nông nghiệp, DBC là một trong những doanh nghiệp đầu ngành với hiệu quả hoạt động cao.
+
+### **5. NHẬN ĐỊNH VỊ THẾ MUA NGẮN HẠN**
+
+*   **Khả năng bật tăng:** **CAO**. Cổ phiếu đang ở vùng quá bán kỹ thuật (RSI 35.5, giá gần dải Bollinger dưới) với khối lượng bán cạn kiệt. Một nhịp hồi phục kỹ thuật về vùng MA50 (29.23) là rất khả thi.
+*   **Tín hiệu Mua/Bán:**
+    *   **Tín hiệu Mua tiềm năng:** Giá chạm dải Bollinger dưới, RSI dưới 40, khối lượng bán thấp.
+    *   **Tín hiệu Bán/Rủi ro:** Giá nằm dưới các đường MA ngắn hạn, MACD cắt xuống, RS yếu.
+*   **Tâm lý thị trường:** Bi quan trong ngắn hạn sau chuỗi giảm giá. Các nhà đầu tư mua ở vùng đỉnh đang chịu áp lực cắt lỗ. Đây thường là môi trường tốt để tìm kiếm điểm vào cho một vị thế trung hạn.
+
+### **6. CHIẾN LƯỢC GIAO DỊCH & QUẢN LÝ RỦI RO**
+
+*   **Điểm vào (Entry):**
+    *   **Vùng 1 (Tỷ trọng thấp):** Quanh giá hiện tại 27.00 - 27.50, mua thăm dò.
+    *   **Vùng 2 (Tỷ trọng cao hơn):** Nếu giá kiểm tra lại thành công vùng hỗ trợ mạnh MA200 tại **25.50 - 26.00**.
+*   **Dừng lỗ (Stop-loss):** Đặt lệnh dừng lỗ tuyệt đối nếu giá đóng cửa dưới **25.00** (thủng MA200). Mức lỗ chấp nhận ~9%.
+*   **Chốt lời (Take-profit):**
+    *   **Mục tiêu 1 (Ngắn hạn):** 29.50 - 30.00.
+    *   **Mục tiêu 2 (Trung hạn):** 32.00 (đỉnh cũ).
+    *   **Mục tiêu 3 (Dài hạn):** 35.00+ nếu kết quả kinh doanh Q3 và Q4/2024 đúng như kỳ vọng.
+*   **Tỷ lệ Rủi ro/Lợi nhuận (Risk/Reward):**
+    *   Với điểm vào 27.50, SL 25.00 (Rủi ro: 2.5 giá) và TP1 30.00 (Lợi nhuận: 2.5 giá), tỷ lệ R/R là **1:1**.
+    *   Với TP2 32.00 (Lợi nhuận: 4.5 giá), tỷ lệ R/R là **1:1.8**. Đây là tỷ lệ chấp nhận được.
+
+### **7. DỰ BÁO XU HƯỚNG**
+
+*   **Ngắn hạn (1-2 tuần):** **Hồi phục kỹ thuật**. Giá có khả năng cao sẽ hồi phục về vùng 29.x.
+*   **Trung hạn (1-3 tháng):** **Tích lũy và tăng trở lại**. Cổ phiếu cần thời gian để hấp thụ lượng cung tại vùng đỉnh cũ và xây một nền giá mới. Kết quả kinh doanh Q3/2024 sẽ là chất xúc tác quan trọng để giá bứt phá khỏi vùng tích lũy.
+*   **Dài hạn (3-12 tháng):** **Tích cực**. Xu hướng tăng giá dài hạn sẽ được duy trì miễn là chu kỳ giá heo hơi thuận lợi và công ty tiếp tục mở rộng quy mô.
+
+---
+
+### **8. KẾT LUẬN & KHUYẾN NGHỊ CUỐI CÙNG**
+
+**Khuyến nghị: MUA**
+
+*   **Lý do chính:** Chúng tôi đưa ra khuyến nghị MUA đối với DBC dựa trên sự kết hợp của (1) **Câu chuyện cơ bản về sự phục hồi lợi nhuận đột phá** nhờ chu kỳ giá heo thuận lợi và lợi thế từ mô hình 3F; (2) **Mức định giá P/E và P/B đang rất hấp dẫn** so với tiềm năng tăng trưởng và so với ngành; (3) **Các tín hiệu kỹ thuật cho thấy áp lực bán đang cạn kiệt** và cổ phiếu đang ở vùng quá bán, tạo ra một điểm vào có tỷ lệ Rủi ro/Lợi nhuận hợp lý cho nhà đầu tư trung hạn.
+
+*   **Điểm số đánh giá (thang điểm 10): 7.5/10**
+    *   (Trừ 2.5 điểm cho rủi ro chu kỳ ngành, sức mạnh tương đối yếu trong ngắn hạn và các kế hoạch pha loãng cổ phiếu).
+
+*   **Tóm tắt ngắn gọn:**
+    DBC là một cổ phiếu "turnaround" điển hình với nền tảng cơ bản đang cải thiện mạnh mẽ và định giá rẻ. Giai đoạn điều chỉnh giá hiện tại là một cơ hội mua vào hấp dẫn cho các nhà đầu tư chấp nhận rủi ro ngắn hạn để đón đầu con sóng tăng trưởng lợi nhuận trong 6-12 tháng tới.
+
+*   **Rủi ro chính cần lưu ý:**
+    1.  **Rủi ro chu kỳ:** Giá heo hơi có thể giảm trở lại, tác động tiêu cực đến biên lợi nhuận.
+    2.  **Rủi ro dịch bệnh:** Mặc dù đã có vaccine, nguy cơ về các chủng dịch bệnh mới vẫn luôn hiện hữu trong ngành chăn nuôi.
+    3.  **Rủi ro pha loãng:** Các đợt phát hành cổ phiếu liên tục có thể gây áp lực lên giá trong ngắn hạn.
+    4.  **Rủi ro kỹ thuật:** Nếu giá phá vỡ ngưỡng hỗ trợ MA200 (~25.41), xu hướng tăng dài hạn sẽ bị đe dọa.
+2025-08-23 14:12:01,090 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-23 14:12:01,091 - INFO - Không nhận được phản hồi từ OpenRouter.
+2025-08-23 14:12:01,091 - INFO - ============================================================
+
+2025-08-23 14:12:01,095 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DBC_report.json'
+2025-08-23 14:12:20,625 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-23 14:12:23,478 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-23 14:12:25,722 - INFO - ============================================================
+2025-08-23 14:12:25,722 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEXVNINDEX
+2025-08-23 14:12:25,722 - INFO - ============================================================
+2025-08-23 14:12:25,722 - INFO - Đang lấy dữ liệu cho mã VNINDEXVNINDEX
+2025-08-23 14:12:25,722 - ERROR - Lỗi khi lấy dữ liệu cho mã VNINDEXVNINDEX: Symbol phải có độ dài từ 3 đến 10 ký tự.
+2025-08-23 14:12:25,723 - ERROR - Không thể phân tích mã VNINDEXVNINDEX do thiếu dữ liệu
+2025-08-23 14:12:31,880 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-23 14:12:34,527 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-23 14:12:50,169 - INFO - ============================================================
+2025-08-23 14:12:50,171 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ C
+2025-08-23 14:12:50,171 - INFO - ============================================================
+2025-08-23 14:12:50,171 - INFO - Đang lấy dữ liệu cho mã C
+2025-08-23 14:12:50,171 - ERROR - Lỗi khi lấy dữ liệu cho mã C: Symbol phải có độ dài từ 3 đến 10 ký tự.
+2025-08-23 14:12:50,172 - ERROR - Không thể phân tích mã C do thiếu dữ liệu
+2025-08-23 14:12:55,087 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-23 14:12:57,720 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-23 14:13:00,328 - INFO - ============================================================
+2025-08-23 14:13:00,328 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-23 14:13:00,328 - INFO - ============================================================
+2025-08-23 14:13:00,328 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-23 14:13:00,730 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-23 14:13:00,731 - INFO - Đang lấy dữ liệu tài chính cho VNINDEX
+2025-08-23 14:13:00,731 - ERROR - Lỗi khi lấy BCTC cho VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-23 14:13:00,731 - INFO - Đang lấy thông tin công ty cho VNINDEX
+2025-08-23 14:13:00,731 - ERROR - Lỗi khi lấy thông tin công ty VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-23 14:13:00,737 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-23 14:13:00,760 - WARNING - Không tìm thấy dữ liệu cho mã cổ phiếu 'VNINDEX' trong file.
+2025-08-23 14:13:00,761 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO VNINDEX (22/08/2025):
+2025-08-23 14:13:00,762 - INFO -  - Giá hiện tại: 1,645.47 VND
+2025-08-23 14:13:00,762 - INFO -  - Đường trung bình:
+2025-08-23 14:13:00,762 - INFO -  * MA10: 1,637.58| MA20: 1,587.39| MA50: 1,486.46| MA200: 1,325.79
+2025-08-23 14:13:00,762 - INFO -  - Chỉ báo dao động:
+2025-08-23 14:13:00,762 - INFO -  * RSI (14): 67.21
+2025-08-23 14:13:00,762 - INFO -  * MACD: 51.93| Signal: 49.39| Histogram: 2.54
+2025-08-23 14:13:00,762 - INFO -  * Bollinger Bands: Trên: 1,705.02| Dưới: 1,469.75
+2025-08-23 14:13:00,762 - INFO -  - Mô hình Ichimoku:
+2025-08-23 14:13:00,762 - INFO -  * Tenkan-sen (Chuyển đổi): 1639.61
+2025-08-23 14:13:00,762 - INFO -  * Kijun-sen (Cơ sở): 1585.14
+2025-08-23 14:13:00,762 - INFO -  * Senkou Span A (Leading Span A): 1612.38
+2025-08-23 14:13:00,762 - INFO -  * Senkou Span B (Leading Span B): 1498.90
+2025-08-23 14:13:00,762 - INFO -  * Chikou Span (Trễ): 1490.01
+2025-08-23 14:13:00,762 - INFO -  - Khối lượng:
+2025-08-23 14:13:00,762 - INFO -  * Khối lượng hiện tại: 2293777647.0
+2025-08-23 14:13:00,762 - INFO -  * MA Khối lượng (20): 1,842,110,268.00
+2025-08-23 14:13:00,762 - INFO -  * MA Khối lượng (50): 1,365,685,834.98
+2025-08-23 14:13:00,762 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: MUA MẠNH
+2025-08-23 14:13:00,762 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 81.0/100
+2025-08-23 14:13:00,762 - INFO -  📈 TÍN HIỆU: MUA MẠNH
+2025-08-23 14:13:00,789 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/VNINDEX_data.csv'
+2025-08-23 14:13:00,810 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-23 14:13:00,811 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-23 14:13:00,811 - INFO - Đang phân tích bằng Gemini...
+2025-08-23 14:13:00,812 - INFO - Đang gửi prompt tới Gemini...
+2025-08-23 14:14:32,786 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VNINDEX.txt
+2025-08-23 14:14:32,789 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-23 14:14:32,791 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-23 14:14:39,746 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-23 14:14:40,419 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã VNINDEX ====================
+2025-08-23 14:14:40,420 - INFO - 💰 Giá hiện tại: 1,645.47 VND
+2025-08-23 14:14:40,420 - INFO - 📈 Tín hiệu: MUA MẠNH
+2025-08-23 14:14:40,420 - INFO - 🎯 Đề xuất: MUA MẠNH
+2025-08-23 14:14:40,420 - INFO - 📊 Điểm phân tích: 81.00/100
+2025-08-23 14:14:40,420 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-23 14:14:40,420 - INFO - Chắc chắn rồi. Với hơn 20 năm kinh nghiệm phân tích theo phương pháp VSA/VPA và Wyckoff, tôi sẽ đưa ra một bài phân tích toàn diện, chính xác và thực tế về VNINDEX dựa trên dữ liệu bạn cung cấp.
+
+---
+
+### **BÁO CÁO PHÂN TÍCH TOÀN DIỆN VNINDEX**
+
+**Người phân tích:** Chuyên gia VSA/VPA & Wyckoff
+**Ngày phân tích:** Giả lập tại ngày 22/08/2025 (dựa trên dữ liệu cuối cùng)
+**Điểm số VNINDEX hiện tại (ước tính):** 1650
+
+---
+
+🔍 **1. PHÂN TÍCH VSA/VPA CHI TIẾT (Volume Spread Analysis):**
+
+Phân tích 3 phiên giao dịch gần nhất cho thấy một sự thay đổi đột ngột trong cán cân Cung-Cầu.
+
+- **3 phiên gần nhất - Phân tích từng phiên:**
+  * **Phiên 1 (20/08/2025):**
+    * **Giá:** Tăng mạnh, thân nến rất rộng (spread ~51 điểm), đóng cửa ở mức cao nhất.
+    * **Volume:** 2.41B - **Rất cao**, vượt trội so với trung bình.
+    * **Mô hình VSA:** Đây là một phiên **Buying Climax (Cao trào Mua)**. Mặc dù là một cây nến tăng mạnh, nhưng volume đột biến cực lớn ở vùng đỉnh mới sau một giai đoạn tăng dài cho thấy "Smart Money" có thể đang bán ra một lượng lớn cổ phiếu cho các nhà đầu tư nhỏ lẻ đang hưng phấn (FOMO). Đây là tín hiệu dừng đầu tiên của một xu hướng tăng.
+
+  * **Phiên 2 (21/08/2025):**
+    * **Giá:** Tiếp tục tăng nhẹ nhưng thân nến hẹp hơn nhiều, đóng cửa không ở mức cao nhất.
+    * **Volume:** 1.71B - **Thấp hơn đáng kể** so với phiên Climax nhưng vẫn ở mức khá.
+    * **Mô hình VSA:** Nỗ lực tăng giá nhưng không thành công với volume giảm. Đây là một phiên **No Demand (Không có lực Cầu)**. Nó cho thấy lực mua đã suy yếu rõ rệt sau phiên cao trào hôm trước. Phe mua không còn sẵn sàng đẩy giá lên cao hơn nữa.
+
+  * **Phiên 3 (22/08/2025):**
+    * **Giá:** Giảm cực mạnh, thân nến đỏ bao trùm hoàn toàn phiên trước đó với spread rất rộng (~60 điểm), đóng cửa gần mức thấp nhất.
+    * **Volume:** 2.29B - **Rất cao**, xác nhận cho áp lực bán mạnh mẽ.
+    * **Mô hình VSA:** Đây là một phiên **Sign of Weakness (SOW - Dấu hiệu Suy yếu)** điển hình, hay còn gọi là một thanh nến **Upthrust After Distribution**. Áp lực Bán (Supply) đã hoàn toàn áp đảo lực Cầu (Demand).
+
+- **Volume Confirmation:** **Volume ĐANG XÁC NHẬN** sự đảo chiều. Volume rất cao ở cả đỉnh (Buying Climax) và phiên giảm mạnh sau đó (SOW), cho thấy một lượng lớn giao dịch đang diễn ra ở vùng đỉnh này. Điều này ủng hộ mạnh mẽ cho kịch bản phân phối.
+
+- **Supply/Demand Analysis:** Các dấu hiệu gần đây nghiêng hoàn toàn về **Phân phối (Supply)**. Chuỗi hành động: Cao trào Mua -> Nỗ lực đẩy giá thất bại (No Demand) -> Giảm mạnh với Volume lớn là một kịch bản phân phối kinh điển.
+
+📊 **2. PHÂN TÍCH WYCKOFF - Giai đoạn thị trường:**
+
+- **Giai đoạn hiện tại:** Thị trường vừa kết thúc Giai đoạn Tăng trưởng (Mark-Up) và đang bước vào **Giai đoạn A của một chu kỳ PHÂN PHỐI (Distribution)**.
+- **Dẫn chứng Wyckoff:**
+  * **Buying Climax (BC):** Đã xuất hiện ở phiên ngày 20/08 tại vùng 1665.
+  * **Automatic Reaction (AR):** Phiên giảm mạnh ngày 22/08 chính là phản ứng tự động đầu tiên, xác lập biên dưới của vùng giao dịch (Trading Range - TR) tiềm năng.
+  * **Volume tại các điểm quan trọng:** Volume cực đại tại BC và AR, đây là đặc điểm nhận dạng kinh điển của Giai đoạn A.
+- **Wyckoff Signal:** Tín hiệu hiện tại là **bearish (giảm giá)**. Thị trường đã breakdown khỏi đỉnh ngắn hạn. Chúng ta có thể kỳ vọng thị trường sẽ hình thành một vùng giao dịch (TR) trong những tuần tới, với các nỗ lực hồi phục (Secondary Test - ST) không thành công trước khi bước vào giai đoạn giảm giá thực sự (Mark-Down).
+
+📈 **3. PHÂN TÍCH KỸ THUẬT MINERVINI:**
+
+- **Trend Analysis:**
+  * **Xu hướng dài hạn:** Vẫn TĂNG (Giá 1650 > MA200 1330).
+  * **Xu hướng ngắn hạn:** Đã bị bẻ gãy. Sự đảo chiều mạnh mẽ trong 3 phiên qua cho thấy xu hướng ngắn hạn đang chuyển sang GIẢM hoặc ĐI NGANG.
+- **MA Alignment:** MA10(1.64K) > MA20(1.59K) > MA50(1.49K). Sự sắp xếp vẫn cho thấy một xu hướng tăng mạnh *trước đó*. Tuy nhiên, giá đang có nguy cơ phá vỡ xuống dưới MA10, là tín hiệu cảnh báo sớm nhất.
+- **Momentum:** RSI 67.21 - **Đang suy yếu từ vùng cao**. Chỉ báo này chưa ở mức quá mua cực độ (>75), nhưng cú giảm mạnh của giá chắc chắn sẽ kéo RSI đi xuống nhanh chóng, cho thấy động lượng tăng đã mất.
+- **Support/Resistance:**
+  * **Kháng cự mạnh:** Vùng đỉnh cũ 1690 - 1700.
+  * **Hỗ trợ gần nhất:** MA10 tại 1640 và đáy của phiên giảm mạnh gần nhất quanh 1630.
+  * **Hỗ trợ quan trọng:** MA20 tại 1590.
+
+💼 **4. PHÂN TÍCH VĨ MÔ & TÂM LÝ THỊ TRƯỜNG:**
+
+- **Yếu tố vĩ mô tác động:** Dựa trên hành động giá, có thể một thông tin vĩ mô bất lợi đột ngột đã xuất hiện (ví dụ: thay đổi chính sách tiền tệ, lạm phát cao hơn dự kiến, rủi ro địa chính trị) gây ra áp lực bán tháo chốt lời sau một đà tăng dài. Dòng tiền thông minh đã hành động trước.
+- **Tâm lý NĐT:** Chuyển từ **Tham lam cực độ (Extreme Greed)** ở vùng đỉnh sang **Sợ hãi/Hoảng loạn (Fear/Panic)** sau phiên giảm mạnh. Sự không chắc chắn đang bao trùm thị trường.
+- **Dòng tiền:** Volume giao dịch khổng lồ cho thấy có sự tham gia của tất cả các bên. Rất có khả năng **khối ngoại và các tổ chức lớn** đã thực hiện chốt lời quy mô lớn, bán vào lực mua của nhà đầu tư cá nhân.
+
+🔮 **5. DỰ BÁO CỤ THỂ (1-2 tuần) - Xác suất:**
+
+- **Kịch bản CƠ BẢN (65%):** VNINDEX sẽ dao động trong một biên độ rộng (Trading Range), được xác lập bởi đỉnh BC (~1690) và đáy AR (~1630). Thị trường có thể sẽ có những phiên hồi phục kỹ thuật về vùng 1660-1675 trước khi áp lực bán xuất hiện trở lại.
+- **Kịch bản TỐT NHẤT (15%):** Phiên giảm mạnh chỉ là một cú rũ bỏ (shakeout). Thị trường giữ được hỗ trợ MA20 (~1590) và nhanh chóng tăng trở lại vượt đỉnh cũ. Kịch bản này có xác suất thấp do volume bán quá lớn.
+- **Kịch bản XẤU NHẤT (20%):** Áp lực bán tiếp tục gia tăng. VNINDEX phá vỡ hỗ trợ 1630 và MA20 tại 1590 một cách dứt khoát, xác nhận bước vào giai đoạn giảm giá (Mark-Down) với mục tiêu tiếp theo là vùng MA50 (~1490).
+
+💰 **6. CHIẾN LƯỢC ĐẦU TƯ THỰC TẾ:**
+
+- **Vị thế hiện tại:** **BÁN/GIỮ TỶ TRỌNG TIỀN MẶT CAO/CHỜ.** Tuyệt đối không mua đuổi ở thời điểm này.
+- **Entry Point:**
+  * **Vị thế Bán (Short):** Chờ các nhịp hồi phục kỹ thuật về vùng 1670-1680 với volume thấp để mở vị thế bán.
+  * **Vị thế Mua (Long):** Chờ đợi thị trường hoàn thành giai đoạn phân phối và có dấu hiệu tích lũy trở lại ở một vùng giá thấp hơn (có thể là quanh MA200), quá trình này sẽ mất nhiều tuần đến nhiều tháng.
+- **Stop Loss (cho vị thế bán):** > 1700.
+- **Take Profit (cho vị thế bán):** Vùng 1590 (TP1), vùng 1500 (TP2).
+- **Risk/Reward (cho vị thế bán):** Rủi ro ~30 điểm (1670 -> 1700), Lợi nhuận tiềm năng ~80-170 điểm. **Tỷ lệ R/R > 1:2.5, rất hấp dẫn.**
+
+⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA):**
+
+Dựa trên dữ liệu cung cấp, các mã thể hiện **Sức mạnh tương đối (Relative Strength)** so với thị trường chung là lựa chọn ưu tiên để theo dõi. Đây là những mã giữ giá tốt hoặc giảm ít hơn VNINDEX trong các phiên giảm mạnh.
+
+| Mã | Lý do chọn (VSA/VPA & WYCKOFF) | Entry | SL | TP | RR |
+|:---|:------------------------------------------------------------------------------------------------|:--------|:-----|:-----|:-----|
+| **NAB** | RS cực cao (93-98), tín hiệu "Mua mạnh", vol lớn. Đang là mã dẫn dắt thị trường. | 17.5-18 | 16.5 | 22.0 | 1:4 |
+| **HDB** | RS rất cao (88-93), tín hiệu "Mua mạnh". Giữ vững trên các MA quan trọng. | 33.0 | 31.0 | 38.0 | 1:2.5 |
+| **VAB** | RS cao (94), tín hiệu "Mua mạnh". Sức mạnh được duy trì tốt. | 13.5 | 12.8 | 16.0 | 1:3.5 |
+| **CTG** | RS tốt (78-82), "Mua mạnh". Cổ phiếu lớn giữ trend tốt. | 51.5 | 49.0 | 58.0 | 1:2.6 |
+| **HPW** | RS cao (97), tín hiệu "Mua mạnh", giá vượt các MA. Cổ phiếu nhỏ có động lượng tốt. | 20.5 | 19.0 | 25.0 | 1:3 |
+| **GSM** | RS tốt (70-81), tín hiệu "Mua", giá vượt các MA. Dấu hiệu của sự quan tâm trở lại. | 31.5 | 29.5 | 38.0 | 1:3.2 |
+| **SJG** | RS cao (72-83), giá đang test lại vùng hỗ trợ với vol thấp, tiềm năng cho nhịp bật. | 20.5 | 19.0 | 25.0 | 1:3 |
+| **VPB** | RS cực cao (93-99), "Mua mạnh". Đang trong pha tăng tốc mạnh mẽ. | 36.5 | 34.5 | 42.0 | 1:2.7 |
+| **NFC** | RS rất cao (98), tín hiệu "Mua", có phiên breakout với vol lớn. | 53.0 | 49.0 | 65.0 | 1:3 |
+| **TRC** | RS rất cao (91), "Mua mạnh". Giữ vững xu hướng tăng bất chấp thị trường. | 68.0 | 64.0 | 80.0 | 1:3 |
+| **FPT** | (Không có trong danh sách nhưng là ví dụ) Luôn là mã cần theo dõi khi thị trường điều chỉnh. | - | - | - | - |
+| **MWG** | (Không có trong danh sách) Tương tự FPT, tìm điểm vào khi có dấu hiệu tích lũy lại. | - | - | - | - |
+|... | *(Các mã còn lại cần phân tích sâu hơn khi có tín hiệu rõ ràng)* | | | | |
+
+⚠️ **8. RỦI RO & ĐIỂM CẦN THEO DÕI:**
+
+- **Rủi ro kỹ thuật:** Chẩn đoán giai đoạn phân phối là sai, và đây chỉ là một cú "Shakeout" mạnh. Nếu VNINDEX nhanh chóng đóng cửa trên mức 1695, kịch bản giảm giá sẽ bị vô hiệu.
+- **Rủi ro vĩ mô:** Thông tin tiêu cực bất ngờ có thể đẩy nhanh quá trình giảm giá, khiến thị trường rơi sâu hơn dự kiến.
+- **Rủi ro tâm lý:** Các bẫy tăng giá (bull trap) có thể xuất hiện trong quá trình đi ngang, khiến nhà đầu tư mua vào ở giá cao trước khi thị trường giảm tiếp.
+- **Các mức quan trọng cần theo dõi:**
+  * **Kháng cự:** 1695-1700 (Vùng đỉnh BC).
+  * **Hỗ trợ:** 1630 (Đáy AR), 1590 (MA20), 1490 (MA50).
+
+🎯 **9. KHUYẾN NGHỊ CUỐI CÙNG:**
+
+- **KHUYẾN NGHỊ:** **GIẢM TỶ TRỌNG CỔ PHIẾU / KHÔNG THAM GIA VỊ THẾ MUA MỚI.**
+- **LÝ DO CHÍNH:** Thị trường đã phát đi những tín hiệu phân phối rất rõ ràng theo cả VSA và Wyckoff tại vùng đỉnh lịch sử. Rủi ro ngắn hạn đã tăng lên đáng kể và lớn hơn nhiều so với lợi nhuận tiềm năng cho các vị thế mua.
+- **ĐIỂM SỐ ĐÁNH GIÁ (cho vị thế mua): 3/10**
+2025-08-23 14:14:40,423 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-23 14:14:40,423 - INFO - Không nhận được phản hồi từ OpenRouter.
+2025-08-23 14:14:40,423 - INFO - ============================================================
+
+2025-08-23 14:14:40,428 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
