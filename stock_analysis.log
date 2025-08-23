@@ -3064,3 +3064,5 @@ Phân tích tập trung vào 3 phiên giao dịch cuối cùng trong dữ liệu
 2025-08-23 15:10:40,344 - INFO - ============================================================
 
 2025-08-23 15:10:40,345 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-23 15:10:54,274 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-23 15:10:56,818 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'

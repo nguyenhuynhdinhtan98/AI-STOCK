@@ -1165,7 +1165,7 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 - **Take Profit:** Mức chốt lời?
 - **Risk/Reward:** Tỷ lệ thưởng/trừng phạt?
 
-⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA):**
+⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA & WYCKOFF):**
 -**Ưu tiên lựa chọn các mã trong nền.**
 -**Ưu tiên lựa chọn các mã có chỉ số tài chính tốt.**
 -**Ưu tiên lựa chọn các mã có chỉ số kỹ thuật tốt**
