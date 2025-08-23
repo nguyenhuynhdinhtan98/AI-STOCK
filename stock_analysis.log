@@ -3066,3 +3066,226 @@ Phân tích tập trung vào 3 phiên giao dịch cuối cùng trong dữ liệu
 2025-08-23 15:10:40,345 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
 2025-08-23 15:10:54,274 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
 2025-08-23 15:10:56,818 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-23 18:57:28,995 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-23 18:57:31,689 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-23 18:57:36,633 - INFO - ============================================================
+2025-08-23 18:57:36,640 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-23 18:57:36,640 - INFO - ============================================================
+2025-08-23 18:57:36,641 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-23 18:57:37,055 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-23 18:57:37,055 - INFO - Đang lấy dữ liệu tài chính cho VNINDEX
+2025-08-23 18:57:37,055 - ERROR - Lỗi khi lấy BCTC cho VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-23 18:57:37,055 - INFO - Đang lấy thông tin công ty cho VNINDEX
+2025-08-23 18:57:37,055 - ERROR - Lỗi khi lấy thông tin công ty VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-23 18:57:37,060 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-23 18:57:37,084 - WARNING - Không tìm thấy dữ liệu cho mã cổ phiếu 'VNINDEX' trong file.
+2025-08-23 18:57:37,085 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO VNINDEX (22/08/2025):
+2025-08-23 18:57:37,085 - INFO -  - Giá hiện tại: 1,645.47 VND
+2025-08-23 18:57:37,085 - INFO -  - Đường trung bình:
+2025-08-23 18:57:37,085 - INFO -  * MA10: 1,637.58| MA20: 1,587.39| MA50: 1,486.46| MA200: 1,325.79
+2025-08-23 18:57:37,085 - INFO -  - Chỉ báo dao động:
+2025-08-23 18:57:37,085 - INFO -  * RSI (14): 67.21
+2025-08-23 18:57:37,085 - INFO -  * MACD: 51.93| Signal: 49.39| Histogram: 2.54
+2025-08-23 18:57:37,085 - INFO -  * Bollinger Bands: Trên: 1,705.02| Dưới: 1,469.75
+2025-08-23 18:57:37,085 - INFO -  - Mô hình Ichimoku:
+2025-08-23 18:57:37,085 - INFO -  * Tenkan-sen (Chuyển đổi): 1639.61
+2025-08-23 18:57:37,085 - INFO -  * Kijun-sen (Cơ sở): 1585.14
+2025-08-23 18:57:37,085 - INFO -  * Senkou Span A (Leading Span A): 1612.38
+2025-08-23 18:57:37,085 - INFO -  * Senkou Span B (Leading Span B): 1498.90
+2025-08-23 18:57:37,085 - INFO -  * Chikou Span (Trễ): 1490.01
+2025-08-23 18:57:37,086 - INFO -  - Khối lượng:
+2025-08-23 18:57:37,086 - INFO -  * Khối lượng hiện tại: 2293777647.0
+2025-08-23 18:57:37,086 - INFO -  * MA Khối lượng (20): 1,842,110,268.00
+2025-08-23 18:57:37,086 - INFO -  * MA Khối lượng (50): 1,365,685,834.98
+2025-08-23 18:57:37,086 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: MUA MẠNH
+2025-08-23 18:57:37,086 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 81.0/100
+2025-08-23 18:57:37,086 - INFO -  📈 TÍN HIỆU: MUA MẠNH
+2025-08-23 18:57:37,106 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/VNINDEX_data.csv'
+2025-08-23 18:57:37,123 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-23 18:57:37,123 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-23 18:57:37,123 - INFO - Đang phân tích bằng Gemini...
+2025-08-23 18:57:37,125 - INFO - Đang gửi prompt tới Gemini...
+2025-08-23 18:58:48,984 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VNINDEX.txt
+2025-08-23 18:58:48,991 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-23 18:58:48,996 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-23 18:58:55,125 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-23 18:58:56,163 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã VNINDEX ====================
+2025-08-23 18:58:56,163 - INFO - 💰 Giá hiện tại: 1,645.47 VND
+2025-08-23 18:58:56,163 - INFO - 📈 Tín hiệu: MUA MẠNH
+2025-08-23 18:58:56,164 - INFO - 🎯 Đề xuất: MUA MẠNH
+2025-08-23 18:58:56,164 - INFO - 📊 Điểm phân tích: 81.00/100
+2025-08-23 18:58:56,164 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-23 18:58:56,164 - INFO - Chào mừng Quý nhà đầu tư,
+
+Với vai trò là chuyên gia phân tích thị trường theo phương pháp VSA/VPA và Wyckoff, tôi xin đưa ra những nhận định chi tiết về chỉ số VNINDEX tại điểm số giả định **1.650**, dựa trên các dữ liệu kỹ thuật, lịch sử và thị trường được cung cấp.
+
+---
+
+### **TỔNG QUAN PHÂN TÍCH VNINDEX TẠI 1.650 ĐIỂM**
+
+**KẾT LUẬN CHÍNH:** **VNINDEX đang trong một Giai đoạn Tăng giá (Markup - Phase E) mạnh mẽ và bền vững.** Xu hướng tăng là chủ đạo trên mọi khung thời gian. Tuy nhiên, khối lượng giao dịch đột biến tại vùng đỉnh mới cho thấy khả năng xuất hiện một nhịp điều chỉnh hoặc đi ngang ngắn hạn trước khi tiếp tục hành trình đi lên. Chiến lược tối ưu là **mua vào tại các nhịp điều chỉnh (Buy the Dip)** thay vì mua đuổi (FOMO).
+
+---
+
+### **1. PHÂN TÍCH KỸ THUẬT (VSA/VPA & WYCKOFF)**
+
+#### **a. Bối cảnh cấu trúc thị trường (Wyckoff Structure):**
+Phân tích dữ liệu lịch sử từ 2017 cho thấy VNINDEX đã trải qua các chu kỳ hoàn chỉnh của Wyckoff:
+
+*   **2020-2022:** Giai đoạn Tăng giá (Markup) mạnh mẽ, đạt đỉnh lịch sử ~1.530 điểm. Vùng đỉnh này cho thấy các dấu hiệu của một Giai đoạn Phân phối (Distribution).
+*   **2022:** Giai đoạn Giảm giá (Markdown) rõ rệt.
+*   **Cuối 2022 - 2024:** Một Giai đoạn Tích lũy/Tái tích lũy (Accumulation/Re-accumulation) kéo dài, tạo ra một "Nguyên nhân" (Cause) đủ lớn cho một xu hướng tăng giá mạnh mẽ sau đó.
+*   **Hiện tại (tại 1.650 điểm):** Chỉ số đã bứt phá khỏi vùng Tích lũy và đang ở trong **Giai đoạn Tăng giá (Markup - Phase E)**. Đây là giai đoạn giá tăng mạnh nhất, được hỗ trợ bởi dòng tiền lớn và tâm lý tích cực. Mức 1.650 là một cột mốc quan trọng trong pha tăng giá này.
+
+#### **b. Phân tích Hành động Giá & Khối lượng (VSA/VPA):**
+
+*   **Xu hướng (Trend):** Xu hướng tăng được xác nhận một cách tuyệt đối.
+    *   Giá nằm trên tất cả các đường MA quan trọng (10, 20, 50, 200).
+    *   Các đường MA ngắn hạn nằm trên các đường MA dài hạn (MA10 > MA20 > MA50 > MA200), tạo thành một cấu trúc "bó MA" hướng lên hoàn hảo, thể hiện sự đồng thuận của xu hướng tăng trên mọi khung thời gian.
+    *   MACD Histogram dương và MACD cắt lên đường Signal cho thấy động lượng tăng giá đang rất mạnh.
+
+*   **Phân tích Nỗ lực và Kết quả (Effort vs. Result):**
+    *   **Khối lượng hiện tại (Volume): 2.29B**, cao hơn đáng kể so với trung bình 20 phiên (1.84B) - tăng ~24%.
+    *   **Diễn giải:**
+        1.  **Tích cực (Kịch bản chính):** Đây là một phiên **"Nỗ lực tăng giá thành công" (Effort to Rise)**. Khối lượng lớn đi kèm với giá tăng thể hiện dòng tiền lớn (Smart Money) đang quyết liệt tham gia, hấp thụ hết lực cung bán ra và đẩy giá lên cao hơn. Đây là một **Dấu hiệu Sức mạnh (Sign of Strength - SOS)**, củng cố cho Giai đoạn Tăng giá.
+        2.  **Thận trọng (Cần theo dõi):** Khi khối lượng tăng đột biến tại một vùng giá cao mới, cần cảnh giác với khả năng xuất hiện **Cao trào Mua (Buying Climax - BC)**. Nếu các phiên tiếp theo giá không tăng tương xứng với khối lượng, hoặc spread (biên độ) nến bị thu hẹp, đó có thể là dấu hiệu sớm của sự kiệt sức trong ngắn hạn. RSI ở mức 67.21 là cao nhưng chưa vào vùng quá mua cực độ (>70), cho thấy đà tăng vẫn còn nhưng cần được theo dõi sát.
+
+---
+
+### **2. TÂM LÝ THỊ TRƯỜDỤNG & VĨ MÔ**
+
+*   **Tâm lý thị trường:** Tại vùng 1.650, tâm lý thị trường đang ở mức **Lạc quan đến Hưng phấn**. Các nhà đầu tư cá nhân có xu hướng FOMO (sợ bỏ lỡ cơ hội) và tham gia mạnh mẽ. Các tin tức tích cực về kinh tế và doanh nghiệp liên tục được công bố, tạo ra một môi trường thuận lợi cho đà tăng. Tuy nhiên, sự hưng phấn quá độ luôn tiềm ẩn rủi ro điều chỉnh bất ngờ.
+
+*   **Bối cảnh Vĩ mô (Giả định):**
+    *   **Lãi suất:** Môi trường lãi suất thấp hoặc có xu hướng giảm tiếp tục là động lực chính cho dòng tiền chảy vào kênh chứng khoán.
+    *   **Tăng trưởng GDP:** Các chỉ số kinh tế vĩ mô cho thấy sự tăng trưởng vững chắc, thu hút dòng vốn FDI.
+    *   **Kết quả kinh doanh:** Mùa báo cáo tài chính của các doanh nghiệp niêm yết (đặc biệt là nhóm vốn hóa lớn như Ngân hàng, Bất động sản, Bán lẻ) cho thấy sự tăng trưởng lợi nhuận đột phá, củng cố cho định giá của thị trường.
+
+---
+
+### **3. DỰ BÁO NGẮN HẠN (1-2 TUẦN)**
+
+*   **Kịch bản 1 (Xác suất 70%): Tiếp tục tăng giá sau nhịp nghỉ.** VNINDEX có thể sẽ có một vài phiên đi ngang hoặc điều chỉnh nhẹ về vùng hỗ trợ **1.620 - 1.640 điểm (MA10)**. Đây là một nhịp "Backup" lành mạnh để kiểm tra lại lực cầu. Sau khi củng cố thành công, chỉ số sẽ tiếp tục hướng tới vùng kháng cự tiếp theo tại **1.680 - 1.710 điểm (Upper Bollinger Band)**.
+*   **Kịch bản 2 (Xác suất 30%): Điều chỉnh sâu hơn.** Nếu áp lực chốt lời gia tăng mạnh, chỉ số có thể kiểm tra lại vùng hỗ trợ mạnh hơn tại **1.590 - 1.600 điểm (MA20)**. Một nhịp giảm về đây vẫn không phá vỡ xu hướng tăng chính nhưng sẽ cần thời gian tái tích lũy lâu hơn.
+
+---
+
+### **4. CHIẾN LƯỢC ĐẦU TƯ THỰC TẾ**
+
+Trong một Giai đoạn Tăng giá mạnh, chiến lược "Mua và Nắm giữ" (Buy and Hold) và "Mua tại các nhịp điều chỉnh" (Buy the Dip) là hiệu quả nhất.
+
+*   **Điểm vào lệnh (Entry):**
+    *   **Vùng 1 (An toàn):** Chờ đợi nhịp điều chỉnh về vùng **1.620 - 1.640 điểm**. Đây là vùng hỗ trợ của MA10 và là cơ hội để tham gia với rủi ro thấp hơn.
+    *   **Vùng 2 (Tối ưu):** Nếu thị trường điều chỉnh mạnh hơn, vùng **1.590 - 1.600 điểm** (quanh MA20) là điểm mua lý tưởng.
+    *   **Tránh mua đuổi** khi giá đang tăng mạnh với khối lượng lớn và RSI tiến sâu vào vùng quá mua (>75).
+
+*   **Dừng lỗ (Stop-loss):** Đặt lệnh dừng lỗ tuyệt đối nếu VNINDEX đóng cửa dưới **1.580 điểm** (thủng MA20 và ngưỡng tâm lý 1.590). Đây là dấu hiệu cho thấy cấu trúc tăng giá ngắn hạn đã bị phá vỡ.
+
+*   **Chốt lời (Take-profit):**
+    *   **TP1 (Ngắn hạn):** Vùng **1.700 - 1.710 điểm**.
+    *   **TP2 (Trung hạn):** Vùng **1.750 - 1.800 điểm**.
+
+*   **Tỷ lệ Rủi ro/Lợi nhuận (Risk/Reward):**
+    *   Nếu vào lệnh ở 1.630, SL ở 1.580 (Rủi ro 50 điểm) và TP1 ở 1.710 (Lợi nhuận 80 điểm) => Tỷ lệ R/R là **1:1.6**, một mức chấp nhận được.
+
+---
+
+### **5. DANH SÁCH 20 MÃ CỔ PHIẾU TIỀM NĂNG**
+
+Dựa trên dữ liệu cung cấp, tôi sàng lọc các cổ phiếu tiềm năng theo tiêu chí: **(1) Sức mạnh tài chính tốt (ROE > 15%, Financial Health > 3.0), (2) Có xu hướng tăng giá mạnh (Price vs SMA > 0), (3) Sức mạnh tương đối cao (Relative Strength > 70), và (4) Thu hút dòng tiền (Avg Trading Value > 20 tỷ/phiên).**
+
+Dưới đây là danh sách 20 mã cổ phiếu đáng chú ý, được phân loại theo ngành:
+
+**Nhóm Ngân hàng (Dẫn dắt thị trường):**
+1.  **HDB:** ROE 25.3%, sức mạnh tài chính tốt, đang trong xu hướng tăng mạnh và thu hút dòng tiền ngoại.
+2.  **CTG:** Blue-chip đầu ngành, ROE 20.2%, sức mạnh tương đối tốt và thanh khoản cực cao.
+3.  **SHB:** Có sự cải thiện mạnh mẽ, ROE 18.3%, dòng tiền tham gia quyết liệt, sức mạnh tương đối cao.
+4.  **NAB:** ROE 20.2%, xu hướng tăng giá rất mạnh, RSI cao cho thấy sức mạnh dòng tiền.
+5.  **VPB:** ROE 12.4% (thấp hơn nhưng vẫn tốt), là một tên tuổi lớn, đang có dấu hiệu bứt phá mạnh mẽ (RSI 83.7).
+
+**Nhóm Bất động sản & Xây dựng (Kỳ vọng hưởng lợi từ chính sách):**
+6.  **SZG:** ROE 27.0%, tài chính rất vững mạnh, sức mạnh tương đối cao.
+7.  **THG:** ROE 26.1%, tài chính tốt, sức mạnh tương đối tốt.
+8.  **HTI:** ROE 25.0%, tài chính vững, sức mạnh tương đối cao.
+
+**Nhóm Hàng & Dịch vụ Công nghiệp (Cảng biển, Logistics):**
+9.  **HAH:** ROE 31.5%, một trong những cổ phiếu mạnh nhất ngành, tài chính vững chắc.
+10. **PDN:** ROE 34.4%, tài chính xuất sắc, sức mạnh tương đối ổn định.
+11. **VSC:** (Không có trong danh sách nhưng là mã tham khảo cùng ngành HAH).
+
+**Nhóm Hóa chất & Tài nguyên cơ bản (Hưởng lợi từ chu kỳ hàng hóa):**
+12. **TRC:** ROE 16.2%, tài chính cực kỳ vững mạnh, xu hướng tăng giá bền vững.
+13. **DCM:** ROE 16.9%, cơ bản tốt, có câu chuyện riêng về giá phân bón và khí.
+14. **HGM:** ROE 120.1% (đột biến), tài chính tốt, là cổ phiếu có tính đầu cơ cao nhưng sức mạnh giá rất ấn tượng.
+
+**Nhóm Công nghệ & Bán lẻ (Tăng trưởng bền vững):**
+15. **FOX:** ROE 32.9%, cổ phiếu phòng thủ, tăng trưởng ổn định, tài chính lành mạnh.
+16. **MWG, FRT, DGW:** (Không có trong danh sách nhưng là những mã tham khảo).
+
+**Nhóm Vốn hóa vừa có nền tảng tốt:**
+17. **HTG:** ROE 37.9%, cổ phiếu dệt may với nền tảng tài chính tốt.
+18. **PPH:** ROE 22.4%, một cổ phiếu dệt may khác có chỉ số tài chính ổn định.
+19. **VGT:** ROE 9.0%, tuy thấp hơn nhưng đang có tín hiệu dòng tiền quay trở lại (cắt lên SMA50, 200).
+20. **TNG:** ROE 19.1%, cơ bản tốt, đang có dấu hiệu quay lại xu hướng tăng.
+
+**Lưu ý:** Danh sách trên chỉ mang tính tham khảo. Nhà đầu tư cần tự phân tích sâu hơn về từng doanh nghiệp trước khi ra quyết định.
+
+Trân trọng,
+**Chuyên gia Phân tích VSA/VPA & Wyckoff.**
+2025-08-23 18:58:56,164 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-23 18:58:56,164 - INFO - Không nhận được phản hồi từ OpenRouter.
+2025-08-23 18:58:56,164 - INFO - ============================================================
+
+2025-08-23 18:58:56,165 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-23 19:12:26,194 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-23 19:12:28,875 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-23 19:12:31,027 - INFO - ============================================================
+2025-08-23 19:12:31,027 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DRI
+2025-08-23 19:12:31,027 - INFO - ============================================================
+2025-08-23 19:12:31,027 - INFO - Đang lấy dữ liệu cho mã DRI
+2025-08-23 19:12:31,427 - INFO - Đã lưu dữ liệu cho mã DRI vào file vnstocks_data/DRI_data.csv
+2025-08-23 19:12:31,427 - INFO - Đang lấy dữ liệu tài chính cho DRI
+2025-08-23 19:12:32,856 - INFO - Đã lưu dữ liệu tài chính của mã DRI vào file vnstocks_data/DRI_financial_statements.csv
+2025-08-23 19:12:32,864 - INFO - Đang lấy thông tin công ty cho DRI
+2025-08-23 19:12:32,969 - INFO - Đã lấy thông tin công ty DRI thành công
+2025-08-23 19:12:32,973 - INFO - Đang phân tích kỹ thuật cho mã DRI...
+2025-08-23 19:12:32,979 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-23 19:12:33,149 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-23 19:12:33,168 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DRI' trong file market_filtered.csv
+2025-08-23 19:12:33,168 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DRI (22/08/2025):
+2025-08-23 19:12:33,168 - INFO -  - Giá hiện tại: 11.70 VND
+2025-08-23 19:12:33,168 - INFO -  - Đường trung bình:
+2025-08-23 19:12:33,168 - INFO -  * MA10: 12.60| MA20: 12.75| MA50: 12.67| MA200: 12.41
+2025-08-23 19:12:33,168 - INFO -  - Chỉ báo dao động:
+2025-08-23 19:12:33,168 - INFO -  * RSI (14): 27.50
+2025-08-23 19:12:33,169 - INFO -  * MACD: -0.15| Signal: -0.02| Histogram: -0.13
+2025-08-23 19:12:33,169 - INFO -  * Bollinger Bands: Trên: 13.50| Dưới: 12.00
+2025-08-23 19:12:33,169 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-23 19:12:33,169 - INFO -  * RS: 0.007110430454520592
+2025-08-23 19:12:33,169 - INFO -  * RS_Point: 112.52
+2025-08-23 19:12:33,169 - INFO -  * RS3D: 26.0
+2025-08-23 19:12:33,169 - INFO -  * RS1M: 6.0
+2025-08-23 19:12:33,169 - INFO -  * RS3M: 41.0
+2025-08-23 19:12:33,169 - INFO -  * RS1y: 57.0
+2025-08-23 19:12:33,169 - INFO -  - Mô hình Ichimoku:
+2025-08-23 19:12:33,169 - INFO -  * Tenkan-sen (Chuyển đổi): 12.45
+2025-08-23 19:12:33,169 - INFO -  * Kijun-sen (Cơ sở): 12.80
+2025-08-23 19:12:33,169 - INFO -  * Senkou Span A (Leading Span A): 12.62
+2025-08-23 19:12:33,169 - INFO -  * Senkou Span B (Leading Span B): 12.79
+2025-08-23 19:12:33,169 - INFO -  * Chikou Span (Trễ): 12.92
+2025-08-23 19:12:33,169 - INFO -  - Khối lượng:
+2025-08-23 19:12:33,169 - INFO -  * Khối lượng hiện tại: 1271300.0
+2025-08-23 19:12:33,169 - INFO -  * MA Khối lượng (20): 1,403,692.25
+2025-08-23 19:12:33,169 - INFO -  * MA Khối lượng (50): 1,367,406.50
+2025-08-23 19:12:33,169 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: GIỮ - GIẢM
+2025-08-23 19:12:33,169 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 37.8/100
+2025-08-23 19:12:33,169 - INFO -  📈 TÍN HIỆU: GIẢM MẠNH
+2025-08-23 19:12:33,187 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DRI_data.csv'
+2025-08-23 19:12:33,193 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DRI_infor.csv'
+2025-08-23 19:12:33,208 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-23 19:12:33,227 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-23 19:12:33,227 - INFO - Đang phân tích bằng Gemini...
+2025-08-23 19:12:33,228 - INFO - Đang gửi prompt tới Gemini...
