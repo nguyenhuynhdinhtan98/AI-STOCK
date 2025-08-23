@@ -869,7 +869,7 @@ def analyze_with_gemini(symbol: str) -> str:
             prompt_text = file.read()
             
         logger.info("Đang gửi prompt tới Gemini...")
-        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
+        model = genai.GenerativeModel(model_name="gemini-2.5-pro")
         response = model.generate_content(prompt_text)
         
         if response and response.text:
@@ -1049,6 +1049,148 @@ Bạn phải chọn MỘT trong 5 khuyến nghị sau và giải thích rõ lý 
 """
     return prompt
 
+def generate_vnindex_analysis_prompt(
+    symbol: str, current_price: float, technical_indicators: Dict[str, Any], 
+    historical_data: str, market_data_str: str
+) -> str:
+    """Tạo prompt phân tích thị trường VNINDEX"""
+    
+    def format_value(value: Any) -> str:
+        num = safe_float(value)
+        if num is None:
+            return "N/A"
+        if abs(num) >= 1e9:
+            return f"{num / 1e9:.2f}B"
+        elif abs(num) >= 1e6:
+            return f"{num / 1e6:.2f}M"
+        elif abs(num) >= 1e3:
+            return f"{num / 1e3:.2f}K"
+        return f"{num:.2f}"
+
+    # Extract technical indicators
+    rsi = technical_indicators.get("rsi", "N/A")
+    ma_values = technical_indicators.get("ma", {})
+    bb = technical_indicators.get("bollinger_bands", {})
+    macd = technical_indicators.get("macd", {})
+    ichimoku = technical_indicators.get("ichimoku", {})
+    volume_data = technical_indicators.get("volume", {})
+    
+    # Tạo prompt cho phân tích VNINDEX
+    prompt = f"""
+BẠN LÀ CHUYÊN GIA PHÂN TÍCH THỊ TRƯỜNG HÀNG ĐẦU VỚI CHUYÊN MÔN VSA/VPA & WYCKOFF
+Kinh nghiệm: 20+ năm phân tích thị trường chứng khoán
+Chuyên môn: Volume Spread Analysis, Volume Price Analysis, Wyckoff Method
+
+🎯 **NHIỆM VỤ:** Phân tích VNINDEX toàn diện + Dự báo chính xác + Chiến lược thực tế
+
+**DỮ LIỆU THỰC TẾ:**
+CHỈ SỐ PHÂN TÍCH: {symbol.upper()}
+ĐIỂM HIỆN TẠI: {format_value(current_price)}
+
+DỮ LIỆU KỸ THUẬT CHI TIẾT:
+1. CHỈ BÁO XUNG LƯỢNG:
+- RSI (14): {format_value(rsi)} {"(Quá mua)" if isinstance(rsi, (int, float)) and rsi > 70 else "(Quá bán)" if isinstance(rsi, (int, float)) and rsi < 30 else ""}
+- MACD: {format_value(macd.get("macd", "N/A"))} | Signal: {format_value(macd.get("signal", "N/A"))} | Histogram: {format_value(macd.get("histogram", "N/A"))}
+
+2. ĐƯỜNG TRUNG BÌNH (MA):
+- MA10: {format_value(ma_values.get("ma10", "N/A"))}
+- MA20: {format_value(ma_values.get("ma20", "N/A"))}
+- MA50: {format_value(ma_values.get("ma50", "N/A"))} 
+- MA200: {format_value(ma_values.get("ma200", "N/A"))}
+- Vị trí giá so với MA: {"Trên tất cả MA - Xu hướng tăng mạnh" if all(current_price > ma for ma in [ma_values.get("ma10", 0), ma_values.get("ma20", 0), ma_values.get("ma50", 0), ma_values.get("ma200", 0)]) else "Dưới tất cả MA - Xu hướng giảm mạnh" if all(current_price < ma for ma in [ma_values.get("ma10", 0), ma_values.get("ma20", 0), ma_values.get("ma50", 0), ma_values.get("ma200", 0)]) else "Hỗn hợp - Xu hướng đi ngang/thiếu định hướng"}
+
+3. DẢI BOLLINGER:
+- Band trên: {format_value(bb.get("upper", "N/A"))}
+- Band dưới: {format_value(bb.get("lower", "N/A"))}
+- Độ rộng dải: {format_value((bb.get("upper", 0) - bb.get("lower", 0)) if all(k in bb for k in ["upper", "lower"]) else "N/A")}
+- Vị trí giá: {"Gần band trên - Có thể quá mua" if isinstance(current_price, (int, float)) and isinstance(bb.get("upper", None), (int, float)) and current_price > bb["upper"] * 0.9 else "Gần band dưới - Có thể quá bán" if isinstance(current_price, (int, float)) and isinstance(bb.get("lower", None), (int, float)) and current_price < bb["lower"] * 1.1 else "Trong dải - Trạng thái bình thường"}
+
+4. ICHIMOKU CLOUD:
+- Tenkan-sen: {format_value(ichimoku.get("tenkan", "N/A"))}
+- Kijun-sen: {format_value(ichimoku.get("kijun", "N/A"))}
+- Senkou Span A: {format_value(ichimoku.get("senkou_a", "N/A"))}
+- Senkou Span B: {format_value(ichimoku.get("senkou_b", "N/A"))}
+- Chikou Span: {format_value(ichimoku.get("chikou", "N/A"))}
+- Vị trí giá so với đám mây: {"Trên đám mây - Tăng giá" if isinstance(current_price, (int, float)) and isinstance(ichimoku.get("senkou_a", None), (int, float)) and isinstance(ichimoku.get("senkou_b", None), (int, float)) and current_price > max(ichimoku["senkou_a"], ichimoku["senkou_b"]) else "Dưới đám mây - Giảm giá" if isinstance(current_price, (int, float)) and isinstance(ichimoku.get("senkou_a", None), (int, float)) and isinstance(ichimoku.get("senkou_b", None), (int, float)) and current_price < min(ichimoku["senkou_a"], ichimoku["senkou_b"]) else "Trong đám mây - Thiếu xu hướng rõ ràng"}
+
+5. KHỐI LƯỢNG GIAO DỊCH:
+- Khối lượng hiện tại: {format_value(volume_data.get("current", "N/A"))}
+- Khối lượng trung bình 20 ngày: {format_value(volume_data.get("ma20", "N/A"))}
+- Tỷ lệ khối lượng: {format_value(volume_data.get("current", 0) / volume_data.get("ma20", 1) if volume_data.get("ma20", 0) != 0 else "N/A")} {"(Cao hơn trung bình - Khối lượng tăng mạnh)" if isinstance(volume_data.get("current", None), (int, float)) and isinstance(volume_data.get("ma20", None), (int, float)) and volume_data["current"] > volume_data["ma20"] * 1.5 else "(Thấp hơn trung bình - Khối lượng yếu)"}
+
+THÔNG TIN DỮ LIỆU LỊCH SỬ:
+{historical_data}
+
+THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
+{market_data_str}
+
+**YÊU CẦU CỤ THỂ - TRẢ LỜI THEO CẤU TRÚC SAU:**
+
+🔍 **1. PHÂN TÍCH VSA/VPA CHI TIẾT (Volume Spread Analysis):**
+- **3 phiên gần nhất - Phân tích từng phiên:**
+  * Phiên 1: Giá thay đổi? Volume so với trung bình? Mô hình VSA nào? (Test/Stop/Climax/Upthrust)
+  * Phiên 2: Giá thay đổi? Volume so với trung bình? Mô hình VSA nào?
+  * Phiên 3: Giá thay đổi? Volume so với trung bình? Mô hình VSA nào?
+- **Volume Confirmation:** Volume đang xác nhận/XÁC NHẬN YẾU/KHÔNG XÁC NHẬN xu hướng giá?
+- **Supply/Demand Analysis:** Dấu hiệu tích lũy (Demand) hay phân phối (Supply)?
+
+📊 **2. PHÂN TÍCH WYCKOFF - Giai đoạn thị trường:**
+- **Giai đoạn hiện tại:** TÍCH LŨY/TĂNG TRƯỞNG/PHÂN PHỐI/SUY THOÁI?
+- **Dẫn chứng Wyckoff:** 
+  * Spring/Upthrust gần nhất?
+  * Volume tại các điểm quan trọng?
+  * Thời gian tích lũy (nếu có)?
+- **Wyckoff Signal:** Có dấu hiệu breakout/breakdown không?
+
+📈 **3. PHÂN TÍCH KỸ THUẬT MINERVINI:**
+- **Trend Analysis:** Xu hướng dài hạn? Xu hướng ngắn hạn?
+- **MA Alignment:** MA10/MA20/MA50 sắp xếp như thế nào? Tăng mạnh/Đi ngang/Giảm mạnh?
+- **Momentum:** RSI {format_value(rsi)} - Quá mua/Bình thường/Quá bán?
+- **Support/Resistance:** Các mức quan trọng gần nhất?
+
+💼 **4. PHÂN TÍCH VĨ MÔ & TÂM LÝ THỊ TRƯỜNG:**
+- **Vĩ mô tác động:** Lãi suất, tỷ giá, CPI, GDP, dòng tiền?
+- **Tâm lý NĐT:** Sợ hãi/Tham lam/Bình tĩnh?
+- **Dòng tiền:** Khối ngoại mua/bán? ETF flows?
+
+🔮 **5. DỰ BÁO CỤ THỂ (1-2 tuần) - Xác suất:**
+- **Kịch bản CƠ BẢN (50%):** VNINDEX sẽ... trong range...
+- **Kịch bản TỐT NHẤT (30%):** VNINDEX sẽ...  
+- **Kịch bản XẤU NHẤT (20%):** VNINDEX sẽ...
+
+💰 **6. CHIẾN LƯỢC ĐẦU TƯ THỰC TẾ:**
+- **Vị thế hiện tại:** MUA/BÁN/GIỮ/CHỜ?
+- **Entry Point:** Mức giá vào lệnh cụ thể?
+- **Stop Loss:** Mức cắt lỗ?
+- **Take Profit:** Mức chốt lời?
+- **Risk/Reward:** Tỷ lệ thưởng/trừng phạt?
+
+⭐ **7. TOP 8 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA):**
+| Mã | Lý do chọn (VSA/VPA) | Entry | SL | TP | RR |
+|----|---------------------|-------|----|----|----|
+|    |                     |       |    |    |    |
+
+⚠️  **8. RỦI RO & ĐIỂM CẦN THEO DÕI:**
+- **Rủi ro kỹ thuật:** ...
+- **Rủi ro vĩ mô:** ...
+- **Rủi ro tâm lý:** ...
+- **Các mức quan trọng cần theo dõi:** ...
+
+🎯 **9. KHUYẾN NGHỊ CUỐI CÙNG:**
+- **KHUYẾN NGHỊ:** MUA MẠNH/MUA/GIỮ/BÁN/BÁN MẠNH
+- **LÝ DO CHÍNH:** (2-3 câu ngắn gọn, súc tích)
+- **ĐIỂM SỐ ĐÁNH GIÁ:** .../10
+
+**QUY TẮC BẮT BUỘC:**
+✅ Chỉ sử dụng dữ liệu được cung cấp
+✅ Dẫn chứng cụ thể cho mọi nhận định
+✅ Ưu tiên chất lượng hơn số lượng
+✅ Trả lời ngắn gọn, thực tế, có thể áp dụng
+✅ Dùng bảng biểu khi liệt kê danh sách
+✅ Tập trung vào VSA/VPA và Wyckoff Method
+"""
+    return prompt
+
 # --- Phân tích một mã cổ phiếu ---
 def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
     """Phân tích toàn diện một mã chứng khoán."""
@@ -1142,19 +1284,26 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
             "ma50": trading_signal.get("volume_ma_50"),
         },
     }
-    
-    # Tạo và lưu prompt
-    prompt = generate_advanced_stock_analysis_prompt(
-        symbol=symbol,
-        current_price=trading_signal.get("current_price"),
-        technical_indicators=technical_indicators,
-        trading_signal=trading_signal,
-        financial_data=financial_data_statement,
-        company_info=company_info_data,
-        historical_data=historical_data_str,
-        info_data=infor_data_str,
-        market_data_str=market_data_str
-    )
+    if symbol == "VNINDEX":
+        prompt = generate_vnindex_analysis_prompt(
+            symbol=symbol,
+            current_price=trading_signal.get("current_price"),
+            technical_indicators=technical_indicators,
+            historical_data=historical_data_str,
+            market_data_str=market_data_str
+        )
+    else:
+        prompt = generate_advanced_stock_analysis_prompt(
+            symbol=symbol,
+            current_price=trading_signal.get("current_price"),
+            technical_indicators=technical_indicators,
+            trading_signal=trading_signal,
+            financial_data=financial_data_statement,
+            company_info=company_info_data,
+            historical_data=historical_data_str,
+            info_data=infor_data_str,
+            market_data_str=market_data_str
+        )
     
     with open("prompt.txt", "w", encoding="utf-8-sig") as file:
         file.write(prompt)
