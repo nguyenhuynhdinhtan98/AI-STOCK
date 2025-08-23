@@ -1166,7 +1166,7 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 - **Risk/Reward:** Tỷ lệ thưởng/trừng phạt?
 
 ⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA):**
-| Mã | Lý do chọn (VSA/VPA) | Entry | SL | TP | RR |
+| Mã | Lý do chọn (VSA/VPA & WYCKOFF) | Entry | SL | TP | RR |
 |----|---------------------|-------|----|----|----|
 |    |                     |       |    |    |    |
 
