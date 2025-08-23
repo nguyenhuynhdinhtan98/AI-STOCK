@@ -3289,3 +3289,148 @@ Trân trọng,
 2025-08-23 19:12:33,227 - INFO - Đã lưu nội dung prompt vào file prompt.txt
 2025-08-23 19:12:33,227 - INFO - Đang phân tích bằng Gemini...
 2025-08-23 19:12:33,228 - INFO - Đang gửi prompt tới Gemini...
+2025-08-23 19:14:11,455 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_DRI.txt
+2025-08-23 19:14:11,455 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-23 19:14:11,465 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-23 19:14:18,087 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-23 19:14:18,513 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DRI ====================
+2025-08-23 19:14:18,514 - INFO - 💰 Giá hiện tại: 11.70 VND
+2025-08-23 19:14:18,514 - INFO - 📈 Tín hiệu: GIẢM MẠNH
+2025-08-23 19:14:18,514 - INFO - 🎯 Đề xuất: GIỮ - GIẢM
+2025-08-23 19:14:18,514 - INFO - 📊 Điểm phân tích: 37.75/100
+2025-08-23 19:14:18,514 - INFO - 📊 RS (so với VNINDEX): 0.0071
+2025-08-23 19:14:18,514 - INFO - 📊 RS_Point: 112.52
+2025-08-23 19:14:18,514 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-23 19:14:18,515 - INFO - Chào mừng quý nhà đầu tư,
+
+Với vai trò là một chuyên gia phân tích đầu tư, tôi đã thực hiện một cuộc "mổ xẻ" toàn diện đối với mã cổ phiếu DRI của Công ty Cổ phần Đầu tư Cao su Đắk Lắk. Báo cáo này kết hợp hài hòa giữa lăng kính phân tích kỹ thuật của Wyckoff, Minervini, và VSA/VPA với chiều sâu phân tích cơ bản theo triết lý của Buffett và Lynch, nhằm đưa ra một góc nhìn đa chiều và khuyến nghị xác đáng nhất tại thời điểm hiện tại.
+
+**Giá hiện tại:** 11.700 VND (11.7)
+
+---
+
+### **1. Phân tích Kỹ thuật (Wyckoff, VSA & VPA)**
+
+**Giai đoạn thị trường (Wyckoff):**
+*   **Nhận định:** DRI đang ở trong **Giai đoạn Suy thoái (Markdown - Phase D)** của một chu kỳ lớn hơn, và có dấu hiệu đang tiến vào vùng **Cực bán (Selling Climax - SC)**, có thể là sự khởi đầu cho Giai đoạn A của một chu kỳ Tích lũy mới.
+*   **Giải thích:** Sau khi đạt đỉnh cao trào mua (Buying Climax) quanh vùng 13.5 - 14.0 vào cuối tháng 5/2024, giá đã không thể duy trì và bắt đầu quá trình phân phối. Cú rơi mạnh từ 13.0 xuống 11.7 trong vài phiên gần đây, phá vỡ các ngưỡng hỗ trợ, là một đặc điểm điển hình của giai đoạn Markdown. Tuy nhiên, các chỉ báo như RSI rơi vào vùng quá bán sâu (27.5) cho thấy áp lực bán đang lên đến đỉnh điểm, có khả năng tạo ra một phiên SC trong thời gian tới để rũ bỏ những nhà đầu tư cuối cùng và bắt đầu một vùng tái tích lũy mới.
+
+**Phân tích Giá & Khối lượng (VSA/VPA):**
+*   **Tín hiệu "Nỗ lực và Kết quả":** Xu hướng giảm giá gần đây diễn ra với **khối lượng thấp hơn mức trung bình 20 ngày** (Tỷ lệ KL: 0.91). Đây là một tín hiệu quan trọng. Theo VSA/VPA, giá giảm trên khối lượng thấp cho thấy sự thiếu vắng của lực cầu ("No Demand") hơn là áp lực bán tháo mạnh mẽ. Lực bán không mang tính hoảng loạn, mà chủ yếu do bên mua tạm thời rút lui.
+*   **Dấu hiệu Tích lũy/Phân phối:** Giai đoạn tăng giá mạnh từ tháng 3 đến tháng 5/2024 được xác nhận bởi khối lượng lớn, cho thấy dòng tiền thông minh đã tham gia. Tuy nhiên, quá trình giảm giá hiện tại trên khối lượng thấp cho thấy "Smart Money" chưa thoát ra một cách dứt khoát. Họ có thể đang cho phép giá trôi xuống một cách tự nhiên để kiểm tra nguồn cung trôi nổi trước khi bắt đầu gom lại ở vùng giá thấp hơn. Chưa có dấu hiệu phân phối mạnh mẽ, nhưng cũng chưa có tín hiệu tích lũy rõ ràng.
+
+---
+
+### **2. Phân tích theo phương pháp Mark Minervini**
+
+DRI hiện tại **hoàn toàn không đáp ứng** các tiêu chí của "Mẫu hình Siêu cổ phiếu" (SEPA) theo Mark Minervini.
+*   **Xu hướng:** Giá 11.70 nằm **dưới** tất cả các đường MA quan trọng: MA50 (12.67), và MA200 (12.41). MA50 cũng đã cắt xuống dưới MA200. Đây là đặc điểm của một cổ phiếu trong **Giai đoạn 4 (Stage 4 - Downtrend)**, giai đoạn mà Minervini tuyệt đối tránh xa.
+*   **Cấu trúc thị trường:** Cấu trúc **đỉnh sau thấp hơn đỉnh trước, đáy sau thấp hơn đáy trước** được hình thành rõ ràng từ tháng 6/2024. Đây là một cấu trúc giảm giá kinh điển.
+*   **Pivot & Hỗ trợ/Kháng cự:**
+    *   **Kháng cự mạnh:** Vùng 12.40 - 12.80 (hội tụ của các đường MA50, MA200 và Kijun-sen).
+    *   **Hỗ trợ gần nhất:** Đã bị phá vỡ. Hỗ trợ tâm lý tiếp theo có thể nằm ở vùng 10.0 - 10.5, là các đáy cũ trong quá khứ.
+*   **Sức mạnh tương đối (RS):**
+    *   **RS so với VNINDEX: 0.01** - cực kỳ yếu.
+    *   **RS 1 tháng: 6.00** và **RS 3 tháng: 41.00** cho thấy DRI đang hoạt động kém hiệu quả hơn rất nhiều so với thị trường chung. Đây là một cổ phiếu yếu thế, không phải là một "leader" mà Minervini tìm kiếm.
+
+---
+
+### **3. Phân tích Cơ bản (Buffett, Lynch, dữ liệu TCBS)**
+
+**Chất lượng Doanh thu & Lợi nhuận:**
+*   **Tính chu kỳ:** DRI là một doanh nghiệp thuần túy về hàng hóa (cao su). Doanh thu và lợi nhuận biến động rất mạnh theo giá cao su thế giới. Ví dụ, LNST quý 3/2022 lỗ (-5.8 tỷ), nhưng LNST quý 1/2025 (dữ liệu dự phóng) lại đạt 55.9 tỷ. Đây là một cổ phiếu **"Chu kỳ" (Cyclical)** theo cách phân loại của Peter Lynch.
+*   **Tăng trưởng gần đây:** Theo tin tức mới nhất, LNST 6 tháng đầu năm 2025 (dự phóng) đạt 76.8 tỷ đồng, **gấp 2.5 lần cùng kỳ**. Đây là một tín hiệu cực kỳ tích cực, cho thấy công ty đang bước vào một chu kỳ tăng trưởng mạnh mẽ, có thể do giá cao su phục hồi.
+
+**Hiệu quả Sử dụng Vốn:**
+*   **ROE (27.4% - theo TCBS):** Con số này rất ấn tượng. Tuy nhiên, do tính chu kỳ, ROE của DRI không ổn định. ROE cao ở thời điểm hiện tại phản ánh kết quả kinh doanh tích cực của các quý gần đây. Điều này cho thấy khi chu kỳ thuận lợi, ban lãnh đạo có khả năng tạo ra lợi nhuận cao trên vốn chủ sở hữu.
+*   **ROA & ROIC:** Tương tự ROE, các chỉ số này cũng biến động mạnh nhưng đang ở mức tốt trong giai đoạn hiện tại, cho thấy hiệu quả hoạt động đang được cải thiện.
+
+**Tình hình Tài chính:**
+*   **Cơ cấu nợ (Buffett's perspective):** Tỷ lệ (Vay ngắn hạn + dài hạn) / Vốn chủ sở hữu (Q2/2024) là **0.235**, một tỷ lệ rất thấp và an toàn. Công ty không phụ thuộc quá nhiều vào nợ vay, tạo ra một "con hào" tài chính vững chắc. Đây là một điểm cộng lớn.
+*   **Khả năng thanh khoản:** Chỉ số thanh toán hiện hành (Current Ratio) là 1.55 (Q2/2024), ở mức chấp nhận được.
+*   **Dòng tiền:** Dòng tiền từ hoạt động kinh doanh (CFO) khá biến động và thường xuyên âm. Đây là một điểm trừ, cho thấy công ty chưa tạo ra dòng tiền ổn định từ hoạt động cốt lõi, có thể do đặc thù ngành cần vốn lưu động lớn cho hàng tồn kho và các khoản phải thu.
+
+**Ban lãnh đạo & Nội bộ:**
+*   Cổ đông lớn nhất là Công ty Cổ phần Cao su Đắk Lắk (45%), một doanh nghiệp nhà nước. Điều này mang lại sự ổn định nhưng có thể thiếu đi sự năng động. Giao dịch của lãnh đạo không có gì bất thường, chủ yếu là sở hữu cá nhân với tỷ lệ thấp.
+
+**Chia cổ tức:**
+*   Lịch sử chia cổ tức của DRI rất **đều đặn và hấp dẫn**. Theo TCBS, tỷ suất cổ tức lên tới **7.4%**, một con số rất cao so với mặt bằng chung. Đây là một điểm cộng cho các nhà đầu tư dài hạn và ưa thích dòng tiền.
+
+**Tin tức & Internet:**
+*   Tin tức quan trọng nhất là BCTC quý II với lợi nhuận tăng trưởng đột biến và thông báo chốt quyền trả cổ tức còn lại của năm 2024 (500đ/cp). Đây là những xúc tác tích cực cho giá cổ phiếu trong trung hạn.
+
+---
+
+### **4. Định giá & So sánh ngành**
+
+*   **Chỉ số Định giá:**
+    *   **P/E: 5.6**
+    *   **P/B: 1.3**
+    *   **EV/EBITDA: 3.4**
+    Các chỉ số này đều đang ở mức **rất thấp** so với thị trường chung và so với chính lịch sử của công ty khi ở giai đoạn hưng thịnh. Theo Peter Lynch, một P/E thấp đối với một công ty chu kỳ có thể là dấu hiệu đỉnh lợi nhuận, nhưng trong trường hợp của DRI, lợi nhuận đang **tăng trưởng mạnh**, do đó P/E thấp cho thấy cổ phiếu đang được **định giá rẻ** so với tiềm năng tăng trưởng lợi nhuận sắp tới.
+
+*   **So sánh Ngành:** So với các doanh nghiệp khác trong ngành Hóa chất (bao gồm cả phân bón và cao su), các chỉ số định giá của DRI thuộc nhóm hấp dẫn nhất.
+
+---
+
+### **5. Nhận định vị thế mua ngắn hạn**
+
+*   **Khả năng bật tăng ngắn hạn:** **CAO**. Cổ phiếu đang ở trong vùng quá bán sâu (RSI 27.5), giá đã giảm mạnh và cách xa các đường MA. Một nhịp hồi phục kỹ thuật (technical bounce) về lại vùng 12.0 - 12.4 là rất dễ xảy ra.
+*   **Tín hiệu mua/bán:** Hiện tại, các tín hiệu kỹ thuật đều là **BÁN** (giá dưới MA, MACD cắt xuống, Ichimoku giảm). Tuy nhiên, các chỉ báo dao động (RSI, Bollinger Bands) đang phát đi tín hiệu **QUÁ BÁN**, báo hiệu khả năng đảo chiều sắp xảy ra.
+*   **Tâm lý thị trường:** Bi quan trong ngắn hạn do giá giảm liên tục. Tuy nhiên, đây là thời điểm mà các nhà đầu tư giá trị và nhà đầu tư bắt đáy bắt đầu chú ý.
+
+---
+
+### **6. Chiến lược giao dịch & Quản lý rủi ro**
+
+*   **Điểm vào:**
+    *   **An toàn:** Chờ đợi một tín hiệu xác nhận đảo chiều, ví dụ như một cây nến Bullish Engulfing hoặc Hammer với khối lượng lớn, hoặc khi giá đóng cửa vượt lên trên mốc **12.0** (vượt qua dải Bollinger dưới).
+    *   **Mạo hiểm (Bắt đáy):** Có thể giải ngân một phần nhỏ quanh vùng giá hiện tại (11.5 - 11.7) với kỳ vọng vào một nhịp hồi kỹ thuật.
+*   **Stop-loss:** Đặt mức dừng lỗ ngay dưới đáy thấp nhất vừa được tạo ra, khoảng **11.4**.
+*   **Take-profit:**
+    *   **Mục tiêu 1 (Ngắn hạn):** Vùng MA200 quanh **12.4**.
+    *   **Mục tiêu 2 (Trung hạn):** Vùng kháng cự cũ quanh **13.5**.
+*   **Risk/Reward:** Nếu vào lệnh ở 11.8 và dừng lỗ ở 11.4 (rủi ro 0.4 giá), chốt lời ở 13.5 (lợi nhuận 1.7 giá), tỷ lệ R/R là **1:4.25**, rất hấp dẫn.
+
+---
+
+### **7. Dự báo xu hướng**
+
+*   **Ngắn hạn (1-2 tuần):** **Hồi phục kỹ thuật.** Giá có khả năng cao sẽ bật tăng trở lại vùng 12.0 - 12.5.
+*   **Trung hạn (1-3 tháng):** **Tích lũy và tăng giá.** Với kết quả kinh doanh tích cực và cổ tức sắp chia, giá có thể sẽ phá vỡ xu hướng giảm và tạo một nền giá mới trước khi hướng đến các mốc cao hơn.
+*   **Dài hạn (3-12 tháng):** **Tích cực.** Phụ thuộc vào chu kỳ giá cao su. Nếu giá cao su thế giới tiếp tục duy trì ở mức cao, DRI có tiềm năng quay trở lại và vượt đỉnh cũ.
+
+---
+
+### **8. Kết luận & Khuyến nghị cuối cùng**
+
+**Khuyến nghị: MUA**
+
+*   **Lý do chính:** DRI đang ở một điểm giao thoa hoàn hảo:
+    1.  **Kỹ thuật:** Cổ phiếu đang ở vùng quá bán cực độ, tạo cơ hội cho một nhịp hồi phục mạnh mẽ trong ngắn hạn. Áp lực bán đã suy yếu rõ rệt (thể hiện qua khối lượng thấp).
+    2.  **Cơ bản:** Công ty đang bước vào chu kỳ tăng trưởng lợi nhuận đột phá, được hỗ trợ bởi giá hàng hóa.
+    3.  **Định giá:** Các chỉ số P/E, P/B đang ở mức rất rẻ so với tiềm năng tăng trưởng.
+    4.  **Chất xúc tác:** Chính sách cổ tức hấp dẫn (tỷ suất >7%) và các tin tức tích cực về kết quả kinh doanh sẽ là động lực hỗ trợ giá.
+
+    Mặc dù xu hướng theo Minervini là tiêu cực, nhưng theo lăng kính của Lynch (mua cổ phiếu chu kỳ khi lợi nhuận bắt đầu phục hồi và P/E còn thấp) và Wyckoff (mua gần điểm cực bán khi có dấu hiệu cạn kiệt nguồn cung), đây là một cơ hội giao dịch với tỷ lệ Rủi ro/Lợi nhuận rất hấp dẫn.
+
+*   **Điểm số đánh giá:** **7.0/10** (Điểm trừ cho xu hướng kỹ thuật ngắn hạn yếu và sự phụ thuộc vào giá hàng hóa).
+
+*   **Tóm tắt ngắn gọn:** DRI là một cơ hội đầu tư hấp dẫn, kết hợp giữa yếu tố "bắt đáy" kỹ thuật tại vùng quá bán và một câu chuyện tăng trưởng cơ bản rõ ràng từ sự phục hồi của chu kỳ ngành. Định giá rẻ và cổ tức cao cung cấp một biên độ an toàn đáng kể cho nhà đầu tư.
+
+*   **Rủi ro chính:**
+    1.  **Rủi ro hàng hóa:** Giá cao su thế giới giảm trở lại sẽ ảnh hưởng trực tiếp và tiêu cực đến lợi nhuận của công ty.
+    2.  **Rủi ro kỹ thuật:** Nếu phe bán quay trở lại với khối lượng lớn, giá có thể tiếp tục phá đáy và dò tìm các mức hỗ trợ sâu hơn.
+    3.  **Rủi ro thanh khoản:** Là cổ phiếu trên UPCOM, thanh khoản có thể không cao bằng các mã trên HOSE/HNX trong một số phiên.
+
+Trân trọng,
+**[Tên chuyên gia]**
+*Chuyên gia Phân tích Đầu tư Cấp cao*
+2025-08-23 19:14:18,516 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-23 19:14:18,516 - INFO - Không nhận được phản hồi từ OpenRouter.
+2025-08-23 19:14:18,516 - INFO - ============================================================
+
+2025-08-23 19:14:18,517 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DRI_report.json'
