@@ -1159,7 +1159,7 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 - **Kịch bản XẤU NHẤT :** VNINDEX sẽ...
 
 💰 **6. CHIẾN LƯỢC ĐẦU TƯ THỰC TẾ:**
-- **Vị thế hiện tại:** MUA/BÁN/GIỮ/CHỜ?
+- **Vị thế hiện tại:** MUA/BÁN/GIỮ/CHỜ/GIẢM TỶ TRỌNG/TĂNG TỶ TRỌNG.
 - **Entry Point:** Mức giá vào lệnh cụ thể?
 - **Stop Loss:** Mức cắt lỗ?
 - **Take Profit:** Mức chốt lời?
@@ -1167,6 +1167,9 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 
 ⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA):**
 -**Ưu tiên lựa chọn các mã trong nền.**
+-**Ưu tiên lựa chọn các mã có chỉ số tài chính tốt.**
+-**Ưu tiên lựa chọn các mã có chỉ số kỹ thuật tốt**
+-**Ưu tiên lựa chọn các mã khối ngoại đang mua**
 | Mã | Lý do chọn (VSA/VPA & WYCKOFF) | Entry | SL | TP | RR |
 |----|---------------------|-------|----|----|----|
 |    |                     |       |    |    |    |
