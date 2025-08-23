@@ -1149,14 +1149,14 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 - **Support/Resistance:** Các mức quan trọng gần nhất?
 
 💼 **4. PHÂN TÍCH VĨ MÔ & TÂM LÝ THỊ TRƯỜNG:**
-- **Vĩ mô tác động:** Lãi suất, tỷ giá, CPI, GDP, dòng tiền?
-- **Tâm lý NĐT:** Sợ hãi/Tham lam/Bình tĩnh?
-- **Dòng tiền:** Khối ngoại mua/bán? ETF flows?
+**Yếu tố vĩ mô tác động:** [Lãi suất, dòng tiền, etc.]
+**Tâm lý NĐT:** [Sợ hãi/Tham lam/Bình tĩnh]
+**Dòng tiền:** [Khối ngoại, ETF flows]
 
 🔮 **5. DỰ BÁO CỤ THỂ (1-2 tuần) - Xác suất:**
-- **Kịch bản CƠ BẢN (50%):** VNINDEX sẽ... trong range...
-- **Kịch bản TỐT NHẤT (30%):** VNINDEX sẽ...  
-- **Kịch bản XẤU NHẤT (20%):** VNINDEX sẽ...
+- **Kịch bản CƠ BẢN :** VNINDEX sẽ... trong range...
+- **Kịch bản TỐT NHẤT :** VNINDEX sẽ...  
+- **Kịch bản XẤU NHẤT :** VNINDEX sẽ...
 
 💰 **6. CHIẾN LƯỢC ĐẦU TƯ THỰC TẾ:**
 - **Vị thế hiện tại:** MUA/BÁN/GIỮ/CHỜ?
@@ -1165,7 +1165,7 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 - **Take Profit:** Mức chốt lời?
 - **Risk/Reward:** Tỷ lệ thưởng/trừng phạt?
 
-⭐ **7. TOP 8 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA):**
+⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA):**
 | Mã | Lý do chọn (VSA/VPA) | Entry | SL | TP | RR |
 |----|---------------------|-------|----|----|----|
 |    |                     |       |    |    |    |
@@ -1177,12 +1177,11 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
 - **Các mức quan trọng cần theo dõi:** ...
 
 🎯 **9. KHUYẾN NGHỊ CUỐI CÙNG:**
-- **KHUYẾN NGHỊ:** MUA MẠNH/MUA/GIỮ/BÁN/BÁN MẠNH
+- **KHUYẾN NGHỊ:** THAM GIA/KHÔNG THAM GIA/GIẢM TỶ TRỌNG
 - **LÝ DO CHÍNH:** (2-3 câu ngắn gọn, súc tích)
 - **ĐIỂM SỐ ĐÁNH GIÁ:** .../10
 
 **QUY TẮC BẮT BUỘC:**
-✅ Chỉ sử dụng dữ liệu được cung cấp
 ✅ Dẫn chứng cụ thể cho mọi nhận định
 ✅ Ưu tiên chất lượng hơn số lượng
 ✅ Trả lời ngắn gọn, thực tế, có thể áp dụng

@@ -1,105 +1,129 @@
-﻿Chào quý nhà đầu tư,
+﻿Chào mừng quý nhà đầu tư,
 
-Tôi là một chuyên gia phân tích thị trường độc lập. Dưới đây là bài phân tích chi tiết và toàn diện về chỉ số VNINDEX dựa trên các dữ liệu được cung cấp, kết hợp giữa phương pháp phân tích kỹ thuật hiện đại (Wyckoff, Minervini, VSA/VPA) và góc nhìn vĩ mô.
+Với hơn 20 năm kinh nghiệm phân tích thị trường theo phương pháp VSA/VPA và Wyckoff, tôi sẽ đưa ra những nhận định chuyên sâu, toàn diện và thực tế nhất về VNINDEX dựa trên dữ liệu bạn đã cung cấp.
 
----
-
-### **BÁO CÁO PHÂN TÍCH THỊ TRƯỜNG VNINDEX**
-
-**Điểm số hiện tại:** 1.650 điểm
-
-### **1. Phân tích kỹ thuật thị trường (Wyckoff, VSA & VPA)**
-
-#### **a. Giai đoạn thị trường theo Wyckoff:**
-
-Dựa trên dữ liệu lịch sử và diễn biến giá, VNINDEX rõ ràng đang trong **Giai đoạn Tăng trưởng (Mark Up - Phase D/E)**.
-
-*   **Bằng chứng:**
-    *   **Phase C (Tích lũy cuối):** Giai đoạn thị trường tạo đáy và tích lũy có thể được xác định quanh vùng 1.150 - 1.200 điểm vào cuối năm 2023 và đầu 2024.
-    *   **Phase D (Tăng trưởng trong vùng):** VNINDEX đã có những cú bứt phá (Sign of Strength - SOS) mạnh mẽ khỏi vùng tích lũy, vượt qua các đỉnh cũ (như 1.250, 1.300) với khối lượng gia tăng, xác nhận dòng tiền lớn tham gia.
-    *   **Phase E (Tăng trưởng ngoài vùng):** Hiện tại, chỉ số đang trong giai đoạn tăng tốc, liên tục tạo các đỉnh cao mới và đang ở vùng giá cao nhất lịch sử (vượt đỉnh ~1.530 điểm của năm 2022).
-
-#### **b. Phân tích Giá và Khối lượng (VSA/VPA):**
-
-Việc phân tích các phiên giao dịch gần đây cho thấy những tín hiệu quan trọng:
-
-*   **Tín hiệu tích cực:** Xu hướng tăng được hỗ trợ bởi khối lượng giao dịch liên tục duy trì ở mức cao hơn trung bình. Phiên `2025-08-14` với giá tăng mạnh (từ 1619 lên 1640) đi kèm khối lượng lớn (1.81B) là một phiên "Nỗ lực đẩy giá thành công" (Effort to Rise).
-*   **Tín hiệu cảnh báo:** Phiên gần nhất (`2025-08-22`) là một phiên cực kỳ đáng chú ý.
-    *   **Giá:** Chỉ số tạo ra một cây nến có biên độ rất rộng (High 1689, Low 1629) và đóng cửa ở mức thấp hơn đáng kể so với mức cao nhất trong ngày (Close 1645).
-    *   **Khối lượng:** Khối lượng giao dịch đạt mức **2.29 tỷ cổ phiếu**, cao hơn 25% so với trung bình 20 phiên (1.84B).
-    *   **Kết luận VSA:** Đây là một phiên **"Upthrust"** hoặc **"Supply Coming In" (Nguồn cung xuất hiện)**. Mặc dù có nỗ lực đẩy giá lên rất mạnh (thể hiện qua Volume đột biến và giá vượt đỉnh), nhưng kết quả lại không tương xứng (giá bị bán ngược trở lại). Điều này cho thấy áp lực chốt lời và nguồn cung từ "Smart Money" đã bắt đầu xuất hiện tại vùng giá cao. Đây là tín hiệu **cảnh báo sớm về khả năng một đỉnh ngắn hạn đang hình thành.**
-
-### **2. Phân tích theo phương pháp Mark Minervini**
-
-VNINDEX hiện tại đang đáp ứng hầu hết các tiêu chí của một **siêu cổ phiếu trong giai đoạn 2 tăng giá (Stage 2 Uptrend)**:
-
-*   **Xu hướng thị trường:**
-    1.  Giá (1.650) > MA50 (1.490) > MA200 (1.330).
-    2.  Đường MA200 đã dốc lên trong một thời gian dài, xác nhận xu hướng tăng dài hạn.
-    3.  Tất cả các đường MA ngắn hạn đều nằm trên các đường MA dài hạn và dốc lên.
-    4.  Giá đang ở gần đỉnh 52 tuần (thực tế là đỉnh cao nhất mọi thời đại).
-*   **Cấu trúc thị trường:** Cấu trúc đỉnh sau cao hơn đỉnh trước, đáy sau cao hơn đáy trước được duy trì một cách bền vững trong nhiều tháng.
-*   **Pivot & Hỗ trợ/Kháng cự:**
-    *   **Kháng cự:** Vì đang ở vùng đỉnh lịch sử, các mức kháng cự tiếp theo mang tính tâm lý như **1.700 điểm**.
-    *   **Hỗ trợ quan trọng:**
-        *   **Ngắn hạn:** MA10 (1.640) và MA20 (1.590).
-        *   **Trung hạn:** Đỉnh cũ lịch sử quanh **1.530 điểm** và đường MA50 (1.490) là vùng hỗ trợ cực kỳ quan trọng. Một sự phá vỡ xuống dưới vùng này sẽ đặt xu hướng tăng vào tình trạng bị đe dọa.
-
-### **3. Phân tích vĩ mô & tâm lý thị trường**
-
-*   **Chỉ số kinh tế vĩ mô (Giả định):** Một thị trường chứng khoán ở đỉnh lịch sử thường được hỗ trợ bởi một môi trường vĩ mô thuận lợi: GDP tăng trưởng ổn định, lạm phát được kiểm soát, lãi suất điều hành ở mức thấp để kích thích kinh tế, và tỷ giá ổn định. Dòng vốn FDI và FII tích cực cũng là động lực quan trọng.
-*   **Tâm lý Nhà đầu tư:** Mức điểm 1.650 và các chỉ báo xung lượng như RSI (67.21) cho thấy tâm lý thị trường đang ở mức **Lạc quan đến Hưng phấn (Greed)**. Sự tham gia của nhà đầu tư cá nhân rất lớn, thể hiện qua thanh khoản duy trì ở mức cao. Tuy nhiên, khi tâm lý hưng phấn lên cao độ, rủi ro điều chỉnh đột ngột cũng tăng lên.
-*   **Dòng tiền thị trường:** Dựa trên dữ liệu tổng hợp các cổ phiếu, dòng tiền đang có sự lan tỏa tốt giữa các nhóm ngành trụ cột như Ngân hàng (CTG, VPB, HDB), Bất động sản (DTD), Vật liệu xây dựng (HPG - không có trong list nhưng là mã vốn hóa lớn) và Hóa chất (DCM). Điều này cho thấy sức mạnh nội tại của thị trường là tốt, không phải là một đợt tăng giá chỉ do một vài cổ phiếu vốn hóa lớn dẫn dắt.
-
-### **4. So sánh quốc tế & ngành**
-
-*   **So sánh với các thị trường khác:** Mức tăng trưởng của VNINDEX lên vùng đỉnh lịch sử cho thấy hiệu suất vượt trội so với nhiều thị trường mới nổi khác, phản ánh câu chuyện tăng trưởng độc đáo của kinh tế Việt Nam.
-*   **So sánh ngành:**
-    *   **Ngân hàng:** Vẫn là ngành xương sống, có định giá P/E và P/B hợp lý (ví dụ CTG P/E ~9.1), ROE cao và sức khỏe tài chính tốt. Đây là nhóm ngành dẫn dắt xu hướng.
-    *   **Hóa chất & Tài nguyên cơ bản:** Các mã như DCM, HGM cho thấy ROE rất cao và tăng trưởng EPS ấn tượng, thu hút dòng tiền đầu cơ mạnh mẽ.
-    *   **Bất động sản & Xây dựng:** Có sự phân hóa nhưng vẫn là nhóm ngành thu hút sự quan tâm lớn khi kinh tế phục hồi và lãi suất thấp.
-
-### **5. Nhận định vị thế thị trường ngắn hạn (1-4 tuần)**
-
-*   **Khả năng biến động:** Mặc dù xu hướng chính là tăng, **khả năng xảy ra một đợt điều chỉnh hoặc đi ngang tích lũy trong ngắn hạn là rất cao.**
-*   **Tín hiệu kỹ thuật gần đây:**
-    *   **Tín hiệu Mua:** Xu hướng tăng mạnh, giá trên tất cả các đường MA, MACD cắt lên.
-    *   **Tín hiệu Bán/Cảnh báo:** RSI tiến vào vùng quá mua (trên 70), giá chạm dải Bollinger trên, và đặc biệt là **cây nến Upthrust với khối lượng cực lớn** ở phiên gần nhất là tín hiệu phân phối ngắn hạn rõ ràng nhất.
-*   **Tâm lý thị trường ngắn hạn:** Sự hưng phấn có thể nhanh chóng chuyển sang lo sợ nếu chỉ số không thể vượt qua đỉnh 1.690 và bắt đầu điều chỉnh.
-
-### **6. Chiến lược đầu tư & Quản lý rủi ro**
-
-*   **Chiến lược phân bổ tài sản:**
-    *   **Nhà đầu tư đang nắm giữ cổ phiếu:** Đây là thời điểm tốt để **chốt lời một phần (khoảng 30-50%)** các vị thế đã có lợi nhuận lớn, đặc biệt là các cổ phiếu đã tăng nóng. Nâng mức chặn lãi (trailing stop) cho phần còn lại.
-    *   **Nhà đầu tư đang cầm tiền:** **Không nên mua đuổi** ở vùng giá hiện tại. Nên kiên nhẫn chờ đợi một nhịp điều chỉnh về các vùng hỗ trợ tin cậy.
-    *   **Tỷ trọng đề xuất:** Cổ phiếu: **50-60%**, Tiền mặt: **40-50%**. Giảm sử dụng margin.
-*   **Stop-loss & Take-profit cho VNINDEX:**
-    *   **Mức dừng lỗ (Stop-loss):** Nếu chỉ số đóng cửa dưới MA20 tại **1.590 điểm**, rủi ro điều chỉnh sâu hơn sẽ tăng lên đáng kể.
-    *   **Mức chốt lời (Take-profit):** Vùng kháng cự tâm lý **1.700 điểm**.
-*   **Risk/Reward:** Tỷ lệ Lợi nhuận/Rủi ro cho các vị thế mua mới tại vùng 1.650 là **không hấp dẫn (khoảng 1:1)**. Rủi ro điều chỉnh về 1.590 (60 điểm) là tương đương với tiềm năng tăng lên 1.700 (50 điểm).
-
-### **7. Dự báo xu hướng**
-
-*   **Ngắn hạn (1-2 tuần):** Xu hướng chủ đạo sẽ là **Đi ngang (Sideways) hoặc Điều chỉnh nhẹ**. Chỉ số có thể dao động trong biên độ 1.590 - 1.690 để hấp thụ lực cung chốt lời.
-*   **Trung hạn (1-3 tháng):** Nếu chỉ số giữ vững được trên vùng hỗ trợ MA50 (1.490), xu hướng tăng sẽ tiếp tục. Sau giai đoạn tích lũy lại, VNINDEX có thể hướng tới mục tiêu **1.750 - 1.800 điểm**.
-*   **Dài hạn (3-12 tháng):** Phụ thuộc vào việc duy trì các yếu tố vĩ mô tích cực. Nếu không có "thiên nga đen", xu hướng tăng dài hạn vẫn được bảo toàn.
+**TỔNG QUAN BAN ĐẦU:** Thị trường đang ở một bước ngoặt quan trọng. Sau một giai đoạn tăng trưởng mạnh mẽ, phiên giao dịch gần nhất đã xuất hiện một tín hiệu cảnh báo cực kỳ rõ ràng về áp lực bán. Phân tích dưới đây sẽ làm rõ bối cảnh và đưa ra chiến lược phù hợp.
 
 ---
 
-### **8. Kết luận & Khuyến nghị cuối cùng**
+### 🔍 **1. PHÂN TÍCH VSA/VPA CHI TIẾT (Volume Spread Analysis):**
 
-Dựa trên toàn bộ phân tích, thị trường đang ở trong một trạng thái mâu thuẫn: xu hướng trung và dài hạn rất mạnh mẽ, nhưng các tín hiệu ngắn hạn lại cho thấy dấu hiệu suy yếu và rủi ro phân phối.
+Dựa trên dữ liệu lịch sử được cung cấp, đây là phân tích 3 phiên gần nhất:
 
-*   **Khuyến nghị:** **GIỮ (HOLD)**
-    *   **Lý do:** Khuyến nghị "GIỮ" là phù hợp nhất trong bối cảnh này. Chúng ta tôn trọng xu hướng tăng giá mạnh mẽ đang diễn ra (không nên bán hết hoặc bán khống). Tuy nhiên, các tín hiệu cảnh báo từ VSA/VPA (phiên Upthrust khối lượng lớn) và các chỉ báo quá mua cho thấy việc mua mới ở vùng giá này là cực kỳ rủi ro. Do đó, chiến lược tối ưu là giữ các vị thế hiện có, có thể chốt lời từng phần và quan sát chặt chẽ phản ứng của thị trường tại các vùng hỗ trợ.
+- **Phiên 1 (Gần nhất - 22/08/2025): "Distribution Day" / "Supply Overcomes Demand"**
+  * **Giá:** Giảm mạnh -32.53 điểm (-1.93%), đóng cửa ở mức thấp nhất phiên (Close 1645.47 so với Low 1629.49). Spread (biên độ) rất rộng (1689 - 1629 = 60 điểm).
+  * **Volume:** 2.29B, **cao đột biến** so với trung bình 20 ngày (1.84B). Tỷ lệ 1.25. (*Lưu ý: Dữ liệu mô tả "khối lượng yếu" là không chính xác, thực tế khối lượng đang cao hơn trung bình*).
+  * **Mô hình VSA:** Đây là một thanh nến giảm giá kinh điển với spread rộng, đóng cửa gần mức thấp nhất trên nền khối lượng cực lớn. Đây là tín hiệu **"Supply coming in"** (Nguồn cung ồ ạt xuất hiện) hay một **"Distribution Day"** (Ngày phân phối). Nỗ lực đẩy giá lên đầu phiên đã thất bại hoàn toàn trước áp lực bán tháo.
 
-*   **Điểm số đánh giá (Thang điểm 10):** **7.0/10**
-    *   *Điểm cao cho sức mạnh xu hướng trung hạn, nhưng bị trừ điểm do rủi ro điều chỉnh ngắn hạn và tỷ lệ R/R không còn hấp dẫn.*
+- **Phiên 2 (21/08/2025): "Effort to Rise" / "Buying Climax" tiềm ẩn**
+  * **Giá:** Tăng +15.74 điểm (+0.94%), đóng cửa ở mức cao nhất. Spread tương đối rộng.
+  * **Volume:** 1.71B, thấp hơn phiên trước đó và phiên sau đó nhưng vẫn ở mức cao.
+  * **Mô hình VSA:** Nỗ lực tăng giá thành công (Effort versus Result). Tuy nhiên, khi kết hợp với bối cảnh trước và sau nó, phiên này có thể là một **"Buying Climax" (BC)** - cao trào mua, nơi "Smart Money" bắt đầu bán ra cho đám đông đang hưng phấn.
 
-*   **Tóm tắt ngắn gọn:** VNINDEX đang trong một xu hướng tăng giá mạnh mẽ nhưng đã xuất hiện các tín hiệu phân phối ngắn hạn rõ rệt tại vùng đỉnh lịch sử. Nhà đầu tư nên ưu tiên quản trị rủi ro, hạn chế mua đuổi và chờ đợi một nhịp điều chỉnh lành mạnh để có điểm vào an toàn hơn.
+- **Phiên 3 (20/08/2025): "Upthrust" / "High Volume Churning"**
+  * **Giá:** Tăng điểm nhưng có sự biến động lớn trong phiên (spread 50 điểm).
+  * **Volume:** 2.41B, **cực kỳ cao**.
+  * **Mô hình VSA:** Một phiên tăng giá với khối lượng khổng lồ và biến động lớn cho thấy sự giằng co dữ dội. Đây là dấu hiệu của **"Churning"**, nơi cung và cầu đối đầu nhau. Giá không tăng tương xứng với khối lượng cho thấy nguồn cung tiềm ẩn rất lớn đang hấp thụ lực mua.
 
-*   **Rủi ro chính cần lưu ý:**
-    1.  **Áp lực chốt lời gia tăng:** Lực bán có thể mạnh lên khi chỉ số không thể vượt qua đỉnh cao mới.
-    2.  **Thay đổi chính sách vĩ mô:** Bất kỳ động thái thắt chặt tiền tệ nào (tăng lãi suất, hút tiền) đều sẽ tác động tiêu cực đến thị trường.
-    3.  **Sự kiện "Thiên nga đen":** Các yếu tố địa chính trị hoặc kinh tế toàn cầu bất ngờ.
-    4.  **Thủng hỗ trợ quan trọng:** Việc VNINDEX đóng cửa dưới mốc MA20 (1.590) sẽ là tín hiệu xấu đầu tiên cho xu hướng tăng.
+**Volume Confirmation:**
+Volume **KHÔNG XÁC NHẬN** xu hướng tăng giá nữa. Ngược lại, khối lượng đột biến trong phiên giảm giá mạnh gần nhất là một sự **XÁC NHẬN MẠNH MẼ cho sự yếu đi của thị trường** và sự gia tăng của áp lực bán.
+
+**Supply/Demand Analysis:**
+Các dấu hiệu rất rõ ràng: Lực Cung (Supply) đang hoàn toàn áp đảo lực Cầu (Demand). Các phiên có volume lớn gần đây đều cho thấy nỗ lực tăng giá bị chặn lại, trong khi nỗ lực giảm giá lại được xác nhận bằng volume lớn. Đây là dấu hiệu của một quá trình **Phân phối (Distribution)** đang diễn ra.
+
+---
+
+### 📊 **2. PHÂN TÍCH WYCKOFF - Giai đoạn thị trường:**
+
+- **Giai đoạn hiện tại:** Thị trường đang có những dấu hiệu đầu tiên của việc chuyển từ giai đoạn **TĂNG TRƯỞNG (Mark-Up)** sang giai đoạn **PHÂN PHỐI (Distribution)**.
+
+- **Dẫn chứng Wyckoff:**
+  * **Buying Climax (BC):** Đỉnh cao nhất tại 1693.68 có thể được xem là một cao trào mua, nơi lực mua của công chúng đạt đỉnh và được đáp ứng bởi lực bán của các nhà tạo lập.
+  * **Change of Character (CHoCH) & Sign of Weakness (SOW):** Phiên giảm mạnh ngày 22/08 với spread rộng và volume khổng lồ chính là một **SOW** điển hình. Nó thay đổi đặc tính của thị trường từ "tăng giá dễ dàng" sang "giảm giá đột ngột", báo hiệu sự kết thúc của xu hướng tăng ngắn hạn.
+  * **Upthrust (UT):** Nỗ lực vượt đỉnh cũ vào đầu phiên 22/08 nhưng thất bại và bị bán ngược trở lại là một dạng **Upthrust** trong phiên, xác nhận sự hiện diện của nguồn cung lớn ở vùng giá cao.
+
+- **Wyckoff Signal:** Tín hiệu hiện tại là một **cảnh báo về khả năng breakdown**. Thị trường đã cho thấy một điểm yếu lớn (SOW). Con đường ít kháng cự nhất trong ngắn hạn có thể đã chuyển sang hướng giảm.
+
+---
+
+### 📈 **3. PHÂN TÍCH KỸ THUẬT MINERVINI:**
+
+- **Trend Analysis:**
+  * **Dài hạn:** Vẫn là xu hướng TĂNG (Giá > MA200).
+  * **Ngắn hạn:** Đã bị BẺ GÃY. Giá hiện tại (1650) tuy vẫn trên MA10 (1640) nhưng phiên giảm mạnh vừa qua đã phá vỡ cấu trúc tăng giá ngắn hạn.
+
+- **MA Alignment:** MA10(1.64K) > MA20(1.59K) > MA50(1.49K) > MA200(1.33K). Về mặt cấu trúc, đây vẫn là sự sắp xếp của một xu hướng tăng mạnh (Stage 2). Tuy nhiên, cú sốc từ phiên giảm gần nhất có nguy cơ làm các đường MA ngắn hạn cắt xuống.
+
+- **Momentum:** RSI 67.21 đang ở mức cao nhưng đã bắt đầu suy yếu từ vùng tiệm cận quá mua. Một cú giảm mạnh khi RSI đang cao thường là tín hiệu đảo chiều hoặc điều chỉnh sâu.
+
+- **Support/Resistance:**
+  * **Kháng cự:** Vùng đỉnh cũ **1690 - 1700**.
+  * **Hỗ trợ gần nhất:** MA10 tại **1640**.
+  * **Hỗ trợ quan trọng:** MA20 tại **1590**. Đây là chốt chặn cực kỳ quan trọng cho xu hướng trung hạn.
+
+---
+
+### 💼 **4. PHÂN TÍCH VĨ MÔ & TÂM LÝ THỊ TRƯỜNG:**
+
+- **Vĩ mô tác động:** Dù không có dữ liệu cụ thể, một phiên bán tháo với volume lớn thường được kích hoạt bởi một thông tin vĩ mô bất lợi hoặc sự lo ngại về việc chính sách tiền tệ thắt chặt (lãi suất, tỷ giá).
+- **Tâm lý NĐT:** Tâm lý đã chuyển đột ngột từ **Hưng phấn/Tham lam (Greed)** sang **Hoảng sợ/Thận trọng (Fear)**. Sự thay đổi đột ngột này có thể gây ra các đợt bán quán tính trong các phiên tiếp theo.
+- **Dòng tiền:** Dữ liệu các cổ phiếu lớn như CTG, HDB, VPB, SHB đều cho thấy `foreign_transaction` là "Mua < Bán". Điều này cho thấy khối ngoại đang có động thái bán ròng, tạo thêm áp lực lên thị trường.
+
+---
+
+### 🔮 **5. DỰ BÁO CỤ THỂ (1-2 tuần) - Xác suất:**
+
+- **Kịch bản CƠ BẢN (50%):** VNINDEX sẽ kiểm tra lại vùng hỗ trợ MA20. Chỉ số sẽ dao động và tích lũy đi ngang trong biên độ **1590 - 1650** để hấp thụ lực bán.
+- **Kịch bản TỐT NHẤT (30%):** Thị trường có một cú hồi kỹ thuật (dead cat bounce) lên vùng **1660 - 1670** để kiểm tra lại nguồn cung trước khi tiếp tục giảm. Đây là cơ hội để cơ cấu lại danh mục.
+- **Kịch bản XẤU NHẤT (20%):** Áp lực bán tiếp diễn mạnh mẽ, phá vỡ hỗ trợ MA20 (1590) và hướng thẳng về vùng hỗ trợ của MA50 tại **1490 - 1500**.
+
+---
+
+### 💰 **6. CHIẾN LƯỢC ĐẦU TƯ THỰC TẾ:**
+
+- **Vị thế hiện tại:** **BÁN/GIẢM TỶ TRỌNG** hoặc **CHỜ**. Tuyệt đối không mua đuổi hoặc bắt đáy ở thời điểm này. Ưu tiên quản trị rủi ro.
+- **Entry Point:** Không có điểm MUA an toàn. Điểm BÁN (short) lý tưởng là khi chỉ số hồi phục yếu về vùng **1660**.
+- **Stop Loss:** (Cho vị thế BÁN) Khi VNINDEX vượt qua đỉnh cũ **1700**.
+- **Take Profit:**
+  * TP1: **1590 - 1600** (Vùng MA20).
+  * TP2: **1490 - 1500** (Vùng MA50).
+- **Risk/Reward:** Tỷ lệ R:R cho vị thế bán tại 1660 là rất hấp dẫn (> 1:1.5 cho TP1).
+
+---
+
+### ⭐ **7. TOP 8 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA):**
+
+Trong bối cảnh thị trường chung tiêu cực, chúng ta ưu tiên các cổ phiếu có **Sức Mạnh Tương Đối (Relative Strength)** cao, ít bị ảnh hưởng bởi đà bán tháo chung. Dưới đây là danh sách để THEO DÕI, chưa phải để MUA NGAY.
+
+| Mã | Lý do chọn (VSA/VPA) | Entry | SL | TP | RR |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **NAB** | RS cao (72), RSI mạnh, Vol mua chủ động lớn. Giữ trend tốt. | 16.5 | 15.8 | 18.5 | 1:2.8 |
+| **VPB** | RSI cực mạnh (83.7), Dòng tiền vào dứt khoát. | 35.0 | 33.5 | 39.0 | 1:2.6 |
+| **CTG** | RS cao, RSI mạnh (74.4), Vol mua chủ động lớn. | 50.0 | 47.5 | 55.0 | 1:2.0 |
+| **KLB** | RS rất cao (97), RSI mạnh, giữ vững trên các MA. | 22.5 | 21.5 | 25.0 | 1:2.5 |
+| **TRC** | RS tốt, RSI khỏe, nền tảng cơ bản tốt, vol mua chủ động. | 65.0 | 62.0 | 72.0 | 1:2.3 |
+| **VVS** | RS rất cao (99), RSI mạnh, vol mua chủ động lớn. | 34.0 | 32.0 | 38.0 | 1:2.0 |
+| **HDB** | RSI cực mạnh (74.8), Dòng tiền vào tốt. | 31.5 | 30.0 | 35.0 | 1:2.3 |
+| **GSM** | RS tốt, Cắt lên các MA, vol mua gia tăng. | 29.5 | 28.0 | 33.0 | 1:2.3 |
+
+---
+
+### ⚠️ **8. RỦI RO & ĐIỂM CẦN THEO DÕI:**
+
+- **Rủi ro kỹ thuật:** Phiên giảm mạnh vừa qua chỉ là một cú rũ bỏ mạnh (Shakeout) và thị trường nhanh chóng lấy lại đà tăng. Tín hiệu này sẽ bị phủ nhận nếu VNINDEX đóng cửa trên 1690 với volume thấp.
+- **Rủi ro vĩ mô:** Bất kỳ tin tức tích cực bất ngờ nào về chính sách tiền tệ, địa chính trị có thể đảo ngược tâm lý thị trường.
+- **Rủi ro tâm lý:** Hiệu ứng bán tháo theo quán tính có thể khiến chỉ số giảm sâu hơn dự kiến trước khi có nhịp hồi.
+- **Các mức quan trọng cần theo dõi:**
+  * **Hỗ trợ:** **1640 (MA10)**, **1590 (MA20)**.
+  * **Kháng cự:** **1690 - 1700** (đỉnh cũ).
+
+---
+
+### 🎯 **9. KHUYẾN NGHỊ CUỐI CÙNG:**
+
+- **KHUYẾN NGHỊ:** **BÁN/GIẢM TỶ TRỌNG**
+- **LÝ DO CHÍNH:** Tín hiệu phân phối rất rõ ràng đã xuất hiện (phiên giảm mạnh với spread rộng, volume đột biến) sau một đà tăng dài. Rủi ro đảo chiều trong ngắn hạn là rất cao và việc bảo vệ thành quả là ưu tiên hàng đầu.
+- **ĐIỂM SỐ ĐÁNH GIÁ:** **8.5/10** (Mức độ tin cậy cao vào tín hiệu bán ngắn hạn).
+
+**Trân trọng,**
+**Chuyên gia Phân tích VSA/VPA & Wyckoff.**

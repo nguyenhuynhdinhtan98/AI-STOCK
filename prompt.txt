@@ -1,8 +1,11 @@
 ﻿
-YÊU CẦU PHÂN TÍCH THỊ TRƯỜNG CHỨNG KHOÁN VIỆT NAM:
-Bạn hãy đóng vai một chuyên gia phân tích thị trường hàng đầu, am hiểu cả phân tích kỹ thuật (Wyckoff, Minervini, VSA/VPA) và phân tích vĩ mô. 
-Hãy phân tích toàn diện thị trường VNINDEX một cách logic và có dẫn chứng cụ thể từ dữ liệu được cung cấp, sau đó đưa ra nhận định thị trường và khuyến nghị chiến lược đầu tư.
+BẠN LÀ CHUYÊN GIA PHÂN TÍCH THỊ TRƯỜNG HÀNG ĐẦU VỚI CHUYÊN MÔN VSA/VPA & WYCKOFF
+Kinh nghiệm: 20+ năm phân tích thị trường chứng khoán
+Chuyên môn: Volume Spread Analysis, Volume Price Analysis, Wyckoff Method
 
+🎯 **NHIỆM VỤ:** Phân tích VNINDEX toàn diện + Dự báo chính xác + Chiến lược thực tế
+
+**DỮ LIỆU THỰC TẾ:**
 CHỈ SỐ PHÂN TÍCH: VNINDEX
 ĐIỂM HIỆN TẠI: 1.65K
 
@@ -36,12 +39,6 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 - Khối lượng hiện tại: 2.29B
 - Khối lượng trung bình 20 ngày: 1.84B
 - Tỷ lệ khối lượng: 1.25 (Thấp hơn trung bình - Khối lượng yếu)
-
-6. SỨC MẠNH TƯƠNG ĐỐI (RS):
-- RS 3 ngày: 1.00
-- RS 1 tháng: 1.00
-- RS 3 tháng: 1.00
-- RS 1 năm: 1.00
 
 THÔNG TIN DỮ LIỆU LỊCH SỬ:
       Date    Open    High     Low   Close     Volume
@@ -2118,58 +2115,67 @@ ticker exchange                      industry  market_cap    roe  stock_rating  
    VSH      HSX Điện, nước & xăng dầu khí đốt    11080.00  16.90          2.80                4.00            3.00              4.60   0.00  0.10      NaN           43.20            8.60            3.00                0.50 13.60 2.20       8.00            4.20                  NaN                   NaN             -29.04              35.45         -54.90          23.04         50.11       33.15 0.60                  0.39                   0.33                   0.54                 74.00            32.00            11.00            36.00                 0.18           Mua < Bán                46.90    NaN            11.06  38.00        Chờ mua                  NaN               -63.00                         0.00                         0.00  3449.00          NaN           NaN           NaN           NaN                   NaN                   NaN                    NaN                    NaN              NaN                 NaN         NaN                NaN             0.00            -1.74          NaN                0.00               -1.74               -0.26              270.27                   Có               20.00                   -23.80                     -30.80          814.70                        21.60                          78.70                      147.60                      15077.80            -11.80                   -10.40                7.40              2066.50 Giá nằm dưới SMA(100)                           NaN               0.00      NaN       NaN       NaN      NaN                 93.00 14.00                  -19.70                 -38.10         0.50          0.10            166.00             502.00 5.10  9.30  NaN  NaN                                                                  NaN                151.09               1744.75    4995.00       3449.00                     NaN                    NaN                    NaN                     NaN
    VVS    UPCOM              Ô tô và phụ tùng      771.00  35.10          2.70                1.70             NaN              3.80   0.50  0.20      NaN           60.60           37.40            5.70                0.60  6.00 1.80       6.40            6.40                  NaN  Giá nằm trên SMA(20)              71.79                NaN         296.23            NaN          6.00        2.65 0.90                  2.59                   3.37                   3.06                 29.00            98.00            99.00            94.00                 1.51                 NaN                35.20  61.50             0.19  80.00            NaN           Trung tính                34.00                          NaN                         3.00  6019.00         0.20          0.20          0.20          0.30                   NaN  Giá nằm trên SMA(50)                    NaN                    NaN              NaN                 NaN         NaN         Trung tính             3.86            51.63          NaN               -2.37               51.63              114.81                 NaN                   Có               40.00                   -30.40                      -6.00          129.60                        98.40                          41.70                      375.00                        210.00            -10.90                    -9.10              159.00               159.00 Giá nằm trên SMA(100)                           NaN              -2.37    62.60     89.20     88.20    50.30                  8.40  1.00                   82.90                 111.30          NaN          0.00             55.00            2078.00 0.10  4.00  NaN  NaN                                                                  NaN                347.24                   NaN     434.00       6019.00                   86.60                   2.90                  35.40                   59.40
 
-**PHÂN TÍCH THEO CÁC KHÚC CHÍNH SAU:**
+**YÊU CẦU CỤ THỂ - TRẢ LỜI THEO CẤU TRÚC SAU:**
 
-**1. Phân tích kỹ thuật thị trường (Wyckoff, VSA & VPA):**
-- **Giai đoạn thị trường:** Xác định VNINDEX đang ở giai đoạn nào (Tích lũy, Tăng trưởng, Phân phối, Suy thoái) theo Wyckoff.
-- **Phân tích Giá & Khối lượng:** Phân tích mối quan hệ giữa biến động giá và khối lượng giao dịch gần đây.
+🔍 **1. PHÂN TÍCH VSA/VPA CHI TIẾT (Volume Spread Analysis):**
+- **3 phiên gần nhất - Phân tích từng phiên:**
+  * Phiên 1: Giá thay đổi? Volume so với trung bình? Mô hình VSA nào? (Test/Stop/Climax/Upthrust)
+  * Phiên 2: Giá thay đổi? Volume so với trung bình? Mô hình VSA nào?
+  * Phiên 3: Giá thay đổi? Volume so với trung bình? Mô hình VSA nào?
+- **Volume Confirmation:** Volume đang xác nhận/XÁC NHẬN YẾU/KHÔNG XÁC NHẬN xu hướng giá?
+- **Supply/Demand Analysis:** Dấu hiệu tích lũy (Demand) hay phân phối (Supply)?
 
-**2. Phân tích theo phương pháp Mark Minervini:**
-- **Xu hướng thị trường:** Nhận định xu hướng chính và phụ.
-- **Cấu trúc thị trường:** Phân tích các đỉnh/đáy để xác định xu hướng.
-- **Pivot & Hỗ trợ/Kháng cự:** Xác định các điểm pivot và vùng hỗ trợ/kháng cự gần đây.
+📊 **2. PHÂN TÍCH WYCKOFF - Giai đoạn thị trường:**
+- **Giai đoạn hiện tại:** TÍCH LŨY/TĂNG TRƯỞNG/PHÂN PHỐI/SUY THOÁI?
+- **Dẫn chứng Wyckoff:** 
+  * Spring/Upthrust gần nhất?
+  * Volume tại các điểm quan trọng?
+  * Thời gian tích lũy (nếu có)?
+- **Wyckoff Signal:** Có dấu hiệu breakout/breakdown không?
 
-**3. Phân tích vĩ mô & tâm lý thị trường:**
-- **Chỉ số kinh tế vĩ mô:** Phân tích ảnh hưởng của CPI, GDP, lãi suất, tỷ giá...
-- **Tâm lý NĐT:** Nhận định tâm lý chung của nhà đầu tư.
-- **Dòng tiền thị trường:** Phân tích dòng tiền vào/ra khỏi thị trường.
+📈 **3. PHÂN TÍCH KỸ THUẬT MINERVINI:**
+- **Trend Analysis:** Xu hướng dài hạn? Xu hướng ngắn hạn?
+- **MA Alignment:** MA10/MA20/MA50 sắp xếp như thế nào? Tăng mạnh/Đi ngang/Giảm mạnh?
+- **Momentum:** RSI 67.21 - Quá mua/Bình thường/Quá bán?
+- **Support/Resistance:** Các mức quan trọng gần nhất?
 
-**4. So sánh quốc tế & ngành:**
-- **So sánh với các thị trường khác:** So sánh VNINDEX với các chỉ số quốc tế.
-- **So sánh ngành:** So sánh mức độ tăng trưởng và định giá của các ngành chính.
+💼 **4. PHÂN TÍCH VĨ MÔ & TÂM LÝ THỊ TRƯỜNG:**
+- **Vĩ mô tác động:** Lãi suất, tỷ giá, CPI, GDP, dòng tiền?
+- **Tâm lý NĐT:** Sợ hãi/Tham lam/Bình tĩnh?
+- **Dòng tiền:** Khối ngoại mua/bán? ETF flows?
 
-**5. Nhận định vị thế thị trường ngắn hạn:**
-- **Khả năng bật tăng ngắn hạn:** Đánh giá khả năng tăng/giảm điểm trong ngắn hạn (1-4 tuần).
-- **Tín hiệu kỹ thuật gần đây:** Liệt kê và phân tích các tín hiệu mua/bán kỹ thuật gần đây.
-- **Tâm lý thị trường ngắn hạn:** Nhận định tâm lý chung của NĐT với thị trường.
+🔮 **5. DỰ BÁO CỤ THỂ (1-2 tuần) - Xác suất:**
+- **Kịch bản CƠ BẢN (50%):** VNINDEX sẽ... trong range...
+- **Kịch bản TỐT NHẤT (30%):** VNINDEX sẽ...  
+- **Kịch bản XẤU NHẤT (20%):** VNINDEX sẽ...
 
-**6. Chiến lược đầu tư & Quản lý rủi ro:**
-- **Chiến lược phân bổ tài sản:** Đề xuất tỷ trọng cổ phiếu/phái sinh/tiền mặt.
-- **Stop-loss & Take-profit:** Đề xuất mức dừng lỗ và chốt lời cho VNINDEX.
-- **Risk/Reward:** Ước lượng tỷ lệ lợi nhuận trên rủi ro.
+💰 **6. CHIẾN LƯỢC ĐẦU TƯ THỰC TẾ:**
+- **Vị thế hiện tại:** MUA/BÁN/GIỮ/CHỜ?
+- **Entry Point:** Mức giá vào lệnh cụ thể?
+- **Stop Loss:** Mức cắt lỗ?
+- **Take Profit:** Mức chốt lời?
+- **Risk/Reward:** Tỷ lệ thưởng/trừng phạt?
 
-**7. Dự báo xu hướng:**
-- **Ngắn hạn (1-2 tuần):** Dự báo ngắn hạn dựa trên phân tích kỹ thuật.
-- **Trung hạn (1-3 tháng):** Dự báo trung hạn kết hợp kỹ thuật và vĩ mô.
-- **Dài hạn (3-12 tháng):** Dự báo dài hạn dựa trên triển vọng kinh tế.
+⭐ **7. TOP 8 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA):**
+| Mã | Lý do chọn (VSA/VPA) | Entry | SL | TP | RR |
+|----|---------------------|-------|----|----|----|
+|    |                     |       |    |    |    |
 
-**8. Kết luận & Khuyến nghị cuối cùng:**
-Dựa trên toàn bộ phân tích ở trên, hãy đưa ra khuyến nghị cuối cùng cho VNINDEX.
-Bạn phải chọn MỘT trong 5 khuyến nghị sau và giải thích rõ lý do:
-- **MUA MẠNH:** Tín hiệu kỹ thuật và vĩ mô rất tích cực, điểm vào tốt, rủi ro thấp.
-- **MUA:** Tín hiệu kỹ thuật và vĩ mô tích cực, điểm vào hợp lý.
-- **GIỮ:** Xu hướng đi ngang hoặc đang chờ xác nhận tín hiệu tiếp theo.
-- **BÁN:** Tín hiệu kỹ thuật và vĩ mô tiêu cực, điểm vào rủi ro cao.
-- **BÁN MẠNH:** Tín hiệu kỹ thuật và vĩ mô rất tiêu cực, điểm vào rủi ro rất cao.
+⚠️  **8. RỦI RO & ĐIỂM CẦN THEO DÕI:**
+- **Rủi ro kỹ thuật:** ...
+- **Rủi ro vĩ mô:** ...
+- **Rủi ro tâm lý:** ...
+- **Các mức quan trọng cần theo dõi:** ...
 
-**Yêu cầu cụ thể:**
-- **Khuyến nghị:** Chọn một trong năm và giải thích rõ lý do chính.
-- **Điểm số đánh giá (1-10):** Đánh giá VNINDEX trên thang điểm 10.
-- **Tóm tắt ngắn gọn:** Tóm tắt lý do chính cho khuyến nghị trong 2-3 câu.
-- **Rủi ro chính:** Liệt kê những rủi ro lớn nhất cần lưu ý.
+🎯 **9. KHUYẾN NGHỊ CUỐI CÙNG:**
+- **KHUYẾN NGHỊ:** MUA MẠNH/MUA/GIỮ/BÁN/BÁN MẠNH
+- **LÝ DO CHÍNH:** (2-3 câu ngắn gọn, súc tích)
+- **ĐIỂM SỐ ĐÁNH GIÁ:** .../10
 
-**Yêu cầu về định dạng:**
-- Trình bày rõ ràng, logic theo từng phần.
-- Luôn đưa ra dẫn chứng cụ thể từ dữ liệu đã cung cấp.
-- Kết hợp cả phân tích định lượng và định tính.
-- Ưu tiên chất lượng, độ sâu và tính chính xác.
+**QUY TẮC BẮT BUỘC:**
+✅ Chỉ sử dụng dữ liệu được cung cấp
+✅ Dẫn chứng cụ thể cho mọi nhận định
+✅ Ưu tiên chất lượng hơn số lượng
+✅ Trả lời ngắn gọn, thực tế, có thể áp dụng
+✅ Dùng bảng biểu khi liệt kê danh sách
+✅ Tập trung vào VSA/VPA và Wyckoff Method
