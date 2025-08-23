@@ -3434,3 +3434,178 @@ Trân trọng,
 2025-08-23 19:14:18,516 - INFO - ============================================================
 
 2025-08-23 19:14:18,517 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DRI_report.json'
+2025-08-23 20:12:19,769 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-23 20:12:22,390 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-23 20:12:30,628 - INFO - ============================================================
+2025-08-23 20:12:30,628 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-23 20:12:30,628 - INFO - ============================================================
+2025-08-23 20:12:30,628 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-23 20:12:31,082 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-23 20:12:31,082 - INFO - Đang lấy dữ liệu tài chính cho VNINDEX
+2025-08-23 20:12:31,082 - ERROR - Lỗi khi lấy BCTC cho VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-23 20:12:31,082 - INFO - Đang lấy thông tin công ty cho VNINDEX
+2025-08-23 20:12:31,082 - ERROR - Lỗi khi lấy thông tin công ty VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-23 20:12:31,086 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-23 20:12:31,108 - WARNING - Không tìm thấy dữ liệu cho mã cổ phiếu 'VNINDEX' trong file.
+2025-08-23 20:12:31,108 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO VNINDEX (22/08/2025):
+2025-08-23 20:12:31,108 - INFO -  - Giá hiện tại: 1,645.47 VND
+2025-08-23 20:12:31,108 - INFO -  - Đường trung bình:
+2025-08-23 20:12:31,109 - INFO -  * MA10: 1,637.58| MA20: 1,587.39| MA50: 1,486.46| MA200: 1,325.79
+2025-08-23 20:12:31,109 - INFO -  - Chỉ báo dao động:
+2025-08-23 20:12:31,109 - INFO -  * RSI (14): 67.21
+2025-08-23 20:12:31,109 - INFO -  * MACD: 51.93| Signal: 49.39| Histogram: 2.54
+2025-08-23 20:12:31,109 - INFO -  * Bollinger Bands: Trên: 1,705.02| Dưới: 1,469.75
+2025-08-23 20:12:31,109 - INFO -  - Mô hình Ichimoku:
+2025-08-23 20:12:31,109 - INFO -  * Tenkan-sen (Chuyển đổi): 1639.61
+2025-08-23 20:12:31,109 - INFO -  * Kijun-sen (Cơ sở): 1585.14
+2025-08-23 20:12:31,109 - INFO -  * Senkou Span A (Leading Span A): 1612.38
+2025-08-23 20:12:31,109 - INFO -  * Senkou Span B (Leading Span B): 1498.90
+2025-08-23 20:12:31,109 - INFO -  * Chikou Span (Trễ): 1490.01
+2025-08-23 20:12:31,109 - INFO -  - Khối lượng:
+2025-08-23 20:12:31,109 - INFO -  * Khối lượng hiện tại: 2293777647.0
+2025-08-23 20:12:31,109 - INFO -  * MA Khối lượng (20): 1,842,110,268.00
+2025-08-23 20:12:31,109 - INFO -  * MA Khối lượng (50): 1,365,685,834.98
+2025-08-23 20:12:31,109 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: MUA MẠNH
+2025-08-23 20:12:31,109 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 81.0/100
+2025-08-23 20:12:31,109 - INFO -  📈 TÍN HIỆU: MUA MẠNH
+2025-08-23 20:12:31,128 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/VNINDEX_data.csv'
+2025-08-23 20:12:31,145 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-23 20:12:31,145 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-23 20:12:31,145 - INFO - Đang phân tích bằng Gemini...
+2025-08-23 20:12:31,147 - INFO - Đang gửi prompt tới Gemini...
+2025-08-23 20:14:06,759 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VNINDEX.txt
+2025-08-23 20:14:06,759 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-23 20:14:06,759 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-23 20:14:11,754 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-23 20:14:12,805 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã VNINDEX ====================
+2025-08-23 20:14:12,805 - INFO - 💰 Giá hiện tại: 1,645.47 VND
+2025-08-23 20:14:12,805 - INFO - 📈 Tín hiệu: MUA MẠNH
+2025-08-23 20:14:12,805 - INFO - 🎯 Đề xuất: MUA MẠNH
+2025-08-23 20:14:12,806 - INFO - 📊 Điểm phân tích: 81.00/100
+2025-08-23 20:14:12,806 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-23 20:14:12,806 - INFO - Chào mừng quý nhà đầu tư,
+
+Với hơn 20 năm kinh nghiệm phân tích thị trường theo phương pháp VSA/VPA và Wyckoff, tôi xin đưa ra những nhận định chi tiết, dự báo và chiến lược hành động cho VNINDEX trong giai đoạn tới.
+
+---
+
+### **BÁO CÁO PHÂN TÍCH TOÀN DIỆN VNINDEX**
+
+**Chuyên gia:** [Chuyên gia Phân tích VSA/Wyckoff]
+**Ngày:** 22/08/2025 (dựa trên dữ liệu cung cấp)
+**VNINDEX Hiện tại:** 1645.47 (Đã điều chỉnh từ mức 1.65K để phản ánh giá đóng cửa phiên gần nhất)
+
+---
+
+🔍 **1. PHÂN TÍCH VSA/VPA CHI TIẾT (Volume Spread Analysis):**
+
+Dựa trên dữ liệu 3 phiên giao dịch cuối cùng, chúng ta có một bức tranh rất rõ nét về hành động giá và khối lượng.
+
+- **3 phiên gần nhất - Phân tích từng phiên:**
+    *   **Phiên 1 (20/08/2025):** Giá tăng mạnh (đóng cửa 1664.36). Volume cực lớn (2.41B), cao hơn nhiều so với trung bình. Đây là một thanh **Buying Climax (BC)** điển hình. Spread giá rộng, đóng cửa ở mức cao cho thấy sự hưng phấn của đám đông, nhưng volume đột biến là dấu hiệu "Smart Money" bắt đầu phân phối lượng lớn cổ phiếu vào lực mua này.
+    *   **Phiên 2 (21/08/2025):** Giá tiếp tục tăng (đóng cửa 1688.00) nhưng spread hẹp lại. Volume giảm đáng kể (1.71B) so với phiên BC. Đây là một thanh **No Demand Bar**. Giá cố gắng đẩy lên cao hơn nhưng không có lực cầu thực sự theo sau (thể hiện qua volume yếu hơn). Nỗ lực tăng giá không tương xứng với kết quả.
+    *   **Phiên 3 (22/08/2025 - Phiên hiện tại):** Giá giảm mạnh với biên độ cực rộng (spread ~60 điểm), đóng cửa gần mức thấp nhất phiên (1645.47). Volume rất cao (2.29B), xác nhận áp lực bán mạnh mẽ. Đây là một thanh **Supply Coming In** hay **Sign of Weakness (SOW)**. Nó cho thấy phe bán đã hoàn toàn áp đảo phe mua, hấp thụ hết lực cầu còn lại và đẩy giá xuống mạnh.
+
+- **Volume Confirmation:** **KHÔNG XÁC NHẬN.** Volume đang cho thấy sự bất thường và mâu thuẫn với xu hướng tăng trước đó. Volume tăng đột biến trong phiên giảm giá là một tín hiệu cảnh báo cực kỳ mạnh mẽ rằng xu hướng tăng đang bị đe dọa nghiêm trọng.
+
+- **Supply/Demand Analysis:** Các dấu hiệu của **Supply (Phân phối)** đang trở nên áp đảo. Chuỗi 3 phiên: Buying Climax -> No Demand -> Supply Coming In là một kịch bản phân phối kinh điển. Lực cầu (Demand) đã suy yếu rõ rệt và lực cung (Supply) đang gia tăng mạnh.
+
+📊 **2. PHÂN TÍCH WYCKOFF - Giai đoạn thị trường:**
+
+- **Giai đoạn hiện tại:** Thị trường đang có những dấu hiệu đầu tiên của việc chuyển từ giai đoạn **TĂNG TRƯỞNG (MARK UP)** sang giai đoạn **PHÂN PHỐI (DISTRIBUTION)**.
+
+- **Dẫn chứng Wyckoff:**
+    *   **Buying Climax (BC):** Đỉnh cao trào mua tại phiên 20/08 với volume kỷ lục.
+    *   **Automatic Reaction (AR):** Sự sụt giảm sau BC sẽ xác định biên dưới của vùng phân phối. Phiên giảm mạnh ngày 22/08 có thể là khởi đầu của AR.
+    *   **Upthrust (UT) hoặc Upthrust After Distribution (UTAD):** Đỉnh cao nhất tại 1693.68 (phiên 21/08) có thể được xem là một cú Upthrust, một cái bẫy tăng giá (bull trap) khi giá nỗ lực vượt đỉnh BC nhưng thất bại với volume yếu hơn, sau đó bị bán ngược trở lại mạnh mẽ.
+    *   **Sign of Weakness (SOW):** Phiên giảm điểm 22/08 với spread rộng và volume lớn chính là một SOW điển hình, xác nhận sự hiện diện của nguồn cung lớn.
+
+- **Wyckoff Signal:** Tín hiệu hiện tại là **BULL TRAP** và **BREAKDOWN** tiềm năng khỏi đỉnh. Cần theo dõi chặt chẽ xem chỉ số có giữ được các mốc hỗ trợ quan trọng hay không.
+
+📈 **3. PHÂN TÍCH KỸ THUẬT MINERVINI:**
+
+- **Trend Analysis:**
+    *   **Xu hướng dài hạn:** Vẫn là **TĂNG** (Giá > MA200, MA50 > MA200).
+    *   **Xu hướng ngắn hạn:** Đang bị **đe dọa nghiêm trọng**. Giá đã phá vỡ MA10 và đang lao về MA20.
+
+- **MA Alignment:** Các đường MA vẫn đang sắp xếp theo thứ tự tăng mạnh (MA10 > MA20 > MA50 > MA200), tuy nhiên, giá đã vi phạm MA10, một dấu hiệu cảnh báo sớm.
+
+- **Momentum:** RSI 67.21 là mức **BÌNH THƯỜNG** trong một xu hướng tăng, nhưng đã giảm từ vùng quá mua. Điều này cho thấy động lượng tăng đang suy yếu.
+
+- **Support/Resistance:**
+    *   **Kháng cự:** Vùng đỉnh cũ **1688 - 1693**.
+    *   **Hỗ trợ gần nhất:** MA20 tại **1590**.
+    *   **Hỗ trợ quan trọng:** MA50 tại **1490**.
+
+💼 **4. PHÂN TÍCH VĨ MÔ & TÂM LÝ THỊ TRƯỜNG:**
+
+- **Yếu tố vĩ mô tác động:** Tại vùng đỉnh lịch sử, thị trường rất nhạy cảm với các thông tin vĩ mô. Bất kỳ dấu hiệu nào về việc thắt chặt chính sách tiền tệ (tăng lãi suất để kiềm chế lạm phát có thể xảy ra khi kinh tế quá nóng) hoặc rủi ro địa chính trị đều có thể kích hoạt một đợt bán tháo.
+- **Tâm lý NĐT:** Chuyển từ **Tham lam cực độ (Extreme Greed)** sang **Hoang mang & Bắt đầu Sợ hãi (Fear)**. Phiên giảm mạnh bất ngờ sẽ khiến các nhà đầu tư sử dụng margin cao phải bán giải chấp, tạo hiệu ứng hòn tuyết lăn.
+- **Dòng tiền:** Dữ liệu cho thấy dòng tiền khối ngoại đang có sự phân hóa mạnh, bán ròng ở các mã vốn hóa lớn (VD: CTG) và mua ở một số mã riêng lẻ. Áp lực bán ròng của khối ngoại là một rủi ro cần theo dõi.
+
+🔮 **5. DỰ BÁO CỤ THỂ (1-2 tuần) - Xác suất:**
+
+- **Kịch bản CƠ BẢN (Xác suất 60%):** VNINDEX sẽ tiếp tục điều chỉnh và kiểm tra lại vùng hỗ trợ MA20. Chỉ số sẽ dao động trong biên độ **1590 - 1650**. Sẽ có những nỗ lực hồi phục kỹ thuật nhưng khó vượt qua được vùng 1650 nếu không có volume mua đột biến trở lại.
+- **Kịch bản TỐT NHẤT (Xác suất 15%):** Phiên giảm mạnh chỉ là một cú rũ bỏ (Shakeout). Thị trường nhanh chóng tìm thấy điểm cân bằng quanh MA10 (1640), tích lũy lại với volume thấp và quay trở lại thử thách đỉnh cũ 1690.
+- **Kịch bản XẤU NHẤT (Xác suất 25%):** Áp lực bán tiếp tục gia tăng, phá vỡ hỗ trợ MA20 (1590). VNINDEX xác nhận bước vào giai đoạn phân phối/suy thoái ngắn hạn và tìm về vùng hỗ trợ mạnh hơn tại MA50, quanh mốc **1490 - 1500**.
+
+💰 **6. CHIẾN LƯỢC ĐẦU TƯ THỰC TẾ:**
+
+- **Vị thế hiện tại:** **GIẢM TỶ TRỌNG / BÁN / CHỜ.** Tuyệt đối không mua đuổi trong các nhịp hồi phục kỹ thuật. Ưu tiên bảo toàn vốn.
+- **Entry Point:** Không có điểm vào lệnh MUA an toàn ở thời điểm hiện tại. Chờ đợi VNINDEX kiểm tra lại các vùng hỗ trợ quan trọng (MA20, MA50) và hình thành mẫu hình tạo đáy đáng tin cậy (ví dụ: Spring hoặc Test for Supply với volume cạn kiệt).
+- **Stop Loss:** Đối với các vị thế đang nắm giữ, nên đặt chặn lãi hoặc cắt lỗ ngay dưới vùng hỗ trợ MA20 tại **1585 điểm**.
+- **Take Profit:** Chốt lời dứt khoát các cổ phiếu đã đạt mục tiêu hoặc có dấu hiệu suy yếu.
+- **Risk/Reward:** Tỷ lệ R/R cho các vị thế mua mới hiện tại là **rất thấp và không hấp dẫn**. Rủi ro điều chỉnh sâu lớn hơn nhiều so với tiềm năng tăng giá ngắn hạn.
+
+⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA & WYCKOFF):**
+
+Trong bối cảnh thị trường chung rủi ro, chiến lược tốt nhất là quan sát các cổ phiếu đang trong giai đoạn TÍCH LŨY, có sức mạnh tương đối tốt hơn thị trường và chờ đợi điểm mua khi thị trường chung ổn định. Dưới đây là danh sách theo dõi tiềm năng:
+
+| Mã  | Lý do chọn (VSA/VPA & WYCKOFF)                                | Entry (Vùng) | SL (Vùng) | TP (Vùng) | RR   |
+|:----|:--------------------------------------------------------------|:-------------|:----------|:----------|:-----|
+| **NAB** | Vượt đỉnh, dòng tiền ngoại mạnh, sức mạnh giá tốt, vol lớn.      | 17.5 - 18.0  | 16.5      | 22.0      | 1:4  |
+| **DCM** | Tích lũy nền trên, vol xác nhận, dòng tiền ngoại mua ròng lớn.    | 38.0 - 38.5  | 36.5      | 45.0      | 1:4.3|
+| **VAB** | Mẫu hình breakout, tín hiệu mua mạnh, vol tốt, dòng tiền ngoại.    | 13.5 - 14.0  | 12.8      | 17.0      | 1:4.2|
+| **TRC** | Nền giá chặt, vol cạn kiệt trước khi tăng, tín hiệu mua mạnh.   | 68.0 - 69.0  | 65.0      | 80.0      | 1:3.6|
+| **HPW** | Tín hiệu mua kỹ thuật mạnh, vượt các MA quan trọng.              | 20.5 - 21.0  | 19.5      | 25.0      | 1:4  |
+| **HDM** | Tích lũy tốt, tín hiệu mua mạnh, tài chính vững chắc (ROE cao). | 37.5 - 38.0  | 36.0      | 45.0      | 1:4.6|
+| **HDB** | Dẫn dắt nhóm bank, RS cao, vol lớn (Lưu ý: hơi quá mua).      | 32.0 - 32.5  | 30.5      | 38.0      | 1:3.6|
+| **HAH** | Tích lũy lại sau nhịp tăng, RS cao, chờ điểm test cung.       | 56.0 - 57.0  | 54.0      | 68.0      | 1:5.5|
+| **VVS** | RS rất cao, vol tốt, vượt nền giá.                           | 35.5 - 36.0  | 34.0      | 42.0      | 1:4  |
+| **KLB** | Sức mạnh giá tốt, dòng tiền ngoại tham gia.                      | 23.5 - 24.0  | 22.5      | 28.0      | 1:4  |
+| **NCS** | Tích lũy nền cao, RS tốt so với thị trường chung.               | 37.5 - 38.0  | 36.0      | 45.0      | 1:4.6|
+| **NFC** | RS rất cao, vol đột biến, vượt nền giá mạnh mẽ.               | 53.0 - 54.0  | 50.0      | 65.0      | 1:3.6|
+| **GSM** | Vượt các MA quan trọng, tín hiệu mua kỹ thuật.                 | 31.0 - 31.5  | 29.8      | 36.0      | 1:4.1|
+| **HTI** | RS tốt, vol ổn định, đang trong pha tích lũy lại.              | 22.5 - 23.0  | 21.5      | 27.0      | 1:4  |
+| **THG** | Nền tảng tài chính tốt, RS cao, đang tích lũy.                  | 52.0 - 53.0  | 50.0      | 62.0      | 1:4.5|
+| **SJG** | RS tốt, vol tăng dần, đang trong pha tăng giá.                 | 20.5 - 21.0  | 19.5      | 25.0      | 1:4  |
+| **PIC** | RS cao, đang kiểm tra lại đỉnh cũ.                             | 17.0 - 17.5  | 16.2      | 21.0      | 1:3.4|
+| **TCL** | RS ổn định, tài chính tốt, đang trong kênh tăng giá.           | 35.5 - 36.0  | 34.0      | 42.0      | 1:4  |
+| **PPH** | RS tốt, đang trong pha tích lũy sau nhịp tăng.                 | 28.0 - 28.5  | 27.0      | 33.0      | 1:4.5|
+| **ILB** | RS tốt, đang kiểm tra lại hỗ trợ, chờ tín hiệu test cung.     | 29.0 - 29.5  | 28.0      | 34.0      | 1:4.5|
+
+⚠️ **8. RỦI RO & ĐIỂM CẦN THEO DÕI:**
+
+- **Rủi ro kỹ thuật:** VNINDEX không giữ được hỗ trợ MA20 (1590), xác nhận mô hình phân phối và có thể giảm sâu về MA50 (1490).
+- **Rủi ro vĩ mô:** Thông tin tiêu cực về lạm phát, động thái tăng lãi suất từ các ngân hàng trung ương lớn, căng thẳng địa chính trị.
+- **Rủi ro tâm lý:** Hiệu ứng bán tháo, bán giải chấp (force-sell) nếu các mốc hỗ trợ quan trọng bị phá vỡ.
+- **Các mức quan trọng cần theo dõi:**
+    *   **Hỗ trợ:** 1590 (MA20), 1490 (MA50).
+    *   **Kháng cự:** 1665 (vùng đỉnh phiên giảm), 1693 (đỉnh lịch sử).
+
+🎯 **9. KHUYẾN NGHỊ CUỐI CÙNG:**
+
+- **KHUYẾN NGHỊ:** **GIẢM TỶ TRỌNG** và **TĂNG TỶ LỆ TIỀN MẶT**.
+- **LÝ DO CHÍNH:** Thị trường đã phát đi tín hiệu phân phối đỉnh rất rõ ràng thông qua hành động giá và khối lượng (VSA). Rủi ro một cú điều chỉnh mạnh trong ngắn hạn là rất cao, lợi nhuận tiềm năng không bù đắp được rủi ro ở thời điểm này.
+- **ĐIỂM SỐ ĐÁNH GIÁ (Mức độ hấp dẫn để MUA MỚI):** **3/10**
+
+---
+***Tuyên bố miễn trừ trách nhiệm:** Phân tích trên dựa trên phương pháp VSA/VPA & Wyckoff và mang tính chất tham khảo. Nhà đầu tư cần tự chịu trách nhiệm cho mọi quyết định của mình.*
+2025-08-23 20:14:12,806 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-23 20:14:12,806 - INFO - Không nhận được phản hồi từ OpenRouter.
+2025-08-23 20:14:12,806 - INFO - ============================================================
+
+2025-08-23 20:14:12,807 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
