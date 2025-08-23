@@ -3609,3 +3609,494 @@ Trong bối cảnh thị trường chung rủi ro, chiến lược tốt nhất 
 2025-08-23 20:14:12,806 - INFO - ============================================================
 
 2025-08-23 20:14:12,807 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-23 20:40:02,183 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-23 20:40:04,975 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-23 20:40:04,976 - INFO - ============================================================
+2025-08-23 20:40:04,976 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DBC
+2025-08-23 20:40:04,976 - INFO - ============================================================
+2025-08-23 20:40:04,976 - INFO - Đang lấy dữ liệu cho mã DBC
+2025-08-23 20:40:05,351 - INFO - Đã lưu dữ liệu cho mã DBC vào file vnstocks_data/DBC_data.csv
+2025-08-23 20:40:05,352 - INFO - Đang lấy dữ liệu tài chính cho DBC
+2025-08-23 20:40:06,568 - INFO - Đã lưu dữ liệu tài chính của mã DBC vào file vnstocks_data/DBC_financial_statements.csv
+2025-08-23 20:40:06,568 - INFO - Đang lấy thông tin công ty cho DBC
+2025-08-23 20:40:06,672 - INFO - Đã lấy thông tin công ty DBC thành công
+2025-08-23 20:40:06,676 - INFO - Đang phân tích kỹ thuật cho mã DBC...
+2025-08-23 20:40:06,686 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-23 20:40:06,846 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-23 20:40:06,865 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DBC' trong file market_filtered.csv
+2025-08-23 20:40:06,865 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DBC (22/08/2025):
+2025-08-23 20:40:06,865 - INFO -  - Giá hiện tại: 27.50 VND
+2025-08-23 20:40:06,865 - INFO -  - Đường trung bình:
+2025-08-23 20:40:06,866 - INFO -  * MA10: 29.69| MA20: 29.82| MA50: 29.23| MA200: 25.41
+2025-08-23 20:40:06,866 - INFO -  - Chỉ báo dao động:
+2025-08-23 20:40:06,866 - INFO -  * RSI (14): 35.51
+2025-08-23 20:40:06,866 - INFO -  * MACD: -0.23| Signal: 0.20| Histogram: -0.43
+2025-08-23 20:40:06,866 - INFO -  * Bollinger Bands: Trên: 32.06| Dưới: 27.58
+2025-08-23 20:40:06,866 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-23 20:40:06,866 - INFO -  * RS: 0.016712550213616777
+2025-08-23 20:40:06,866 - INFO -  * RS_Point: 1325.33
+2025-08-23 20:40:06,866 - INFO -  * RS3D: 28.0
+2025-08-23 20:40:06,866 - INFO -  * RS1M: 22.0
+2025-08-23 20:40:06,866 - INFO -  * RS3M: 57.0
+2025-08-23 20:40:06,866 - INFO -  * RS1y: 53.0
+2025-08-23 20:40:06,866 - INFO -  - Mô hình Ichimoku:
+2025-08-23 20:40:06,866 - INFO -  * Tenkan-sen (Chuyển đổi): 29.62
+2025-08-23 20:40:06,866 - INFO -  * Kijun-sen (Cơ sở): 29.62
+2025-08-23 20:40:06,866 - INFO -  * Senkou Span A (Leading Span A): 29.62
+2025-08-23 20:40:06,866 - INFO -  * Senkou Span B (Leading Span B): 28.96
+2025-08-23 20:40:06,866 - INFO -  * Chikou Span (Trễ): 29.57
+2025-08-23 20:40:06,866 - INFO -  - Khối lượng:
+2025-08-23 20:40:06,866 - INFO -  * Khối lượng hiện tại: 10282700.0
+2025-08-23 20:40:06,866 - INFO -  * MA Khối lượng (20): 12,271,985.60
+2025-08-23 20:40:06,866 - INFO -  * MA Khối lượng (50): 11,606,044.42
+2025-08-23 20:40:06,866 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: GIỮ - GIẢM
+2025-08-23 20:40:06,866 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 39.0/100
+2025-08-23 20:40:06,866 - INFO -  📈 TÍN HIỆU: GIẢM MẠNH
+2025-08-23 20:40:06,888 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DBC_data.csv'
+2025-08-23 20:40:06,897 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DBC_infor.csv'
+2025-08-23 20:40:06,926 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-23 20:40:06,957 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-23 20:40:06,957 - INFO - Đang phân tích bằng Gemini...
+2025-08-23 20:40:06,958 - INFO - Đang gửi prompt tới Gemini...
+2025-08-23 20:40:13,616 - ERROR - Lỗi khi phân tích bằng Gemini cho DBC: 500 An internal error has occurred. Please retry or report in https://developers.generativeai.google/guide/troubleshooting
+2025-08-23 20:40:13,616 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-23 20:40:13,617 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-23 20:40:22,085 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-23 20:40:22,485 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DBC ====================
+2025-08-23 20:40:22,485 - INFO - 💰 Giá hiện tại: 27.50 VND
+2025-08-23 20:40:22,485 - INFO - 📈 Tín hiệu: GIẢM MẠNH
+2025-08-23 20:40:22,485 - INFO - 🎯 Đề xuất: GIỮ - GIẢM
+2025-08-23 20:40:22,485 - INFO - 📊 Điểm phân tích: 39.00/100
+2025-08-23 20:40:22,485 - INFO - 📊 RS (so với VNINDEX): 0.0167
+2025-08-23 20:40:22,485 - INFO - 📊 RS_Point: 1325.33
+2025-08-23 20:40:22,485 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-23 20:40:22,485 - INFO - Không thể tạo phân tích bằng Gemini tại thời điểm này.
+2025-08-23 20:40:22,485 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-23 20:40:22,485 - INFO - Không nhận được phản hồi từ OpenRouter.
+2025-08-23 20:40:22,485 - INFO - ============================================================
+
+2025-08-23 20:40:22,486 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DBC_report.json'
+2025-08-23 20:55:39,349 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-23 20:55:41,987 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-23 20:55:41,988 - INFO - ============================================================
+2025-08-23 20:55:41,988 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DRI
+2025-08-23 20:55:41,988 - INFO - ============================================================
+2025-08-23 20:55:41,988 - INFO - Đang lấy dữ liệu cho mã DRI
+2025-08-23 20:55:42,530 - INFO - Đã lưu dữ liệu cho mã DRI vào file vnstocks_data/DRI_data.csv
+2025-08-23 20:55:42,530 - INFO - Đang lấy dữ liệu tài chính cho DRI
+2025-08-23 20:55:45,972 - INFO - Đã lưu dữ liệu tài chính của mã DRI vào file vnstocks_data/DRI_financial_statements.csv
+2025-08-23 20:55:45,972 - INFO - Đang lấy thông tin công ty cho DRI
+2025-08-23 20:55:46,287 - INFO - Đã lấy thông tin công ty DRI thành công
+2025-08-23 20:55:46,290 - INFO - Đang phân tích kỹ thuật cho mã DRI...
+2025-08-23 20:55:46,295 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-23 20:55:47,052 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-23 20:55:47,068 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DRI' trong file market_filtered.csv
+2025-08-23 20:55:47,069 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DRI (22/08/2025):
+2025-08-23 20:55:47,069 - INFO -  - Giá hiện tại: 11.70 VND
+2025-08-23 20:55:47,069 - INFO -  - Đường trung bình:
+2025-08-23 20:55:47,069 - INFO -  * MA10: 12.60| MA20: 12.75| MA50: 12.67| MA200: 12.41
+2025-08-23 20:55:47,069 - INFO -  - Chỉ báo dao động:
+2025-08-23 20:55:47,069 - INFO -  * RSI (14): 27.50
+2025-08-23 20:55:47,069 - INFO -  * MACD: -0.15| Signal: -0.02| Histogram: -0.13
+2025-08-23 20:55:47,069 - INFO -  * Bollinger Bands: Trên: 13.50| Dưới: 12.00
+2025-08-23 20:55:47,069 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-23 20:55:47,069 - INFO -  * RS: 0.007110430454520592
+2025-08-23 20:55:47,069 - INFO -  * RS_Point: 112.52
+2025-08-23 20:55:47,069 - INFO -  * RS3D: 26.0
+2025-08-23 20:55:47,069 - INFO -  * RS1M: 6.0
+2025-08-23 20:55:47,069 - INFO -  * RS3M: 41.0
+2025-08-23 20:55:47,069 - INFO -  * RS1y: 57.0
+2025-08-23 20:55:47,069 - INFO -  - Mô hình Ichimoku:
+2025-08-23 20:55:47,069 - INFO -  * Tenkan-sen (Chuyển đổi): 12.45
+2025-08-23 20:55:47,069 - INFO -  * Kijun-sen (Cơ sở): 12.80
+2025-08-23 20:55:47,069 - INFO -  * Senkou Span A (Leading Span A): 12.62
+2025-08-23 20:55:47,069 - INFO -  * Senkou Span B (Leading Span B): 12.79
+2025-08-23 20:55:47,069 - INFO -  * Chikou Span (Trễ): 12.92
+2025-08-23 20:55:47,069 - INFO -  - Khối lượng:
+2025-08-23 20:55:47,069 - INFO -  * Khối lượng hiện tại: 1271300.0
+2025-08-23 20:55:47,069 - INFO -  * MA Khối lượng (20): 1,403,692.25
+2025-08-23 20:55:47,069 - INFO -  * MA Khối lượng (50): 1,367,406.50
+2025-08-23 20:55:47,069 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: GIỮ - GIẢM
+2025-08-23 20:55:47,069 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 37.8/100
+2025-08-23 20:55:47,069 - INFO -  📈 TÍN HIỆU: GIẢM MẠNH
+2025-08-23 20:55:47,086 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DRI_data.csv'
+2025-08-23 20:55:47,093 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DRI_infor.csv'
+2025-08-23 20:55:47,110 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-23 20:55:47,131 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-23 20:55:47,131 - INFO - Đang phân tích bằng Gemini...
+2025-08-23 20:55:47,132 - INFO - Đang gửi prompt tới Gemini...
+2025-08-23 20:57:33,026 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_DRI.txt
+2025-08-23 20:57:33,034 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-23 20:57:33,040 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-23 20:57:40,546 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-23 20:57:51,132 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DRI ====================
+2025-08-23 20:57:51,132 - INFO - 💰 Giá hiện tại: 11.70 VND
+2025-08-23 20:57:51,132 - INFO - 📈 Tín hiệu: GIẢM MẠNH
+2025-08-23 20:57:51,132 - INFO - 🎯 Đề xuất: GIỮ - GIẢM
+2025-08-23 20:57:51,132 - INFO - 📊 Điểm phân tích: 37.75/100
+2025-08-23 20:57:51,132 - INFO - 📊 RS (so với VNINDEX): 0.0071
+2025-08-23 20:57:51,132 - INFO - 📊 RS_Point: 112.52
+2025-08-23 20:57:51,132 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-23 20:57:51,132 - INFO - Tuyệt vời! Với vai trò là một chuyên gia phân tích đầu tư hàng đầu, tôi sẽ tiến hành phân tích chuyên sâu mã cổ phiếu DRI (CTCP Đầu tư Cao su Đắk Lắk) dựa trên bộ dữ liệu toàn diện được cung cấp, kết hợp hài hòa giữa lăng kính kỹ thuật hiện đại và triết lý đầu tư giá trị kinh điển.
+
+**BÁO CÁO PHÂN TÍCH CHUYÊN SÂU CỔ PHIẾU DRI**
+
+*   **Tên công ty:** CTCP Đầu tư Cao su Đắk Lắk
+*   **Mã chứng khoán:** DRI
+*   **Sàn giao dịch:** UPCOM
+*   **Giá hiện tại (22/08/2025):** 11.700 VND
+*   **Chuyên gia phân tích:** [Tên của bạn]
+*   **Ngày phân tích:** [Ngày hiện tại]
+
+---
+
+### **1. Phân tích Kỹ thuật (Wyckoff, VSA & VPA)**
+
+#### **Giai đoạn thị trường (Wyckoff):**
+
+Cổ phiếu DRI đang thể hiện rõ ràng các đặc điểm của **Giai đoạn Suy thoái (Mark-Down)**.
+
+*   **Bằng chứng:**
+    1.  **Giai đoạn Phân phối (Distribution) trước đó:** Sau một giai đoạn Tăng trưởng (Mark-Up) mạnh mẽ từ tháng 3 đến đầu tháng 6/2024 (đỉnh cao nhất quanh 13.600 - 14.000 VND), cổ phiếu đã hình thành một vùng đi ngang với khối lượng giao dịch lớn và biến động giá thất thường. Đây là dấu hiệu của việc "tay to" chốt lời.
+    2.  **Điểm phá vỡ (Breakdown):** Cổ phiếu đã phá vỡ các vùng hỗ trợ quan trọng, đặc biệt là đường MA200 (12.410 VND). Việc giá giảm xuống dưới đường MA dài hạn này là một tín hiệu xác nhận mạnh mẽ cho việc chuyển từ giai đoạn Phân phối sang Suy thoái.
+    3.  **Xu hướng giảm rõ rệt:** Giá hiện tại (11.700) nằm dưới tất cả các đường trung bình động ngắn, trung và dài hạn (MA10, MA20, MA50, MA200), cho thấy xu hướng giảm giá đang chi phối hoàn toàn.
+
+#### **Phân tích Giá & Khối lượng (VSA/VPA):**
+
+Mối quan hệ giữa giá và khối lượng trong những phiên gần đây xác nhận cho xu hướng giảm giá, nhưng cũng hé lộ khả năng áp lực bán đang suy yếu.
+
+*   **Dấu hiệu Phân phối mạnh:** Phiên giao dịch ngày 28/06/2024, giá giảm mạnh từ 12.820 xuống 11.730 với khối lượng đột biến (2.07 triệu cổ phiếu), đây là một thanh giá "Down Thrust" hoặc "Supply Coming In" điển hình, cho thấy lực bán áp đảo.
+*   **Sự suy yếu của áp lực bán:** Trong những phiên giảm gần đây, khối lượng giao dịch đã có xu hướng giảm dần và thấp hơn mức trung bình 20 ngày (tỷ lệ 0.91). Cụ thể, phiên 22/08/2025, giá giảm xuống 11.700 với khối lượng chỉ 1.27 triệu cổ phiếu. Đây là tín hiệu **"No Supply"** - giá giảm nhưng không có sự tham gia mạnh mẽ của bên bán, cho thấy áp lực bán có thể đang cạn kiệt.
+*   **Chưa có dấu hiệu tích lũy:** Mặc dù áp lực bán yếu đi, chưa có bất kỳ dấu hiệu nào của lực cầu quay trở lại. Không có các thanh giá tăng mạnh mẽ với khối lượng lớn (Stopping Volume) hay các nỗ lực đẩy giá lên được xác nhận bởi khối lượng.
+
+**Kết luận Kỹ thuật sơ bộ:** DRI đang trong xu hướng giảm giá rõ ràng. Tuy nhiên, tình trạng quá bán và khối lượng bán suy yếu có thể dẫn đến một đợt hồi phục kỹ thuật ngắn hạn. Việc mua vào thời điểm này là bắt dao rơi.
+
+---
+
+### **2. Phân tích theo phương pháp Mark Minervini**
+
+DRI hiện tại **không đáp ứng bất kỳ tiêu chí nào** trong hệ thống Giao dịch theo Xu hướng (Trend Trading) của Mark Minervini.
+
+*   **Xu hướng (Trend Template):**
+    *   Giá hiện tại < MA50 < MA200. **(Không đạt)**
+    *   MA200 đang có xu hướng đi ngang, chưa dốc lên. **(Không đạt)**
+    *   Giá nằm dưới tất cả các đường MA. **(Không đạt)**
+*   **Cấu trúc thị trường:** Cổ phiếu đang tạo ra các đỉnh sau thấp hơn đỉnh trước (lower highs) và đáy sau thấp hơn đáy trước (lower lows), một cấu trúc giảm giá kinh điển.
+*   **Pivot & Hỗ trợ/Kháng cự:**
+    *   **Kháng cự mạnh:** Vùng 12.400 - 12.800 (hội tụ các đường MA50, MA200 và MA20).
+    *   **Hỗ trợ gần nhất:** Vùng đáy cũ quanh 11.000. Hỗ trợ mạnh hơn ở vùng 10.000.
+*   **Sức mạnh tương đối (RS - Relative Strength):**
+    *   RS so với VNINDEX là 0.01, cho thấy sức mạnh cực kỳ yếu.
+    *   Các chỉ số RS 1 tháng (6.00), 3 tháng (41.00), 1 năm (57.00) đều rất thấp, cho thấy DRI là một cổ phiếu yếu hơn thị trường chung trong mọi khung thời gian.
+
+**Kết luận theo Minervini:** DRI là một cổ phiếu cần phải **TRÁNH XA** ở thời điểm hiện tại. Việc tham gia vào một cổ phiếu đang trong xu hướng giảm và yếu hơn thị trường là một quyết định đầu tư rủi ro cao.
+
+---
+
+### **3. Phân tích Cơ bản (Buffett, Lynch, dữ liệu TCBS)**
+
+Trái ngược với bức tranh kỹ thuật ảm đạm, nền tảng cơ bản của DRI lại khá vững chắc và có những điểm sáng đáng chú ý.
+
+*   **Chất lượng Doanh thu & Lợi nhuận:**
+    *   **Tính chu kỳ:** Hoạt động kinh doanh của DRI phụ thuộc lớn vào giá cao su thế giới, do đó doanh thu và lợi nhuận mang tính chu kỳ cao. Dữ liệu từ 2022 đến Q2/2024 cho thấy sự biến động này.
+    *   **Triển vọng phục hồi:** Dữ liệu BCTC dự phóng Q1-Q2/2025 cho thấy sự tăng trưởng mạnh mẽ cả về doanh thu và lợi nhuận so với cùng kỳ. Đặc biệt, LNST 6 tháng đầu năm 2025 dự kiến đạt 76.8 tỷ đồng, gấp 2.5 lần cùng kỳ. Đây là yếu tố then chốt cần theo dõi.
+*   **Hiệu quả Sử dụng Vốn:**
+    *   **ROE ấn tượng:** ROE TTM (tính từ Q3/2023 - Q2/2024) vào khoảng **14.7%**, một con số tốt đối với một doanh nghiệp sản xuất. Nếu lợi nhuận dự phóng 2025 trở thành hiện thực, ROE có thể vượt trên 20%, một mức rất hấp dẫn.
+    *   **ROA ổn định:** ROA TTM cũng ở mức khá, cho thấy khả năng sinh lời trên tổng tài sản hiệu quả.
+*   **Tình hình Tài chính (Điểm sáng lớn nhất):**
+    *   **Cơ cấu nợ an toàn:** Tỷ lệ Nợ/Vốn chủ sở hữu (D/E) tại Q2/2024 chỉ là **0.235**. Đây là một tỷ lệ rất thấp, cho thấy sức khỏe tài chính vững vàng, ít rủi ro về lãi suất và khả năng chống chịu tốt trong giai đoạn khó khăn. Đây là một tiêu chí mà Warren Buffett rất ưa thích.
+    *   **Thanh khoản tốt:** Tỷ lệ thanh toán hiện hành (Current Ratio) là 1.55, cho thấy công ty hoàn toàn chủ động trong việc thanh toán các khoản nợ ngắn hạn.
+*   **Ban lãnh đạo & Nội bộ:**
+    *   **Cổ đông lớn:** Công ty Cổ phần Cao su Đắk Lắk (Dakruco) nắm giữ 45% vốn. Đây là một cổ đông lớn mang tính nhà nước, mang lại sự ổn định nhưng có thể làm giảm tính linh hoạt trong quản trị.
+    *   Sở hữu của ban lãnh đạo ở mức thấp, chưa thể hiện sự đồng hành mạnh mẽ cùng cổ đông.
+*   **Chính sách Cổ tức:**
+    *   DRI có lịch sử trả cổ tức bằng tiền mặt đều đặn hàng năm, với tỷ suất dao động từ 3-5%. Thông tin sự kiện cho thấy công ty vừa chốt quyền trả cổ tức đợt 2/2024 (500đ/cp). Đây là một điểm cộng cho nhà đầu tư dài hạn theo trường phái giá trị.
+*   **Tin tức & Internet:** Tin tức gần đây tập trung vào kết quả kinh doanh 6 tháng đầu năm 2025 (dự phóng) tăng trưởng tốt và kế hoạch trả cổ tức. Đây là những thông tin hỗ trợ tích cực về mặt cơ bản.
+
+---
+
+### **4. Định giá & So sánh Ngành**
+
+*   **Chỉ số Định giá:**
+    *   **P/E TTM:** Dựa trên LNST 4 quý gần nhất (~72.6 tỷ), EPS TTM là ~992 VND. Tại giá 11.700, P/E TTM là **11.8x**. Mức định giá này là hợp lý, không quá rẻ cũng không quá đắt so với thị trường chung.
+    *   **P/B:** BVPS tại Q2/2024 là ~6.721 VND. P/B là **1.74x**. Tương tự, đây là mức định giá hợp lý cho một doanh nghiệp có ROE ~15%.
+    *   **Định giá Forward:** Nếu lợi nhuận 2025 đạt mức dự phóng, P/E forward có thể giảm xuống chỉ còn **5-6x**, một mức định giá rất hấp dẫn.
+*   **So sánh Ngành (Hóa chất - Cao su):** So với các doanh nghiệp cùng ngành, DRI có tỷ lệ nợ vay thấp hơn đáng kể. Các chỉ số P/E, P/B TTM ở mức trung bình ngành. Tuy nhiên, nếu kịch bản giá cao su phục hồi mạnh mẽ xảy ra, DRI sẽ có tiềm năng tăng trưởng lợi nhuận vượt trội nhờ biên lợi nhuận cải thiện.
+
+---
+
+### **5. Nhận định vị thế mua ngắn hạn**
+
+*   **Khả năng bật tăng ngắn hạn:** **CAO**. Cổ phiếu đang ở trạng thái quá bán sâu (RSI 27.5), giá chạm dải Bollinger dưới. Một nhịp hồi phục kỹ thuật (technical bounce) về vùng kháng cự 12.400 - 12.700 là hoàn toàn có thể xảy ra trong 1-2 tuần tới.
+*   **Tín hiệu mua/bán:** Tín hiệu BÁN chiếm ưu thế tuyệt đối (dưới MA, MACD cắt xuống). Chỉ có tín hiệu mua từ chỉ báo dao động (RSI), vốn là tín hiệu yếu và mang tính bắt đáy.
+*   **Tâm lý thị trường:** Hoảng loạn và bi quan trong ngắn hạn sau chuỗi giảm giá mạnh. Lực cầu bắt đáy rất yếu.
+
+---
+
+### **6. Chiến lược giao dịch & Quản lý rủi ro**
+
+*   **Điểm vào:**
+    *   **Rủi ro cao (Bắt đáy):** Mua thăm dò tại vùng giá 11.600 - 11.700.
+    *   **An toàn hơn:** Chờ giá ổn định và tạo nền tích lũy trên vùng hỗ trợ 11.000, hoặc chờ giá đóng cửa dứt khoát trên MA20 (12.750) với khối lượng lớn.
+*   **Stop-loss:** Đặt tại 11.000 (thủng đáy gần nhất).
+*   **Take-profit:**
+    *   TP1 (ngắn hạn): 12.400 (vùng MA200).
+    *   TP2 (trung hạn): 13.500 (vùng đỉnh cũ).
+*   **Risk/Reward (cho lệnh bắt đáy):**
+    *   Rủi ro: 11.700 -> 11.000 = 700 VND/cp (~6%).
+    *   Lợi nhuận tiềm năng: 11.700 -> 12.700 = 1.000 VND/cp (~8.5%).
+    *   Tỷ lệ R/R ~ 1:1.4. Chấp nhận được cho một giao dịch ngắn hạn nhưng xác suất thắng không cao.
+
+---
+
+### **7. Dự báo xu hướng**
+
+*   **Ngắn hạn (1-2 tuần):** Sideways-up. Có khả năng hồi phục về vùng **12.400 - 12.700**.
+*   **Trung hạn (1-3 tháng):** Giảm hoặc đi ngang. Xu hướng chính vẫn là giảm. Cổ phiếu cần thời gian để hấp thụ lực bán và tạo một vùng tích lũy mới, có thể trong biên độ **10.500 - 12.500**.
+*   **Dài hạn (3-12 tháng):** Tích cực. Triển vọng ngành cao su được dự báo sẽ cải thiện. Với nền tảng tài chính lành mạnh và định giá hợp lý, DRI có tiềm năng tăng trưởng tốt khi chu kỳ ngành quay trở lại.
+
+---
+
+### **8. Kết luận & Khuyến nghị cuối cùng**
+
+Đây là một trường hợp kinh điển nơi phân tích kỹ thuật và phân tích cơ bản đưa ra những tín hiệu trái ngược nhau. Kỹ thuật cho thấy sự yếu kém và rủi ro, trong khi cơ bản lại chỉ ra một doanh nghiệp vững vàng với tiềm năng trong tương lai.
+
+*   **Đối với nhà giao dịch theo xu hướng (Minervini):** Cổ phiếu này là một tín hiệu BÁN rõ ràng.
+*   **Đối với nhà đầu tư giá trị (Buffett/Lynch):** Cổ phiếu này đang bước vào vùng giá hấp dẫn để xem xét tích lũy dần cho một chu kỳ tăng trưởng mới, đặc biệt khi có chính sách cổ tức đều đặn.
+
+Với vai trò là một nhà phân tích tổng hợp, tôi phải cân bằng giữa rủi ro hiện tại và cơ hội trong tương lai. Việc mua vào ngay lập tức là quá sớm khi xu hướng giảm chưa kết thúc.
+
+**KHUYẾN NGHỊ CUỐI CÙNG**
+
+*   **Khuyến nghị: GIỮ (HOLD)**
+    *   **Lý do:** Mặc dù nền tảng cơ bản của DRI rất tốt (nợ vay thấp, ROE khá, trả cổ tức đều) và có triển vọng phục hồi lợi nhuận, nhưng cổ phiếu đang trong một xu hướng giảm giá mạnh và rõ ràng về mặt kỹ thuật. Sức mạnh tương đối so với thị trường rất yếu. Khuyến nghị "GIỮ" phản ánh sự tôn trọng đối với nền tảng cơ bản của công ty nhưng cũng là sự thận trọng trước rủi ro giảm giá thêm trong ngắn hạn. Nhà đầu tư đang nắm giữ có thể tiếp tục theo dõi, trong khi nhà đầu tư muốn mua mới nên kiên nhẫn chờ đợi các tín hiệu tạo đáy và đảo chiều rõ ràng hơn.
+
+*   **Điểm số đánh giá (Thang điểm 10): 5.5 / 10**
+    *   (Kỹ thuật: 2/10, Cơ bản: 7/10, Định giá: 6/10, Xu hướng: 2/10)
+
+*   **Tóm tắt ngắn gọn:** DRI là một doanh nghiệp cơ bản tốt đang bị thị trường "trừng phạt" trong ngắn hạn. Dù định giá đã trở nên hợp lý và có tiềm năng hồi phục, rủi ro về xu hướng giảm giá vẫn còn hiện hữu, do đó cần kiên nhẫn quan sát thêm.
+
+*   **Rủi ro chính:**
+    1.  **Rủi ro thị trường:** Xu hướng giảm giá có thể tiếp tục do tâm lý thị trường chung hoặc do quán tính của cổ phiếu.
+    2.  **Rủi ro chu kỳ ngành:** Lợi nhuận của DRI phụ thuộc lớn vào giá cao su. Nếu giá cao su không phục hồi như kỳ vọng, lợi nhuận dự phóng sẽ không đạt được và cổ phiếu có thể bị định giá lại thấp hơn.
+    3.  **Rủi ro thanh khoản:** Giao dịch trên sàn UPCOM có thể có thanh khoản thấp hơn và biên độ dao động lớn hơn so với HOSE/HNX.
+2025-08-23 20:57:51,134 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-23 20:57:51,134 - INFO - Không nhận được phản hồi từ OpenRouter.
+2025-08-23 20:57:51,134 - INFO - ============================================================
+
+2025-08-23 20:57:51,135 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DRI_report.json'
+2025-08-23 20:58:12,268 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-23 20:58:14,980 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-23 20:58:25,791 - INFO - ============================================================
+2025-08-23 20:58:25,800 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ TVS
+2025-08-23 20:58:25,800 - INFO - ============================================================
+2025-08-23 20:58:25,800 - INFO - Đang lấy dữ liệu cho mã TVS
+2025-08-23 20:58:26,002 - INFO - Đã lưu dữ liệu cho mã TVS vào file vnstocks_data/TVS_data.csv
+2025-08-23 20:58:26,002 - INFO - Đang lấy dữ liệu tài chính cho TVS
+2025-08-23 20:58:27,208 - INFO - Đã lưu dữ liệu tài chính của mã TVS vào file vnstocks_data/TVS_financial_statements.csv
+2025-08-23 20:58:27,209 - INFO - Đang lấy thông tin công ty cho TVS
+2025-08-23 20:58:27,294 - INFO - Đã lấy thông tin công ty TVS thành công
+2025-08-23 20:58:27,296 - INFO - Đang phân tích kỹ thuật cho mã TVS...
+2025-08-23 20:58:27,301 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-23 20:58:28,396 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-23 20:58:28,408 - INFO - Đã tìm thấy dữ liệu RS cho mã 'TVS' trong file market_filtered.csv
+2025-08-23 20:58:28,409 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO TVS (22/08/2025):
+2025-08-23 20:58:28,409 - INFO -  - Giá hiện tại: 22.95 VND
+2025-08-23 20:58:28,409 - INFO -  - Đường trung bình:
+2025-08-23 20:58:28,409 - INFO -  * MA10: 21.25| MA20: 20.54| MA50: 19.16| MA200: 18.93
+2025-08-23 20:58:28,409 - INFO -  - Chỉ báo dao động:
+2025-08-23 20:58:28,409 - INFO -  * RSI (14): 77.16
+2025-08-23 20:58:28,409 - INFO -  * MACD: 0.89| Signal: 0.65| Histogram: 0.24
+2025-08-23 20:58:28,409 - INFO -  * Bollinger Bands: Trên: 22.67| Dưới: 18.41
+2025-08-23 20:58:28,409 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-23 20:58:28,409 - INFO -  * RS: 0.013947382814636547
+2025-08-23 20:58:28,409 - INFO -  * RS_Point: 2070.68
+2025-08-23 20:58:28,409 - INFO -  * RS3D: 97.0
+2025-08-23 20:58:28,409 - INFO -  * RS1M: 90.0
+2025-08-23 20:58:28,409 - INFO -  * RS3M: 77.0
+2025-08-23 20:58:28,409 - INFO -  * RS1y: 47.0
+2025-08-23 20:58:28,409 - INFO -  - Mô hình Ichimoku:
+2025-08-23 20:58:28,409 - INFO -  * Tenkan-sen (Chuyển đổi): 21.85
+2025-08-23 20:58:28,409 - INFO -  * Kijun-sen (Cơ sở): 21.20
+2025-08-23 20:58:28,409 - INFO -  * Senkou Span A (Leading Span A): 21.52
+2025-08-23 20:58:28,409 - INFO -  * Senkou Span B (Leading Span B): 20.50
+2025-08-23 20:58:28,409 - INFO -  * Chikou Span (Trễ): 18.65
+2025-08-23 20:58:28,409 - INFO -  - Khối lượng:
+2025-08-23 20:58:28,409 - INFO -  * Khối lượng hiện tại: 962600.0
+2025-08-23 20:58:28,409 - INFO -  * MA Khối lượng (20): 535,790.00
+2025-08-23 20:58:28,409 - INFO -  * MA Khối lượng (50): 310,978.00
+2025-08-23 20:58:28,409 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: MUA MẠNH
+2025-08-23 20:58:28,409 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 96.2/100
+2025-08-23 20:58:28,409 - INFO -  📈 TÍN HIỆU: MUA MẠNH
+2025-08-23 20:58:28,424 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/TVS_data.csv'
+2025-08-23 20:58:28,429 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/TVS_infor.csv'
+2025-08-23 20:58:28,444 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-23 20:58:28,457 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-23 20:58:28,457 - INFO - Đang phân tích bằng Gemini...
+2025-08-23 20:58:28,458 - INFO - Đang gửi prompt tới Gemini...
+2025-08-23 21:00:16,256 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_TVS.txt
+2025-08-23 21:00:16,264 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-23 21:00:16,272 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-23 21:00:23,760 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-23 21:00:23,921 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã TVS ====================
+2025-08-23 21:00:23,921 - INFO - 💰 Giá hiện tại: 22.95 VND
+2025-08-23 21:00:23,921 - INFO - 📈 Tín hiệu: MUA MẠNH
+2025-08-23 21:00:23,921 - INFO - 🎯 Đề xuất: MUA MẠNH
+2025-08-23 21:00:23,921 - INFO - 📊 Điểm phân tích: 96.25/100
+2025-08-23 21:00:23,921 - INFO - 📊 RS (so với VNINDEX): 0.0139
+2025-08-23 21:00:23,921 - INFO - 📊 RS_Point: 2070.68
+2025-08-23 21:00:23,922 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-23 21:00:23,922 - INFO - Tuyệt vời! Với vai trò là một chuyên gia phân tích đầu tư, tôi sẽ thực hiện một bài phân tích chuyên sâu, toàn diện về mã cổ phiếu TVS (Công ty Cổ phần Chứng khoán Thiên Việt), kết hợp hài hòa giữa các trường phái phân tích kỹ thuật và cơ bản hàng đầu.
+
+---
+
+### **BÁO CÁO PHÂN TÍCH CHUYÊN SÂU CỔ PHIẾU TVS**
+
+*   **Tên công ty:** Công ty Cổ phần Chứng khoán Thiên Việt
+*   **Mã chứng khoán:** TVS
+*   **Sàn giao dịch:** HOSE
+*   **Giá hiện tại (22/08/2025):** 22.950 VND
+*   **Ngày phân tích:** 23/08/2025
+
+### **TỔNG QUAN NHẬN ĐỊNH**
+
+TVS đang thể hiện mình là một trong những cổ phiếu dẫn dắt thị trường trong giai đoạn hiện tại, hội tụ nhiều yếu tố hấp dẫn từ góc độ kỹ thuật (xu hướng tăng mạnh, sức mạnh giá vượt trội) đến cơ bản (sự đồng hành của ban lãnh đạo, hưởng lợi từ chu kỳ ngành). Tuy nhiên, cổ phiếu đang ở trạng thái quá mua trong ngắn hạn, đòi hỏi nhà đầu tư phải có chiến lược giao dịch hợp lý để tối ưu hóa lợi nhuận và quản trị rủi ro.
+
+---
+
+### **1. PHÂN TÍCH KỸ THUẬT (WYCKOFF, VSA & VPA)**
+
+#### **1.1. Giai đoạn thị trường (Wyckoff)**
+
+Dựa trên dữ liệu giá lịch sử, TVS đã trải qua các giai đoạn rất điển hình theo phương pháp Wyckoff:
+
+*   **Giai đoạn Tích lũy (Phase A -> D):** Kéo dài từ cuối năm 2022 đến khoảng tháng 05/2024. Trong giai đoạn này, giá cổ phiếu vận động trong một biên độ rộng (khoảng 14.x - 22.x) với khối lượng giao dịch tương đối thấp. Đây là vùng "Dòng tiền thông minh" (Smart Money) gom hàng, hấp thụ lượng cung trôi nổi. Các sự kiện như Selling Climax (SC), Automatic Rally (AR), và các bài kiểm tra (Test) cung cầu đã diễn ra, tạo nên một nền giá vững chắc.
+*   **Giai đoạn Tăng trưởng (Mark-up - Phase E):** Bắt đầu từ cuối tháng 05/2024. Cổ phiếu có một cú "Nhảy qua con suối" (Jump Across the Creek - JAC) với một phiên bùng nổ mạnh mẽ cả về giá và khối lượng, thoát khỏi vùng tích lũy.
+    *   **Dẫn chứng:** Giai đoạn từ `2024-06-03` đến `2024-06-13`, giá tăng từ 21.500 lên đỉnh 27.200 (+26.5%) với khối lượng tăng đột biến, có những phiên trên 1.5 - 2 triệu cổ phiếu, cao gấp 3-4 lần mức trung bình trước đó. Đây là một **Dấu hiệu Sức mạnh (Sign of Strength - SOS)** không thể chối cãi.
+*   **Hiện tại:** Cổ phiếu vừa hoàn thành một nhịp điều chỉnh/tái tích lũy ngắn hạn sau cú bứt phá mạnh, có thể coi là một pha **"Back Up to the Edge of the Creek" (BU/LPS)**. Cụ thể, sau khi đạt đỉnh 28.100, giá đã điều chỉnh về vùng 20.700 và hiện đang hồi phục trở lại. Đây là một hành động giá rất kiến tạo, rũ bỏ các nhà đầu tư yếu và kiểm tra lại vùng hỗ trợ quan trọng. Cổ phiếu đang sẵn sàng bước vào nhịp tăng giá tiếp theo của Phase E.
+
+#### **1.2. Phân tích Giá & Khối lượng (VSA/VPA)**
+
+*   **Sự xác nhận của Khối lượng:** Xu hướng tăng giá gần đây được xác nhận mạnh mẽ bởi khối lượng.
+    *   **Dẫn chứng:** Phiên giao dịch gần nhất có khối lượng **962.60K**, cao hơn 80% so với trung bình 20 phiên (**535.79K**). Điều này cho thấy dòng tiền lớn đang quay trở lại sau nhịp điều chỉnh, hỗ trợ cho đà tăng giá. Những phiên tăng giá mạnh đều đi kèm khối lượng lớn, trong khi những phiên giảm điểm có khối lượng thấp hơn, cho thấy áp lực bán đã suy yếu.
+*   **Dấu hiệu Tích lũy:** Nhịp điều chỉnh từ đỉnh 28.100 về vùng 20.700 diễn ra với khối lượng cao ban đầu (hoảng loạn bán ra), sau đó khối lượng cạn kiệt dần ở vùng đáy. Đây là tín hiệu cho thấy nguồn cung đã được hấp thụ hết. Các phiên tăng giá gần đây với khối lượng gia tăng trở lại là dấu hiệu của sự tái tích lũy thành công.
+*   **Kết luận VSA/VPA:** Không có dấu hiệu phân phối rõ ràng. Ngược lại, các hành động giá và khối lượng gần đây cho thấy phe mua đang chiếm ưu thế tuyệt đối và cổ phiếu đang được tích lũy cho một con sóng tăng mới.
+
+---
+
+### **2. PHÂN TÍCH THEO PHƯƠNG PHÁP MARK MINERVINI (SEPA)**
+
+TVS hiện tại đáp ứng gần như hoàn hảo các tiêu chí của một "siêu cổ phiếu" theo bộ lọc của Mark Minervini.
+
+*   **Xu hướng (Trend Template):**
+    1.  Giá hiện tại (22.950) > MA50 (19.160) > MA200 (18.930). **(Đạt)**
+    2.  MA200 đang có xu hướng dốc lên. **(Đạt)**
+    3.  Giá nằm trên tất cả các đường MA ngắn và trung hạn (MA10, MA20, MA50). **(Đạt)**
+    4.  Giá hiện tại cách đỉnh 52 tuần (28.100) khoảng 18.3%. **(Đạt, <25%)**
+    5.  Giá hiện tại cao hơn đáy 52 tuần (14.750) khoảng 55.6%. **(Đạt, >30%)**
+*   **Cấu trúc thị trường:** Cổ phiếu đã hình thành một cấu trúc tăng giá bền vững với các đỉnh cao hơn và đáy cao hơn (Higher Highs & Higher Lows). Nhịp điều chỉnh gần đây đã tạo một đáy cao hơn (Higher Low) tại vùng 20.700, củng cố thêm cho xu hướng tăng.
+*   **Pivot & Hỗ trợ/Kháng cự:**
+    *   **Điểm Pivot (Breakout):** Vùng 21.500 - 22.000 là điểm breakout khỏi nền giá tích lũy.
+    *   **Hỗ trợ quan trọng:** Vùng 20.500 - 21.200 (tương ứng MA20 và MA10) là vùng hỗ trợ mạnh trong ngắn hạn.
+    *   **Kháng cự gần nhất:** Vùng đỉnh cũ 27.000 - 28.100.
+*   **Sức mạnh tương đối (RS):** Đây là điểm sáng nhất của TVS.
+    *   **Dẫn chứng:** Các chỉ số RS đều ở mức rất cao và có xu hướng tăng dần: RS 1 năm (47), 3 tháng (77), 1 tháng (90), 3 ngày (97). Điều này chứng tỏ TVS không chỉ mạnh lên mà còn đang tăng tốc mạnh hơn so với thị trường chung. Đây là tố chất của một cổ phiếu dẫn dắt thực sự.
+
+---
+
+### **3. PHÂN TÍCH CƠ BẢN (BUFFETT, LYNCH & DỮ LIỆU TCBS)**
+
+#### **3.1. Chất lượng Doanh thu & Lợi nhuận**
+
+*   **Tính chu kỳ:** Là công ty chứng khoán, hoạt động kinh doanh của TVS phụ thuộc rất lớn vào diễn biến của VNINDEX và thanh khoản thị trường. Doanh thu và lợi nhuận có sự biến động lớn theo quý.
+*   **Điểm nhấn:** Mảng tự doanh (FVTPL) đóng góp tỷ trọng lớn vào lợi nhuận (**40.92%** theo TCBS). Đây là con dao hai lưỡi: có thể tạo ra lợi nhuận đột biến khi thị trường thuận lợi nhưng cũng tiềm ẩn rủi ro lớn khi thị trường biến động xấu.
+*   **Tăng trưởng:** Dù có biến động, nhưng nhìn vào xu hướng dài hạn, quy mô tài sản và vốn chủ sở hữu của TVS liên tục tăng trưởng qua các năm thông qua việc phát hành thêm và giữ lại lợi nhuận, cho thấy tham vọng mở rộng quy mô.
+
+#### **3.2. Hiệu quả Sử dụng Vốn**
+
+*   **ROE (Lợi nhuận trên vốn chủ sở hữu):** Quanh mức **10.8% - 12.8%** (theo TCBS và báo cáo gần nhất). Đây là mức khá tốt trong ngành, cho thấy khả năng sinh lời trên đồng vốn của cổ đông. Tuy nhiên, nó chưa phải mức quá xuất sắc (>20%) để được coi là một "cỗ máy kiếm tiền" bền vững như Buffett mong muốn.
+*   **ROA (Lợi nhuận trên tổng tài sản):** Thấp (khoảng 2-3%), điều này là đặc thù của ngành tài chính sử dụng đòn bẩy cao.
+
+#### **3.3. Tình hình Tài chính**
+
+*   **Cơ cấu nợ:** Tỷ lệ Nợ/Vốn chủ sở hữu (D/E) ở mức **1.95** (Q2/2024). Mức này là bình thường và chấp nhận được đối với một công ty chứng khoán sử dụng đòn bẩy cho hoạt động margin và tự doanh.
+*   **Dòng tiền:** Dòng tiền hoạt động kinh doanh biến động mạnh, phụ thuộc vào việc giải ngân/thu hồi các khoản cho vay và đầu tư. Đây không phải là điểm mạnh của TVS nếu so với các doanh nghiệp sản xuất.
+
+#### **3.4. Ban lãnh đạo & Cổ đông nội bộ**
+
+*   **Điểm cộng cực lớn:** Cơ cấu cổ đông rất cô đặc. Chủ tịch HĐQT **Nguyễn Trung Hà** và Phó chủ tịch **Đinh Thị Hoa** cùng những người liên quan nắm giữ tỷ lệ sở hữu rất lớn (trên **46%**). Điều này cho thấy lợi ích của ban lãnh đạo gắn chặt với lợi ích của cổ đông ("skin in the game"). Họ có động lực mạnh mẽ để đưa doanh nghiệp phát triển. Đây là một yếu tố mà cả Warren Buffett và Peter Lynch đều đánh giá rất cao.
+
+#### **3.5. Chính sách Cổ tức & Tin tức**
+
+*   **Cổ tức:** TVS có truyền thống chia cổ tức bằng cổ phiếu để tăng vốn điều lệ. Gần nhất là đợt phát hành trả cổ tức tỷ lệ 10% vào tháng 6/2024. Điều này phù hợp với một doanh nghiệp đang trong giai đoạn tăng trưởng, ưu tiên giữ lại lợi nhuận để tái đầu tư.
+*   **Tin tức:** Không có tin tức tiêu cực nào đáng kể. Các tin tức chủ yếu liên quan đến việc tăng vốn, báo cáo tài chính, thể hiện sự minh bạch của doanh nghiệp.
+
+---
+
+### **4. ĐỊNH GIÁ & SO SÁNH NGÀNH**
+
+*   **Chỉ số định giá:**
+    *   **P/E:** 17.3 (dựa trên EPS TTM Q2/2024) - Mức định giá không rẻ nhưng hợp lý so với tiềm năng tăng trưởng lợi nhuận khi thị trường vào sóng.
+    *   **P/B:** 1.71 (dựa trên BVPS Q2/2024) - Mức định giá hấp dẫn so với trung bình ngành chứng khoán thường ở mức trên 2.0 trong giai đoạn thị trường hưng phấn.
+*   **So sánh ngành:** TVS có vốn hóa ở mức vừa phải (3.833 tỷ đồng) so với các ông lớn đầu ngành. Tuy nhiên, xét về hiệu quả hoạt động và tiềm năng tăng trưởng từ cơ cấu cổ đông cô đặc và mảng tự doanh, TVS có thể là một "ẩn số" thú vị, một cổ phiếu "hạt tiêu" có thể tăng trưởng nhanh hơn các công ty lớn.
+
+---
+
+### **5. NHẬN ĐỊNH VỊ THẾ MUA NGẮN HẠN**
+
+*   **Khả năng bật tăng:** Rất cao. Cổ phiếu đã hoàn thành nhịp điều chỉnh cần thiết và đang cho thấy dấu hiệu dòng tiền quay trở lại. Việc vượt qua vùng giá 23.500 có thể kích hoạt một đợt tăng giá mới.
+*   **Tín hiệu mua/bán:** Tín hiệu mua xuất hiện khi cổ phiếu bật nảy từ vùng hỗ trợ MA20. Tín hiệu mua sẽ được củng cố nếu giá vượt đỉnh ngắn hạn gần nhất (khoảng 24.500) với khối lượng lớn.
+*   **Tâm lý thị trường:** Đang rất tích cực. TVS là một trong những cổ phiếu được chú ý nhất trên thị trường nhờ đà tăng ấn tượng và sức mạnh giá vượt trội.
+
+---
+
+### **6. CHIẾN LƯỢC GIAO DỊCH & QUẢN LÝ RỦI RO**
+
+*   **Điểm vào:**
+    *   **Vùng 1 (An toàn):** Chờ đợi nhịp điều chỉnh về vùng **21.500 - 22.500**. Đây là vùng hợp lưu của MA10 và vùng giá tích lũy trước đó.
+    *   **Vùng 2 (Breakout):** Mua khi giá vượt dứt khoát vùng **23.500** với khối lượng giao dịch > 1.2 triệu cổ phiếu.
+*   **Stop-loss (Dừng lỗ):** Đặt tại **20.500** (thủng MA20 và phá vỡ cấu trúc đáy cao hơn gần nhất).
+*   **Take-profit (Chốt lời):**
+    *   **Mục tiêu 1:** Vùng đỉnh cũ **27.500 - 28.000**.
+    *   **Mục tiêu 2:** Vùng **32.000** (đo lường theo biên độ của nền giá tích lũy).
+*   **Tỷ lệ Risk/Reward (Rủi ro/Lợi nhuận):** Nếu vào lệnh ở vùng 22.500, Rủi ro là 2.000đ/cp, Lợi nhuận tiềm năng là 5.000đ/cp (tới mục tiêu 1). Tỷ lệ R:R là **1:2.5**, rất hấp dẫn.
+
+---
+
+### **7. DỰ BÁO XU HƯỚNG**
+
+*   **Ngắn hạn (1-2 tuần):** Có thể có sự rung lắc hoặc đi ngang quanh vùng 22.000 - 23.500 để hấp thụ lực bán và củng cố nền giá trước khi tăng tiếp.
+*   **Trung hạn (1-3 tháng):** **Tích cực.** Xu hướng chính là tăng giá. Mục tiêu hướng về đỉnh cũ 28.000 và có thể vượt qua nếu thị trường chung thuận lợi.
+*   **Dài hạn (3-12 tháng):** **Tích cực.** Phụ thuộc vào chu kỳ của VNINDEX. Nếu thị trường tiếp tục xu hướng tăng, với lợi thế về ban lãnh đạo và sự linh hoạt của một công ty quy mô vừa, TVS có tiềm năng tăng trưởng vượt trội so với ngành.
+
+---
+
+### **8. KẾT LUẬN & KHUYẾN NGHỊ CUỐI CÙNG**
+
+TVS là một trường hợp đầu tư tăng trưởng-chu kỳ điển hình, đang ở trong giai đoạn tăng tốc mạnh mẽ nhất. Cổ phiếu hội tụ đủ các yếu tố "thiên thời, địa lợi, nhân hòa": xu hướng thị trường chung ủng hộ, sức mạnh nội tại cổ phiếu vượt trội và sự đồng lòng của ban lãnh đạo. Rủi ro ngắn hạn là có nhưng tiềm năng tăng giá trong trung hạn là rất lớn.
+
+*   **Khuyến nghị:** **MUA**
+    *   **Lý do:** Cổ phiếu đã xác nhận xu hướng tăng giá mạnh mẽ và đang ở trong giai đoạn Mark-up. Nhịp điều chỉnh vừa qua là cơ hội để tham gia vị thế với một tỷ lệ Rủi ro/Lợi nhuận hấp dẫn. Sức mạnh tương đối (RS) cực cao và cơ cấu cổ đông cô đặc là những yếu tố bảo trợ quan trọng cho đà tăng giá trong trung hạn. Dù trạng thái quá mua ngắn hạn (RSI 77) đòi hỏi sự cẩn trọng khi chọn điểm vào, nhưng nó không làm thay đổi triển vọng tích cực của cổ phiếu.
+
+*   **Điểm số đánh giá (thang điểm 10):** **8.5 / 10**
+
+*   **Tóm tắt ngắn gọn:** TVS là một cổ phiếu dẫn dắt thị trường, có cấu trúc giá tăng trưởng bền vững và được xác nhận bởi dòng tiền lớn. Với ban lãnh đạo sở hữu tỷ lệ lớn và hưởng lợi trực tiếp từ chu kỳ tăng của thị trường, đây là một cơ hội đầu tư hấp dẫn cho mục tiêu trung hạn.
+
+*   **Rủi ro chính cần lưu ý:**
+    1.  **Rủi ro thị trường chung:** Nếu VNINDEX đảo chiều giảm mạnh, TVS khó có thể đi ngược xu hướng.
+    2.  **Rủi ro từ hoạt động tự doanh:** Lợi nhuận phụ thuộc lớn vào mảng FVTPL có thể gây biến động mạnh và khó dự báo.
+    3.  **Rủi ro pha loãng:** Công ty có lịch sử thường xuyên phát hành thêm cổ phiếu để tăng vốn.
+2025-08-23 21:00:23,923 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-23 21:00:23,923 - INFO - Không nhận được phản hồi từ OpenRouter.
+2025-08-23 21:00:23,923 - INFO - ============================================================
+
+2025-08-23 21:00:23,924 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/TVS_report.json'
