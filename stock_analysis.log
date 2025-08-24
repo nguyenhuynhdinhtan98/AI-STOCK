@@ -4389,3 +4389,4 @@ TVS là một trường hợp đầu tư tăng trưởng-chu kỳ điển hình,
 
 2025-08-24 10:19:08,540 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
 2025-08-24 10:20:50,494 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 10:20:53,075 - INFO - Đã lưu danh sách cổ phiếu được lọc (45 mã) vào 'market_filtered_pe.csv'
