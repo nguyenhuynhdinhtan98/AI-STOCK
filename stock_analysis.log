@@ -4596,3 +4596,93 @@ TVS là một trường hợp đầu tư tăng trưởng-chu kỳ điển hình,
 2025-08-24 12:07:19,406 - INFO - ============================================================
 
 2025-08-24 12:07:19,407 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-24 14:10:03,894 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 14:10:07,024 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-24 14:11:31,189 - INFO - ============================================================
+2025-08-24 14:11:31,190 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DBC
+2025-08-24 14:11:31,190 - INFO - ============================================================
+2025-08-24 14:11:31,190 - INFO - Đang lấy dữ liệu cho mã DBC
+2025-08-24 14:11:31,525 - INFO - Đã lưu dữ liệu cho mã DBC vào file vnstocks_data/DBC_data.csv
+2025-08-24 14:11:31,525 - INFO - Đang lấy dữ liệu tài chính cho DBC
+2025-08-24 14:11:32,576 - INFO - Đã lưu dữ liệu tài chính của mã DBC vào file vnstocks_data/DBC_financial_statements.csv
+2025-08-24 14:11:32,576 - INFO - Đang lấy thông tin công ty cho DBC
+2025-08-24 14:11:32,696 - INFO - Đã lấy thông tin công ty DBC thành công
+2025-08-24 14:11:32,700 - INFO - Đang phân tích kỹ thuật cho mã DBC...
+2025-08-24 14:11:32,708 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-24 14:11:32,875 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-24 14:11:32,891 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DBC' trong file market_filtered.csv
+2025-08-24 14:11:32,892 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DBC (22/08/2025):
+2025-08-24 14:11:32,892 - INFO -  - Giá hiện tại: 27.50 VND
+2025-08-24 14:11:32,892 - INFO -  - Đường trung bình:
+2025-08-24 14:11:32,892 - INFO -  * MA10: 29.69| MA20: 29.82| MA50: 29.23| MA200: 25.41
+2025-08-24 14:11:32,892 - INFO -  - Chỉ báo dao động:
+2025-08-24 14:11:32,892 - INFO -  * RSI (14): 35.51
+2025-08-24 14:11:32,892 - INFO -  * MACD: -0.23| Signal: 0.20| Histogram: -0.43
+2025-08-24 14:11:32,892 - INFO -  * Bollinger Bands: Trên: 32.06| Dưới: 27.58
+2025-08-24 14:11:32,892 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-24 14:11:32,892 - INFO -  * RS: 0.016712550213616777
+2025-08-24 14:11:32,892 - INFO -  * RS_Point: 1325.33
+2025-08-24 14:11:32,892 - INFO -  * RS3D: 28.0
+2025-08-24 14:11:32,892 - INFO -  * RS1M: 22.0
+2025-08-24 14:11:32,892 - INFO -  * RS3M: 57.0
+2025-08-24 14:11:32,892 - INFO -  * RS1y: 53.0
+2025-08-24 14:11:32,892 - INFO -  - Mô hình Ichimoku:
+2025-08-24 14:11:32,892 - INFO -  * Tenkan-sen (Chuyển đổi): 29.62
+2025-08-24 14:11:32,892 - INFO -  * Kijun-sen (Cơ sở): 29.62
+2025-08-24 14:11:32,892 - INFO -  * Senkou Span A (Leading Span A): 29.62
+2025-08-24 14:11:32,892 - INFO -  * Senkou Span B (Leading Span B): 28.96
+2025-08-24 14:11:32,892 - INFO -  * Chikou Span (Trễ): 29.57
+2025-08-24 14:11:32,892 - INFO -  - Khối lượng:
+2025-08-24 14:11:32,892 - INFO -  * Khối lượng hiện tại: 10282700.0
+2025-08-24 14:11:32,892 - INFO -  * MA Khối lượng (20): 12,271,985.60
+2025-08-24 14:11:32,892 - INFO -  * MA Khối lượng (50): 11,606,044.42
+2025-08-24 14:11:32,892 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: GIỮ - GIẢM
+2025-08-24 14:11:32,892 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 39.0/100
+2025-08-24 14:11:32,892 - INFO -  📈 TÍN HIỆU: GIẢM MẠNH
+2025-08-24 14:11:32,911 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DBC_data.csv'
+2025-08-24 14:11:32,917 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DBC_infor.csv'
+2025-08-24 14:11:33,001 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered.csv'
+2025-08-24 14:11:33,020 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-24 14:11:33,021 - INFO - Đang phân tích bằng Gemini...
+2025-08-24 14:11:33,025 - INFO - Đang gửi prompt tới Gemini...
+2025-08-24 14:11:34,660 - ERROR - Lỗi khi phân tích bằng Gemini cho DBC: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. [violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.5-pro"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+  quota_value: 125000
+}
+, links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, retry_delay {
+  seconds: 25
+}
+]
+2025-08-24 14:11:34,661 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-24 14:11:34,664 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-24 14:11:36,297 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-08-24 14:11:36,300 - ERROR - Lỗi khi phân tích bằng OpenRouter cho DBC: Error code: 400 - {'error': {'message': 'This endpoint\'s maximum context length is 163840 tokens. However, you requested about 369090 tokens (369090 of text input). Please reduce the length of either one, or use the "middle-out" transform to compress your prompt automatically.', 'code': 400, 'metadata': {'provider_name': None}}}
+2025-08-24 14:11:36,301 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DBC ====================
+2025-08-24 14:11:36,301 - INFO - 💰 Giá hiện tại: 27.50 VND
+2025-08-24 14:11:36,301 - INFO - 📈 Tín hiệu: GIẢM MẠNH
+2025-08-24 14:11:36,301 - INFO - 🎯 Đề xuất: GIỮ - GIẢM
+2025-08-24 14:11:36,301 - INFO - 📊 Điểm phân tích: 39.00/100
+2025-08-24 14:11:36,301 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-24 14:11:36,301 - INFO - Không thể tạo phân tích bằng Gemini tại thời điểm này.
+2025-08-24 14:11:36,302 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-24 14:11:36,302 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-24 14:11:36,302 - INFO - ============================================================
+
+2025-08-24 14:11:36,304 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DBC_report.json'
+2025-08-24 14:37:46,665 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao

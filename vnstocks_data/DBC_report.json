@@ -1,6 +1,6 @@
 ﻿{
     "symbol": "DBC",
-    "timestamp": "2025-08-23 20:40:22",
+    "timestamp": "2025-08-24 14:11:36",
     "current_price": 27.5,
     "signal": "GIẢM MẠNH",
     "recommendation": "GIỮ - GIẢM",
@@ -19,8 +19,8 @@
     "macd": -0.2286652771183455,
     "macd_signal": 0.20143682743094105,
     "macd_hist": -0.43010210454928655,
-    "bb_upper": 32.06115088777543,
-    "bb_lower": 27.580849112224563,
+    "bb_upper": 32.061150887775426,
+    "bb_lower": 27.58084911222457,
     "volume_ma_20": 12271985.6,
     "volume_ma_50": 11606044.42,
     "ichimoku_tenkan_sen": 29.625,
@@ -41,5 +41,5 @@
     "relative_strength_3m": 57.0,
     "relative_strength_1y": 53.0,
     "gemini_analysis": "Không thể tạo phân tích bằng Gemini tại thời điểm này.",
-    "openrouter_analysis": "Không nhận được phản hồi từ OpenRouter."
+    "openrouter_analysis": "Không thể tạo phân tích bằng OpenRouter tại thời điểm này."
 }
