@@ -4139,3 +4139,173 @@ TVS là một trường hợp đầu tư tăng trưởng-chu kỳ điển hình,
 2025-08-24 09:48:56,567 - INFO - Đã lưu nội dung prompt vào file prompt.txt
 2025-08-24 09:48:56,567 - INFO - Đang phân tích bằng Gemini...
 2025-08-24 09:48:56,567 - INFO - Đang gửi prompt tới Gemini...
+2025-08-24 09:50:09,141 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 09:50:11,871 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-24 09:50:11,871 - INFO - ============================================================
+2025-08-24 09:50:11,871 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-24 09:50:11,871 - INFO - ============================================================
+2025-08-24 09:50:11,871 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-24 09:50:12,143 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-24 09:50:12,143 - INFO - Đang lấy dữ liệu tài chính cho VNINDEX
+2025-08-24 09:50:12,143 - ERROR - Lỗi khi lấy BCTC cho VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-24 09:50:12,143 - INFO - Đang lấy thông tin công ty cho VNINDEX
+2025-08-24 09:50:12,143 - ERROR - Lỗi khi lấy thông tin công ty VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-24 09:50:12,145 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-24 09:50:12,158 - WARNING - Không tìm thấy dữ liệu cho mã cổ phiếu 'VNINDEX' trong file.
+2025-08-24 09:50:12,159 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO VNINDEX (22/08/2025):
+2025-08-24 09:50:12,159 - INFO -  - Giá hiện tại: 1,645.47 VND
+2025-08-24 09:50:12,159 - INFO -  - Đường trung bình:
+2025-08-24 09:50:12,159 - INFO -  * MA10: 1,637.58| MA20: 1,587.39| MA50: 1,486.46| MA200: 1,325.79
+2025-08-24 09:50:12,159 - INFO -  - Chỉ báo dao động:
+2025-08-24 09:50:12,159 - INFO -  * RSI (14): 67.21
+2025-08-24 09:50:12,159 - INFO -  * MACD: 51.93| Signal: 49.39| Histogram: 2.54
+2025-08-24 09:50:12,159 - INFO -  * Bollinger Bands: Trên: 1,705.02| Dưới: 1,469.75
+2025-08-24 09:50:12,159 - INFO -  - Mô hình Ichimoku:
+2025-08-24 09:50:12,159 - INFO -  * Tenkan-sen (Chuyển đổi): 1639.61
+2025-08-24 09:50:12,159 - INFO -  * Kijun-sen (Cơ sở): 1585.14
+2025-08-24 09:50:12,159 - INFO -  * Senkou Span A (Leading Span A): 1612.38
+2025-08-24 09:50:12,159 - INFO -  * Senkou Span B (Leading Span B): 1498.90
+2025-08-24 09:50:12,159 - INFO -  * Chikou Span (Trễ): 1490.01
+2025-08-24 09:50:12,159 - INFO -  - Khối lượng:
+2025-08-24 09:50:12,159 - INFO -  * Khối lượng hiện tại: 2293777647.0
+2025-08-24 09:50:12,159 - INFO -  * MA Khối lượng (20): 1,842,110,268.00
+2025-08-24 09:50:12,159 - INFO -  * MA Khối lượng (50): 1,365,685,834.98
+2025-08-24 09:50:12,159 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: MUA MẠNH
+2025-08-24 09:50:12,159 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 81.0/100
+2025-08-24 09:50:12,159 - INFO -  📈 TÍN HIỆU: MUA MẠNH
+2025-08-24 09:50:12,176 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/VNINDEX_data.csv'
+2025-08-24 09:50:12,258 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered.csv'
+2025-08-24 09:50:12,260 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-24 09:50:12,261 - INFO - Đang phân tích bằng Gemini...
+2025-08-24 09:50:12,267 - INFO - Đang gửi prompt tới Gemini...
+2025-08-24 09:50:13,717 - ERROR - Lỗi khi phân tích bằng Gemini cho VNINDEX: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. [violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.5-pro"
+  }
+  quota_value: 125000
+}
+, links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, retry_delay {
+  seconds: 46
+}
+]
+2025-08-24 09:50:13,717 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-24 09:50:13,721 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-24 09:50:15,489 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-08-24 09:50:15,493 - ERROR - Lỗi khi phân tích bằng OpenRouter cho VNINDEX: Error code: 400 - {'error': {'message': 'This endpoint\'s maximum context length is 163840 tokens. However, you requested about 331224 tokens (331224 of text input). Please reduce the length of either one, or use the "middle-out" transform to compress your prompt automatically.', 'code': 400, 'metadata': {'provider_name': None}}}
+2025-08-24 09:50:15,493 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã VNINDEX ====================
+2025-08-24 09:50:15,493 - INFO - 💰 Giá hiện tại: 1,645.47 VND
+2025-08-24 09:50:15,493 - INFO - 📈 Tín hiệu: MUA MẠNH
+2025-08-24 09:50:15,493 - INFO - 🎯 Đề xuất: MUA MẠNH
+2025-08-24 09:50:15,493 - INFO - 📊 Điểm phân tích: 81.00/100
+2025-08-24 09:50:15,493 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-24 09:50:15,493 - INFO - Không thể tạo phân tích bằng Gemini tại thời điểm này.
+2025-08-24 09:50:15,493 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-24 09:50:15,493 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-24 09:50:15,493 - INFO - ============================================================
+
+2025-08-24 09:50:15,494 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-24 10:05:50,114 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 10:05:52,873 - INFO - Đã lưu danh sách cổ phiếu được lọc (69 mã) vào 'market_filtered_pe.csv'
+2025-08-24 10:05:52,873 - INFO - ============================================================
+2025-08-24 10:05:52,873 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DRI
+2025-08-24 10:05:52,873 - INFO - ============================================================
+2025-08-24 10:05:52,873 - INFO - Đang lấy dữ liệu cho mã DRI
+2025-08-24 10:05:53,309 - INFO - Đã lưu dữ liệu cho mã DRI vào file vnstocks_data/DRI_data.csv
+2025-08-24 10:05:53,309 - INFO - Đang lấy dữ liệu tài chính cho DRI
+2025-08-24 10:05:56,685 - INFO - Đã lưu dữ liệu tài chính của mã DRI vào file vnstocks_data/DRI_financial_statements.csv
+2025-08-24 10:05:56,685 - INFO - Đang lấy thông tin công ty cho DRI
+2025-08-24 10:05:56,798 - INFO - Đã lấy thông tin công ty DRI thành công
+2025-08-24 10:05:56,802 - INFO - Đang phân tích kỹ thuật cho mã DRI...
+2025-08-24 10:05:56,808 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-24 10:05:56,917 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-24 10:05:56,936 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DRI' trong file market_filtered.csv
+2025-08-24 10:05:56,936 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DRI (22/08/2025):
+2025-08-24 10:05:56,936 - INFO -  - Giá hiện tại: 11.70 VND
+2025-08-24 10:05:56,936 - INFO -  - Đường trung bình:
+2025-08-24 10:05:56,936 - INFO -  * MA10: 12.60| MA20: 12.75| MA50: 12.67| MA200: 12.41
+2025-08-24 10:05:56,936 - INFO -  - Chỉ báo dao động:
+2025-08-24 10:05:56,936 - INFO -  * RSI (14): 27.50
+2025-08-24 10:05:56,936 - INFO -  * MACD: -0.15| Signal: -0.02| Histogram: -0.13
+2025-08-24 10:05:56,937 - INFO -  * Bollinger Bands: Trên: 13.50| Dưới: 12.00
+2025-08-24 10:05:56,937 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-24 10:05:56,937 - INFO -  * RS: 0.007110430454520592
+2025-08-24 10:05:56,937 - INFO -  * RS_Point: 112.52
+2025-08-24 10:05:56,937 - INFO -  * RS3D: 26.0
+2025-08-24 10:05:56,937 - INFO -  * RS1M: 6.0
+2025-08-24 10:05:56,937 - INFO -  * RS3M: 41.0
+2025-08-24 10:05:56,937 - INFO -  * RS1y: 57.0
+2025-08-24 10:05:56,937 - INFO -  - Mô hình Ichimoku:
+2025-08-24 10:05:56,937 - INFO -  * Tenkan-sen (Chuyển đổi): 12.45
+2025-08-24 10:05:56,937 - INFO -  * Kijun-sen (Cơ sở): 12.80
+2025-08-24 10:05:56,937 - INFO -  * Senkou Span A (Leading Span A): 12.62
+2025-08-24 10:05:56,937 - INFO -  * Senkou Span B (Leading Span B): 12.79
+2025-08-24 10:05:56,937 - INFO -  * Chikou Span (Trễ): 12.92
+2025-08-24 10:05:56,937 - INFO -  - Khối lượng:
+2025-08-24 10:05:56,937 - INFO -  * Khối lượng hiện tại: 1271300.0
+2025-08-24 10:05:56,937 - INFO -  * MA Khối lượng (20): 1,403,692.25
+2025-08-24 10:05:56,937 - INFO -  * MA Khối lượng (50): 1,367,406.50
+2025-08-24 10:05:56,937 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: GIỮ - GIẢM
+2025-08-24 10:05:56,937 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 37.8/100
+2025-08-24 10:05:56,937 - INFO -  📈 TÍN HIỆU: GIẢM MẠNH
+2025-08-24 10:05:56,954 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DRI_data.csv'
+2025-08-24 10:05:56,959 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DRI_infor.csv'
+2025-08-24 10:05:57,039 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered.csv'
+2025-08-24 10:05:57,058 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-24 10:05:57,058 - INFO - Đang phân tích bằng Gemini...
+2025-08-24 10:05:57,060 - INFO - Đang gửi prompt tới Gemini...
+2025-08-24 10:05:58,661 - ERROR - Lỗi khi phân tích bằng Gemini cho DRI: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. [violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.5-pro"
+  }
+  quota_value: 125000
+}
+, links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, retry_delay {
+  seconds: 1
+}
+]
+2025-08-24 10:05:58,663 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-24 10:05:58,665 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-24 10:06:00,330 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-08-24 10:06:00,334 - ERROR - Lỗi khi phân tích bằng OpenRouter cho DRI: Error code: 400 - {'error': {'message': 'This endpoint\'s maximum context length is 163840 tokens. However, you requested about 363761 tokens (363761 of text input). Please reduce the length of either one, or use the "middle-out" transform to compress your prompt automatically.', 'code': 400, 'metadata': {'provider_name': None}}}
+2025-08-24 10:06:00,334 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DRI ====================
+2025-08-24 10:06:00,335 - INFO - 💰 Giá hiện tại: 11.70 VND
+2025-08-24 10:06:00,335 - INFO - 📈 Tín hiệu: GIẢM MẠNH
+2025-08-24 10:06:00,335 - INFO - 🎯 Đề xuất: GIỮ - GIẢM
+2025-08-24 10:06:00,335 - INFO - 📊 Điểm phân tích: 37.75/100
+2025-08-24 10:06:00,335 - INFO - 📊 RS (so với VNINDEX): 0.0071
+2025-08-24 10:06:00,335 - INFO - 📊 RS_Point: 112.52
+2025-08-24 10:06:00,335 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-24 10:06:00,335 - INFO - Không thể tạo phân tích bằng Gemini tại thời điểm này.
+2025-08-24 10:06:00,335 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-24 10:06:00,335 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-24 10:06:00,335 - INFO - ============================================================
+
+2025-08-24 10:06:00,337 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DRI_report.json'

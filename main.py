@@ -1123,9 +1123,6 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
     logger.info(f"📈 Tín hiệu: {trading_signal['signal']}")
     logger.info(f"🎯 Đề xuất: {trading_signal['recommendation']}")
     logger.info(f"📊 Điểm phân tích: {trading_signal['score']:.2f}/100")
-    if symbol.upper() != "VNINDEX":
-        logger.info(f"📊 RS (so với VNINDEX): {trading_signal['rs']:.4f}")
-        logger.info(f"📊 RS_Point: {trading_signal['rs_point']:.2f}")
     logger.info(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---")
     logger.info(gemini_analysis)
     logger.info(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---")
