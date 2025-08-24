@@ -4408,3 +4408,11 @@ TVS là một trường hợp đầu tư tăng trưởng-chu kỳ điển hình,
 2025-08-24 10:33:47,798 - ERROR - Không thể phân tích mã [A do thiếu dữ liệu
 2025-08-24 10:33:51,349 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
 2025-08-24 10:33:54,038 - INFO - Đã lưu danh sách cổ phiếu được lọc (86 mã) vào 'market_filtered_pe.csv'
+2025-08-24 10:54:01,848 - INFO - ============================================================
+2025-08-24 10:54:01,857 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ [A
+2025-08-24 10:54:01,857 - INFO - ============================================================
+2025-08-24 10:54:01,857 - INFO - Đang lấy dữ liệu cho mã [A
+2025-08-24 10:54:02,133 - ERROR - Lỗi khi lấy dữ liệu cho mã [A: Không tìm thấy dữ liệu. Vui lòng kiểm tra lại mã chứng khoán hoặc thời gian truy xuất.
+2025-08-24 10:54:02,133 - ERROR - Không thể phân tích mã [A do thiếu dữ liệu
+2025-08-24 10:54:05,623 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 10:54:08,323 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
