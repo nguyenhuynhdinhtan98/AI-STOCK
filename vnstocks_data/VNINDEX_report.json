@@ -1,6 +1,6 @@
 ﻿{
     "symbol": "VNINDEX",
-    "timestamp": "2025-08-24 10:19:08",
+    "timestamp": "2025-08-24 12:07:19",
     "current_price": 1645.47,
     "signal": "MUA MẠNH",
     "recommendation": "MUA MẠNH",
@@ -19,8 +19,8 @@
     "macd": 51.93412566605093,
     "macd_signal": 49.3896988615006,
     "macd_hist": 2.5444268045503335,
-    "bb_upper": 1705.0228062673727,
-    "bb_lower": 1469.7541937326273,
+    "bb_upper": 1705.0228062673723,
+    "bb_lower": 1469.7541937326278,
     "volume_ma_20": 1842110268.0,
     "volume_ma_50": 1365685834.98,
     "ichimoku_tenkan_sen": 1639.6100000000001,

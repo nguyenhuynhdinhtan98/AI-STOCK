@@ -35,7 +35,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 # --- Cấu hình toàn cục ---
-GLOBAL_START_DATE = (datetime.today() - timedelta(days=365 * 10)).strftime("%Y-%m-%d")
+GLOBAL_START_DATE = (datetime.today() - timedelta(days=365 * 15)).strftime("%Y-%m-%d")
 GLOBAL_END_DATE = datetime.today().strftime("%Y-%m-%d")
 DATA_DIR = "vnstocks_data"
 os.makedirs(DATA_DIR, exist_ok=True)
@@ -118,7 +118,9 @@ def get_stock_data(symbol: str) -> Optional[pd.DataFrame]:
         df.set_index("Date", inplace=True)
         df.sort_index(inplace=True)
         csv_path = f"{DATA_DIR}/{symbol}_data.csv"
+        data_path = f"data.csv"
         df.to_csv(csv_path, index=True, encoding="utf-8-sig")
+        df.to_csv(data_path, index=True, encoding="utf-8-sig")
         logger.info(f"Đã lưu dữ liệu cho mã {symbol} vào file {csv_path}")
         return df
     except Exception as e:
