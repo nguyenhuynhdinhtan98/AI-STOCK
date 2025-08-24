@@ -336,9 +336,9 @@ def calculate_relative_strength(df_stock: pd.DataFrame, df_index: pd.DataFrame) 
         # Fill missing values
         for col in cols_to_join:
             if "RS_Point" in col:
-                df_stock[col].fillna(0.0, inplace=True)
+                df_stock[col].fillna(0.0)
             else:
-                df_stock[col].fillna(1.0, inplace=True)
+                df_stock[col].fillna(1.0)
         return df_stock
     except Exception as e:
         logger.error(f"Lỗi khi tính Relative Strength: {str(e)}")

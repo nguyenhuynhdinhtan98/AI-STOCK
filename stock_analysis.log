@@ -47,3 +47,112 @@
 2025-08-24 19:52:17,843 - INFO - Đã lưu nội dung prompt vào file prompt.txt
 2025-08-24 19:52:17,843 - INFO - Đang phân tích bằng Gemini...
 2025-08-24 19:52:17,844 - INFO - Đang gửi prompt tới Gemini...
+2025-08-24 19:54:09,955 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_DBC.txt
+2025-08-24 19:54:09,955 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-24 19:54:09,957 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-24 19:54:15,218 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 19:54:17,849 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-24 19:54:19,515 - INFO - ============================================================
+2025-08-24 19:54:19,515 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DBC
+2025-08-24 19:54:19,515 - INFO - ============================================================
+2025-08-24 19:54:19,516 - INFO - Đang lấy dữ liệu cho mã DBC
+2025-08-24 19:54:20,021 - ERROR - Lỗi khi lấy dữ liệu cho mã DBC: The parameter "keys" may be a column key, one-dimensional array, or a list containing only valid column keys and one-dimensional arrays.. Received column of type <class 'set'>
+2025-08-24 19:54:20,021 - ERROR - Không thể phân tích mã DBC do thiếu dữ liệu
+2025-08-24 19:55:53,832 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 19:55:56,564 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-24 19:55:56,564 - INFO - ============================================================
+2025-08-24 19:55:56,564 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DBC
+2025-08-24 19:55:56,564 - INFO - ============================================================
+2025-08-24 19:55:56,564 - INFO - Đang lấy dữ liệu cho mã DBC
+2025-08-24 19:55:56,917 - INFO - Đã lưu dữ liệu cho mã DBC vào file vnstocks_data/DBC_data.csv
+2025-08-24 19:55:56,917 - INFO - Đang lấy dữ liệu tài chính cho DBC
+2025-08-24 19:55:58,438 - INFO - Đã lưu dữ liệu tài chính của mã DBC vào file vnstocks_data/DBC_financial_statements.csv
+2025-08-24 19:55:58,438 - INFO - Đang lấy thông tin công ty cho DBC
+2025-08-24 19:55:58,544 - INFO - Đã lấy thông tin công ty DBC thành công
+2025-08-24 19:55:58,548 - INFO - Đang phân tích kỹ thuật cho mã DBC...
+2025-08-24 19:55:58,554 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-24 19:55:58,782 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-24 19:55:58,801 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DBC' trong file market_filtered.csv
+2025-08-24 19:55:58,801 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DBC (22/08/2025):
+2025-08-24 19:55:58,801 - INFO -  - Giá hiện tại: 27.50 VND
+2025-08-24 19:55:58,801 - INFO -  - Đường trung bình:
+2025-08-24 19:55:58,801 - INFO -  * MA10: 29.69| MA20: 29.82| MA50: 29.23| MA200: 25.41
+2025-08-24 19:55:58,801 - INFO -  - Chỉ báo dao động:
+2025-08-24 19:55:58,801 - INFO -  * RSI (14): 35.51
+2025-08-24 19:55:58,801 - INFO -  * MACD: -0.23| Signal: 0.20| Histogram: -0.43
+2025-08-24 19:55:58,801 - INFO -  * Bollinger Bands: Trên: 32.06| Dưới: 27.58
+2025-08-24 19:55:58,801 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-24 19:55:58,801 - INFO -  * RS: 0.016712550213616777
+2025-08-24 19:55:58,801 - INFO -  * RS_Point: 1325.33
+2025-08-24 19:55:58,801 - INFO -  * RS3D: 28.0
+2025-08-24 19:55:58,801 - INFO -  * RS1M: 22.0
+2025-08-24 19:55:58,801 - INFO -  * RS3M: 57.0
+2025-08-24 19:55:58,801 - INFO -  * RS1y: 53.0
+2025-08-24 19:55:58,801 - INFO -  - Mô hình Ichimoku:
+2025-08-24 19:55:58,801 - INFO -  * Tenkan-sen (Chuyển đổi): 29.62
+2025-08-24 19:55:58,801 - INFO -  * Kijun-sen (Cơ sở): 29.62
+2025-08-24 19:55:58,801 - INFO -  * Senkou Span A (Leading Span A): 29.62
+2025-08-24 19:55:58,801 - INFO -  * Senkou Span B (Leading Span B): 28.96
+2025-08-24 19:55:58,801 - INFO -  * Chikou Span (Trễ): 29.57
+2025-08-24 19:55:58,801 - INFO -  - Khối lượng:
+2025-08-24 19:55:58,801 - INFO -  * Khối lượng hiện tại: 10282700.0
+2025-08-24 19:55:58,801 - INFO -  * MA Khối lượng (20): 12,271,985.60
+2025-08-24 19:55:58,802 - INFO -  * MA Khối lượng (50): 11,606,044.42
+2025-08-24 19:55:58,802 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: GIỮ - GIẢM
+2025-08-24 19:55:58,802 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 39.0/100
+2025-08-24 19:55:58,802 - INFO -  📈 TÍN HIỆU: GIẢM MẠNH
+2025-08-24 19:55:58,821 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DBC_data.csv'
+2025-08-24 19:55:58,827 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DBC_infor.csv'
+2025-08-24 19:55:58,842 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-24 19:55:58,861 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-24 19:55:58,861 - INFO - Đang phân tích bằng Gemini...
+2025-08-24 19:55:58,863 - INFO - Đang gửi prompt tới Gemini...
+2025-08-24 19:57:47,480 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 19:57:50,128 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-24 19:57:50,708 - INFO - ============================================================
+2025-08-24 19:57:50,709 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DBC
+2025-08-24 19:57:50,709 - INFO - ============================================================
+2025-08-24 19:57:50,709 - INFO - Đang lấy dữ liệu cho mã DBC
+2025-08-24 19:57:51,228 - INFO - Đã lưu dữ liệu cho mã DBC vào file vnstocks_data/DBC_data.csv
+2025-08-24 19:57:51,229 - INFO - Đang lấy dữ liệu tài chính cho DBC
+2025-08-24 19:57:52,760 - INFO - Đã lưu dữ liệu tài chính của mã DBC vào file vnstocks_data/DBC_financial_statements.csv
+2025-08-24 19:57:52,760 - INFO - Đang lấy thông tin công ty cho DBC
+2025-08-24 19:57:52,861 - INFO - Đã lấy thông tin công ty DBC thành công
+2025-08-24 19:57:52,863 - INFO - Đang phân tích kỹ thuật cho mã DBC...
+2025-08-24 19:57:52,870 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-24 19:57:52,987 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-24 19:57:53,002 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DBC' trong file market_filtered.csv
+2025-08-24 19:57:53,002 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DBC (22/08/2025):
+2025-08-24 19:57:53,002 - INFO -  - Giá hiện tại: 27.50 VND
+2025-08-24 19:57:53,002 - INFO -  - Đường trung bình:
+2025-08-24 19:57:53,002 - INFO -  * MA10: 29.69| MA20: 29.82| MA50: 29.23| MA200: 25.41
+2025-08-24 19:57:53,002 - INFO -  - Chỉ báo dao động:
+2025-08-24 19:57:53,002 - INFO -  * RSI (14): 35.51
+2025-08-24 19:57:53,002 - INFO -  * MACD: -0.23| Signal: 0.20| Histogram: -0.43
+2025-08-24 19:57:53,002 - INFO -  * Bollinger Bands: Trên: 32.06| Dưới: 27.58
+2025-08-24 19:57:53,002 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-24 19:57:53,002 - INFO -  * RS: 0.016712550213616777
+2025-08-24 19:57:53,002 - INFO -  * RS_Point: 1325.33
+2025-08-24 19:57:53,002 - INFO -  * RS3D: 28.0
+2025-08-24 19:57:53,002 - INFO -  * RS1M: 22.0
+2025-08-24 19:57:53,002 - INFO -  * RS3M: 57.0
+2025-08-24 19:57:53,002 - INFO -  * RS1y: 53.0
+2025-08-24 19:57:53,002 - INFO -  - Mô hình Ichimoku:
+2025-08-24 19:57:53,002 - INFO -  * Tenkan-sen (Chuyển đổi): 29.62
+2025-08-24 19:57:53,002 - INFO -  * Kijun-sen (Cơ sở): 29.62
+2025-08-24 19:57:53,002 - INFO -  * Senkou Span A (Leading Span A): 29.62
+2025-08-24 19:57:53,002 - INFO -  * Senkou Span B (Leading Span B): 28.96
+2025-08-24 19:57:53,002 - INFO -  * Chikou Span (Trễ): 29.57
+2025-08-24 19:57:53,002 - INFO -  - Khối lượng:
+2025-08-24 19:57:53,002 - INFO -  * Khối lượng hiện tại: 10282700.0
+2025-08-24 19:57:53,002 - INFO -  * MA Khối lượng (20): 12,271,985.60
+2025-08-24 19:57:53,003 - INFO -  * MA Khối lượng (50): 11,606,044.42
+2025-08-24 19:57:53,003 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: GIỮ - GIẢM
+2025-08-24 19:57:53,003 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 39.0/100
+2025-08-24 19:57:53,003 - INFO -  📈 TÍN HIỆU: GIẢM MẠNH
+2025-08-24 19:57:53,019 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DBC_data.csv'
+2025-08-24 19:57:53,024 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DBC_infor.csv'
+2025-08-24 19:57:53,038 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-24 19:57:53,057 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-24 19:57:53,057 - INFO - Đang phân tích bằng Gemini...
+2025-08-24 19:57:53,060 - INFO - Đang gửi prompt tới Gemini...
