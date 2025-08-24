@@ -1198,14 +1198,27 @@ def filter_stocks_low_pe_high_cap(min_market_cap: int = 500) -> Optional[pd.Data
         condition7_profit_growth_second = (df["second_quarter_profit_growth"] > 0) | pd.isna(df["second_quarter_profit_growth"])
         condition8_peg_forward = ((df["peg_forward"] >= 0) & (df["peg_forward"] < 1)) | pd.isna(df["peg_forward"])
         condition9_peg_trailing = ((df["peg_trailing"] >= 0) & (df["peg_trailing"] < 1)) | pd.isna(df["peg_trailing"])
+        condition10_revenue_growth_1y = (df["revenue_growth_1y"] >= 0) | pd.isna(df["revenue_growth_1y"])
+        condition11_eps_growth_1y = (df["eps_growth_1y"] >= 0) | pd.isna(df["eps_growth_1y"])
 
-        # Kết hợp điều kiện
-        filtered_conditions = (
-            condition1 & condition2_pe & condition3_pb & condition4_rev_growth_last &
-            condition5_rev_growth_second & condition6_profit_growth_last &
-            condition7_profit_growth_second & condition8_peg_forward & condition9_peg_trailing
+        # Tổng hợp tất cả điều kiện
+        final_condition = (
+            condition1 &
+            condition2_pe &
+            condition3_pb &
+            condition4_rev_growth_last &
+            condition5_rev_growth_second &
+            condition6_profit_growth_last &
+            condition7_profit_growth_second &
+            condition8_peg_forward &
+            condition9_peg_trailing &
+            condition10_revenue_growth_1y &
+            condition11_eps_growth_1y
         )
-        filtered_df = df[filtered_conditions]
+
+        # Lọc dữ liệu
+        filtered_df = df[final_condition]
+
         if filtered_df.empty:
             logger.warning("Không tìm thấy cổ phiếu nào đáp ứng tất cả các tiêu chí lọc.")
             return None
