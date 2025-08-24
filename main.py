@@ -1190,14 +1190,14 @@ def filter_stocks_low_pe_high_cap(min_market_cap: int = 500) -> Optional[pd.Data
             return None
         # Điều kiện lọc
         condition1 = df["market_cap"] >= min_market_cap
-        condition2_pe = (df["pe"] > 0) & (df["pe"] < 20)
-        condition3_pb = df["pb"] > 0
-        condition4_rev_growth_last = df["last_quarter_revenue_growth"] > 0
-        condition5_rev_growth_second = df["second_quarter_revenue_growth"] > 0
-        condition6_profit_growth_last = df["last_quarter_profit_growth"] > 0
-        condition7_profit_growth_second = df["second_quarter_profit_growth"] > 0
-        condition8_peg_forward = ((df["peg_forward"] < 1) & (df["peg_forward"] >= 0))
-        condition9_peg_trailing = ((df["peg_trailing"] < 1) & (df["peg_trailing"] >= 0))
+        condition2_pe = (df["pe"] > 0 & df["pe"] < 20) | pd.isna(df["pe"])
+        condition3_pb = df["pb"] > 0 | pd.isna(df["pb"])
+        condition4_rev_growth_last = df["last_quarter_revenue_growth"] > 0 | pd.isna(df["last_quarter_revenue_growth"])
+        condition5_rev_growth_second = df["second_quarter_revenue_growth"] > 0 | pd.isna(df["second_quarter_revenue_growth"])
+        condition6_profit_growth_last = df["last_quarter_profit_growth"] > 0 | pd.isna(df["last_quarter_profit_growth"])
+        condition7_profit_growth_second = df["second_quarter_profit_growth"] > 0 | pd.isna(df["second_quarter_profit_growth"])
+        condition8_peg_forward = ((df["peg_forward"] < 1) & (df["peg_forward"] >= 0)) | pd.isna(df["peg_forward"])
+        condition9_peg_trailing = ((df["peg_trailing"] < 1) & (df["peg_trailing"] >= 0)) | pd.isna(df["peg_trailing"])
         # Kết hợp điều kiện
         filtered_conditions = (
             condition1 & condition2_pe & condition3_pb & condition4_rev_growth_last &
