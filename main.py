@@ -1030,7 +1030,7 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
     # Chuẩn bị dữ liệu cho prompt
     csv_file_path = f"{DATA_DIR}/{symbol}_data.csv"
     infor_csv_file_path = f"{DATA_DIR}/{symbol}_infor.csv"
-    market_file_path = f"market_filtered_pe.csv"
+    market_file_path = f"market_filtered.csv"
     historical_data_str = "Không có dữ liệu lịch sử."
     infor_data_str = "Không có dữ liệu thông tin công ty."
     market_data_str = "Không có dữ liệu thông tin thị trường."
