@@ -4390,3 +4390,21 @@ TVS là một trường hợp đầu tư tăng trưởng-chu kỳ điển hình,
 2025-08-24 10:19:08,540 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
 2025-08-24 10:20:50,494 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
 2025-08-24 10:20:53,075 - INFO - Đã lưu danh sách cổ phiếu được lọc (45 mã) vào 'market_filtered_pe.csv'
+2025-08-24 10:25:54,280 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 10:25:56,895 - ERROR - Đã xảy ra lỗi trong quá trình lọc cổ phiếu: Cannot perform 'rand_' with a dtyped [float64] array and scalar of type [bool]
+2025-08-24 10:27:09,133 - INFO - ============================================================
+2025-08-24 10:27:09,141 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ [A
+2025-08-24 10:27:09,141 - INFO - ============================================================
+2025-08-24 10:27:09,141 - INFO - Đang lấy dữ liệu cho mã [A
+2025-08-24 10:27:09,348 - ERROR - Lỗi khi lấy dữ liệu cho mã [A: Không tìm thấy dữ liệu. Vui lòng kiểm tra lại mã chứng khoán hoặc thời gian truy xuất.
+2025-08-24 10:27:09,349 - ERROR - Không thể phân tích mã [A do thiếu dữ liệu
+2025-08-24 10:27:14,564 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 10:27:17,149 - ERROR - Đã xảy ra lỗi trong quá trình lọc cổ phiếu: Cannot perform 'rand_' with a dtyped [float64] array and scalar of type [bool]
+2025-08-24 10:33:47,601 - INFO - ============================================================
+2025-08-24 10:33:47,611 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ [A
+2025-08-24 10:33:47,611 - INFO - ============================================================
+2025-08-24 10:33:47,611 - INFO - Đang lấy dữ liệu cho mã [A
+2025-08-24 10:33:47,797 - ERROR - Lỗi khi lấy dữ liệu cho mã [A: Không tìm thấy dữ liệu. Vui lòng kiểm tra lại mã chứng khoán hoặc thời gian truy xuất.
+2025-08-24 10:33:47,798 - ERROR - Không thể phân tích mã [A do thiếu dữ liệu
+2025-08-24 10:33:51,349 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-24 10:33:54,038 - INFO - Đã lưu danh sách cổ phiếu được lọc (86 mã) vào 'market_filtered_pe.csv'
