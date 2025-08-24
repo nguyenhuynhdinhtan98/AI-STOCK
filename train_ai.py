@@ -5,15 +5,15 @@
 DATA_FILE_PATH = 'data.csv'
 FEATURE_COLS = ['Open', 'High', 'Low', 'Close', 'Volume'] # Dùng nhiều cột
 TARGET_COL = 'Close' # Cột mục tiêu để dự đoán
-SEQUENCE_LENGTH = 250 # Tăng độ dài chuỗi đầu vào
+SEQUENCE_LENGTH = 100 # Tăng độ dài chuỗi đầu vào
 PREDICT_STEPS = 1 # Dự đoán 1 bước tới
 
 # 2. Model Parameters (Transformer)
 INPUT_SIZE = len(FEATURE_COLS) # Đầu vào là 5 đặc trưng
 D_MODEL = 256 # Kích thước embedding và hidden states (tăng lên)
 NHEAD = 8 # Số lượng attention heads
-NUM_ENCODER_LAYERS = 5 # Số lớp encoder (tăng lên)
-NUM_DECODER_LAYERS = 5 # Số lớp decoder (tăng lên)
+NUM_ENCODER_LAYERS = 4 # Số lớp encoder (tăng lên)
+NUM_DECODER_LAYERS = 4 # Số lớp decoder (tăng lên)
 DIM_FEEDFORWARD = 512 # Kích thước lớp feedforward (tăng lên)
 DROPOUT = 0.2
 
