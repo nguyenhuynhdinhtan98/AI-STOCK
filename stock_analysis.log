@@ -156,3 +156,202 @@
 2025-08-24 19:57:53,057 - INFO - Đã lưu nội dung prompt vào file prompt.txt
 2025-08-24 19:57:53,057 - INFO - Đang phân tích bằng Gemini...
 2025-08-24 19:57:53,060 - INFO - Đang gửi prompt tới Gemini...
+2025-08-24 19:59:54,816 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_DBC.txt
+2025-08-24 19:59:54,817 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-24 19:59:54,818 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-24 19:59:57,506 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-24 19:59:57,507 - INFO - Retrying request to /chat/completions in 0.489818 seconds
+2025-08-24 20:00:04,794 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-24 20:00:05,638 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DBC ====================
+2025-08-24 20:00:05,638 - INFO - 💰 Giá hiện tại: 27.50 VND
+2025-08-24 20:00:05,638 - INFO - 📈 Tín hiệu: GIẢM MẠNH
+2025-08-24 20:00:05,638 - INFO - 🎯 Đề xuất: GIỮ - GIẢM
+2025-08-24 20:00:05,638 - INFO - 📊 Điểm phân tích: 39.00/100
+2025-08-24 20:00:05,638 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-24 20:00:05,638 - INFO - Chắc chắn rồi. Với vai trò là một chuyên gia phân tích đầu tư, tôi sẽ thực hiện một bài phân tích chuyên sâu, toàn diện về mã cổ phiếu DBC của Tập đoàn Dabaco Việt Nam, kết hợp hài hòa giữa các trường phái Phân tích Kỹ thuật (Wyckoff, VSA/VPA, Minervini) và Phân tích Cơ bản (Buffett, Lynch).
+
+---
+
+### **BÁO CÁO PHÂN TÍCH CHUYÊN SÂU CỔ PHIẾU DBC**
+
+*   **Tên công ty:** Công ty Cổ phần Tập đoàn Dabaco Việt Nam
+*   **Mã chứng khoán:** DBC
+*   **Sàn niêm yết:** HOSE
+*   **Giá tại thời điểm phân tích:** 27.500 VND
+*   **Ngày phân tích:** 23/08/2025 (Dựa trên ngày cuối cùng của dữ liệu giá)
+
+---
+
+### **TỔNG QUAN VỀ DOANH NGHIỆP**
+
+Dabaco là một trong những tập đoàn nông nghiệp hàng đầu Việt Nam, hoạt động theo mô hình chuỗi giá trị khép kín 3F (Feed - Farm - Food). Lĩnh vực kinh doanh cốt lõi bao gồm: sản xuất thức ăn chăn nuôi, chăn nuôi gia súc-gia cầm, và chế biến thực phẩm. Lợi thế cạnh tranh của DBC đến từ quy mô lớn, chuỗi giá trị tích hợp giúp kiểm soát chi phí và chất lượng, cùng với thương hiệu lâu năm. Hoạt động kinh doanh của DBC mang tính chu kỳ cao, phụ thuộc lớn vào giá nguyên liệu đầu vào và giá bán các sản phẩm nông nghiệp, đặc biệt là giá heo hơi.
+
+---
+
+### **1. PHÂN TÍCH KỸ THUẬT (WYCKOFF, VSA & VPA)**
+
+**1.1. Giai đoạn thị trường (Wyckoff):**
+
+Để xác định giai đoạn hiện tại, chúng ta cần nhìn vào bối cảnh rộng hơn từ dữ liệu lịch sử giá:
+*   **Tích lũy (Accumulation - Giai đoạn A & B):** Giai đoạn từ cuối năm 2022 đến giữa năm 2023, giá cổ phiếu dao động trong biên độ hẹp sau một đợt giảm giá mạnh. Khối lượng giao dịch có những phiên tăng đột biến tại các vùng hỗ trợ, cho thấy dấu hiệu "Dòng tiền thông minh" bắt đầu thu gom (Sự kiện Selling Climax, Automatic Rally, Secondary Test).
+*   **Tăng trưởng (Markup - Giai đoạn D & E):** Từ giữa năm 2023 đến giữa năm 2024, DBC bước vào một xu hướng tăng giá rõ rệt. Giá liên tục tạo các đỉnh và đáy cao hơn, vượt qua các vùng kháng cự trước đó với khối lượng lớn, xác nhận xu hướng tăng (Sign of Strength - SOS).
+*   **Giai đoạn hiện tại (Tháng 7-8/2025):** Sau khi đạt đỉnh vào khoảng 31.000-32.000 VND, cổ phiếu đã bước vào một giai đoạn điều chỉnh, giảm về mức 27.500 VND.
+
+**Kết luận giai đoạn:** DBC đang ở trong một **giai đoạn Tái Tích Lũy (Re-accumulation) hoặc khởi đầu của một giai đoạn Phân Phối (Distribution)**. Tuy nhiên, các dấu hiệu hiện tại nghiêng về kịch bản Tái Tích Lũy nhiều hơn.
+
+*   **Lý do:** Đợt giảm giá này diễn ra sau một xu hướng tăng mạnh, đây là một hành động giá tự nhiên. Quan trọng hơn, khối lượng giao dịch trong các phiên giảm gần đây có xu hướng thấp hơn so với giai đoạn tăng giá trước đó.
+
+**1.2. Phân tích Giá & Khối lượng (VSA/VPA):**
+
+*   **Hành động giá gần đây:** Cổ phiếu giảm từ vùng đỉnh 31.x xuống 27.5. Đây là một đợt điều chỉnh khoảng 12-15%.
+*   **Phân tích khối lượng:**
+    *   **Khối lượng hiện tại (10.28M)** thấp hơn **khối lượng trung bình 20 ngày (12.27M)**. Tỷ lệ khối lượng chỉ là 0.84.
+    *   **Diễn giải:** Việc giá giảm nhưng khối lượng lại sụt giảm (Drying up of selling pressure) là một tín hiệu tích cực. Nó cho thấy áp lực bán không mạnh và mang tính chốt lời ngắn hạn hơn là một đợt phân phối quy mô lớn. Không có các phiên bán tháo với khối lượng cực lớn (Climactic Action) cho thấy "Dòng tiền lớn" chưa thoát ra ồ ạt.
+
+**Kết luận VSA/VPA:** Khối lượng không xác nhận cho đợt giảm giá mạnh. Có dấu hiệu của sự cạn kiệt nguồn cung ở vùng giá hiện tại. Đây là tín hiệu sớm cho thấy phe bán đang yếu dần và phe mua có thể sớm quay trở lại.
+
+---
+
+### **2. PHÂN TÍCH THEO PHƯƠNG PHÁP MARK MINERVINI**
+
+**2.1. Xu hướng (Trend Template):**
+
+*   **Giá hiện tại (27.50)** > MA200 (25.41). **Đạt tiêu chí.**
+*   MA150 > MA200 (Cần tính toán, nhưng nhìn vào cấu trúc MA50>MA200, khả năng cao là đạt).
+*   MA50 (29.23) > MA200 (25.41). **Đạt tiêu chí.**
+*   Giá hiện tại < MA50 (29.23) và MA20 (29.82). **Không đạt tiêu chí.**
+*   MA200 đang có xu hướng dốc lên. **Đạt tiêu chí.**
+*   Giá hiện tại cao hơn ít nhất 30% so với đáy 52 tuần (Low 1y: 19.088). Giá 27.5 cao hơn 44% so với đáy. **Đạt tiêu chí.**
+*   Giá hiện tại cách đỉnh 52 tuần (High 1y: 32.350) không quá 25%. Hiện tại cách đỉnh ~15%. **Đạt tiêu chí.**
+
+**Kết luận:** DBC đang trong một xu hướng tăng giá dài hạn (Stage 2 Uptrend) nhưng đang trải qua một đợt điều chỉnh/củng cố ngắn hạn. Cổ phiếu tạm thời mất đi động lượng tăng giá ngắn hạn.
+
+**2.2. Cấu trúc thị trường & Hỗ trợ/Kháng cự:**
+
+*   **Cấu trúc:** Xu hướng tăng dài hạn với các đỉnh cao hơn và đáy cao hơn được thiết lập từ cuối năm 2023. Tuy nhiên, trong 1-2 tháng gần đây, cấu trúc đã chuyển sang đỉnh thấp hơn và đáy thấp hơn, xác nhận xu hướng điều chỉnh ngắn hạn.
+*   **Hỗ trợ quan trọng:**
+    *   Vùng **25.40**: Hợp lưu của đường MA200, đây là vùng hỗ trợ cực kỳ quan trọng cho xu hướng tăng dài hạn.
+    *   Vùng **27.50**: Giá hiện tại và là đáy của dải Bollinger, đóng vai trò hỗ trợ tâm lý ngắn hạn.
+*   **Kháng cự quan trọng:**
+    *   Vùng **29.20 - 29.80**: Hợp lưu của MA50 và MA20, sẽ là ngưỡng cản đầu tiên khi giá hồi phục.
+    *   Vùng **31.50 - 32.35**: Vùng đỉnh cũ, là kháng cự mạnh nhất.
+
+**2.3. Sức mạnh tương đối (RS):**
+
+*   **RS 1 tháng: 22.00; RS 3 tháng: 57.00; RS 1 năm: 53.00.**
+*   **Đánh giá:** Sức mạnh tương đối của DBC so với VNINDEX hiện ở mức trung bình yếu. Đặc biệt, RS trong 1 tháng qua rất thấp, cho thấy cổ phiếu yếu hơn thị trường chung trong ngắn hạn. Đây là một điểm trừ theo tiêu chí của Minervini, người luôn tìm kiếm các cổ phiếu dẫn dắt có RS > 80.
+
+---
+
+### **3. PHÂN TÍCH CƠ BẢN (BUFFETT, LYNCH)**
+
+**3.1. Chất lượng Doanh thu & Lợi nhuận:**
+
+*   **Doanh thu:** Tăng trưởng trở lại mạnh mẽ từ Q1/2024. Cụ thể, doanh thu Q2/2024 đạt 3.192 tỷ, giảm nhẹ 7.3% so với cùng kỳ (YoY) nhưng tăng mạnh 39% so với quý trước (QoQ), cho thấy đà phục hồi vẫn tiếp diễn.
+*   **Lợi nhuận:**
+    *   **Phục hồi ấn tượng:** Sau khi lỗ nặng trong Q1/2023 (-320 tỷ), DBC đã có lãi trở lại và tăng trưởng mạnh. Lợi nhuận sau thuế Q2/2024 đạt 145 tỷ đồng. Mặc dù con số này thấp hơn mức nền rất cao của Q2/2023 (326 tỷ), nhưng nó cho thấy sự cải thiện vượt bậc so với các quý liền trước và mức lỗ của đầu 2023.
+    *   **Biên lợi nhuận:** Biên lợi nhuận gộp Q2/2024 đạt 13.5%, cải thiện so với các quý cuối 2023 nhưng chưa bằng mức đỉnh. Điều này cho thấy giá vốn vẫn là một thách thức.
+*   **Dự báo (quan trọng):** Dữ liệu dự phóng cho Q3, Q4/2024 và cả năm 2025 đều cho thấy sự tăng trưởng lợi nhuận rất mạnh mẽ. Lợi nhuận sau thuế 2025 dự kiến đạt hơn 1.000 tỷ đồng, quay lại mức đỉnh của năm 2020-2021.
+
+**3.2. Hiệu quả Sử dụng Vốn:**
+
+*   **ROE (TTM): 25.1%** (theo TCBS) và dự kiến tiếp tục duy trì ở mức cao. Đây là một con số rất ấn tượng, cho thấy khả năng sinh lời trên vốn chủ sở hữu vượt trội, một tiêu chí quan trọng của Warren Buffett.
+*   **ROA & ROIC:** Các chỉ số này cũng đang trên đà cải thiện mạnh mẽ sau giai đoạn khó khăn, cho thấy ban lãnh đạo đang sử dụng tài sản và vốn đầu tư hiệu quả hơn.
+
+**3.3. Tình hình Tài chính:**
+
+*   **Cơ cấu nợ:** Chỉ số (Nợ vay ngắn+dài hạn)/Vốn chủ sở hữu (Q2/2024) là **1.55**. Đây là mức đòn bẩy tương đối cao, là một rủi ro cần theo dõi, đặc biệt trong môi trường lãi suất biến động. Tuy nhiên, với một doanh nghiệp sản xuất có vòng quay vốn nhanh, mức nợ này có thể chấp nhận được.
+*   **Khả năng thanh khoản:** Tỷ lệ thanh khoản hiện hành (Current Ratio) Q2/2024 là **1.004**. Tỷ lệ thanh khoản nhanh (Quick Ratio) là **0.21**. Tỷ lệ thanh khoản nhanh khá thấp, cho thấy công ty phụ thuộc nhiều vào việc bán hàng tồn kho để đáp ứng các nghĩa vụ ngắn hạn.
+*   **Dòng tiền:** Dòng tiền từ hoạt động kinh doanh (CFO) khá biến động theo chu kỳ kinh doanh. Cần theo dõi sát sao để đảm bảo công ty tạo ra tiền mặt thực.
+
+**3.4. Ban lãnh đạo & Cổ đông:**
+
+*   **Chủ tịch Nguyễn Như So** và gia đình nắm giữ một tỷ lệ cổ phần rất lớn (~24% + người liên quan). Đây là một tín hiệu tích cực mạnh mẽ ("Skin in the game"), cho thấy lợi ích của ban lãnh đạo gắn liền với lợi ích của cổ đông.
+*   **Cơ cấu cổ đông:** Có sự tham gia của một số quỹ đầu tư như PYN Elite Fund, Vietnam Holding Ltd., cho thấy sự quan tâm của các nhà đầu tư tổ chức.
+
+**3.5. Cổ tức:**
+
+*   DBC có lịch sử trả cổ tức khá đều đặn, thường kết hợp giữa tiền mặt và cổ phiếu để tái đầu tư cho tăng trưởng. Việc phát hành cổ phiếu trả cổ tức cho thấy công ty đang trong giai đoạn mở rộng và ưu tiên giữ lại tiền mặt.
+
+**3.6. Tin tức & Sự kiện:**
+
+*   **Tích cực:** Kế hoạch mua lại công ty con chăn nuôi heo ở Thanh Hóa cho thấy chiến lược tiếp tục mở rộng quy mô. Triển vọng giá heo hơi duy trì ở mức cao và vắc-xin Dịch tả lợn Châu Phi được kỳ vọng sẽ là động lực tăng trưởng lớn.
+*   **Tiêu cực/Trung tính:** Các đợt phát hành cổ phiếu để trả cổ tức và cho cổ đông hiện hữu có thể gây áp lực pha loãng ngắn hạn lên giá cổ phiếu.
+
+---
+
+### **4. ĐỊNH GIÁ & SO SÁNH NGÀNH**
+
+*   **Chỉ số định giá hiện tại (dữ liệu TCBS):**
+    *   **P/E: 6.8x**
+    *   **P/B: 1.4x**
+    *   **EV/EBITDA: 6.0x**
+*   **Phân tích:**
+    *   Với mức P/E chỉ 6.8x trong bối cảnh lợi nhuận đang phục hồi mạnh mẽ và dự kiến tăng trưởng cao trong năm 2025, DBC đang được định giá **rất hấp dẫn** so với tiềm năng tăng trưởng. Chỉ số PEG (P/E to Growth) có thể ở mức dưới 0.5, một tiêu chí ưa thích của Peter Lynch.
+    *   P/B ở mức 1.4x là hợp lý đối với một doanh nghiệp sản xuất đầu ngành có ROE cao.
+*   **So sánh Ngành:** Ngành Thực phẩm & Đồ uống thường có P/E trung bình cao hơn nhiều. Ví dụ, các công ty cùng ngành có thể có P/E từ 12-15x. So với ngành, DBC đang được định giá **chiết khấu đáng kể**.
+
+---
+
+### **5. NHẬN ĐỊNH VỊ THẾ MUA NGẮN HẠN**
+
+*   **Khả năng bật tăng:** Rất cao. Cổ phiếu đang ở vùng quá bán ngắn hạn (RSI 35.51) và chạm dải dưới của Bollinger Band. Về mặt kỹ thuật, một nhịp hồi phục kỹ thuật về vùng MA20/MA50 (29.x) là có xác suất cao.
+*   **Tín hiệu mua/bán gần đây:**
+    *   **Tín hiệu BÁN:** Giá cắt xuống các đường MA ngắn hạn, MACD cắt xuống đường tín hiệu, giá nằm dưới mây Ichimoku.
+    *   **Tín hiệu MUA tiềm năng:** RSI quá bán, giá ở dải Bollinger dưới. Cần chờ một cây nến đảo chiều (ví dụ: Hammer, Bullish Engulfing) với khối lượng tăng lên để xác nhận.
+*   **Tâm lý thị trường:** Bi quan trong ngắn hạn do đợt giảm giá vừa qua. Tuy nhiên, khối lượng thấp cho thấy sự hoảng loạn không xảy ra. Đây có thể là giai đoạn "chán nản", tạo cơ hội cho nhà đầu tư dài hạn tích lũy.
+
+---
+
+### **6. CHIẾN LƯỢC GIAO DỊCH & QUẢN LÝ RỦI RO**
+
+*   **Điểm vào (Entry Points):**
+    *   **Vùng 1 (An toàn thấp): 27.00 - 27.50**. Mua thăm dò một phần vị thế khi giá có dấu hiệu chững lại đà giảm.
+    *   **Vùng 2 (An toàn cao): 25.50 - 26.00**. Mua gia tăng tỷ trọng khi giá kiểm tra lại vùng hỗ trợ mạnh MA200.
+    *   **Điểm vào xác nhận:** Mua khi giá vượt trở lại đường MA20 (khoảng 29.8) với khối lượng lớn, xác nhận kết thúc điều chỉnh.
+*   **Dừng lỗ (Stop-loss):** Đặt tại **24.50**, tức là thủng hoàn toàn vùng hỗ trợ MA200.
+*   **Chốt lời (Take-profit):**
+    *   **TP1 (Ngắn hạn): 31.50 - 32.00** (Vùng đỉnh cũ).
+    *   **TP2 (Trung hạn): 35.00 - 38.00** (Dựa trên triển vọng cơ bản).
+*   **Tỷ lệ Lợi nhuận/Rủi ro (Risk/Reward):**
+    *   Nếu vào lệnh ở Vùng 2 (~25.8), dừng lỗ ở 24.5 (Rủi ro: 1.3 giá), mục tiêu TP1 là 31.5 (Lợi nhuận: 5.7 giá). Tỷ lệ R:R là **1:4.4**, rất hấp dẫn.
+
+---
+
+### **7. DỰ BÁO XU HƯỚNG**
+
+*   **Ngắn hạn (1-2 tuần):** Có khả năng cao sẽ có nhịp hồi phục kỹ thuật từ vùng 27.50 hoặc sau khi kiểm tra lại vùng 25.50-26.00. Mục tiêu hồi phục là vùng **29.00-29.50**.
+*   **Trung hạn (1-3 tháng):** Xu hướng sẽ phụ thuộc vào kết quả kinh doanh Q3 và diễn biến giá heo hơi. Nếu kết quả khả quan, cổ phiếu có thể hoàn tất giai đoạn tái tích lũy và quay trở lại xu hướng tăng, hướng tới chinh phục lại đỉnh cũ **32.x**.
+*   **Dài hạn (3-12 tháng):** **Tích cực.** Với vắc-xin ASF được triển khai, giá heo dự kiến ổn định ở mức cao, và chiến lược mở rộng của công ty, DBC có tiềm năng lớn để tăng trưởng cả về doanh thu và lợi nhuận, hỗ trợ cho giá cổ phiếu hướng tới các vùng giá cao hơn.
+
+---
+
+### **8. KẾT LUẬN & KHUYẾN NGHỊ CUỐI CÙNG**
+
+DBC là một cổ phiếu hội tụ nhiều yếu tố hấp dẫn: một doanh nghiệp đầu ngành đang trong chu kỳ phục hồi mạnh mẽ, được định giá rẻ so với tiềm năng tăng trưởng, và có ban lãnh đạo sở hữu tỷ lệ lớn. Về mặt kỹ thuật, cổ phiếu đang trong một đợt điều chỉnh lành mạnh, đưa giá về vùng hỗ trợ quan trọng và tạo ra một cơ hội mua vào với tỷ lệ Rủi ro/Lợi nhuận hấp dẫn.
+
+*   **Khuyến nghị:** **MUA**
+
+*   **Lý do chính:**
+    1.  **Định giá hấp dẫn:** P/E trailing 6.8x và P/B 1.4x là mức chiết khấu đáng kể so với tiềm năng tăng trưởng lợi nhuận mạnh mẽ được dự báo trong năm 2025.
+    2.  **Cơ bản phục hồi mạnh:** Doanh nghiệp đã vượt qua giai đoạn khó khăn nhất và đang trên đà tăng trưởng lợi nhuận trở lại, được hỗ trợ bởi chu kỳ tăng giá của ngành.
+    3.  **Tín hiệu kỹ thuật ủng hộ:** Cổ phiếu đang điều chỉnh về vùng hỗ trợ mạnh (MA200), trong khi khối lượng bán đã cạn kiệt, cho thấy áp lực bán yếu đi và khả năng tạo đáy cao.
+    4.  **Tỷ lệ R:R hấp dẫn:** Chiến lược giao dịch đề xuất cho thấy mức lợi nhuận tiềm năng cao hơn nhiều so với rủi ro phải chấp nhận.
+
+*   **Điểm số đánh giá (thang 10):** **7.8 / 10**
+
+*   **Tóm tắt ngắn gọn:** DBC đang trong một giai đoạn điều chỉnh kỹ thuật lành mạnh, đưa cổ phiếu về vùng hỗ trợ quan trọng và mức định giá hấp dẫn. Triển vọng phục hồi mạnh mẽ của ngành chăn nuôi và lợi thế đầu ngành của công ty tạo ra cơ hội mua tích lũy với tỷ lệ lợi nhuận/rủi ro tốt cho nhà đầu tư trung và dài hạn.
+
+*   **Rủi ro chính cần lưu ý:**
+    1.  **Rủi ro chu kỳ:** Giá heo hơi có thể biến động mạnh và ảnh hưởng trực tiếp đến biên lợi nhuận.
+    2.  **Rủi ro dịch bệnh:** Mặc dù có vắc-xin, nguy cơ dịch bệnh trên đàn gia súc vẫn luôn tiềm ẩn.
+    3.  **Rủi ro tài chính:** Tỷ lệ nợ vay cao có thể tạo áp lực tài chính nếu môi trường kinh doanh xấu đi.
+    4.  **Rủi ro pha loãng:** Các kế hoạch phát hành cổ phiếu trong tương lai có thể gây áp lực lên giá trong ngắn hạn.
+2025-08-24 20:00:05,639 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-24 20:00:05,639 - INFO - Không nhận được phản hồi từ OpenRouter.
+2025-08-24 20:00:05,639 - INFO - ============================================================
+
+2025-08-24 20:00:05,640 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DBC_report.json'
