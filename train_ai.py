@@ -5,7 +5,7 @@
 DATA_FILE_PATH = 'data.csv'
 FEATURE_COLS = ['Open', 'High', 'Low', 'Close', 'Volume'] # Dùng nhiều cột
 TARGET_COL = 'Close' # Cột mục tiêu để dự đoán
-SEQUENCE_LENGTH = 100 # Tăng độ dài chuỗi đầu vào
+SEQUENCE_LENGTH = 200 # Tăng độ dài chuỗi đầu vào
 PREDICT_STEPS = 1 # Dự đoán 1 bước tới
 
 # 2. Model Parameters (Transformer)
