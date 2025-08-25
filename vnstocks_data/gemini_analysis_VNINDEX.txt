@@ -1,81 +1,87 @@
-﻿VNINDEX: 1.61K (1610.00)
+﻿Chào mừng quý nhà đầu tư,
+
+Dưới đây là phân tích chi tiết về VNINDEX và đề xuất danh mục đầu tư dựa trên dữ liệu thị trường mới nhất.
 
 ## 1) VSA/VPA
-Giá hiện tại (1610.00) đang nằm trên MA20 (1590.00) và MA50 (1490.00), cho thấy xu hướng tăng trong trung hạn vẫn được duy trì. Tuy nhiên, giá đang nằm dưới MA10 (1640.00), ngụ ý áp lực bán hoặc chững lại đà tăng trong ngắn hạn.
-Khối lượng giao dịch hiện tại (1.52B) thấp hơn khối lượng trung bình 20 phiên (1.83B) nhưng cao hơn khối lượng trung bình 50 phiên (1.38B). Điều này cho thấy sự quan tâm ở mức chấp nhận được nhưng chưa thực sự bùng nổ, có thể là giai đoạn củng cố hoặc chờ đợi tín hiệu rõ ràng hơn.
 
-**3–5 phiên gần nhất (phỏng đoán):**
-*   **Biến động giá so với MA20/MA50:** Giá có thể đã trải qua giai đoạn giằng co hoặc điều chỉnh nhẹ, với việc đóng cửa dưới MA10 nhưng vẫn duy trì trên MA20 và MA50.
-*   **Test/upthrust/spring/climax:** Không có đủ dữ liệu cụ thể về biên độ giá và khối lượng từng phiên để xác định chính xác các mẫu hình VSA này.
+Trong 3-5 phiên gần đây (tính đến thời điểm snapshot 1.61K):
+- **Biến động giá so với MA20/MA50**: VNINDEX hiện đang ở mức 1.61K, cao hơn so với MA20 (1.59K) và MA50 (1.49K). Điều này cho thấy xu hướng tăng trung hạn vẫn được duy trì. Tuy nhiên, giá hiện đang thấp hơn MA10 (1.64K), cho thấy một sự điều chỉnh nhẹ trong ngắn hạn.
+- **Tín hiệu đặc biệt**: N/A (Không có dữ liệu cụ thể để xác định các tín hiệu như test/upthrust/spring/climax).
+- **Volume**: Khối lượng giao dịch hiện tại (1.52B) thấp hơn mức trung bình 20 phiên (1.83B), nhưng cao hơn mức trung bình 50 phiên (1.38B). Điều này có thể cho thấy thiếu động lực mạnh mẽ cho cả phe mua và phe bán trong ngắn hạn sau đợt tăng trưởng trước đó, hoặc một sự giảm sút nhẹ của dòng tiền.
 
 ## 2) Wyckoff
-**Giai đoạn:** Dựa trên sự sắp xếp của các đường MA (MA10 > MA20 > MA50 > MA200), VNINDEX đang ở **Giai đoạn 2 (Xu hướng tăng - Uptrend)**. Giá hiện tại nằm trên các đường MA quan trọng, xác nhận xu hướng tăng dài hạn và trung hạn.
-**Tín hiệu breakout/breakdown:**
-*   Giá hiện tại nằm dưới MA10 nhưng trên MA20 và Kijun Sen (1590.00), cho thấy một sự chững lại nhỏ trong đà tăng ngắn hạn nhưng chưa có tín hiệu breakdown rõ ràng.
-*   Việc giá nằm trong vùng Bollinger Band và tại Senkou Span A (1610.00) cũng thể hiện sự ổn định.
-*   Không có tín hiệu breakout/breakdown rõ ràng trong thời điểm hiện tại. Thị trường đang trong giai đoạn củng cố hoặc điều chỉnh nhẹ trong xu hướng tăng.
-**Thời gian tích lũy:** N/A (Không có dữ liệu cụ thể).
+
+- **Giai đoạn**: Dựa trên việc giá đang nằm trên các đường MA dài hạn (MA50 và MA200) và sự sắp xếp MA theo thứ tự tăng dần (MA10 > MA20 > MA50 > MA200), thị trường VNINDEX đang ở **giai đoạn Tăng giá (Mark-up phase)**. Sự điều chỉnh nhẹ dưới MA10 là một phần của biến động tự nhiên trong giai đoạn này.
+- **Tín hiệu breakout/breakdown**: N/A (Không có dữ liệu cụ thể về các tín hiệu phá vỡ/điều chỉnh đột ngột).
+- **Thời gian tích lũy**: N/A (Thị trường đang trong giai đoạn tăng giá).
 
 ## 3) Minervini
-**Xu hướng dài hạn:** Tăng. VNINDEX (1610.00) nằm trên MA200 (1330.00) và MA50 (1490.00).
-**Xu hướng ngắn hạn:** Tăng nhẹ/Củng cố. Giá nằm trên MA20 (1590.00), nhưng dưới MA10 (1640.00).
-**Sắp xếp MA:** MA10 (1640.00) > MA20 (1590.00) > MA50 (1490.00) > MA200 (1330.00). Đây là một sự sắp xếp lý tưởng cho xu hướng tăng mạnh, tuy nhiên, việc giá hiện tại đang dưới MA10 cần theo dõi thêm để xác nhận sức mạnh của xu hướng ngắn hạn.
-**Hỗ trợ:**
-*   Hỗ trợ gần nhất: MA20 (1590.00) và Kijun Sen (1590.00).
-*   Hỗ trợ quan trọng: MA50 (1490.00), Senkou Span B (1500.00) và Bollinger dưới (1470.00).
-**Kháng cự:**
-*   Kháng cự gần nhất: MA10 (1640.00), Tenkan Sen (1640.00).
-*   Kháng cự tiềm năng: Bollinger trên (1710.00).
+
+- **Xu hướng dài/ngắn**:
+    - **Dài hạn**: Xu hướng tăng rõ ràng, với VNINDEX (1.61K) nằm trên MA200 (1.33K).
+    - **Ngắn hạn**: Xu hướng vẫn đang trong giai đoạn tăng trưởng (VNINDEX > MA50: 1.49K), tuy nhiên có dấu hiệu điều chỉnh ngắn hạn khi VNINDEX (1.61K) nằm dưới MA10 (1.64K) và MA20 (1.59K) trong một vài phiên gần đây, cho thấy sự chững lại của đà tăng.
+- **Sắp xếp MA**: MA10 (1.64K) > MA20 (1.59K) > MA50 (1.49K) > MA200 (1.33K). Đây là sự sắp xếp lý tưởng cho một xu hướng tăng trưởng mạnh mẽ, tuy nhiên cần lưu ý giá hiện tại đang điều chỉnh dưới MA10.
+- **Hỗ trợ/Kháng cự**:
+    - **Kháng cự ngắn hạn**: MA10 (1.64K).
+    - **Hỗ trợ ngắn hạn**: MA20 (1.59K).
+    - **Hỗ trợ trung hạn**: MA50 (1.49K).
+    - **Hỗ trợ dài hạn**: MA200 (1.33K).
+    - **Kháng cự Bollinger trên**: 1.71K.
+    - **Hỗ trợ Bollinger dưới**: 1.47K.
 
 ## 4) CANSLIM (M)
-**Trạng thái:** Off
-**Luận điểm:**
-1.  VNINDEX (1610.00) > MA50 (1490.00): TRUE
-2.  MACD Line (47.07) > Signal Line (48.92): FALSE (47.07 < 48.92, MACD Histogram là -1.86)
-Do điều kiện thứ hai không được thỏa mãn, trạng thái CANSLIM (M) là **Off**.
+
+- **Trạng thái**: **OFF**
+- **Luận điểm**: VNINDEX (1.61K) hiện đang nằm trên MA50 (1.49K). Tuy nhiên, chỉ báo MACD (47.07) đã cắt xuống dưới đường tín hiệu (48.92), với MACD Histogram âm (-1.86). Điều này cho thấy động lượng ngắn hạn đang suy yếu và có thể dẫn đến điều chỉnh.
 
 ## 5) Kịch bản 1–2 tuần (kèm xác suất)
-*   **Cơ bản (50%):** VNINDEX tiếp tục củng cố quanh vùng 1590.00 - 1640.00. Giá có thể kiểm tra lại MA20 (1590.00) và Kijun Sen (1590.00) như một vùng hỗ trợ. Khối lượng duy trì ở mức trung bình hoặc giảm nhẹ.
-*   **Tốt nhất (30%):** VNINDEX bứt phá vượt lên trên MA10 (1640.00) và Tenkan Sen (1640.00) với khối lượng tăng mạnh. Mục tiêu tiềm năng là vùng kháng cự Bollinger trên (1710.00).
-*   **Xấu nhất (20%):** VNINDEX mất các ngưỡng hỗ trợ quan trọng là MA20 (1590.00) và Kijun Sen (1590.00) với khối lượng lớn. Vùng hỗ trợ tiếp theo sẽ là MA50 (1490.00), Senkou Span B (1500.00) và Bollinger dưới (1470.00).
+
+- **Cơ bản (Trung lập - 50%)**: VNINDEX có thể tiếp tục giằng co hoặc điều chỉnh nhẹ trong vùng **1.59K - 1.64K**. Thị trường sẽ củng cố lại trước khi có động thái rõ ràng hơn. Khối lượng giao dịch có thể duy trì ở mức trung bình hoặc thấp hơn.
+- **Tốt nhất (Tăng - 30%)**: VNINDEX nhanh chóng hồi phục, đóng cửa trên MA10 (1.64K) với khối lượng cải thiện. Sau đó, thị trường có thể hướng tới kiểm định vùng kháng cự Bollinger Band trên (1.71K). Điều này sẽ được hỗ trợ bởi sự đảo chiều tích cực của MACD.
+- **Xấu nhất (Giảm - 20%)**: VNINDEX phá vỡ hỗ trợ MA20 (1.59K) và tiếp tục giảm về vùng hỗ trợ MA50 (1.49K). Kịch bản này có thể xảy ra nếu áp lực bán gia tăng mạnh mẽ kèm khối lượng lớn và các chỉ báo kỹ thuật tiếp tục xấu đi.
 
 ## 6) Chiến lược
-Trạng thái CANSLIM (M) hiện đang "Off", cho thấy thị trường chưa ở điều kiện tối ưu để giải ngân tích cực.
-*   **Vị thế:** CHỜ.
-*   **Quy tắc vào:** Chỉ xem xét MUA khi VNINDEX lấy lại được đà tăng ngắn hạn (vượt MA10 với khối lượng xác nhận) và MACD Histogram chuyển sang dương (MACD Line > Signal Line).
-*   **Quy tắc thoát:** Nếu VNINDEX xuyên thủng MA20 (1590.00) và duy trì dưới ngưỡng này, có thể xem xét giảm tỷ trọng hoặc đứng ngoài thị trường.
-*   **Rủi ro chính:**
-    *   Sự suy yếu của động lượng ngắn hạn (MACD Histogram âm và giá dưới MA10).
-    *   Khối lượng chưa thực sự bùng nổ để xác nhận xu hướng tăng mạnh.
-    *   Các yếu tố vĩ mô bất lợi có thể gây áp lực lên thị trường.
+
+- **Vị thế**: **CHỜ**
+- **Quy tắc vào/thoát**:
+    - **Vào**: Duy trì vị thế theo dõi. Chỉ cân nhắc mua từng phần khi VNINDEX hồi phục rõ ràng, đóng cửa trên MA10 (1.64K) và có tín hiệu MACD cắt lên trở lại, cùng với sự cải thiện về khối lượng giao dịch.
+    - **Thoát**: Nếu VNINDEX đóng cửa dưới MA20 (1.59K) với khối lượng lớn, hoặc tín hiệu MACD tiếp tục suy yếu, nhà đầu tư nên cân nhắc giảm tỷ trọng để quản lý rủi ro.
+- **Rủi ro chính**:
+    - Xu hướng giảm ngắn hạn có thể kéo dài nếu các ngưỡng hỗ trợ quan trọng (MA20, MA50) bị phá vỡ.
+    - Thanh khoản thị trường có thể duy trì ở mức thấp, làm giảm tính hấp dẫn và khả năng tăng giá mạnh của các cổ phiếu.
+    - Các yếu tố vĩ mô tiêu cực bất ngờ có thể ảnh hưởng đến tâm lý thị trường.
 
 ## 7) ĐỀ XUẤT MÃ (chỉ từ MARKET_SCREEN)
-(Đã lọc các mã có avg_trading_value_20d dưới ngưỡng 20th percentile (0.33) và áp dụng ràng buộc tối đa 2 mã/ngành)
+
+Dựa trên trạng thái CANSLIM (M) là **OFF**, các mã dưới đây được đề xuất để theo dõi.
+**Lưu ý**: Các mã này được chọn dựa trên các tiêu chí RS, P/E, PEG, tăng trưởng doanh thu/lợi nhuận, và thanh khoản, tuân thủ giới hạn 2 mã/ngành.
 
 ### 7.3) Bảng Top 20
-| Mã | Ngành | P/E | PEG | Rev 1Y | EPS 1Y | RS1M | RS3M | RS6M | Luận điểm (ngắn gọn) | Entry | SL | TP | RR | Trạng thái |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| NAB | Ngân hàng | 7.60 | 0.40 | 37.59 | 8.08 | 98.00 | 85.00 | 72.00 | Sức mạnh giá nổi bật (RS1M), Định giá PEG tăng trưởng tốt, Tăng trưởng doanh thu tốt | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| VPB | Ngân hàng | 16.40 | 0.30 | 58.20 | 1.37 | 95.00 | 98.00 | 99.00 | Sức mạnh giá nổi bật (RS1M), Định giá PEG tăng trưởng tốt, Tăng trưởng doanh thu tốt | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| SHB | Ngân hàng | 7.20 | 0.20 | 27.27 | 17.48 | 24.00 | 94.00 | 91.00 | Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng doanh thu tốt | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| ABB | Ngân hàng | 9.40 | 0.00 | 29.12 | -17.27 | 85.00 | 97.00 | 96.00 | Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng doanh thu tốt | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| HDB | Ngân hàng | 7.90 | 0.40 | 26.73 | 15.08 | 71.00 | 93.00 | 88.00 | Sức mạnh giá nổi bật (RS1M), Định giá PEG tăng trưởng tốt, Tăng trưởng doanh thu tốt | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| BVB | Ngân hàng | N/A | N/A | 41.17 | 17.05 | 96.00 | 84.00 | 77.00 | Sức mạnh giá nổi bật (RS1M), Tăng trưởng doanh thu tốt | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| KLB | Ngân hàng | 7.30 | 0.10 | 54.62 | 67.32 | 88.00 | 84.00 | 97.00 | Sức mạnh giá nổi bật (RS1M), Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng EPS mạnh | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| VAB | Ngân hàng | 11.00 | 0.40 | 16.52 | 17.91 | 51.00 | 82.00 | 94.00 | Định giá PEG tăng trưởng tốt | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| GVT | Tài nguyên Cơ bản | 3.80 | N/A | 134.45 | 9.08 | 100.00 | 92.00 | 54.00 | Sức mạnh giá nổi bật (RS1M), Định giá P/E hấp dẫn, Tăng trưởng doanh thu mạnh | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| MZG | Tài nguyên Cơ bản | 15.30 | 0.00 | 16.20 | 8.44 | 40.00 | 97.00 | 98.00 | Sức mạnh giá tốt (RS3M), Định giá PEG tăng trưởng tốt | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| HGM | Tài nguyên Cơ bản | 9.00 | 0.00 | 233.91 | 94.64 | 37.00 | 3.00 | 23.00 | Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng EPS mạnh, Tăng trưởng doanh thu mạnh | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| HTG | Hàng cá nhân & Gia dụng | 4.90 | 0.10 | 63.34 | 8.85 | 81.00 | 53.00 | 71.00 | Sức mạnh giá nổi bật (RS1M), Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng doanh thu mạnh | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| HDM | Hàng cá nhân & Gia dụng | 5.30 | 0.10 | 14.56 | 25.71 | 94.00 | 51.00 | 61.00 | Sức mạnh giá nổi bật (RS1M), Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng EPS mạnh | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| MNB | Hàng cá nhân & Gia dụng | 4.90 | 0.00 | 186.67 | 11.12 | 1.00 | 82.00 | 15.00 | Sức mạnh giá tốt (RS3M), Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng doanh thu mạnh | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| MSH | Hàng cá nhân & Gia dụng | 7.40 | 0.10 | 68.69 | -16.43 | 57.00 | 21.00 | 47.00 | Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng doanh thu mạnh | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| TYA | Hàng & Dịch vụ Công nghiệp | 5.20 | 0.00 | 7969.58 | -2.70 | 69.00 | 80.00 | 70.00 | Sức mạnh giá tốt (RS3M), Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng doanh thu mạnh | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| TRC | Hóa chất | 6.60 | 0.00 | 227.39 | 21.56 | 46.00 | 35.00 | 42.00 | Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng EPS mạnh, Tăng trưởng doanh thu mạnh | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| DDV | Hóa chất | 12.40 | 0.10 | 144.05 | 97.14 | 11.00 | 48.00 | 81.00 | Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng EPS mạnh, Tăng trưởng doanh thu mạnh | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| DCM | Hóa chất | 12.00 | 0.90 | 28.02 | 27.21 | 14.00 | 77.00 | 70.00 | Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng EPS mạnh, Tăng trưởng doanh thu tốt | Theo dõi | N/A | N/A | N/A | Theo dõi |
-| HVT | Hóa chất | 9.00 | 0.10 | 25.25 | -5.12 | 66.00 | 5.00 | 58.00 | Định giá P/E hấp dẫn, Định giá PEG tăng trưởng tốt, Tăng trưởng doanh thu tốt | Theo dõi | N/A | N/A | N/A | Theo dõi |
+
+| Mã | Ngành | P/E | PEGf | Rev 1Y | EPS 1Y | RS1M | RS3M | RS6M | Rev Last | Rev Second | Profit Last | Profit Second | Luận điểm (ngắn ngọn) | Entry | SL | TP | RR | Trạng thái |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| KLB | Ngân hàng | 7.30 | 0.10 | 42.20 | 26.89 | 84.00 | 97.00 | 93.00 | 1191.00 | N/A | 451.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| HDB | Ngân hàng | 7.90 | 0.30 | 28.84 | 24.48 | 93.00 | 88.00 | 80.00 | 11636.00 | N/A | 3515.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| ANV | Thực phẩm và đồ uống | 13.00 | 0.20 | 10.64 | 1.85 | 61.00 | 95.00 | 83.00 | 1726.00 | N/A | 333.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| NAB | Ngân hàng | 7.60 | 0.50 | 18.42 | 29.70 | 85.00 | 72.00 | 65.00 | 2712.00 | N/A | 1035.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| CTG | Ngân hàng | 9.10 | 0.40 | 16.10 | 15.12 | 79.00 | 78.00 | 82.00 | 20917.00 | N/A | 9670.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| SHB | Ngân hàng | 7.20 | 0.10 | 10.52 | 20.21 | 94.00 | 91.00 | 94.00 | 10304.00 | N/A | 3607.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| HAH | Hàng & Dịch vụ Công nghiệp | 8.80 | 0.10 | 52.80 | 29.20 | 68.00 | 19.00 | 89.00 | 1275.00 | N/A | 362.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| DDV | Hóa chất | 12.40 | 0.10 | 5.79 | 15.38 | 48.00 | 81.00 | 87.00 | 1601.00 | N/A | 153.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| VAB | Ngân hàng | 11.00 | 0.00 | 5.93 | 16.45 | 82.00 | 94.00 | 94.00 | 608.00 | N/A | 279.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| ICN | Xây dựng và Vật liệu | 4.20 | N/A | 177.10 | 31.24 | 16.00 | 33.00 | 84.00 | 187.00 | N/A | 85.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| TRC | Hóa chất | 6.60 | 0.50 | 32.25 | 17.39 | 35.00 | 42.00 | 91.00 | 132.00 | N/A | 35.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| NTP | Xây dựng và Vật liệu | 11.20 | 0.20 | 9.29 | 3.89 | 4.00 | 27.00 | 46.00 | 1991.00 | N/A | 321.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| HHV | Xây dựng và Vật liệu | 15.10 | 0.50 | 23.19 | 47.30 | 85.00 | 76.00 | 70.00 | 947.00 | N/A | 131.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| DCM | Hóa chất | 12.00 | 0.40 | 7.04 | 13.82 | 77.00 | 70.00 | 49.00 | 6037.00 | N/A | 786.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| PVS | Dầu khí | 12.90 | 0.90 | 22.69 | 7.20 | 55.00 | 76.00 | 15.00 | 7359.00 | N/A | 359.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| DBC | Thực phẩm và đồ uống | 6.80 | 0.10 | 22.17 | 13.56 | 22.00 | 57.00 | 53.00 | 3820.00 | N/A | 507.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| VVS | Ô tô và phụ tùng | 6.00 | N/A | 71.79 | N/A | 98.00 | 99.00 | 94.00 | 2078.00 | N/A | 55.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| VPB | Ngân hàng | 16.40 | 0.40 | 25.16 | 11.36 | 98.00 | 99.00 | 93.00 | 16535.00 | N/A | 4862.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| HTG | Hàng cá nhân & Gia dụng | 4.90 | 0.20 | 8.57 | 3.71 | 53.00 | 71.00 | 59.00 | 1309.00 | N/A | 129.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
+| MSH | Hàng cá nhân & Gia dụng | 7.40 | 0.70 | 16.26 | 3.66 | 21.00 | 47.00 | 55.00 | 1467.00 | N/A | 180.00 | N/A | RS mạnh, tiềm năng tăng trưởng | Theo dõi | N/A | N/A | N/A | Theo dõi |
 
 ## 8) Danh mục & Phân bổ
-*   **Danh mục:** Dựa trên phân tích CANSLIM (M) và chiến lược "CHỜ", thị trường chưa vào trạng thái tối ưu để giải ngân tích cực. Do đó, danh mục đề xuất là danh sách 20 mã mạnh nhất ở trên, nhưng ở trạng thái "Theo dõi".
-*   **Phân bổ:** 0–20% NAV (theo dõi).
+
+- **Danh mục đề xuất**: Gồm 20 mã mạnh nhất theo các tiêu chí xếp hạng và ràng buộc ngành như trong bảng trên.
+- **Phân bổ NAV**: Dựa trên trạng thái CANSLIM (M) là **OFF**, khuyến nghị phân bổ **0–20% NAV** vào danh mục này để theo dõi. Nhà đầu tư nên thận trọng và chờ đợi các tín hiệu xác nhận rõ ràng hơn từ thị trường trước khi tăng tỷ trọng.

@@ -859,7 +859,6 @@ def main():
 
     any_ran = False
     if tickers_from_args:
-        print(f"\nPhân tích: {', '.join(tickers_from_args)}")
         for ticker in tickers_from_args:
             if ticker:
                 any_ran = True
