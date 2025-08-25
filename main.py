@@ -530,7 +530,7 @@ def analyze_with_gemini(symbol: str) -> str:
         with open(prompt_path, "r", encoding="utf-8-sig") as file:
             prompt_text = file.read()
         logger.info("Đang gửi prompt tới Gemini...")
-        model = genai.GenerativeModel(model_name="gemini-2.5-pro")
+        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         response = model.generate_content(prompt_text)
         if response and response.text:
             result = response.text.strip()
@@ -797,10 +797,9 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG CÓ PE DƯỚI 20 VÀ TĂNG T
 - **Stop Loss:** Mức cắt lỗ?
 - **Take Profit:** Mức chốt lời?
 - **Risk/Reward:** Tỷ lệ thưởng/trừng phạt?
-⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA & WYCKOFF & CANSLIM & MINERVINI):**
+⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA & WYCKOFF & CANSLIM & MINERVINI) được sắp xếp theo tiềm năng giảm dần:**
 -**Ưu tiên lựa chọn các mã trong nền hoặc mới vượt nền giá.**
--**Ưu tiên lựa chọn các mã có chỉ số tài chính tốt.**
--**Ưu tiên lựa chọn các mã có chỉ số kỹ thuật tốt**
+-**Ưu tiên lựa chọn các mã có chỉ số tài chính và kỹ thuật tốt.**
 -**Ưu tiên lựa chọn các mã khối ngoại đang mua**
 | Mã | Lý do chọn (VSA/VPA & WYCKOFF & CANSLIM & MINERVINI) | Entry | SL | TP | RR |
 |----|---------------------|-------|----|----|----|
