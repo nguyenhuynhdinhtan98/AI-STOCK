@@ -647,7 +647,7 @@ YÊU CẦU PHÂN TÍCH CHUYÊN SÂU\nMÃ: {symbol}\nGIÁ HIỆN TẠI: {cls._fmt
 3) BOLLINGER\n- Upper: {cls._fmt(bb.get('upper'))} | Lower: {cls._fmt(bb.get('lower'))}
 4) ICHIMOKU\n- Tenkan: {cls._fmt(ichi.get('tenkan'))} | Kijun: {cls._fmt(ichi.get('kijun'))} | A: {cls._fmt(ichi.get('senkou_a'))} | B: {cls._fmt(ichi.get('senkou_b'))} | Chikou: {cls._fmt(ichi.get('chikou'))}
 5) VOLUME\n- Cur: {cls._fmt(vol.get('current'))} | MA20: {cls._fmt(vol.get('ma20'))}
-6) RS \n- 3D: {cls._fmt(trading_signal.get('relative_strength_3d'))} | 1M: {cls._fmt(trading_signal.get('relative_strength_1m'))} | 3M: {cls._fmt(trading_signal.get('relative_strength_3m'))} | 1Y: {cls._fmt(trading_signal.get('relative_strength_1y'))}
+6) RS\n- 3D: {cls._fmt(trading_signal.get('relative_strength_3d'))} | 1M: {cls._fmt(trading_signal.get('relative_strength_1m'))} | 3M: {cls._fmt(trading_signal.get('relative_strength_3m'))} | 1Y: {cls._fmt(trading_signal.get('relative_strength_1y'))}
 """
         if financial is not None and not financial.empty:
             prompt += f"\nBÁO CÁO TÀI CHÍNH:\n{financial.to_string(index=False)}\n"
@@ -655,7 +655,7 @@ YÊU CẦU PHÂN TÍCH CHUYÊN SÂU\nMÃ: {symbol}\nGIÁ HIỆN TẠI: {cls._fmt
             prompt += "\nKHÔNG CÓ DỮ LIỆU BÁO CÁO TÀI CHÍNH\n"
         prompt += f"""
 DỮ LIỆU LỊCH SỬ GIÁ:\n{history_text}\n\nTHÔNG TIN CÔNG TY:\n{company_info}\n\nTHÔNG TIN CHUNG TỪ TCBS:\n{info_text}\n\nTHÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG CÓ PE<20 & TĂNG TRƯỞNG:\n{market_text}
-[Hãy phân tích theo Wyckoff/VSA/Minervini/Canslim + cơ bản + định giá + chiến lược & rủi ro. Kết luận MUA/MUA MẠNH/GIỮ/BÁN/BÁN MẠNH, cho điểm 1–10 và tóm tắt 2–3 câu.]
+[Hãy phân tích theo VSA/VPA/Wyckoff/Minervini/Canslim + cơ bản + định giá + chiến lược & rủi ro. Kết luận MUA/MUA MẠNH/GIỮ/BÁN/BÁN MẠNH, cho điểm 1–10 và tóm tắt 2–3 câu.]
 """
         return prompt
 
@@ -670,7 +670,7 @@ DỮ LIỆU LỊCH SỬ GIÁ:\n{history_text}\n\nTHÔNG TIN CÔNG TY:\n{company_
         vol = technical.get("volume", {})
         prompt = f"""
 VNINDEX PHÂN TÍCH TỔNG HỢP\nCHỈ SỐ: {symbol} | ĐIỂM: {cls._fmt(current_price)}\nRSI: {cls._fmt(rsi)} | MACD: {cls._fmt(macd.get('macd'))}/{cls._fmt(macd.get('signal'))}/{cls._fmt(macd.get('histogram'))}\nMA: 10={cls._fmt(ma.get('ma10'))}, 20={cls._fmt(ma.get('ma20'))}, 50={cls._fmt(ma.get('ma50'))}, 200={cls._fmt(ma.get('ma200'))}\nBB: U={cls._fmt(bb.get('upper'))}, L={cls._fmt(bb.get('lower'))}\nICHIMOKU: T={cls._fmt(ichi.get('tenkan'))}, K={cls._fmt(ichi.get('kijun'))}, A={cls._fmt(ichi.get('senkou_a'))}, B={cls._fmt(ichi.get('senkou_b'))}, C={cls._fmt(ichi.get('chikou'))}\nVOL: Cur={cls._fmt(vol.get('current'))} MA20={cls._fmt(vol.get('ma20'))}
-DỮ LIỆU LỊCH SỬ:\n{history_text}\n\nPE-Filter Market:\n{market_text}\n[Hãy phân tích VSA/VPA/Wyckoff/Canslim + kịch bản 1–2 tuần + chiến lược vị thế/SL/TP + rủi ro.]
+DỮ LIỆU LỊCH SỬ:\n{history_text}\n\nPE-Filter Market:\n{market_text}\n[Hãy phân tích VSA/VPA/Wyckoff/Minervini/Canslim + kịch bản 1–2 tuần + chiến lược vị thế/SL/TP + rủi ro + cho 20 mã cổ phiếu tiềm năng nhất thị trường sắp xếp tiềm năng giảm dần.]
 """
         return prompt
 
@@ -701,7 +701,7 @@ class AIAssistant:
         if not self.use_gemini:
             return "[Gemini] Bỏ qua (chưa cấu hình API hoặc tắt)"
         try:
-            model = genai.GenerativeModel(model_name="gemini-2.5-flash")
+            model = genai.GenerativeModel(model_name="gemini-2.5-pro")
             resp = model.generate_content(prompt)
             return resp.text.strip() if getattr(resp, "text", None) else "[Gemini] Không có phản hồi"
         except Exception as e:
@@ -818,8 +818,8 @@ class Analyzer:
 
         # AI synthesis
         gemini_text = self.ai.analyze_gemini(prompt)
-        # openrouter_text = self.ai.analyze_openrouter(prompt)
-        print(gemini_text)
+        openrouter_text = self.ai.analyze_openrouter(prompt)
+
         # Log summary
         logger.info("Giá: %s | Tín hiệu: %s | Điểm: %.1f", f"{signal['current_price']:,}", signal["signal"], score)
 

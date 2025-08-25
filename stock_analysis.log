@@ -701,3 +701,43 @@ DBC đang ở trong giai đoạn "thời tiết xấu nhưng ngôi nhà tốt". 
 2025-08-25 10:17:32,947 - INFO - Giá: 27.35 | Tín hiệu: BÁN | Điểm: 32.0
 2025-08-25 10:17:32,948 - INFO - Đã lưu báo cáo: vnstocks_data/DBC_report.json
 2025-08-25 10:17:32,948 - INFO - ✅ Hoàn tất. Báo cáo trong thư mục vnstocks_data
+2025-08-25 10:34:11,272 - INFO - 🔍 Đang lọc cổ phiếu theo tiêu chí PE & vốn hoá...
+2025-08-25 10:34:11,272 - INFO - Lọc cổ phiếu: P/E<20 & vốn hoá >= 500
+2025-08-25 10:34:15,107 - INFO - Đã lưu list lọc: 65 hàng
+2025-08-25 10:34:15,108 - INFO - Không có mã truyền vào. Ví dụ chạy: python vnstock_refactored.py VCB FPT
+2025-08-25 10:34:25,097 - INFO - 🔍 Đang lọc cổ phiếu theo tiêu chí PE & vốn hoá...
+2025-08-25 10:34:25,097 - INFO - Lọc cổ phiếu: P/E<20 & vốn hoá >= 500
+2025-08-25 10:34:28,522 - INFO - Đã lưu list lọc: 65 hàng
+2025-08-25 10:34:28,523 - INFO - ============================================================
+2025-08-25 10:34:28,523 - INFO - PHÂN TÍCH MÃ DBC
+2025-08-25 10:34:28,523 - INFO - ============================================================
+2025-08-25 10:34:28,523 - INFO - Lấy dữ liệu DBC
+2025-08-25 10:34:29,040 - INFO - Lấy BCTC DBC (quarter)
+2025-08-25 10:34:32,267 - INFO - Lấy thông tin công ty DBC
+2025-08-25 10:35:25,453 - INFO - Giá: 27.25 | Tín hiệu: GIẢM MẠNH | Điểm: 39.0
+2025-08-25 10:35:25,455 - INFO - Đã lưu báo cáo: vnstocks_data/DBC_report.json
+2025-08-25 10:35:25,455 - INFO - ✅ Hoàn tất. Báo cáo trong thư mục vnstocks_data
+2025-08-25 10:36:38,335 - INFO - 🔍 Đang lọc cổ phiếu theo tiêu chí PE & vốn hoá...
+2025-08-25 10:36:38,335 - INFO - Lọc cổ phiếu: P/E<20 & vốn hoá >= 500
+2025-08-25 10:36:42,368 - INFO - Đã lưu list lọc: 65 hàng
+2025-08-25 10:36:42,369 - INFO - ============================================================
+2025-08-25 10:36:42,369 - INFO - PHÂN TÍCH MÃ VNINDEX
+2025-08-25 10:36:42,369 - INFO - ============================================================
+2025-08-25 10:36:42,369 - INFO - Lấy dữ liệu VNINDEX
+2025-08-25 10:36:43,580 - INFO - Bỏ qua BCTC cho chỉ số: VNINDEX
+2025-08-25 10:36:43,580 - INFO - Lấy thông tin công ty VNINDEX
+2025-08-25 10:36:43,580 - ERROR - Lỗi get_company_info(VNINDEX): Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-25 10:37:22,574 - INFO - Giá: 1,642.89 | Tín hiệu: TĂNG MẠNH | Điểm: 57.5
+2025-08-25 10:37:22,577 - INFO - Đã lưu báo cáo: vnstocks_data/VNINDEX_report.json
+2025-08-25 10:37:22,578 - INFO - ✅ Hoàn tất. Báo cáo trong thư mục vnstocks_data
+2025-08-25 10:41:36,019 - INFO - 🔍 Đang lọc cổ phiếu theo tiêu chí PE & vốn hoá...
+2025-08-25 10:41:36,019 - INFO - Lọc cổ phiếu: P/E<20 & vốn hoá >= 500
+2025-08-25 10:41:40,763 - INFO - Đã lưu list lọc: 65 hàng
+2025-08-25 10:41:40,764 - INFO - ============================================================
+2025-08-25 10:41:40,764 - INFO - PHÂN TÍCH MÃ VNINDEX
+2025-08-25 10:41:40,764 - INFO - ============================================================
+2025-08-25 10:41:40,764 - INFO - Lấy dữ liệu VNINDEX
+2025-08-25 10:41:41,859 - INFO - Lấy BCTC VNINDEX (quarter)
+2025-08-25 10:41:41,859 - ERROR - Lỗi get_financial_data(VNINDEX): Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-25 10:41:41,859 - INFO - Lấy thông tin công ty VNINDEX
+2025-08-25 10:41:41,859 - ERROR - Lỗi get_company_info(VNINDEX): Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
