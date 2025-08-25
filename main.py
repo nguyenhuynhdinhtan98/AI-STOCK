@@ -652,6 +652,7 @@ def build_stock_prompt(symbol: str, price: float, tech: Dict[str, Any], sig: Dic
         fin.to_string(index=False) if (fin is not None and not fin.empty) else "Không có dữ liệu BCTC",
         "\nTHÔNG TIN LỊCH SỬ GIÁ (rút gọn):\n" + hist_text,
         "\nTHÔNG TIN CÔNG TY:\n" + company_blob,
+        "\nTHÔNG TIN TỔNG QUAN CỔ PHIẾU TỪ TCBS:\n" + infor_text,
         "\nTHÔNG TIN CỔ PHIẾU TĂNG TRƯỞNG THỊ TRƯỜNG VÀ PE DƯỚI 20:\n" + market_text,
         "\nYÊU CẦU TRẢ LỜI THEO CẤU TRÚC RÕ RÀNG:",
         "1) Wyckoff & VSA/VPA (3 phiên gần nhất, xác nhận khối lượng, cung/cầu)",
@@ -817,7 +818,7 @@ def run_openrouter(prompt_text: str) -> str:
 def run_gemini(prompt_text: str) -> str:
     try:
         logger.info("Gửi prompt tới Gemini...")
-        model = genai.GenerativeModel(model_name="gemini-2.5-pro")
+        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
         resp = model.generate_content(prompt_text)
         if resp and getattr(resp, 'text', None):
             return resp.text.strip()

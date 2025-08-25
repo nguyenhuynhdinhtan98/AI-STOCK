@@ -376,3 +376,11 @@ DBC là một cổ phiếu hội tụ nhiều yếu tố hấp dẫn: một doan
 2025-08-25 09:32:41,739 - INFO - Giá hiện tại: 27.45 | Điểm: 20.5/100 | Tín hiệu: BÁN | Đề xuất: BÁN
 2025-08-25 09:32:41,796 - INFO - Đã ghi prompt vào /Users/tannguyen/Desktop/AI-STOCK/prompt.txt
 2025-08-25 09:32:41,796 - INFO - Gửi prompt tới Gemini...
+2025-08-25 09:34:24,660 - INFO - Gửi prompt tới OpenRouter...
+2025-08-25 09:34:28,986 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 09:34:28,987 - INFO - Retrying request to /chat/completions in 0.454395 seconds
+2025-08-25 09:34:33,989 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 09:34:33,990 - INFO - Retrying request to /chat/completions in 0.943992 seconds
+2025-08-25 09:34:40,240 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 09:34:40,243 - ERROR - OpenRouter error: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'deepseek/deepseek-chat-v3-0324:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations', 'provider_name': 'Chutes'}}, 'user_id': 'user_30FfMOpnOYBQ9YyYvXiEgeWHOJM'}
+2025-08-25 09:34:40,245 - INFO - Đã lưu báo cáo vnstocks_data/DBC_report.json
