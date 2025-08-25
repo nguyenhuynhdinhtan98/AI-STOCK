@@ -655,7 +655,7 @@ YÊU CẦU PHÂN TÍCH CHUYÊN SÂU\nMÃ: {symbol}\nGIÁ HIỆN TẠI: {cls._fmt
             prompt += "\nKHÔNG CÓ DỮ LIỆU BÁO CÁO TÀI CHÍNH\n"
         prompt += f"""
 DỮ LIỆU LỊCH SỬ GIÁ:\n{history_text}\n\nTHÔNG TIN CÔNG TY:\n{company_info}\n\nTHÔNG TIN CHUNG TỪ TCBS:\n{info_text}\n\nTHÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG CÓ PE<20 & TĂNG TRƯỞNG:\n{market_text}
-[Hãy phân tích theo Wyckoff/VSA/Minervini + cơ bản + định giá + chiến lược & rủi ro. Kết luận MUA/MUA MẠNH/GIỮ/BÁN/BÁN MẠNH, cho điểm 1–10 và tóm tắt 2–3 câu.]
+[Hãy phân tích theo Wyckoff/VSA/Minervini/Canslim + cơ bản + định giá + chiến lược & rủi ro. Kết luận MUA/MUA MẠNH/GIỮ/BÁN/BÁN MẠNH, cho điểm 1–10 và tóm tắt 2–3 câu.]
 """
         return prompt
 
@@ -670,7 +670,7 @@ DỮ LIỆU LỊCH SỬ GIÁ:\n{history_text}\n\nTHÔNG TIN CÔNG TY:\n{company_
         vol = technical.get("volume", {})
         prompt = f"""
 VNINDEX PHÂN TÍCH TỔNG HỢP\nCHỈ SỐ: {symbol} | ĐIỂM: {cls._fmt(current_price)}\nRSI: {cls._fmt(rsi)} | MACD: {cls._fmt(macd.get('macd'))}/{cls._fmt(macd.get('signal'))}/{cls._fmt(macd.get('histogram'))}\nMA: 10={cls._fmt(ma.get('ma10'))}, 20={cls._fmt(ma.get('ma20'))}, 50={cls._fmt(ma.get('ma50'))}, 200={cls._fmt(ma.get('ma200'))}\nBB: U={cls._fmt(bb.get('upper'))}, L={cls._fmt(bb.get('lower'))}\nICHIMOKU: T={cls._fmt(ichi.get('tenkan'))}, K={cls._fmt(ichi.get('kijun'))}, A={cls._fmt(ichi.get('senkou_a'))}, B={cls._fmt(ichi.get('senkou_b'))}, C={cls._fmt(ichi.get('chikou'))}\nVOL: Cur={cls._fmt(vol.get('current'))} MA20={cls._fmt(vol.get('ma20'))}
-DỮ LIỆU LỊCH SỬ:\n{history_text}\n\nPE-Filter Market:\n{market_text}\n[Hãy phân tích VSA/VPA/Wyckoff + kịch bản 1–2 tuần + chiến lược vị thế/SL/TP + rủi ro.]
+DỮ LIỆU LỊCH SỬ:\n{history_text}\n\nPE-Filter Market:\n{market_text}\n[Hãy phân tích VSA/VPA/Wyckoff/Canslim + kịch bản 1–2 tuần + chiến lược vị thế/SL/TP + rủi ro.]
 """
         return prompt
 
