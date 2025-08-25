@@ -632,7 +632,6 @@ Phân tích VNINDEX (1–4 tuần, 1–6 tháng) và đề xuất danh mục t�
 
 ## 7) ĐỀ XUẤT MÃ (chỉ từ MARKET_SCREEN)
 
-
 ## 8) Danh mục & Phân bổ
 - Chọn 20 mã mạnh nhất, tối đa 2 mã/ngành.
 - On: tổng 40–60% NAV; Off: 0–20% NAV (theo dõi).
