@@ -613,7 +613,7 @@ BẠN LÀ CHUYÊN GIA PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM (Wyckoff, VSA/VPA, M
 - MA10/20/50/200: {_fmt(ma.get('ma10','N/A'))} / {_fmt(ma.get('ma20','N/A'))} / {_fmt(ma.get('ma50','N/A'))} / {_fmt(ma.get('ma200','N/A'))}
 - Vị trí giá vs MA: {"Trên tất cả MA (uptrend)" if above_all else ("Dưới tất cả MA (downtrend)" if below_all else "Hỗn hợp/sideways")}
 - Bollinger: Trên {_fmt(bb.get('upper','N/A'))} | Dưới {_fmt(bb.get('lower','N/A'))}
-- Ichimoku: Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))} | Senkou Span A {_fmt(ich.get('senkou_a','N/A'))} | Senkou Span B {_fmt(ich.get('senkou_b','N/A'))}
+- Ichimoku: Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))}
 - Volume: hiện tại {_fmt(vol.get('current','N/A'))} | MA20 {_fmt(vol.get('ma20','N/A'))} | MA50 {_fmt(vol.get('ma50','N/A'))}
 - RS: 3D {_fmt(trading_signal.get('relative_strength_3d','N/A'))} | 1M {_fmt(trading_signal.get('relative_strength_1m','N/A'))} | 3M {_fmt(trading_signal.get('relative_strength_3m','N/A'))} | 1Y {_fmt(trading_signal.get('relative_strength_1y','N/A'))}
 
@@ -660,9 +660,9 @@ Phân tích toàn diện **{symbol.upper()}** và đưa ra **1** khuyến nghị
 {info_data}
 <<<INFO_TCBS_END>>>
 
-<<<MARKET_SCREEN_START>>>
+<<<MARKET_SCREEN_PEG_PE_START>>>
 {market_data_str}
-<<<MARKET_SCREEN_END>>>
+<<<MARKET_SCREEN_PEG_PE_END>>>
 """
     return prompt
 
@@ -671,7 +671,7 @@ def generate_vnindex_analysis_prompt(
     symbol: str, current_price: float, technical_indicators: Dict[str, Any],
     historical_data: str, market_data_str: str
 ) -> str:
-    """Tạo prompt phân tích VNINDEX (không dùng RS cho chỉ số)."""
+    """Tạo prompt phân tích VNINDEX (ưu tiên sinh khuyến nghị mã cổ phiếu từ screener)."""
     rsi = technical_indicators.get("rsi", "N/A")
     ma = technical_indicators.get("ma", {})
     bb = technical_indicators.get("bollinger_bands", {})
@@ -688,7 +688,7 @@ BẠN LÀ CHUYÊN GIA PHÂN TÍCH THỊ TRƯỜNG VIỆT NAM (VSA/VPA, Wyckoff, 
 
 # QUY TẮC TRẢ LỜI
 - Trả lời **tiếng Việt**, ngắn gọn, có cấu trúc.
-- **Không dùng RS cho VNINDEX**. Chỉ dùng dữ liệu cung cấp; thiếu thì ghi **N/A**.
+- **Không suy đoán ngoài dữ liệu**; thiếu thì ghi **N/A**.
 - Bullet ngắn; làm tròn số 2 chữ số thập phân.
 
 # THẺ THÔNG TIN NHANH
@@ -697,15 +697,15 @@ BẠN LÀ CHUYÊN GIA PHÂN TÍCH THỊ TRƯỜNG VIỆT NAM (VSA/VPA, Wyckoff, 
 - MA10/20/50/200: {_fmt(ma.get('ma10','N/A'))} / {_fmt(ma.get('ma20','N/A'))} / {_fmt(ma.get('ma50','N/A'))} / {_fmt(ma.get('ma200','N/A'))}
 - Vị trí giá vs MA: {"Trên tất cả MA (uptrend)" if above_all else ("Dưới tất cả MA (downtrend)" if below_all else "Hỗn hợp/sideways")}
 - Bollinger: Trên {_fmt(bb.get('upper','N/A'))} | Dưới {_fmt(bb.get('lower','N/A'))}
-- Ichimoku: Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))} | Senkou Span A {_fmt(ich.get('senkou_a','N/A'))} | Senkou Span B {_fmt(ich.get('senkou_b','N/A'))}
+- Ichimoku: Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))}
 - Volume: hiện tại {_fmt(vol.get('current','N/A'))} | MA20 {_fmt(vol.get('ma20','N/A'))} | MA50 {_fmt(vol.get('ma50','N/A'))}
 
 # NHIỆM VỤ
-Phân tích **VNINDEX**: bối cảnh kỹ thuật & hành vi cung-cầu; kết luận hướng đi **ngắn (1–4 tuần)** và **trung hạn (1–6 tháng)**; đề xuất chiến lược thực thi.
+Phân tích **VNINDEX** và **đề xuất danh mục mã cổ phiếu** dựa trên dữ liệu screener kèm theo.
 
 # YÊU CẦU XUẤT RA
 ## 1) VSA/VPA chi tiết
-- 3–5 phiên gần nhất: biến động giá, so với MA20/MA50, tín hiệu test/upthrust/spring/climax (nếu có).
+- 3–5 phiên gần nhất: biến động giá so với MA20/MA50, tín hiệu test/upthrust/spring/climax (nếu có).
 ## 2) Wyckoff
 - Giai đoạn thị trường + dấu hiệu breakout/breakdown; thời gian tích lũy (nếu có).
 ## 3) Minervini
@@ -716,8 +716,37 @@ Phân tích **VNINDEX**: bối cảnh kỹ thuật & hành vi cung-cầu; kết 
 - Cơ bản / Tốt nhất / Xấu nhất (mô tả ngắn + vùng điểm số).
 ## 6) Chiến lược thực thi
 - Vị thế đề xuất: MUA/GIỮ/BÁN/CHỜ; quy tắc vào/thoát; lưu ý rủi ro.
-## 7) TOP 20 MÃ TIỀM NĂNG (từ danh sách P/E<20 & tăng trưởng)
-- Bảng: | Mã | Lý do ngắn | Entry | SL | TP | RR |
+
+## 7) ĐỀ XUẤT MÃ CỔ PHIẾU (lấy từ MARKET_SCREEN)
+**BẮT BUỘC chỉ chọn mã xuất hiện trong khối dữ liệu MARKET_SCREEN.**
+
+### 7.1) Quy tắc chấm điểm CompositeScore (0→1)
+- Chuẩn hoá 0–1 từng chỉ tiêu (bỏ qua nếu thiếu), trọng số:
+  - RS1M: 0.25 | RS3M: 0.20
+  - Doanh thu 1Y (revenue_growth_1y): 0.15 | EPS 1Y (eps_growth_1y): 0.15
+  - P/E (thấp tốt): 0.10 → dùng **1 - minmax(PE)**
+  - P/B (thấp tốt): 0.05 → **1 - minmax(PB)**
+  - PEG_forward và/hoặc PEG_trailing (thấp tốt): tổng 0.10 → trung bình rồi **1 - minmax(PEG)**
+- Thưởng +0.05 nếu vốn hoá thuộc top 30% (market_cap) trong danh sách.
+- Phạt -0.10 nếu P/E<=0 hoặc PEG<0.
+
+### 7.2) Ràng buộc danh mục
+- Tối đa 2 mã/nhóm ngành.
+- Loại các mã đáy 20% về thanh khoản (nếu có cột volume/turnover; nếu không có, bỏ qua ràng buộc này).
+- Nếu **VNINDEX < MA50** hoặc **MACD < Signal** → trạng thái **Off**:
+  - Không đưa khuyến nghị MUA; gắn nhãn "Theo dõi" cho tất cả picks.
+  - Giảm 30% trọng số tăng trưởng (revenue/EPS), tăng 30% trọng số định giá (PE/PB/PEG) khi tính điểm.
+
+### 7.3) Đầu ra BẮT BUỘC
+- Bảng **Top 20** theo CompositeScore, cột đúng thứ tự:
+  | Mã | Ngành | Điểm | P/E | PEGf | Rev 1Y | EPS 1Y | RS1M | RS3M | Luận điểm (≤15 từ) | Entry | SL | TP | RR | Trạng thái |
+- **Entry/SL/TP**:
+  - Nếu môi trường **On** (VNINDEX > MA50 **và** MACD>Signal): Entry="Mua từng phần"; SL=-7%; TP=+15% (RR≈2).
+  - Nếu thiếu dữ liệu kỹ thuật: Entry="Theo dõi"; SL=N/A; TP=N/A; RR=N/A.
+
+## 8) Danh mục rút gọn & phân bổ
+- Chọn **5 mã** mạnh nhất, tối đa 1 mã/ngành, nêu tỷ trọng gợi ý theo chế độ thị trường:
+  - On: tổng 40–60% NAV; Off: 0–20% NAV (chủ yếu theo dõi).
 
 # DỮ LIỆU THÔ
 <<<HISTORICAL_DATA_START>>>
@@ -815,7 +844,7 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
             current_price=trading_signal.get("current_price"),
             technical_indicators=technical_indicators,
             historical_data=historical_data_str,
-            market_data_str=market_data_str
+            market_data_str=market_data_str,
         )
     else:
         prompt = generate_advanced_stock_analysis_prompt(
