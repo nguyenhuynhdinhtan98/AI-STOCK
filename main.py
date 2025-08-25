@@ -631,18 +631,7 @@ Phân tích VNINDEX (1–4 tuần, 1–6 tháng) và đề xuất danh mục t�
 - Vị thế: MUA/GIỮ/BÁN/CHỜ; quy tắc vào/thoát; rủi ro chính.
 
 ## 7) ĐỀ XUẤT MÃ (chỉ từ MARKET_SCREEN)
-### 7.1) Xếp hạng
-- Ưu tiên: RS1M cao → RS3M cao → RS6M cao → P/E thấp → PEG thấp ->Tăng trưởng doanh thu và lợi nhuận. Bỏ qua tiêu chí nếu cột thiếu.
-### 7.2) Ràng buộc
-- Tối đa 2 mã/nhóm ngành (sector/industry/icb_name/industry_name; nếu thiếu hết → bỏ ràng buộc).
-- Loại đáy 20% thanh khoản nếu có volume/avg_volume_20d/turnover/value_traded.
-- Tie-break: market_cap lớn hơn.
-### 7.3) Bảng Top 20
-| Mã | Ngành | P/E | PEGf | Rev 1Y | EPS 1Y | RS1M | RS3M | RS6M | Rev Last | Rev Second | Profit Last | Profit Second | Luận điểm (ngắn ngọn) | Entry | SL | TP | RR | Trạng thái |
-- Giá trị quý (Rev/Profit): lấy từ dữ liệu (nếu không có → N/A).
-- Entry/SL/TP:
-  - On: Entry="Mua từng phần"; SL=-7%; TP=+15% (RR≈2).
-  - Off hoặc thiếu kỹ thuật: Entry="Theo dõi"; SL=N/A; TP=N/A; RR=N/A.
+
 
 ## 8) Danh mục & Phân bổ
 - Chọn 20 mã mạnh nhất, tối đa 2 mã/ngành.
@@ -800,7 +789,7 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
         "profit_q0": safe_float(trading_signal.get("profit_q0")),
         "profit_q_1": safe_float(trading_signal.get("profit_q_1")),
         "gemini_analysis": gemini_analysis,
-        "openrouter_analysis": openrouter_analysis,
+        "openrouter_analysis": "",
     }
 
     report_path = f"{DATA_DIR}/{symbol}_report.json"
