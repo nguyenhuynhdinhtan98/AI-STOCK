@@ -391,7 +391,7 @@ def create_empty_trading_signal() -> Dict[str, Any]:
     }
 
 
-def calculate_technical_score(df: pd.DataFrame, symbol: str) -> Tuple[float, Dict[str, Any]]:
+def calculate_technical(df: pd.DataFrame, symbol: str) -> Dict[str, Any]:
     if not validate_dataframe(df):
         return 0.0, create_empty_trading_signal()
     try:
@@ -456,51 +456,12 @@ def calculate_technical_score(df: pd.DataFrame, symbol: str) -> Tuple[float, Dic
             "relative_strength_3m": rs_value_3m,
             "relative_strength_1y": rs_value_1y,
         }
-        return 0.0, result
+        return result
     except Exception as e:
         logger.error(f"Lỗi khi lấy chỉ báo kỹ thuật cho {symbol}: {str(e)}")
-        return 0.0, create_empty_trading_signal()
+        return create_empty_trading_signal()
 
 # ======================= OUTPUT / LOGGING =======================
-def _log_indicator_block(symbol: str, ts: Dict[str, Any], analysis_date: str) -> None:
-    logger.info(f"PHÂN TÍCH KỸ THUẬT CHO {symbol} ({analysis_date}):")
-    logger.info(f" - Giá hiện tại: {safe_format(ts['current_price'])} VND")
-    logger.info(" - Đường trung bình:")
-    logger.info(
-        f" * MA10: {safe_format(ts['ma10'])} | MA20: {safe_format(ts['ma20'])} | "
-        f"MA50: {safe_format(ts['ma50'])} | MA200: {safe_format(ts['ma200'])}"
-    )
-    logger.info(" - Chỉ báo dao động:")
-    logger.info(
-        f" * RSI(14): {safe_format(ts['rsi_value'])}\n"
-        f" * MACD: {safe_format(ts['macd'])} | Signal: {safe_format(ts['macd_signal'])} | "
-        f"Histogram: {safe_format(ts['macd_hist'])}"
-    )
-    logger.info(
-        f" * Bollinger Bands: Trên: {safe_format(ts['bb_upper'])} | Dưới: {safe_format(ts['bb_lower'])}"
-    )
-
-    # RS (nếu không phải VNINDEX)
-    if symbol.upper() != "VNINDEX":
-        logger.info(" - Sức mạnh tương đối (RS từ dữ liệu thị trường):")
-        logger.info(
-            f" * RS3D: {ts['relative_strength_3d']} | RS1M: {ts['relative_strength_1m']} | "
-            f"RS3M: {ts['relative_strength_3m']} | RS1Y: {ts['relative_strength_1y']}"
-        )
-
-    # Ichimoku
-    logger.info(" - Mô hình Ichimoku:")
-    logger.info(
-        f" * Tenkan-sen: {safe_format(ts['ichimoku_tenkan_sen'])} | Kijun-sen: {safe_format(ts['ichimoku_kijun_sen'])} | "
-        f"Chikou: {safe_format(ts['ichimoku_chikou_span'])}"
-    )
-    logger.info(" - Khối lượng:")
-    logger.info(
-        f" * Khối lượng hiện tại: {safe_format(ts.get('volume'))} | "
-        f"MA20: {safe_format(ts.get('volume_ma_20'))} | MA50: {safe_format(ts.get('volume_ma_50'))}"
-    )
-
-
 def plot_stock_analysis(symbol: str, df: pd.DataFrame, show_volume: bool = True) -> Dict[str, Any]:
     if not validate_dataframe(df):
         logger.error("Dữ liệu phân tích rỗng")
@@ -508,9 +469,7 @@ def plot_stock_analysis(symbol: str, df: pd.DataFrame, show_volume: bool = True)
     try:
         df = df.sort_index()
         df = create_features(df)
-        score, trading_signal = calculate_technical_score(df, symbol)
-        analysis_date = df.index[-1].strftime("%d/%m/%Y")
-        _log_indicator_block(symbol, trading_signal, analysis_date)
+        trading_signal = calculate_technical(df, symbol)
         return trading_signal
     except Exception as e:
         logger.error(f"Lỗi nghiêm trọng khi phân tích {symbol}: {str(e)}")
@@ -570,19 +529,6 @@ def analyze_with_gemini(symbol: str) -> str:
 # ======================= PROMPT BUILDERS =======================
 def _fmt(v: Any) -> str:
     return format_large_value(v)
-
-
-def _bool_all_gt(val: Optional[float], arr: List[Optional[float]]) -> Optional[bool]:
-    try:
-        if val is None:
-            return None
-        arrn = [safe_float(x) for x in arr if safe_float(x) is not None]
-        if len(arrn) != len(arr):
-            return None
-        return all(val > x for x in arrn)
-    except Exception:
-        return None
-
 
 def generate_advanced_stock_analysis_prompt(
     symbol: str,

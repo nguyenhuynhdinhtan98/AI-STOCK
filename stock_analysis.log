@@ -4142,3 +4142,112 @@ Dựa trên nguyên tắc chọn 5 mã mạnh nhất và tối đa 1 mã/ngành,
 2025-08-25 15:01:17,822 - INFO - Đã lưu nội dung prompt vào file prompt.txt
 2025-08-25 15:01:17,822 - INFO - Đang phân tích bằng Gemini...
 2025-08-25 15:01:17,822 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 15:04:29,019 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VNINDEX.txt
+2025-08-25 15:04:29,019 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-25 15:04:29,020 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-25 15:04:30,234 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-08-25 15:04:30,236 - ERROR - Lỗi khi phân tích bằng OpenRouter cho VNINDEX: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+2025-08-25 15:04:30,236 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO MÃ VNINDEX ====================
+2025-08-25 15:04:30,236 - INFO - 💰 Giá hiện tại: 1614.03 VND
+2025-08-25 15:04:30,236 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-25 15:04:30,236 - INFO - **PHÂN TÍCH THỊ TRƯỜNG VIỆT NAM (VNINDEX)**
+
+**Chỉ số VNINDEX:** 1.61K (1610 điểm)
+
+**1) VSA/VPA chi tiết**
+
+*   **Biến động giá vs MA20/MA50:**
+    *   VNINDEX hiện tại (1610) đang nằm trên MA20 (1590) và MA50 (1490), cho thấy xu hướng tăng ngắn và trung hạn vẫn được duy trì.
+    *   Tuy nhiên, VNINDEX đang nằm dưới MA10 (1640), cho thấy áp lực điều chỉnh trong ngắn hạn.
+*   **Các dấu hiệu VSA gần nhất (3-5 phiên):**
+    *   **2025-08-25 (Close 1614.03, Volume 1.50B):** Biên độ giảm lớn nhưng giá đóng cửa trên MA20 và MA50. Khối lượng thấp hơn MA20 nhưng cao hơn MA50. Đây có thể là dấu hiệu **re-test** vùng hỗ trợ (MA20) sau một đợt giảm mạnh, với khối lượng trung bình cho thấy lực cung đang giảm dần.
+    *   **2025-08-22 (Close 1645.47, Volume 2.29B):** Giá giảm mạnh với khối lượng rất cao, có thể là dấu hiệu **Selling Climax** hoặc phân phối mạnh sau khi đạt đỉnh (1693.68 vào 2025-08-21).
+    *   Các phiên tiếp theo cho thấy thị trường đang cố gắng tìm điểm cân bằng sau áp lực bán.
+
+**2) Wyckoff**
+
+*   **Giai đoạn thị trường:** VNINDEX đang trong giai đoạn **Markup Phase** (pha tăng giá) trên khung thời gian trung hạn (MA50, MA200 dưới giá và hướng lên). Tuy nhiên, các phiên gần đây cho thấy dấu hiệu của **Distribution Phase** ngắn hạn hoặc điều chỉnh trong xu hướng tăng lớn, với một số phiên giảm điểm mạnh kèm khối lượng lớn.
+*   **Dấu hiệu breakout/breakdown:** Chưa có dấu hiệu breakout rõ ràng để tiếp tục xu hướng tăng mạnh mẽ (tức vượt qua đỉnh gần nhất 1693.68). Ngược lại, có dấu hiệu **breakdown** khỏi ngưỡng hỗ trợ ngắn hạn (MA10 tại 1640).
+*   **Thời gian tích lũy:** N/A (hiện tại không ở giai đoạn tích lũy rõ ràng).
+
+**3) Minervini**
+
+*   **Xu hướng dài/ngắn hạn:**
+    *   **Dài hạn:** Tăng (VNINDEX 1610 > MA200 1330).
+    *   **Ngắn hạn:** Đang điều chỉnh và yếu đi (VNINDEX 1610 < Tenkan 1640 và MA10 1640).
+*   **Sắp xếp MA:** MA200 (1330) < MA50 (1490) < MA20 (1590) < VNINDEX (1610). Sự sắp xếp này là tích cực cho xu hướng trung và dài hạn. Tuy nhiên, việc VNINDEX nằm dưới MA10 (1640) cho thấy sự điều chỉnh trong ngắn hạn.
+*   **Hỗ trợ/kháng cự quan trọng:**
+    *   **Hỗ trợ:** MA20 (1590), Kijun Sen (1590), Senkou Span A (1610), MA50 (1490), Bollinger Dưới (1470), Senkou Span B (1500).
+    *   **Kháng cự:** MA10 (1640), Tenkan Sen (1640), Bollinger Trên (1710), đỉnh gần nhất (1693.68).
+
+**4) CANSLIM (M) – Định hướng thị trường**
+
+*   VNINDEX (1610) > MA50 (1490): TRUE
+*   MACD Line (47.07) > MACD Signal (48.92): FALSE
+*   **Kết luận: Định hướng thị trường: OFF**
+
+**5) Kịch bản 1–2 tuần (kèm xác suất)**
+
+*   **Cơ bản (50%)**: VNINDEX tiếp tục điều chỉnh nhẹ, tìm kiếm điểm cân bằng tại vùng hỗ trợ MA20 (1590) hoặc Kijun Sen (1590). Có thể có các nhịp hồi phục kỹ thuật nhưng khó bứt phá mạnh.
+    *   Vùng điểm số: 1580 – 1630.
+*   **Tốt nhất (30%)**: VNINDEX giữ vững hỗ trợ 1590, bật tăng trở lại, vượt qua kháng cự MA10 (1640) và hướng đến vùng đỉnh cũ. Khối lượng cải thiện.
+    *   Vùng điểm số: 1630 – 1680.
+*   **Xấu nhất (20%)**: VNINDEX không giữ được hỗ trợ MA20 (1590) và Kijun Sen, giảm sâu hơn về vùng hỗ trợ mạnh hơn tại MA50 (1490) hoặc thậm chí là Bollinger dưới (1470), kèm theo áp lực bán lớn.
+    *   Vùng điểm số: 1470 – 1580.
+
+**6) Chiến lược thực thi**
+
+*   **Vị thế**: **CHỜ** (do thị trường đang ở trạng thái OFF, cần thận trọng).
+*   **Quy tắc vào/thoát**:
+    *   **Vào**: Chỉ cân nhắc mua thăm dò các mã có nền tảng vững chắc và dấu hiệu tích cực riêng lẻ (outperform thị trường) khi VNINDEX xác nhận trở lại trạng thái ON (MACD > Signal và giữ vững trên MA50) hoặc khi có các tín hiệu đảo chiều rõ ràng ở vùng hỗ trợ mạnh.
+    *   **Thoát**: Giảm tỷ trọng hoặc thoát vị thế đối với các mã yếu, phá vỡ hỗ trợ quan trọng hoặc khi thị trường xác nhận xu hướng giảm.
+*   **Lưu ý rủi ro**: Thị trường đang trong giai đoạn điều chỉnh ngắn hạn, biến động có thể khó lường. Ưu tiên bảo toàn vốn, hạn chế mua đuổi, và tập trung vào các mã có sức mạnh giá tương đối tốt và nền tảng cơ bản vững chắc.
+
+---
+
+**7) ĐỀ XUẤT MÃ (từ MARKET_SCREEN)**
+
+**Top 20 mã cổ phiếu tiềm năng (Thị trường OFF)**
+
+| Mã | Ngành | Điểm | P/E | PEGf | Rev 1Y | EPS 1Y | RS1M | RS3M | Luận điểm | Entry | SL | TP | RR | Trạng thái |
+|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+| HDB | Ngân hàng | 0.77 | 7.90 | 0.37 | 28.84 | 26.73 | 93.00 | 88.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| NAB | Ngân hàng | 0.77 | 7.60 | 0.39 | 18.42 | 37.59 | 85.00 | 72.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| SHB | Ngân hàng | 0.76 | 7.20 | 0.41 | 10.52 | 27.27 | 94.00 | 91.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| ABB | Ngân hàng | 0.73 | 9.40 | 0.31 | 29.12 | 42.32 | 97.00 | 96.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| VAB | Ngân hàng | 0.72 | 11.00 | 0.31 | 16.45 | 16.52 | 82.00 | 94.00 | Sức mạnh giá tốt, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| KLB | Ngân hàng | 0.71 | 7.30 | 0.55 | 26.89 | 54.62 | 84.00 | 97.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| VPB | Ngân hàng | 0.69 | 16.40 | 0.50 | 11.36 | 58.20 | 98.00 | 99.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| PVS | Dầu khí | 0.64 | 12.90 | 0.55 | 7.20 | 4.22 | 55.00 | 76.00 | Sức mạnh giá tốt, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| DDV | Hóa chất | 0.63 | 12.40 | 0.10 | 15.38 | 144.05 | 48.00 | 81.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| DCM | Hóa chất | 0.62 | 12.00 | 0.65 | 13.82 | 28.02 | 77.00 | 70.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| HAH | Hàng & Dịch vụ Công nghiệp | 0.60 | 8.80 | 0.00 | 29.20 | 69.00 | 68.00 | 19.00 | Tăng trưởng mạnh, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| NFC | Hóa chất | 0.59 | 9.70 | 0.10 | 13.85 | 58.96 | 4.00 | 11.00 | Tăng trưởng mạnh, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| DRI | Hóa chất | 0.59 | 5.60 | 0.15 | -2.67 | 47.98 | 6.00 | 41.00 | Tăng trưởng mạnh, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| TBD | Hàng & Dịch vụ Công nghiệp | 0.57 | 18.70 | 0.00 | -1.09 | 186.58 | 57.00 | 55.00 | Tăng trưởng mạnh, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| VVS | Ô tô và phụ tùng | 0.57 | 6.00 | 0.05 | N/A | 296.23 | 98.00 | 99.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| ICN | Xây dựng và Vật liệu | 0.56 | 4.20 | 0.00 | 31.24 | 267.33 | 16.00 | 33.00 | Tăng trưởng mạnh, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| CTI | Xây dựng và Vật liệu | 0.54 | 10.60 | 0.30 | 6.89 | 29.49 | 25.00 | 59.00 | Tăng trưởng mạnh, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| THG | Xây dựng và Vật liệu | 0.54 | 9.00 | 0.15 | 7.59 | 21.56 | 6.00 | 62.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| NTP | Xây dựng và Vật liệu | 0.54 | 11.20 | 0.15 | 3.89 | 31.51 | 4.00 | 27.00 | Tăng trưởng mạnh, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| MVC | Xây dựng và Vật liệu | 0.54 | 12.10 | 0.29 | -5.90 | 20.53 | 89.00 | 94.00 | Sức mạnh giá tốt, Tăng trưởng ổn định. | Theo dõi | N/A | N/A | N/A | CHỜ |
+
+**8) Danh mục rút gọn & phân bổ**
+
+Với trạng thái thị trường **OFF**, đề xuất tỷ trọng danh mục 0–20% NAV (chủ yếu theo dõi). Các mã được chọn có CompositeScore cao nhất và đảm bảo tối đa 1 mã/ngành.
+
+| Mã | Ngành | Điểm | P/E | PEGf | Rev 1Y | EPS 1Y | RS1M | RS3M | Luận điểm | Entry | SL | TP | RR | Trạng thái |
+|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+| HDB | Ngân hàng | 0.77 | 7.90 | 0.37 | 28.84 | 26.73 | 93.00 | 88.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| PVS | Dầu khí | 0.64 | 12.90 | 0.55 | 7.20 | 4.22 | 55.00 | 76.00 | Sức mạnh giá tốt, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| DDV | Hóa chất | 0.63 | 12.40 | 0.10 | 15.38 | 144.05 | 48.00 | 81.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| HAH | Hàng & Dịch vụ Công nghiệp | 0.60 | 8.80 | 0.00 | 29.20 | 69.00 | 68.00 | 19.00 | Tăng trưởng mạnh, Định giá hấp dẫn. | Theo dõi | N/A | N/A | N/A | CHỜ |
+| VVS | Ô tô và phụ tùng | 0.57 | 6.00 | 0.05 | N/A | 296.23 | 98.00 | 99.00 | Sức mạnh giá tốt, Tăng trưởng mạnh. | Theo dõi | N/A | N/A | N/A | CHỜ |
+2025-08-25 15:04:30,236 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-25 15:04:30,236 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-25 15:04:30,236 - INFO - ============================================================
+
+2025-08-25 15:04:30,237 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
