@@ -810,8 +810,6 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 - Khối lượng trung bình 20 ngày: {format_value(volume_data.get("ma20", "N/A"))}
 - Tỷ lệ khối lượng: {format_value(volume_data.get("current", 0) / volume_data.get("ma20", 1) if volume_data.get("ma20", 0) != 0 else "N/A")} {"(Cao hơn trung bình - Khối lượng tăng mạnh)" if isinstance(volume_data.get("current", None), (int, float)) and isinstance(volume_data.get("ma20", None), (int, float)) and volume_data["current"] > volume_data["ma20"] * 1.5 else "(Thấp hơn trung bình - Khối lượng yếu)"}
 6. SỨC MẠNH TƯƠNG ĐỐI (RS):
-- RS so với VNINDEX: {format_value(trading_signal.get("rs", "N/A"))}
-- RS Point (IBD): {format_value(trading_signal.get("rs_point", "N/A"))}
 - RS 3 ngày: {format_value(trading_signal.get("relative_strength_3d", "N/A"))}
 - RS 1 tháng: {format_value(trading_signal.get("relative_strength_1m", "N/A"))}
 - RS 3 tháng: {format_value(trading_signal.get("relative_strength_3m", "N/A"))}
@@ -833,7 +831,7 @@ THÔNG TIN CÔNG TY:
 {company_info}
 THÔNG TIN CHUNG TỪ TCBS:
 {info_data}
-THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
+THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG CÓ PE DƯỚI 20 VÀ TĂNG TRƯỞNG:
 {market_data_str}
 **PHÂN TÍCH THEO CÁC KHÚC CHÍNH SAU:**
 **1. Phân tích kỹ thuật (Wyckoff, VSA & VPA):**
@@ -947,7 +945,7 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 - Tỷ lệ khối lượng: {format_value(volume_data.get("current", 0) / volume_data.get("ma20", 1) if volume_data.get("ma20", 0) != 0 else "N/A")} {"(Cao hơn trung bình - Khối lượng tăng mạnh)" if isinstance(volume_data.get("current", None), (int, float)) and isinstance(volume_data.get("ma20", None), (int, float)) and volume_data["current"] > volume_data["ma20"] * 1.5 else "(Thấp hơn trung bình - Khối lượng yếu)"}
 THÔNG TIN DỮ LIỆU LỊCH SỬ:
 {historical_data}
-THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG:
+THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG CÓ PE DƯỚI 20 VÀ TĂNG TRƯỞNG:
 {market_data_str}
 **YÊU CẦU CỤ THỂ - TRẢ LỜI THEO CẤU TRÚC SAU:**
 🔍 **1. PHÂN TÍCH VSA/VPA CHI TIẾT (Volume Spread Analysis):**
