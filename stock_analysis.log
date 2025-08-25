@@ -3930,3 +3930,215 @@ Dưới đây là phân tích VNINDEX dựa trên các phương pháp VSA/VPA, W
 2025-08-25 14:36:21,761 - INFO - Đã lưu nội dung prompt vào file prompt.txt
 2025-08-25 14:36:21,761 - INFO - Đang phân tích bằng Gemini...
 2025-08-25 14:36:21,761 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 14:37:37,468 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VNINDEX.txt
+2025-08-25 14:37:37,469 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-25 14:37:37,469 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-25 14:37:38,602 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-08-25 14:37:38,603 - ERROR - Lỗi khi phân tích bằng OpenRouter cho VNINDEX: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+2025-08-25 14:37:38,603 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO MÃ VNINDEX ====================
+2025-08-25 14:37:38,604 - INFO - 💰 Giá hiện tại: 1611.62 VND
+2025-08-25 14:37:38,604 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-25 14:37:38,604 - INFO - Chào bạn,
+
+Là chuyên gia phân tích thị trường Việt Nam, tôi xin cung cấp phân tích VNINDEX và đề xuất danh mục cổ phiếu dựa trên dữ liệu bạn đã cung cấp.
+
+---
+
+## 1) VSA/VPA chi tiết
+- **3-5 phiên gần nhất (2025-08-19 đến 2025-08-25):**
+  - Giá có xu hướng giảm sau một đỉnh cục bộ, với các phiên giảm điểm xuất hiện volume cao cho thấy áp lực bán.
+  - **Phiên 2025-08-21 (Close 1688.00):** Tăng điểm mạnh, nằm trên MA20 và MA50. Volume 1.72B (cao hơn MA50 nhưng thấp hơn MA20 trung bình), cho thấy nỗ lực tăng giá nhưng chưa thực sự thuyết phục về khối lượng.
+  - **Phiên 2025-08-22 (Close 1645.47):** Giảm điểm mạnh với Volume 2.29B (cao hơn cả MA20 và MA50 trung bình). Đây là tín hiệu **Upthrust/Selling Climax** tiềm năng, khi giá cố gắng duy trì đà tăng nhưng bị bán ngược với khối lượng lớn, cho thấy lực bán chiếm ưu thế.
+  - **Phiên 2025-08-25 (Close 1611.62):** Tiếp tục giảm điểm, nằm trên MA20 (1590) nhưng dưới MA10 (1640). Volume 1.42B, gần bằng MA50 Volume nhưng thấp hơn MA20 Volume. Biến động giá cho thấy sự giằng co, áp lực bán vẫn hiện hữu.
+
+## 2) Wyckoff
+- **Giai đoạn thị trường:** Có dấu hiệu của một giai đoạn **Phân phối (Distribution)** hoặc kết thúc giai đoạn Tăng giá (Markup). Sự xuất hiện của Upthrust/Selling Climax tiềm năng cùng với các phiên giảm điểm volume cao là những dấu hiệu cảnh báo.
+- **Dấu hiệu breakout/breakdown:** Chưa có breakout rõ ràng qua kháng cự quan trọng (Bollinger trên 1.71K). Ngược lại, VNINDEX đang có dấu hiệu suy yếu và có thể hướng tới một breakdown nếu không giữ được các mức hỗ trợ.
+- **Thời gian tích lũy:** N/A (chưa rõ ràng cho một giai đoạn tích lũy mới).
+
+## 3) Minervini
+- **Xu hướng dài hạn:** Tăng (VNINDEX 1.61K > MA200 1.33K).
+- **Xu hướng ngắn hạn:** Hỗn hợp/đi ngang (VNINDEX 1.61K nằm giữa MA10 1.64K và MA20 1.59K).
+- **Sắp xếp MA:** MA10 (1.64K) > VNINDEX (1.61K) > MA20 (1.59K) > MA50 (1.49K) > MA200 (1.33K). Mặc dù các đường MA dài hạn vẫn ủng hộ xu hướng tăng, nhưng VNINDEX đã nằm dưới MA10 và MACD dưới Signal cho thấy đà tăng ngắn hạn đang suy yếu.
+- **Mức hỗ trợ/kháng cự quan trọng:**
+  - Kháng cự: 1.64K (MA10, Tenkan), 1.71K (Bollinger trên).
+  - Hỗ trợ: 1.59K (MA20, Kijun), 1.49K (MA50), 1.47K (Bollinger dưới).
+
+## 4) CANSLIM (M) – Định hướng thị trường
+- **Đánh giá môi trường:** Trung tính đến Tiêu cực nhẹ. Mặc dù VNINDEX vẫn trên MA50 (1.61K > 1.49K), nhưng tín hiệu MACD (46.87) đã cắt xuống Signal (48.89), cho thấy đà tăng đang chững lại và rủi ro điều chỉnh gia tăng.
+- **Điều kiện tham gia:** Off.
+
+## 5) Kịch bản 1–2 tuần (xác suất)
+- **Cơ bản (50%):** VNINDEX tiếp tục điều chỉnh nhẹ hoặc đi ngang trong vùng 1.58K – 1.65K, với áp lực bán quanh kháng cự MA10 (1.64K).
+- **Tốt nhất (20%):** VNINDEX phục hồi và vượt qua 1.64K, hướng tới vùng 1.68K-1.71K nếu dòng tiền quay trở lại mạnh mẽ.
+- **Xấu nhất (30%):** VNINDEX phá vỡ hỗ trợ 1.59K (MA20/Kijun) và 1.49K (MA50), hướng về vùng 1.45K-1.47K nếu áp lực bán tiếp tục gia tăng.
+
+## 6) Chiến lược thực thi
+- **Vị thế đề xuất:** CHỜ. (Thị trường đang ở trạng thái "Off" và có dấu hiệu suy yếu kỹ thuật).
+- **Quy tắc vào/thoát:**
+  - **Vào:** Chỉ cân nhắc mua khi VNINDEX phục hồi mạnh, vượt qua 1.64K (Tenkan, MA10) kèm volume lớn, và MACD cắt lên Signal.
+  - **Thoát:** Giảm tỷ trọng nếu VNINDEX phá vỡ hỗ trợ 1.59K hoặc xác nhận xu hướng giảm rõ ràng.
+- **Lưu ý rủi ro:** Thị trường hiện có rủi ro điều chỉnh cao. Ưu tiên bảo toàn vốn và quản lý rủi ro chặt chẽ.
+
+---
+
+## 7) ĐỀ XUẤT MÃ CỔ PHIẾU (lấy từ MARKET_SCREEN)
+
+Do trạng thái thị trường là **Off** (MACD < Signal), tất cả các mã đề xuất sẽ được gắn nhãn "Theo dõi", và các trọng số tăng trưởng/định giá đã được điều chỉnh theo quy tắc.
+
+**Top 20 Mã cổ phiếu theo CompositeScore**
+
+| Mã   | Ngành                          | Điểm | P/E   | PEGf  | Rev 1Y | EPS 1Y | RS1M  | RS3M  | Luận điểm                                         | Entry      | SL   | TP   | RR   | Trạng thái |
+| :--- | :----------------------------- | :--- | :---- | :---- | :----- | :----- | :---- | :---- | :------------------------------------------------ | :--------- | :--- | :--- | :--- | :--------- |
+| ICN  | Xây dựng và Vật liệu            | 0.77 | 4.20  | N/A   | 267.33 | 56.17  | 16.00 | 33.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| TFC  | Thực phẩm và đồ uống           | 0.76 | 5.90  | N/A   | 208.77 | 27.75  | 5.00  | 3.00  | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| DDV  | Hóa chất                       | 0.76 | 12.40 | 0.10  | 144.05 | 14.86  | 48.00 | 81.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| NFC  | Hóa chất                       | 0.75 | 9.70  | N/A   | 58.96  | 24.44  | 4.00  | 11.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| VVS  | Ô tô và phụ tùng               | 0.74 | 6.00  | N/A   | 296.23 | 6.00   | 98.00 | 99.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| TTD  | Y tế                           | 0.72 | 12.30 | N/A   | N/A    | 1.45   | 60.00 | 35.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| TBD  | Hàng & Dịch vụ Công nghiệp     | 0.72 | 18.70 | N/A   | 186.58 | 17.73  | 57.00 | 55.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| GSM  | Điện, nước & xăng dầu khí đốt  | 0.71 | 7.60  | N/A   | 92.10  | 64.04  | 35.00 | 23.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| D2D  | Bất động sản                   | 0.71 | 3.50  | 0.10  | 242.52 | 51.21  | 14.00 | 23.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| HTI  | Xây dựng và Vật liệu            | 0.70 | 4.40  | N/A   | 11.27  | 47.60  | 86.00 | 78.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| GVT  | Tài nguyên Cơ bản              | 0.70 | 3.80  | N/A   | 134.45 | 8.25   | 92.00 | 54.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| ANV  | Thực phẩm và đồ uống           | 0.69 | 13.00 | 0.20  | 22.05  | 28.17  | 61.00 | 95.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| HTG  | Hàng cá nhân & Gia dụng        | 0.69 | 4.90  | 0.10  | 63.34  | 16.51  | 53.00 | 71.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| TRC  | Hóa chất                       | 0.69 | 6.60  | 0.50  | 227.39 | 31.28  | 35.00 | 42.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| MSH  | Hàng cá nhân & Gia dụng        | 0.68 | 7.40  | 0.70  | 68.69  | 21.03  | 21.00 | 47.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| MNB  | Hàng cá nhân & Gia dụng        | 0.68 | 4.90  | N/A   | 186.67 | 16.80  | 82.00 | 15.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| HPW  | Điện, nước & xăng dầu khí đốt  | 0.67 | 12.20 | N/A   | 8.63   | 38.51  | 65.00 | 28.00 | Tăng trưởng tốt nhưng định giá cần xem xét thêm.  | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| MVC  | Xây dựng và Vật liệu            | 0.67 | 12.10 | N/A   | 20.53  | 28.95  | 89.00 | 94.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| NCS  | Thực phẩm và đồ uống           | 0.67 | 10.70 | N/A   | 18.59  | 16.75  | 80.00 | 85.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| ANT  | Thực phẩm và đồ uống           | 0.66 | 5.40  | N/A   | 436.85 | 27.75  | N/A   | N/A   | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+
+## 8) Danh mục rút gọn & phân bổ
+Dựa trên nguyên tắc chọn 5 mã mạnh nhất và tối đa 1 mã/ngành, danh mục rút gọn đề xuất như sau:
+
+- **ICN** (Xây dựng và Vật liệu)
+- **TFC** (Thực phẩm và đồ uống)
+- **DDV** (Hóa chất)
+- **VVS** (Ô tô và phụ tùng)
+- **TTD** (Y tế)
+
+**Tỷ trọng gợi ý (chế độ thị trường Off):**
+- Tổng: 0-20% NAV (chủ yếu theo dõi), mỗi mã khoảng **4.00% NAV**.
+
+---
+**Lưu ý:** Đây là phân tích dựa trên dữ liệu cung cấp và các quy tắc được đưa ra. Quyết định đầu tư cuối cùng cần kết hợp thêm các yếu tố cá nhân và nghiên cứu chuyên sâu.
+2025-08-25 14:37:38,604 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-25 14:37:38,604 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-25 14:37:38,604 - INFO - ============================================================
+
+2025-08-25 14:37:38,605 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-25 14:48:58,734 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 14:49:07,491 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 14:49:07,492 - INFO - ============================================================
+2025-08-25 14:49:07,492 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 14:49:07,492 - INFO - ============================================================
+2025-08-25 14:49:07,492 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 14:49:08,138 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 14:49:08,142 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 14:49:08,148 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 14:49:08,148 - INFO -  - Giá hiện tại: 1614.03 VND
+2025-08-25 14:49:08,148 - INFO -  - Đường trung bình:
+2025-08-25 14:49:08,148 - INFO -  * MA10: 1639.29 | MA20: 1590.22 | MA50: 1491.98 | MA200: 1327.63
+2025-08-25 14:49:08,148 - INFO -  - Chỉ báo dao động:
+2025-08-25 14:49:08,148 - INFO -  * RSI(14): 58.62
+ * MACD: 47.07 | Signal: 48.92 | Histogram: -1.86
+2025-08-25 14:49:08,148 - INFO -  * Bollinger Bands: Trên: 1707.56 | Dưới: 1472.88
+2025-08-25 14:49:08,148 - INFO -  - Mô hình Ichimoku:
+2025-08-25 14:49:08,148 - INFO -  * Tenkan-sen: 1639.61 | Kijun-sen: 1585.14 | Chikou: 1497.28
+2025-08-25 14:49:08,148 - INFO -  - Khối lượng:
+2025-08-25 14:49:08,148 - INFO -  * Khối lượng hiện tại: 1501884256.00 | MA20: 1827754178.55 | MA50: 1380123521.90
+2025-08-25 14:54:49,904 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 14:54:57,165 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 14:54:57,165 - INFO - ============================================================
+2025-08-25 14:54:57,165 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 14:54:57,165 - INFO - ============================================================
+2025-08-25 14:54:57,165 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 14:54:57,780 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 14:54:57,784 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 14:54:57,791 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 14:54:57,791 - INFO -  - Giá hiện tại: 1614.03 VND
+2025-08-25 14:54:57,791 - INFO -  - Đường trung bình:
+2025-08-25 14:54:57,791 - INFO -  * MA10: 1639.29 | MA20: 1590.22 | MA50: 1491.98 | MA200: 1327.63
+2025-08-25 14:54:57,791 - INFO -  - Chỉ báo dao động:
+2025-08-25 14:54:57,791 - INFO -  * RSI(14): 58.62
+ * MACD: 47.07 | Signal: 48.92 | Histogram: -1.86
+2025-08-25 14:54:57,791 - INFO -  * Bollinger Bands: Trên: 1707.56 | Dưới: 1472.88
+2025-08-25 14:54:57,791 - INFO -  - Mô hình Ichimoku:
+2025-08-25 14:54:57,791 - INFO -  * Tenkan-sen: 1639.61 | Kijun-sen: 1585.14 | Chikou: 1497.28
+2025-08-25 14:54:57,791 - INFO -  - Khối lượng:
+2025-08-25 14:54:57,791 - INFO -  * Khối lượng hiện tại: 1501884256.00 | MA20: 1827754178.55 | MA50: 1380123521.90
+2025-08-25 14:59:00,889 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 14:59:11,001 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 14:59:11,002 - INFO - ============================================================
+2025-08-25 14:59:11,002 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 14:59:11,002 - INFO - ============================================================
+2025-08-25 14:59:11,002 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 14:59:11,542 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 14:59:11,547 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 14:59:11,553 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 14:59:11,553 - INFO -  - Giá hiện tại: 1614.03 VND
+2025-08-25 14:59:11,553 - INFO -  - Đường trung bình:
+2025-08-25 14:59:11,553 - INFO -  * MA10: 1639.29 | MA20: 1590.22 | MA50: 1491.98 | MA200: 1327.63
+2025-08-25 14:59:11,553 - INFO -  - Chỉ báo dao động:
+2025-08-25 14:59:11,553 - INFO -  * RSI(14): 58.62
+ * MACD: 47.07 | Signal: 48.92 | Histogram: -1.86
+2025-08-25 14:59:11,553 - INFO -  * Bollinger Bands: Trên: 1707.56 | Dưới: 1472.88
+2025-08-25 14:59:11,553 - INFO -  - Mô hình Ichimoku:
+2025-08-25 14:59:11,553 - INFO -  * Tenkan-sen: 1639.61 | Kijun-sen: 1585.14 | Chikou: 1497.28
+2025-08-25 14:59:11,553 - INFO -  - Khối lượng:
+2025-08-25 14:59:11,553 - INFO -  * Khối lượng hiện tại: 1501884256.00 | MA20: 1827754178.55 | MA50: 1380123521.90
+2025-08-25 14:59:11,586 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 14:59:11,586 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 14:59:11,586 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 15:00:00,476 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 15:00:11,063 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 15:00:11,064 - INFO - ============================================================
+2025-08-25 15:00:11,064 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 15:00:11,064 - INFO - ============================================================
+2025-08-25 15:00:11,064 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 15:00:11,533 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 15:00:11,536 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 15:00:11,543 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 15:00:11,543 - INFO -  - Giá hiện tại: 1614.03 VND
+2025-08-25 15:00:11,543 - INFO -  - Đường trung bình:
+2025-08-25 15:00:11,543 - INFO -  * MA10: 1639.29 | MA20: 1590.22 | MA50: 1491.98 | MA200: 1327.63
+2025-08-25 15:00:11,543 - INFO -  - Chỉ báo dao động:
+2025-08-25 15:00:11,543 - INFO -  * RSI(14): 58.62
+ * MACD: 47.07 | Signal: 48.92 | Histogram: -1.86
+2025-08-25 15:00:11,543 - INFO -  * Bollinger Bands: Trên: 1707.56 | Dưới: 1472.88
+2025-08-25 15:00:11,543 - INFO -  - Mô hình Ichimoku:
+2025-08-25 15:00:11,543 - INFO -  * Tenkan-sen: 1639.61 | Kijun-sen: 1585.14 | Chikou: 1497.28
+2025-08-25 15:00:11,543 - INFO -  - Khối lượng:
+2025-08-25 15:00:11,543 - INFO -  * Khối lượng hiện tại: 1501884256.00 | MA20: 1827754178.55 | MA50: 1380123521.90
+2025-08-25 15:00:11,576 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 15:00:11,576 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 15:00:11,576 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 15:01:08,692 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 15:01:17,244 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 15:01:17,245 - INFO - ============================================================
+2025-08-25 15:01:17,245 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 15:01:17,245 - INFO - ============================================================
+2025-08-25 15:01:17,245 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 15:01:17,778 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 15:01:17,782 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 15:01:17,788 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 15:01:17,788 - INFO -  - Giá hiện tại: 1614.03 VND
+2025-08-25 15:01:17,788 - INFO -  - Đường trung bình:
+2025-08-25 15:01:17,788 - INFO -  * MA10: 1639.29 | MA20: 1590.22 | MA50: 1491.98 | MA200: 1327.63
+2025-08-25 15:01:17,788 - INFO -  - Chỉ báo dao động:
+2025-08-25 15:01:17,788 - INFO -  * RSI(14): 58.62
+ * MACD: 47.07 | Signal: 48.92 | Histogram: -1.86
+2025-08-25 15:01:17,788 - INFO -  * Bollinger Bands: Trên: 1707.56 | Dưới: 1472.88
+2025-08-25 15:01:17,788 - INFO -  - Mô hình Ichimoku:
+2025-08-25 15:01:17,788 - INFO -  * Tenkan-sen: 1639.61 | Kijun-sen: 1585.14 | Chikou: 1497.28
+2025-08-25 15:01:17,788 - INFO -  - Khối lượng:
+2025-08-25 15:01:17,788 - INFO -  * Khối lượng hiện tại: 1501884256.00 | MA20: 1827754178.55 | MA50: 1380123521.90
+2025-08-25 15:01:17,822 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 15:01:17,822 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 15:01:17,822 - INFO - Đang gửi prompt tới Gemini...

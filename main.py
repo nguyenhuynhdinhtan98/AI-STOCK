@@ -129,6 +129,7 @@ def get_stock_data(symbol: str) -> Optional[pd.DataFrame]:
         df.set_index("Date", inplace=True)
         df.sort_index(inplace=True)
         csv_path = f"{DATA_DIR}/{symbol}_data.csv"
+        csv_path = f"{DATA_DIR}/{symbol}_data.csv"
         df.to_csv(csv_path, index=True, encoding="utf-8-sig")
         # mirror to data.csv như bản gốc
         df.to_csv("data.csv", index=True, encoding="utf-8-sig")
@@ -213,9 +214,9 @@ def get_financial_data(symbol: str) -> Optional[pd.DataFrame]:
         logger.info(f"Đang lấy dữ liệu tài chính cho {symbol}")
         stock = Finance(symbol=symbol, period="quarter")
         df_ratio = _std_cols(_flatten(stock.ratio(period="quarter")))
-        df_bs    = _std_cols(_flatten(stock.balance_sheet(period="quarter")))
-        df_is    = _std_cols(_flatten(stock.income_statement(period="quarter")))
-        df_cf    = _std_cols(_flatten(stock.cash_flow(period="quarter")))
+        df_bs = _std_cols(_flatten(stock.balance_sheet(period="quarter")))
+        df_is = _std_cols(_flatten(stock.income_statement(period="quarter")))
+        df_cf = _std_cols(_flatten(stock.cash_flow(period="quarter")))
 
         # Điền giá trị ticker nếu trống
         for d in (df_ratio, df_bs, df_is, df_cf):
@@ -236,7 +237,9 @@ def get_financial_data(symbol: str) -> Optional[pd.DataFrame]:
             logger.warning(f"Không có dữ liệu tài chính hợp lệ cho {symbol}")
             return None
 
-        financial_data = base.rename(columns={"ticker": "Symbol", "yearReport": "Year", "lengthReport": "Quarter"}).tail(20)
+        financial_data = base.rename(columns={
+            "ticker": "Symbol", "yearReport": "Year", "lengthReport": "Quarter"
+        }).tail(20)
         csv_path = f"{DATA_DIR}/{symbol}_financial_statements.csv"
         financial_data.to_csv(csv_path, index=False, encoding='utf-8-sig')
         logger.info(f"Đã lưu dữ liệu tài chính của mã {symbol} vào file {csv_path}")
@@ -324,7 +327,11 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
         df["ichimoku_chikou_span"] = df["Close"].shift(26)
     except Exception as e:
         logger.warning(f"Lỗi tính Ichimoku: {e}")
-        for k in ["ichimoku_tenkan_sen", "ichimoku_kijun_sen", "ichimoku_senkou_span_a", "ichimoku_senkou_span_b", "ichimoku_chikou_span"]:
+        for k in [
+            "ichimoku_tenkan_sen", "ichimoku_kijun_sen",
+            "ichimoku_senkou_span_a", "ichimoku_senkou_span_b",
+            "ichimoku_chikou_span"
+        ]:
             df[k] = np.nan
 
     return df
@@ -578,72 +585,68 @@ def _bool_all_gt(val: Optional[float], arr: List[Optional[float]]) -> Optional[b
 
 
 def generate_advanced_stock_analysis_prompt(
-    symbol: str, current_price: float, technical_indicators: Dict[str, Any],
-    trading_signal: Dict[str, Any], financial_data: Optional[pd.DataFrame],
-    company_info: str, historical_data: str, info_data: str, market_data_str: str
+    symbol: str,
+    current_price: float,
+    technical_indicators: Dict[str, Any],
+    trading_signal: Dict[str, Any],
+    financial_data: Optional[pd.DataFrame],
+    company_info: str,
+    historical_data: str,
+    info_data: str,
+    market_data_str: str
 ) -> str:
-    """Tạo prompt phân tích cổ phiếu nâng cao (VN equity).
-    Giữ nguyên dữ liệu đầu vào; bổ sung ràng buộc chất lượng & cấu trúc đầu ra rõ ràng.
-    """
+    """Prompt phân tích cổ phiếu (VN equity) – súc tích, rõ phần Ichimoku/Senkou; đã bỏ 'Vị trí giá vs MA'."""
     rsi = technical_indicators.get("rsi", "N/A")
-    ma = technical_indicators.get("ma", {})
-    bb = technical_indicators.get("bollinger_bands", {})
-    macd = technical_indicators.get("macd", {})
-    ich = technical_indicators.get("ichimoku", {})
-    vol = technical_indicators.get("volume", {})
+    ma = technical_indicators.get("ma", {}) or {}
+    bb = technical_indicators.get("bollinger_bands", {}) or {}
+    macd = technical_indicators.get("macd", {}) or {}
+    ich = technical_indicators.get("ichimoku", {}) or {}
+    vol = technical_indicators.get("volume", {}) or {}
 
-    ma_arr = [ma.get("ma10", 0), ma.get("ma20", 0), ma.get("ma50", 0), ma.get("ma200", 0)]
-    above_all = _bool_all_gt(current_price, ma_arr)
-    below_all = _bool_all_gt(-current_price if current_price is not None else None, [-x if x is None else -x for x in ma_arr])
-
-    # ==== PROMPT TEMPLATE (VIETNAMESE) ====
     prompt = f"""
 BẠN LÀ CHUYÊN GIA PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM (Wyckoff, VSA/VPA, Minervini, CANSLIM, Buffett/Lynch).
 
 # QUY TẮC TRẢ LỜI
-- Ngôn ngữ: **tiếng Việt**, súc tích, không dông dài.
-- **Chỉ dùng dữ liệu được cung cấp**; nếu thiếu, ghi rõ **N/A** (không suy đoán số liệu).
-- Ưu tiên **bullet ngắn** (\<= 30 từ mỗi ý). Số liệu làm tròn **2 chữ số thập phân**.
-- Nếu có mâu thuẫn giữa các nguồn, **nêu rõ** và chọn kết luận thận trọng.
-- Không nhắc đến việc bạn là AI hay mô tả quy trình nội bộ.
+- Trả lời **tiếng Việt**, súc tích; bullet ≤ 30 từ mỗi ý; làm tròn **2 chữ số**.
+- **Chỉ dùng dữ liệu được cung cấp**; thiếu ghi **N/A**; không suy đoán số liệu.
+- Nếu dữ liệu mâu thuẫn, **nêu rõ** và chọn kết luận thận trọng.
+- Không nói về việc bạn là AI hay quy trình nội bộ.
 
 # THẺ THÔNG TIN NHANH (SNAPSHOT)
 - Mã: {symbol.upper()} | Giá: {_fmt(current_price)}
 - RSI(14): {_fmt(rsi)} | MACD: {_fmt(macd.get('macd','N/A'))}/{_fmt(macd.get('signal','N/A'))}/{_fmt(macd.get('histogram','N/A'))}
 - MA10/20/50/200: {_fmt(ma.get('ma10','N/A'))} / {_fmt(ma.get('ma20','N/A'))} / {_fmt(ma.get('ma50','N/A'))} / {_fmt(ma.get('ma200','N/A'))}
-- Vị trí giá vs MA: {"Trên tất cả MA (uptrend)" if above_all else ("Dưới tất cả MA (downtrend)" if below_all else "Hỗn hợp/sideways")}
 - Bollinger: Trên {_fmt(bb.get('upper','N/A'))} | Dưới {_fmt(bb.get('lower','N/A'))}
-- Ichimoku: Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))} | Senkou Span A {_fmt(ich.get('senkou_a','N/A'))} | Senkou Span B {_fmt(ich.get('senkou_b','N/A'))}
+- Ichimoku (chấp nhận viết **Senkou/Sensou**):
+  - Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))}
+  - **Senkou/Sensou Span A** {_fmt(ich.get('senkou_a','N/A'))} | **Senkou/Sensou Span B** {_fmt(ich.get('senkou_b','N/A'))}
 - Volume: hiện tại {_fmt(vol.get('current','N/A'))} | MA20 {_fmt(vol.get('ma20','N/A'))} | MA50 {_fmt(vol.get('ma50','N/A'))}
 - RS: 3D {_fmt(trading_signal.get('relative_strength_3d','N/A'))} | 1M {_fmt(trading_signal.get('relative_strength_1m','N/A'))} | 3M {_fmt(trading_signal.get('relative_strength_3m','N/A'))} | 1Y {_fmt(trading_signal.get('relative_strength_1y','N/A'))}
 
 # NHIỆM VỤ
-Phân tích toàn diện **{symbol.upper()}** và đưa ra **1** khuyến nghị cuối cùng. Dẫn chứng phải dựa trên dữ liệu cung cấp bên dưới.
+Phân tích toàn diện **{symbol.upper()}** và đưa ra **1** khuyến nghị cuối cùng.
 
-# YÊU CẦU XUẤT RA (THEO MỤC CỐ ĐỊNH)
+# YÊU CẦU XUẤT RA
 ## 1) Kỹ thuật (Wyckoff, VSA/VPA)
-- Giai đoạn thị trường (Tích lũy/Tăng/Phân phối/Suy thoái) + luận điểm.
-- Quan hệ giá-khối lượng (3-5 phiên gần nhất): có test/spring/upthrust/climax? Xác nhận hay không?
+- Giai đoạn: Tích lũy/Tăng/Phân phối/Suy thoái (+ luận điểm).
+- Giá–khối lượng 3–5 phiên gần nhất: test/spring/upthrust/climax? Có/không xác nhận?
 ## 2) Minervini
-- Xu hướng dài/ngắn hạn, sắp xếp MA, momentum (RSI), pivot + hỗ trợ/kháng cự.
+- Xu hướng dài/ngắn hạn; sắp xếp MA; RSI; pivot; hỗ trợ/kháng cự.
 ## 3) Cơ bản (Buffett/Lynch)
 - Doanh thu/LN (QoQ/YoY nếu có), ROE/ROA/ROIC, nợ, dòng tiền, cổ tức, sự kiện.
 ## 4) CANSLIM
-- C (EPS quý), A (EPS năm), N (SP mới/đỉnh mới/quản trị), S (cung-cầu/khối lượng), L (nhóm dẫn dắt), I (tổ chức), M (bối cảnh thị trường).
+- C/A/N/S/L/I/M: nêu ngắn, đúng dữ liệu cung cấp.
 ## 5) Định giá & So sánh ngành
-- P/E, P/B, EV/EBITDA… so với lịch sử & ngành (nếu có trong dữ liệu).
-## 6) Thiết lập giao dịch & Quản trị rủi ro
-- Điểm vào, Stop-loss, Take-profit, Risk/Reward ước lượng.
+- P/E, P/B, EV/EBITDA… so lịch sử & ngành (nếu có).
+## 6) Thiết lập giao dịch & Rủi ro
+- Điểm vào, Stop-loss, Take-profit, R/R ước lượng; rủi ro chính (3–5 mục).
 ## 7) Dự báo
-- Ngắn hạn (1–2 tuần), Trung hạn (1–3 tháng), Dài hạn (3–12 tháng).
-## 8) Rủi ro chính
-- Liệt kê 3–5 rủi ro lớn nhất.
-## 9) Kết luận & Khuyến nghị
-- **Chọn đúng 1**: MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH.
-- **Điểm số**: x/10.
+- Ngắn (1–2 tuần), Trung (1–3 tháng), Dài (3–12 tháng).
+## 8) Kết luận & Khuyến nghị
+- **Chọn đúng 1**: MUA MẠNH / MUA / GIỮ / BÁN / BÁN MẠNH; kèm **điểm số x/10**.
 - **TL;DR**: 2–3 câu rất ngắn.
 
-# DỮ LIỆU THÔ (CHỈ DÙNG KHI CẦN TRÍCH XUẤT)
+# DỮ LIỆU THÔ (CHỈ DÙNG KHI CẦN TRÍCH)
 <<<HISTORICAL_DATA_START>>>
 {historical_data}
 <<<HISTORICAL_DATA_END>>>
@@ -660,93 +663,92 @@ Phân tích toàn diện **{symbol.upper()}** và đưa ra **1** khuyến nghị
 {info_data}
 <<<INFO_TCBS_END>>>
 
-<<<MARKET_SCREEN_PEG_PE_START>>>
+<<<MARKET_SCREEN_START>>>
 {market_data_str}
-<<<MARKET_SCREEN_PEG_PE_END>>>
+<<<MARKET_SCREEN_END>>>
 """
     return prompt
 
 
 def generate_vnindex_analysis_prompt(
-    symbol: str, current_price: float, technical_indicators: Dict[str, Any],
-    historical_data: str, market_data_str: str
+    symbol: str,
+    current_price: float,
+    technical_indicators: Dict[str, Any],
+    historical_data: str,
+    market_data_str: str
 ) -> str:
-    """Tạo prompt phân tích VNINDEX (ưu tiên sinh khuyến nghị mã cổ phiếu từ screener)."""
+    """Prompt phân tích VNINDEX + đề xuất danh mục từ screener; đã bỏ 'Vị trí điểm vs MA'."""
     rsi = technical_indicators.get("rsi", "N/A")
-    ma = technical_indicators.get("ma", {})
-    bb = technical_indicators.get("bollinger_bands", {})
-    macd = technical_indicators.get("macd", {})
-    ich = technical_indicators.get("ichimoku", {})
-    vol = technical_indicators.get("volume", {})
-
-    ma_arr = [ma.get("ma10", 0), ma.get("ma20", 0), ma.get("ma50", 0), ma.get("ma200", 0)]
-    above_all = _bool_all_gt(current_price, ma_arr)
-    below_all = _bool_all_gt(-current_price if current_price is not None else None, [-x if x is None else -x for x in ma_arr])
+    ma = technical_indicators.get("ma", {}) or {}
+    bb = technical_indicators.get("bollinger_bands", {}) or {}
+    macd = technical_indicators.get("macd", {}) or {}
+    ich = technical_indicators.get("ichimoku", {}) or {}
+    vol = technical_indicators.get("volume", {}) or {}
 
     prompt = f"""
 BẠN LÀ CHUYÊN GIA PHÂN TÍCH THỊ TRƯỜNG VIỆT NAM (VSA/VPA, Wyckoff, CANSLIM, Minervini).
 
 # QUY TẮC TRẢ LỜI
-- Trả lời **tiếng Việt**, ngắn gọn, có cấu trúc.
-- **Không suy đoán ngoài dữ liệu**; thiếu thì ghi **N/A**.
-- Bullet ngắn; làm tròn số 2 chữ số thập phân.
+- Trả lời **tiếng Việt**, ngắn gọn, có cấu trúc; làm tròn **2 chữ số**.
+- **Không suy đoán ngoài dữ liệu**; thiếu ghi **N/A**.
+- Chỉ chọn mã từ **MARKET_SCREEN**; không phát sinh mã ngoài dữ liệu.
 
 # THẺ THÔNG TIN NHANH
 - Chỉ số: {symbol.upper()} | Điểm hiện tại: {_fmt(current_price)}
 - RSI(14): {_fmt(rsi)} | MACD: {_fmt(macd.get('macd','N/A'))}/{_fmt(macd.get('signal','N/A'))}/{_fmt(macd.get('histogram','N/A'))}
 - MA10/20/50/200: {_fmt(ma.get('ma10','N/A'))} / {_fmt(ma.get('ma20','N/A'))} / {_fmt(ma.get('ma50','N/A'))} / {_fmt(ma.get('ma200','N/A'))}
-- Vị trí giá vs MA: {"Trên tất cả MA (uptrend)" if above_all else ("Dưới tất cả MA (downtrend)" if below_all else "Hỗn hợp/sideways")}
 - Bollinger: Trên {_fmt(bb.get('upper','N/A'))} | Dưới {_fmt(bb.get('lower','N/A'))}
-- Ichimoku: Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))} | Senkou Span A {_fmt(ich.get('senkou_a','N/A'))} | Senkou Span B {_fmt(ich.get('senkou_b','N/A'))}
+- Ichimoku (chấp nhận viết **Senkou/Sensou**):
+  - Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))}
+  - **Senkou/Sensou Span A** {_fmt(ich.get('senkou_a','N/A'))} | **Senkou/Sensou Span B** {_fmt(ich.get('senkou_b','N/A'))}
 - Volume: hiện tại {_fmt(vol.get('current','N/A'))} | MA20 {_fmt(vol.get('ma20','N/A'))} | MA50 {_fmt(vol.get('ma50','N/A'))}
 
 # NHIỆM VỤ
-Phân tích **VNINDEX** và **đề xuất danh mục mã cổ phiếu** dựa trên dữ liệu screener kèm theo.
+Phân tích **VNINDEX** (ngắn 1–4 tuần, trung 1–6 tháng) và **đề xuất danh mục mã cổ phiếu** từ dữ liệu screener kèm theo.
 
 # YÊU CẦU XUẤT RA
 ## 1) VSA/VPA chi tiết
-- 3–5 phiên gần nhất: biến động giá so với MA20/MA50, tín hiệu test/upthrust/spring/climax (nếu có).
+- 3–5 phiên gần nhất: biến động giá vs MA20/MA50; test/upthrust/spring/climax (nếu có).
 ## 2) Wyckoff
 - Giai đoạn thị trường + dấu hiệu breakout/breakdown; thời gian tích lũy (nếu có).
 ## 3) Minervini
-- Xu hướng dài/ngắn hạn; sắp xếp MA; mức hỗ trợ/kháng cự quan trọng.
+- Xu hướng dài/ngắn hạn; sắp xếp MA; hỗ trợ/kháng cự quan trọng.
 ## 4) CANSLIM (M) – Định hướng thị trường
-- Đánh giá môi trường: Tích cực/Trung tính/Tiêu cực. Điều kiện tham gia (On/Off).
-## 5) Kịch bản 1–2 tuần (xác suất)
+- **On** nếu (VNINDEX > MA50 **và** MACD>Signal), ngược lại **Off**.
+## 5) Kịch bản 1–2 tuần (kèm xác suất)
 - Cơ bản / Tốt nhất / Xấu nhất (mô tả ngắn + vùng điểm số).
 ## 6) Chiến lược thực thi
-- Vị thế đề xuất: MUA/GIỮ/BÁN/CHỜ; quy tắc vào/thoát; lưu ý rủi ro.
+- Vị thế: MUA/GIỮ/BÁN/CHỜ; quy tắc vào/thoát; lưu ý rủi ro.
 
-## 7) ĐỀ XUẤT MÃ CỔ PHIẾU (lấy từ MARKET_SCREEN)
-**BẮT BUỘC chỉ chọn mã xuất hiện trong khối dữ liệu MARKET_SCREEN.**
+## 7) ĐỀ XUẤT MÃ (từ MARKET_SCREEN)
+**BẮT BUỘC** chỉ chọn mã có trong khối MARKET_SCREEN.
 
-### 7.1) Quy tắc chấm điểm CompositeScore (0→1)
-- Chuẩn hoá 0–1 từng chỉ tiêu (bỏ qua nếu thiếu), trọng số:
+### 7.1) CompositeScore (0→1)
+- Chuẩn hoá **min–max trên đúng tập MARKET_SCREEN** (bỏ qua cột thiếu):
   - RS1M: 0.25 | RS3M: 0.20
-  - Doanh thu 1Y (revenue_growth_1y): 0.15 | EPS 1Y (eps_growth_1y): 0.15
+  - revenue_growth_1y: 0.15 | eps_growth_1y: 0.15
   - P/E (thấp tốt): 0.10 → dùng **1 - minmax(PE)**
   - P/B (thấp tốt): 0.05 → **1 - minmax(PB)**
-  - PEG_forward và/hoặc PEG_trailing (thấp tốt): tổng 0.10 → trung bình rồi **1 - minmax(PEG)**
-- Thưởng +0.05 nếu vốn hoá thuộc top 30% (market_cap) trong danh sách.
-- Phạt -0.10 nếu P/E<=0 hoặc PEG<0.
+  - PEG (thấp tốt): 0.10 → trung bình peg_forward/peg_trailing (nếu có), rồi **1 - minmax(PEG)**
+- Thưởng +0.05 nếu **market_cap** thuộc top 30% trong danh sách.
+- Phạt -0.10 nếu **P/E ≤ 0** hoặc **PEG < 0**.
+- Nếu **Off**: giảm 30% trọng số tăng trưởng (revenue/EPS), tăng 30% trọng số định giá (PE/PB/PEG) trước khi tính tổng điểm.
 
 ### 7.2) Ràng buộc danh mục
-- Tối đa 2 mã/nhóm ngành.
-- Loại các mã đáy 20% về thanh khoản (nếu có cột volume/turnover; nếu không có, bỏ qua ràng buộc này).
-- Nếu **VNINDEX < MA50** hoặc **MACD < Signal** → trạng thái **Off**:
-  - Không đưa khuyến nghị MUA; gắn nhãn "Theo dõi" cho tất cả picks.
-  - Giảm 30% trọng số tăng trưởng (revenue/EPS), tăng 30% trọng số định giá (PE/PB/PEG) khi tính điểm.
+- Tối đa **2 mã/nhóm ngành** (dùng sector/industry/icb_name/industry_name; nếu đều thiếu → bỏ ràng buộc).
+- Loại **đáy 20% thanh khoản** nếu có volume/avg_volume_20d/turnover/value_traded; nếu không có → bỏ qua.
+- Tie-break khi bằng điểm: ưu tiên **RS1M cao hơn → RS3M cao hơn → P/E thấp hơn**.
 
 ### 7.3) Đầu ra BẮT BUỘC
 - Bảng **Top 20** theo CompositeScore, cột đúng thứ tự:
   | Mã | Ngành | Điểm | P/E | PEGf | Rev 1Y | EPS 1Y | RS1M | RS3M | Luận điểm (≤15 từ) | Entry | SL | TP | RR | Trạng thái |
 - **Entry/SL/TP**:
-  - Nếu môi trường **On** (VNINDEX > MA50 **và** MACD>Signal): Entry="Mua từng phần"; SL=-7%; TP=+15% (RR≈2).
-  - Nếu thiếu dữ liệu kỹ thuật: Entry="Theo dõi"; SL=N/A; TP=N/A; RR=N/A.
+  - **On**: Entry="Mua từng phần"; SL=-7%; TP=+15% (RR≈2).
+  - **Off** hoặc thiếu kỹ thuật: Entry="Theo dõi"; SL=N/A; TP=N/A; RR=N/A.
 
 ## 8) Danh mục rút gọn & phân bổ
-- Chọn **5 mã** mạnh nhất, tối đa 1 mã/ngành, nêu tỷ trọng gợi ý theo chế độ thị trường:
-  - On: tổng 40–60% NAV; Off: 0–20% NAV (chủ yếu theo dõi).
+- Chọn **20 mã** mạnh nhất, tối đa **2 mã/ngành**; gợi ý tỷ trọng:
+  - **On**: tổng 40–60% NAV; **Off**: 0–20% NAV (chủ yếu theo dõi).
 
 # DỮ LIỆU THÔ
 <<<HISTORICAL_DATA_START>>>
@@ -839,7 +841,7 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
     }
 
     if is_index:
-        prompt = generate_vnindex_analysis_prompt(
+          prompt = generate_vnindex_analysis_prompt(
             symbol=symbol,
             current_price=trading_signal.get("current_price"),
             technical_indicators=technical_indicators,

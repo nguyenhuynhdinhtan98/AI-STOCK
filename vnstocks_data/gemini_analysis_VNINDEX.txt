@@ -1,66 +1,87 @@
-﻿Dựa trên dữ liệu cung cấp, dưới đây là phân tích VNINDEX:
+﻿Chào bạn,
+
+Là chuyên gia phân tích thị trường Việt Nam, tôi xin cung cấp phân tích VNINDEX và đề xuất danh mục cổ phiếu dựa trên dữ liệu bạn đã cung cấp.
+
+---
 
 ## 1) VSA/VPA chi tiết
--   **Phiên 2025-08-19 (Close 1654.20, Vol 1.93B):** Giá đóng cửa trên MA20 (1.59K) và MA50 (1.49K). Khối lượng cao hơn MA20 (1.82B) và MA50 (1.38B), cho thấy lực cầu tốt hỗ trợ đà tăng.
--   **Phiên 2025-08-20 (Close 1664.36, Vol 2.41B):** Giá tăng mạnh, tạo đỉnh ngắn hạn mới, duy trì trên MA20 và MA50. Khối lượng rất cao, cho thấy động lực mua mạnh mẽ.
--   **Phiên 2025-08-21 (Close 1688.00, Vol 1.72B):** Giá tiếp tục tăng và tạo đỉnh cao nhất trong 5 phiên, trên MA20 và MA50. Khối lượng xấp xỉ MA20, cho thấy đà tăng có thể đang chững lại về cuối phiên.
--   **Phiên 2025-08-22 (Close 1645.47, Vol 2.29B):** Giá giảm mạnh sau chuỗi tăng, vẫn duy trì trên MA20 và MA50. Khối lượng rất cao, cho thấy áp lực bán mạnh (tín hiệu Upthrust tiềm năng hoặc Selling Climax ngắn hạn).
--   **Phiên 2025-08-25 (Close 1610.67, Vol 1.33B):** Giá tiếp tục giảm, cắt xuống dưới MA10 (1.64K) nhưng vẫn trên MA20 (1.59K) và MA50 (1.49K). Khối lượng thấp hơn MA20 và MA50, cho thấy lực bán đã yếu đi nhưng thiếu vắng lực cầu đỡ giá.
+- **3-5 phiên gần nhất (2025-08-19 đến 2025-08-25):**
+  - Giá có xu hướng giảm sau một đỉnh cục bộ, với các phiên giảm điểm xuất hiện volume cao cho thấy áp lực bán.
+  - **Phiên 2025-08-21 (Close 1688.00):** Tăng điểm mạnh, nằm trên MA20 và MA50. Volume 1.72B (cao hơn MA50 nhưng thấp hơn MA20 trung bình), cho thấy nỗ lực tăng giá nhưng chưa thực sự thuyết phục về khối lượng.
+  - **Phiên 2025-08-22 (Close 1645.47):** Giảm điểm mạnh với Volume 2.29B (cao hơn cả MA20 và MA50 trung bình). Đây là tín hiệu **Upthrust/Selling Climax** tiềm năng, khi giá cố gắng duy trì đà tăng nhưng bị bán ngược với khối lượng lớn, cho thấy lực bán chiếm ưu thế.
+  - **Phiên 2025-08-25 (Close 1611.62):** Tiếp tục giảm điểm, nằm trên MA20 (1590) nhưng dưới MA10 (1640). Volume 1.42B, gần bằng MA50 Volume nhưng thấp hơn MA20 Volume. Biến động giá cho thấy sự giằng co, áp lực bán vẫn hiện hữu.
 
 ## 2) Wyckoff
--   **Giai đoạn thị trường:** VNINDEX có dấu hiệu chuyển từ giai đoạn Xu hướng tăng (Uptrend) sang giai đoạn Phân phối (Distribution) hoặc điều chỉnh sâu trong xu hướng tăng. Biến động giá mạnh với đỉnh mới nhưng sau đó là giảm sâu với khối lượng cao cho thấy sự dịch chuyển cung-cầu.
--   **Dấu hiệu breakout/breakdown:** Giai đoạn tăng trước đó là breakout mạnh, tuy nhiên phiên 2025-08-22 có thể là một Upthrust (đẩy giá lên cao sau đó giảm mạnh với vol lớn), báo hiệu sự suy yếu và khả năng đảo chiều. Chưa có breakdown khỏi các hỗ trợ quan trọng.
--   **Thời gian tích lũy:** N/A (Thị trường đã thoát khỏi giai đoạn tích lũy trước đó và đang trong giai đoạn điều chỉnh/phân phối).
+- **Giai đoạn thị trường:** Có dấu hiệu của một giai đoạn **Phân phối (Distribution)** hoặc kết thúc giai đoạn Tăng giá (Markup). Sự xuất hiện của Upthrust/Selling Climax tiềm năng cùng với các phiên giảm điểm volume cao là những dấu hiệu cảnh báo.
+- **Dấu hiệu breakout/breakdown:** Chưa có breakout rõ ràng qua kháng cự quan trọng (Bollinger trên 1.71K). Ngược lại, VNINDEX đang có dấu hiệu suy yếu và có thể hướng tới một breakdown nếu không giữ được các mức hỗ trợ.
+- **Thời gian tích lũy:** N/A (chưa rõ ràng cho một giai đoạn tích lũy mới).
 
 ## 3) Minervini
--   **Xu hướng dài hạn (MA200):** Tăng (Giá hiện tại 1.61K > MA200 1.33K).
--   **Xu hướng ngắn hạn:** Giá đang điều chỉnh, cắt xuống MA10 (1.64K) nhưng vẫn trên MA20 (1.59K) và MA50 (1.49K). Xu hướng tăng ngắn hạn đang suy yếu.
--   **Sắp xếp MA:** MA10 (1.64K) > MA20 (1.59K) > MA50 (1.49K) > MA200 (1.33K). Tuy nhiên, giá hiện tại (1.61K) nằm dưới MA10, cho thấy sự phá vỡ cấu trúc tăng ngắn hạn.
--   **Mức hỗ trợ/kháng cự quan trọng:**
-    -   **Kháng cự:** MA10 (1.64K), đỉnh gần nhất (1.69K), dải Bollinger trên (1.71K).
-    -   **Hỗ trợ:** MA20 (1.59K), MA50 (1.49K), dải Bollinger dưới (1.47K), MA200 (1.33K).
+- **Xu hướng dài hạn:** Tăng (VNINDEX 1.61K > MA200 1.33K).
+- **Xu hướng ngắn hạn:** Hỗn hợp/đi ngang (VNINDEX 1.61K nằm giữa MA10 1.64K và MA20 1.59K).
+- **Sắp xếp MA:** MA10 (1.64K) > VNINDEX (1.61K) > MA20 (1.59K) > MA50 (1.49K) > MA200 (1.33K). Mặc dù các đường MA dài hạn vẫn ủng hộ xu hướng tăng, nhưng VNINDEX đã nằm dưới MA10 và MACD dưới Signal cho thấy đà tăng ngắn hạn đang suy yếu.
+- **Mức hỗ trợ/kháng cự quan trọng:**
+  - Kháng cự: 1.64K (MA10, Tenkan), 1.71K (Bollinger trên).
+  - Hỗ trợ: 1.59K (MA20, Kijun), 1.49K (MA50), 1.47K (Bollinger dưới).
 
 ## 4) CANSLIM (M) – Định hướng thị trường
--   **Đánh giá môi trường:** Trung tính.
-    -   RSI(14): 57.83 (Trung tính, không ở vùng quá mua/quá bán).
-    -   MACD: Đường MACD cắt xuống dưới đường tín hiệu (-2.07), histogram âm và giảm dần, báo hiệu động lượng tiêu cực trong ngắn hạn.
-    -   Volume: Khối lượng giao dịch hiện tại (1.33B) thấp hơn MA20 (1.82B) và MA50 (1.38B), cho thấy sự thiếu hụt dòng tiền lớn tham gia, phản ánh tâm lý thận trọng.
-    -   Vị trí giá so với MA: Giá nằm trên MA20, MA50, MA200 nhưng dưới MA10, cho thấy xu hướng ngắn hạn đang gặp khó khăn.
--   **Điều kiện tham gia:** OFF (Thị trường đang trong giai đoạn nhạy cảm, cần theo dõi thêm các tín hiệu xác nhận).
+- **Đánh giá môi trường:** Trung tính đến Tiêu cực nhẹ. Mặc dù VNINDEX vẫn trên MA50 (1.61K > 1.49K), nhưng tín hiệu MACD (46.87) đã cắt xuống Signal (48.89), cho thấy đà tăng đang chững lại và rủi ro điều chỉnh gia tăng.
+- **Điều kiện tham gia:** Off.
 
 ## 5) Kịch bản 1–2 tuần (xác suất)
--   **Cơ bản (50%):** VNINDEX tiếp tục vận động sideway quanh vùng 1.59K - 1.64K, hấp thụ áp lực bán và chờ đợi thông tin mới. Khối lượng duy trì ở mức thấp.
--   **Tốt nhất (30%):** VNINDEX hồi phục, vượt lên trên MA10 (1.64K) với thanh khoản cải thiện, sau đó hướng tới các vùng kháng cự cao hơn quanh 1.69K.
--   **Xấu nhất (20%):** VNINDEX phá vỡ hỗ trợ MA20 (1.59K) với khối lượng lớn, có thể kiểm định lại vùng hỗ trợ MA50 (1.49K) hoặc Bollinger Dưới (1.47K).
+- **Cơ bản (50%):** VNINDEX tiếp tục điều chỉnh nhẹ hoặc đi ngang trong vùng 1.58K – 1.65K, với áp lực bán quanh kháng cự MA10 (1.64K).
+- **Tốt nhất (20%):** VNINDEX phục hồi và vượt qua 1.64K, hướng tới vùng 1.68K-1.71K nếu dòng tiền quay trở lại mạnh mẽ.
+- **Xấu nhất (30%):** VNINDEX phá vỡ hỗ trợ 1.59K (MA20/Kijun) và 1.49K (MA50), hướng về vùng 1.45K-1.47K nếu áp lực bán tiếp tục gia tăng.
 
 ## 6) Chiến lược thực thi
--   **Vị thế đề xuất:** CHỜ (Quan sát).
--   **Quy tắc vào/thoát:**
-    -   **Vào:** Chờ VNINDEX xác nhận vượt lên trên MA10 (1.64K) với khối lượng giao dịch tăng rõ rệt, hoặc khi chỉ số kiểm định thành công vùng hỗ trợ MA20 (1.59K) với nến đảo chiều và khối lượng thấp/trung bình.
-    -   **Thoát:** Giảm tỷ trọng hoặc thoát vị thế nếu VNINDEX phá vỡ dứt khoát hỗ trợ MA20 (1.59K) với khối lượng lớn, báo hiệu sự suy yếu tiếp diễn.
--   **Lưu ý rủi ro:** Thị trường đang trong giai đoạn điều chỉnh và tích lũy lại sau nhịp tăng. Động lực ngắn hạn đã suy giảm, nhà đầu tư cần ưu tiên quản trị rủi ro và không vội vàng giải ngân.
+- **Vị thế đề xuất:** CHỜ. (Thị trường đang ở trạng thái "Off" và có dấu hiệu suy yếu kỹ thuật).
+- **Quy tắc vào/thoát:**
+  - **Vào:** Chỉ cân nhắc mua khi VNINDEX phục hồi mạnh, vượt qua 1.64K (Tenkan, MA10) kèm volume lớn, và MACD cắt lên Signal.
+  - **Thoát:** Giảm tỷ trọng nếu VNINDEX phá vỡ hỗ trợ 1.59K hoặc xác nhận xu hướng giảm rõ ràng.
+- **Lưu ý rủi ro:** Thị trường hiện có rủi ro điều chỉnh cao. Ưu tiên bảo toàn vốn và quản lý rủi ro chặt chẽ.
 
-## 7) TOP 20 MÃ TIỀM NĂNG (từ danh sách P/E<20 & tăng trưởng)
+---
 
-| Mã | Lý do ngắn | Entry (giá tham khảo) | SL (giá cắt lỗ) | TP (giá mục tiêu) | RR (Rủi ro/Phần thưởng) |
-|---|---|---|---|---|---|
-| **GVT** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá cắt lên SMA20, MACD Hist > 0 & tăng dần, RSI trung tính. | 88.00 | 83.60 | 96.80 | 2.00 |
-| **TYA** | PE thấp, ROE tốt, tăng trưởng tốt, Giá cắt lên SMA5 & SMA20, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 17.50 | 16.63 | 19.25 | 2.00 |
-| **ANT** | PE rất thấp, ROE cao, tăng trưởng tốt, Giá cắt lên SMA5, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI ở vùng quá bán. | 26.70 | 25.37 | 29.37 | 2.00 |
-| **GSM** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá cắt lên SMA5, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 30.90 | 29.36 | 33.99 | 2.00 |
-| **NFC** | PE trung bình, ROE cao, tăng trưởng mạnh, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 53.10 | 50.45 | 58.41 | 2.00 |
-| **MNB** | PE thấp, ROE tốt, tăng trưởng tốt, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 28.00 | 26.60 | 30.80 | 2.00 |
-| **MSH** | PE thấp, ROE tốt, tăng trưởng mạnh, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 35.55 | 33.77 | 39.11 | 2.00 |
-| **PDN** | PE trung bình, ROE cao, tăng trưởng mạnh, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI ở vùng quá bán. | 93.00 | 88.35 | 102.30 | 2.00 |
-| **PPH** | PE thấp, ROE tốt, tăng trưởng tốt, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 27.70 | 26.32 | 30.47 | 2.00 |
-| **THG** | PE trung bình, ROE tốt, tăng trưởng mạnh, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI ở vùng quá bán. | 51.80 | 49.21 | 56.98 | 2.00 |
-| **TSA** | PE trung bình, tăng trưởng tốt, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 12.40 | 11.78 | 13.64 | 2.00 |
-| **FOX** | PE trung bình, ROE cao, tăng trưởng mạnh, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 66.70 | 63.37 | 73.37 | 2.00 |
-| **TRC** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá nằm trên SMA20, MACD Hist > 0 & giảm dần, RSI trung tính. | 68.20 | 64.79 | 75.02 | 2.00 |
-| **NCS** | PE trung bình, ROE cao, tăng trưởng mạnh, Giá cắt lên SMA20, MACD Hist < 0 & giảm dần, RSI trung tính. | 37.60 | 35.72 | 41.36 | 2.00 |
-| **VAB** | PE trung bình, ROE tốt, tăng trưởng tốt, Giá nằm trên SMA20, MACD Hist < 0 & giảm dần, RSI trung tính. | 12.60 | 11.97 | 13.86 | 2.00 |
-| **VVS** | PE thấp, ROE cao, tăng trưởng tốt, Giá nằm trên SMA20, MACD Hist < 0 & giảm dần, RSI trung tính. | 35.30 | 33.54 | 38.83 | 2.00 |
-| **HDB** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá cắt xuống SMA5, MACD Hist > 0 & giảm dần, RSI trung tính. | 30.90 | 29.36 | 33.99 | 2.00 |
-| **SHB** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá cắt xuống SMA20, MACD Hist < 0 & giảm dần, RSI trung tính. | 16.30 | 15.49 | 17.93 | 2.00 |
-| **DBC** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá nằm dưới SMA20, MACD Hist < 0 & giảm dần, RSI ở vùng quá bán. | 26.45 | 25.13 | 29.10 | 2.00 |
-| **ICN** | PE rất thấp, ROE rất cao, tăng trưởng mạnh, Giá nằm dưới SMA20, MACD Hist < 0 & giảm dần, RSI ở vùng quá bán. | 41.10 | 39.05 | 45.21 | 2.00 |
+## 7) ĐỀ XUẤT MÃ CỔ PHIẾU (lấy từ MARKET_SCREEN)
+
+Do trạng thái thị trường là **Off** (MACD < Signal), tất cả các mã đề xuất sẽ được gắn nhãn "Theo dõi", và các trọng số tăng trưởng/định giá đã được điều chỉnh theo quy tắc.
+
+**Top 20 Mã cổ phiếu theo CompositeScore**
+
+| Mã   | Ngành                          | Điểm | P/E   | PEGf  | Rev 1Y | EPS 1Y | RS1M  | RS3M  | Luận điểm                                         | Entry      | SL   | TP   | RR   | Trạng thái |
+| :--- | :----------------------------- | :--- | :---- | :---- | :----- | :----- | :---- | :---- | :------------------------------------------------ | :--------- | :--- | :--- | :--- | :--------- |
+| ICN  | Xây dựng và Vật liệu            | 0.77 | 4.20  | N/A   | 267.33 | 56.17  | 16.00 | 33.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| TFC  | Thực phẩm và đồ uống           | 0.76 | 5.90  | N/A   | 208.77 | 27.75  | 5.00  | 3.00  | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| DDV  | Hóa chất                       | 0.76 | 12.40 | 0.10  | 144.05 | 14.86  | 48.00 | 81.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| NFC  | Hóa chất                       | 0.75 | 9.70  | N/A   | 58.96  | 24.44  | 4.00  | 11.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| VVS  | Ô tô và phụ tùng               | 0.74 | 6.00  | N/A   | 296.23 | 6.00   | 98.00 | 99.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| TTD  | Y tế                           | 0.72 | 12.30 | N/A   | N/A    | 1.45   | 60.00 | 35.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| TBD  | Hàng & Dịch vụ Công nghiệp     | 0.72 | 18.70 | N/A   | 186.58 | 17.73  | 57.00 | 55.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| GSM  | Điện, nước & xăng dầu khí đốt  | 0.71 | 7.60  | N/A   | 92.10  | 64.04  | 35.00 | 23.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| D2D  | Bất động sản                   | 0.71 | 3.50  | 0.10  | 242.52 | 51.21  | 14.00 | 23.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| HTI  | Xây dựng và Vật liệu            | 0.70 | 4.40  | N/A   | 11.27  | 47.60  | 86.00 | 78.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| GVT  | Tài nguyên Cơ bản              | 0.70 | 3.80  | N/A   | 134.45 | 8.25   | 92.00 | 54.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| ANV  | Thực phẩm và đồ uống           | 0.69 | 13.00 | 0.20  | 22.05  | 28.17  | 61.00 | 95.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| HTG  | Hàng cá nhân & Gia dụng        | 0.69 | 4.90  | 0.10  | 63.34  | 16.51  | 53.00 | 71.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| TRC  | Hóa chất                       | 0.69 | 6.60  | 0.50  | 227.39 | 31.28  | 35.00 | 42.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| MSH  | Hàng cá nhân & Gia dụng        | 0.68 | 7.40  | 0.70  | 68.69  | 21.03  | 21.00 | 47.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| MNB  | Hàng cá nhân & Gia dụng        | 0.68 | 4.90  | N/A   | 186.67 | 16.80  | 82.00 | 15.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| HPW  | Điện, nước & xăng dầu khí đốt  | 0.67 | 12.20 | N/A   | 8.63   | 38.51  | 65.00 | 28.00 | Tăng trưởng tốt nhưng định giá cần xem xét thêm.  | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| MVC  | Xây dựng và Vật liệu            | 0.67 | 12.10 | N/A   | 20.53  | 28.95  | 89.00 | 94.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| NCS  | Thực phẩm và đồ uống           | 0.67 | 10.70 | N/A   | 18.59  | 16.75  | 80.00 | 85.00 | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+| ANT  | Thực phẩm và đồ uống           | 0.66 | 5.40  | N/A   | 436.85 | 27.75  | N/A   | N/A   | RS1M/3M tốt, tăng trưởng doanh thu/EPS ấn tượng, định giá hấp dẫn. | Theo dõi   | N/A  | N/A  | N/A  | Theo dõi   |
+
+## 8) Danh mục rút gọn & phân bổ
+Dựa trên nguyên tắc chọn 5 mã mạnh nhất và tối đa 1 mã/ngành, danh mục rút gọn đề xuất như sau:
+
+- **ICN** (Xây dựng và Vật liệu)
+- **TFC** (Thực phẩm và đồ uống)
+- **DDV** (Hóa chất)
+- **VVS** (Ô tô và phụ tùng)
+- **TTD** (Y tế)
+
+**Tỷ trọng gợi ý (chế độ thị trường Off):**
+- Tổng: 0-20% NAV (chủ yếu theo dõi), mỗi mã khoảng **4.00% NAV**.
+
+---
+**Lưu ý:** Đây là phân tích dựa trên dữ liệu cung cấp và các quy tắc được đưa ra. Quyết định đầu tư cuối cùng cần kết hợp thêm các yếu tố cá nhân và nghiên cứu chuyên sâu.
