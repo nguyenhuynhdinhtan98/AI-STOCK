@@ -2,6 +2,7 @@ import warnings
 warnings.filterwarnings("ignore", message=".*pkg_resources.*deprecated", category=UserWarning)
 
 import os
+import re
 import json
 import logging
 import sys
@@ -97,11 +98,9 @@ def validate_dataframe(df: Optional[pd.DataFrame], required_columns: List[str] =
 # ======================= FETCHERS =======================
 def get_stock_data(symbol: str) -> Optional[pd.DataFrame]:
     try:
-        logger.info(f"Lấy dữ liệu giá {symbol}")
         stock = Quote(symbol=symbol)
         df = stock.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
         if not validate_dataframe(df, ['time', 'open', 'high', 'low', 'close', 'volume']):
-            logger.warning(f"Không lấy được dữ liệu cho {symbol}")
             return None
         df = df.rename(columns={
             "time": "Date", "open": "Open", "high": "High", "low": "Low",
@@ -113,10 +112,8 @@ def get_stock_data(symbol: str) -> Optional[pd.DataFrame]:
         csv_path = f"{DATA_DIR}/{symbol}_data.csv"
         df.to_csv(csv_path, index=True, encoding="utf-8-sig")
         df.to_csv("data.csv", index=True, encoding="utf-8-sig")
-        logger.info(f"Đã lưu {csv_path}")
         return df
-    except Exception as e:
-        logger.error(f"Lỗi lấy dữ liệu {symbol}: {e}")
+    except Exception:
         return None
 
 def _flatten(df: Optional[pd.DataFrame]) -> Optional[pd.DataFrame]:
@@ -147,7 +144,6 @@ def _std_cols(df: Optional[pd.DataFrame]) -> Optional[pd.DataFrame]:
 
 def get_company_info(symbol: str) -> str:
     try:
-        logger.info(f"Lấy thông tin công ty {symbol}")
         company = Company(symbol)
         info_sections = {
             "OVERVIEW": company.overview(),
@@ -177,13 +173,10 @@ def get_company_info(symbol: str) -> str:
             f.write(text)
         return text
     except Exception as e:
-        msg = f"Lỗi khi lấy thông tin công ty {symbol}: {e}"
-        logger.error(msg)
-        return msg
+        return f"Lỗi khi lấy thông tin công ty {symbol}: {e}"
 
 def get_financial_data(symbol: str) -> Optional[pd.DataFrame]:
     try:
-        logger.info(f"Lấy BCTC {symbol}")
         stock = Finance(symbol=symbol, period="quarter")
         df_ratio = _std_cols(_flatten(stock.ratio(period="quarter")))
         df_bs = _std_cols(_flatten(stock.balance_sheet(period="quarter")))
@@ -200,7 +193,6 @@ def get_financial_data(symbol: str) -> Optional[pd.DataFrame]:
                     how="outer", suffixes=(None, None)
                 )
         if base is None or base.empty:
-            logger.warning(f"Không có BCTC hợp lệ cho {symbol}")
             return None
         financial_data = base.rename(columns={
             "ticker": "Symbol", "yearReport": "Year", "lengthReport": "Quarter"
@@ -208,17 +200,14 @@ def get_financial_data(symbol: str) -> Optional[pd.DataFrame]:
         csv_path = f"{DATA_DIR}/{symbol}_financial_statements.csv"
         financial_data.to_csv(csv_path, index=False, encoding='utf-8-sig')
         return financial_data
-    except Exception as e:
-        logger.error(f"Lỗi lấy BCTC {symbol}: {e}")
+    except Exception:
         return None
 
 def get_market_data() -> Optional[pd.DataFrame]:
     try:
-        logger.info("Lấy VNINDEX")
         quote = Quote(symbol="VNINDEX")
         vnindex = quote.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
         if not validate_dataframe(vnindex, ['time', 'open', 'high', 'low', 'close', 'volume']):
-            logger.warning("Không lấy được VNINDEX")
             return None
         vnindex = vnindex.rename(columns={
             "time": "Date", "open": "Open", "high": "High", "low": "Low",
@@ -230,8 +219,7 @@ def get_market_data() -> Optional[pd.DataFrame]:
         csv_path = f"{DATA_DIR}/VNINDEX_data.csv"
         vnindex.to_csv(csv_path, index=True, encoding='utf-8-sig')
         return vnindex
-    except Exception as e:
-        logger.error(f"Lỗi lấy VNINDEX: {e}")
+    except Exception:
         return None
 
 # ======================= PREPROCESS & FEATURES =======================
@@ -272,41 +260,116 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
         df["ichimoku_senkou_span_a"] = ich.ichimoku_a()
         df["ichimoku_senkou_span_b"] = ich.ichimoku_b()
         df["ichimoku_chikou_span"] = df["Close"].shift(26)
-    except Exception as e:
-        logger.warning(f"Lỗi tính Ichimoku: {e}")
+    except Exception:
         for k in ["ichimoku_tenkan_sen","ichimoku_kijun_sen","ichimoku_senkou_span_a","ichimoku_senkou_span_b","ichimoku_chikou_span"]:
             df[k] = np.nan
     return df
 
-# ======================= RS HANDLING =======================
-def get_rs_from_market_data(symbol: str) -> Tuple[float, float, float, float]:
+# ======================= RS & FINANCIAL SNAPSHOT EXTRACTORS =======================
+def get_rs_from_market_data(symbol: str) -> Tuple[float, float, float, float, float]:
+    """
+    Trả về (RS3D, RS1M, RS3M, RS6M, RS1Y) từ market_filtered.csv nếu có, ngược lại 1.0.
+    Hỗ trợ các tên cột: relative_strength_*, rel_strength_*, rs* (không phân biệt hoa thường).
+    """
     try:
         file_path = "market_filtered.csv"
         if not os.path.exists(file_path):
-            return 1.0, 1.0, 1.0, 1.0
+            return 1.0, 1.0, 1.0, 1.0, 1.0
         market_df = pd.read_csv(file_path)
         if "ticker" not in market_df.columns:
-            return 1.0, 1.0, 1.0, 1.0
-        filtered_df = market_df[market_df["ticker"].str.upper() == symbol.upper()]
+            return 1.0, 1.0, 1.0, 1.0, 1.0
+        filtered_df = market_df[market_df["ticker"].astype(str).str.upper() == symbol.upper()]
         if filtered_df.empty:
-            return 1.0, 1.0, 1.0, 1.0
+            return 1.0, 1.0, 1.0, 1.0, 1.0
+
         output_csv_file = f"{DATA_DIR}/{symbol}_infor.csv"
         filtered_df.to_csv(output_csv_file, index=False, encoding='utf-8-sig')
-        def getc(col: str) -> float:
-            return safe_float(filtered_df[col].iloc[0]) if col in filtered_df.columns else 1.0
-        rs3d = getc("relative_strength_3d")
-        rs1m = getc("rel_strength_1m")
-        rs3m = getc("rel_strength_3m")
-        rs1y = getc("rel_strength_1y")
-        return (rs3d or 1.0), (rs1m or 1.0), (rs3m or 1.0), (rs1y or 1.0)
+
+        def pick(colnames: List[str]) -> Optional[float]:
+            for c in colnames:
+                cands = [col for col in filtered_df.columns if col.lower() == c.lower()]
+                if cands:
+                    return safe_float(filtered_df[cands[0]].iloc[0])
+            return None
+
+        rs3d = pick(["relative_strength_3d", "rel_strength_3d", "rs3d"]) or 1.0
+        rs1m = pick(["relative_strength_1m", "rel_strength_1m", "rs1m"]) or 1.0
+        rs3m = pick(["relative_strength_3m", "rel_strength_3m", "rs3m"]) or 1.0
+        rs6m = pick(["relative_strength_6m", "rel_strength_6m", "rs6m"]) or 1.0
+        rs1y = pick(["relative_strength_1y", "rel_strength_1y", "rs1y"]) or 1.0
+        return rs3d, rs1m, rs3m, rs6m, rs1y
     except Exception:
-        return 1.0, 1.0, 1.0, 1.0
+        return 1.0, 1.0, 1.0, 1.0, 1.0
+
+def extract_quarter_rev_profit(financial_df: Optional[pd.DataFrame]) -> Dict[str, Optional[float]]:
+    """
+    Lấy doanh thu & lợi nhuận quý gần nhất (Q0) và quý liền kề (Q-1).
+    Cố gắng tìm cột revenue & profit phổ biến; nếu thiếu, trả None.
+    """
+    out = {"rev_q0": None, "rev_q_1": None, "profit_q0": None, "profit_q_1": None}
+    if not validate_dataframe(financial_df):
+        return out
+    df = financial_df.copy()
+
+    # Chuẩn hoá cột Quarter -> số (1..4) nếu có
+    def quarter_to_int(q: Any) -> Optional[int]:
+        if q is None:
+            return None
+        s = str(q)
+        m = re.search(r'(\d)', s)
+        return int(m.group(1)) if m else None
+
+    if "Year" in df.columns and "Quarter" in df.columns:
+        df["QuarterNum"] = df["Quarter"].apply(quarter_to_int)
+        df["__sort__"] = df.apply(lambda r: (safe_float(r.get("Year")) or 0) * 10 + (r.get("QuarterNum") or 0), axis=1)
+        df = df.sort_values("__sort__").drop(columns=["__sort__"])
+    else:
+        df = df.reset_index(drop=True)
+
+    # Ưu tiên tên cột
+    revenue_priority = [
+        "revenue", "net_revenue", "total_revenue", "sales", "operating_revenue"
+    ]
+    profit_priority = [
+        "profit_after_tax", "net_income", "profit", "profit_after_tax_of_parent_company",
+        "earnings", "pat", "npat"
+    ]
+
+    def find_best(col_list: List[str]) -> Optional[str]:
+        # chọn cột xuất hiện, ưu tiên ít NaN nhất
+        candidates = []
+        for pattern in col_list:
+            matched = [c for c in df.columns if re.search(pattern, c, re.IGNORECASE)]
+            candidates.extend(matched)
+        if not candidates:
+            return None
+        # chọn cột có non-null nhiều nhất
+        best = max(candidates, key=lambda c: df[c].notna().sum())
+        return best
+
+    rev_col = find_best(revenue_priority)
+    prof_col = find_best(profit_priority)
+
+    if rev_col:
+        last_two = df[rev_col].dropna().tail(2).tolist()
+        if last_two:
+            out["rev_q0"] = safe_float(last_two[-1])
+            if len(last_two) > 1:
+                out["rev_q_1"] = safe_float(last_two[-2])
+    if prof_col:
+        last_two = df[prof_col].dropna().tail(2).tolist()
+        if last_two:
+            out["profit_q0"] = safe_float(last_two[-1])
+            if len(last_two) > 1:
+                out["profit_q_1"] = safe_float(last_two[-2])
+
+    return out
 
 # ======================= TECHNICAL SNAPSHOT =======================
 def create_empty_trading_signal() -> Dict[str, Any]:
     return {
-        "signal": "LỖI", "score": 0, "current_price": 0,
-        "rsi_value": 0, "ma10": 0, "ma20": 0, "ma50": 0, "ma200": 0,
+        "signal": None, "score": 0, "current_price": 0,
+        "rsi_value": None, "ma10": None, "ma20": None, "ma50": None, "ma200": None,
         "open": None, "high": None, "low": None, "volume": None,
         "macd": None, "macd_signal": None, "macd_hist": None,
         "bb_upper": None, "bb_lower": None, "volume_ma_20": None, "volume_ma_50": None,
@@ -314,7 +377,9 @@ def create_empty_trading_signal() -> Dict[str, Any]:
         "ichimoku_senkou_span_a": None, "ichimoku_senkou_span_b": None,
         "ichimoku_chikou_span": None,
         "relative_strength_3d": None, "relative_strength_1m": None,
-        "relative_strength_3m": None, "relative_strength_1y": None
+        "relative_strength_3m": None, "relative_strength_6m": None, "relative_strength_1y": None,
+        "rev_q0": None, "rev_q_1": None, "profit_q0": None, "profit_q_1": None,
+        "recommendation": None
     }
 
 def calculate_technical(df: pd.DataFrame, symbol: str) -> Dict[str, Any]:
@@ -345,9 +410,9 @@ def calculate_technical(df: pd.DataFrame, symbol: str) -> Dict[str, Any]:
             'chikou_span': safe_float(last.get("ichimoku_chikou_span")),
         }
         if symbol.upper() != "VNINDEX":
-            rs3d, rs1m, rs3m, rs1y = get_rs_from_market_data(symbol)
+            rs3d, rs1m, rs3m, rs6m, rs1y = get_rs_from_market_data(symbol)
         else:
-            rs3d = rs1m = rs3m = rs1y = None
+            rs3d = rs1m = rs3m = rs6m = rs1y = None
         return {
             "current_price": current_price,
             "rsi_value": indicators['rsi_value'],
@@ -374,13 +439,12 @@ def calculate_technical(df: pd.DataFrame, symbol: str) -> Dict[str, Any]:
             "relative_strength_3d": rs3d,
             "relative_strength_1m": rs1m,
             "relative_strength_3m": rs3m,
+            "relative_strength_6m": rs6m,
             "relative_strength_1y": rs1y,
-            "signal": None,
-            "score": 0,
-            "recommendation": None
+            "rev_q0": None, "rev_q_1": None, "profit_q0": None, "profit_q_1": None,
+            "signal": None, "score": 0, "recommendation": None
         }
-    except Exception as e:
-        logger.error(f"Lỗi snapshot kỹ thuật {symbol}: {e}")
+    except Exception:
         return create_empty_trading_signal()
 
 def plot_stock_analysis(symbol: str, df: pd.DataFrame) -> Dict[str, Any]:
@@ -390,8 +454,7 @@ def plot_stock_analysis(symbol: str, df: pd.DataFrame) -> Dict[str, Any]:
         df = df.sort_index()
         df = create_features(df)
         return calculate_technical(df, symbol)
-    except Exception as e:
-        logger.error(f"Lỗi phân tích {symbol}: {e}")
+    except Exception:
         return create_empty_trading_signal()
 
 # ======================= AI ANALYSIS =======================
@@ -411,8 +474,7 @@ def analyze_with_openrouter(symbol: str) -> str:
         with open(out, "w", encoding="utf-8-sig") as f:
             f.write(result)
         return result
-    except Exception as e:
-        logger.error(f"OpenRouter lỗi {symbol}: {e}")
+    except Exception:
         return "Không thể tạo phân tích bằng OpenRouter tại thời điểm này."
 
 def analyze_with_gemini(symbol: str) -> str:
@@ -428,8 +490,7 @@ def analyze_with_gemini(symbol: str) -> str:
         with open(out, "w", encoding="utf-8-sig") as f:
             f.write(result)
         return result
-    except Exception as e:
-        logger.error(f"Gemini lỗi {symbol}: {e}")
+    except Exception:
         return "Không thể tạo phân tích bằng Gemini tại thời điểm này."
 
 # ======================= PROMPT BUILDERS =======================
@@ -471,7 +532,9 @@ Bạn là chuyên gia phân tích cổ phiếu Việt Nam (Wyckoff, VSA/VPA, Min
   - Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))}
   - Senkou Span A {_fmt(ich.get('senkou_a','N/A'))} | Senkou Span B {_fmt(ich.get('senkou_b','N/A'))}
 - Volume: hiện tại {_fmt(vol.get('current','N/A'))} | MA20 {_fmt(vol.get('ma20','N/A'))} | MA50 {_fmt(vol.get('ma50','N/A'))}
-- RS: 3D {_fmt(trading_signal.get('relative_strength_3d','N/A'))} | 1M {_fmt(trading_signal.get('relative_strength_1m','N/A'))} | 3M {_fmt(trading_signal.get('relative_strength_3m','N/A'))} | 1Y {_fmt(trading_signal.get('relative_strength_1y','N/A'))}
+- RS: 3D {_fmt(trading_signal.get('relative_strength_3d','N/A'))} | 1M {_fmt(trading_signal.get('relative_strength_1m','N/A'))} | 3M {_fmt(trading_signal.get('relative_strength_3m','N/A'))} | 6M {_fmt(trading_signal.get('relative_strength_6m','N/A'))} | 1Y {_fmt(trading_signal.get('relative_strength_1y','N/A'))}
+- Doanh thu quý: Q0 {_fmt(trading_signal.get('rev_q0','N/A'))} | Q-1 {_fmt(trading_signal.get('rev_q_1','N/A'))}
+- Lợi nhuận quý: Q0 {_fmt(trading_signal.get('profit_q0','N/A'))} | Q-1 {_fmt(trading_signal.get('profit_q_1','N/A'))}
 
 # NHIỆM VỤ: phân tích toàn diện {symbol.upper()} và cho 1 khuyến nghị cuối.
 
@@ -568,15 +631,15 @@ Phân tích VNINDEX (1–4 tuần, 1–6 tháng) và đề xuất danh mục t�
 - Vị thế: MUA/GIỮ/BÁN/CHỜ; quy tắc vào/thoát; rủi ro chính.
 
 ## 7) ĐỀ XUẤT MÃ (chỉ từ MARKET_SCREEN)
-### 7.1) Xếp hạng (không dùng điểm tổng)
-- Ưu tiên: RS1M cao → RS3M cao → (nếu có) RS6M cao → P/E thấp → PEG thấp.
-- Bỏ qua tiêu chí nếu cột tương ứng thiếu toàn bộ.
+### 7.1) Xếp hạng
+- Ưu tiên: RS1M cao → RS3M cao → RS6M cao → P/E thấp → PEG thấp ->Tăng trưởng doanh thu và lợi nhuận. Bỏ qua tiêu chí nếu cột thiếu.
 ### 7.2) Ràng buộc
 - Tối đa 2 mã/nhóm ngành (sector/industry/icb_name/industry_name; nếu thiếu hết → bỏ ràng buộc).
 - Loại đáy 20% thanh khoản nếu có volume/avg_volume_20d/turnover/value_traded.
 - Tie-break: market_cap lớn hơn.
-### 7.3) Bảng Top 20 (theo 7.1)
-| Mã | Ngành | P/E | PEG | Rev 1Y | EPS 1Y | RS1M | RS3M | RS6M | Luận điểm (ngắn gọn) | Entry | SL | TP | RR | Trạng thái |
+### 7.3) Bảng Top 20
+| Mã | Ngành | P/E | PEGf | Rev 1Y | EPS 1Y | RS1M | RS3M | RS6M | Rev Last | Rev Second | Profit Last | Profit Second | Luận điểm (ngắn ngọn) | Entry | SL | TP | RR | Trạng thái |
+- Giá trị quý (Rev/Profit): lấy từ dữ liệu (nếu không có → N/A).
 - Entry/SL/TP:
   - On: Entry="Mua từng phần"; SL=-7%; TP=+15% (RR≈2).
   - Off hoặc thiếu kỹ thuật: Entry="Theo dõi"; SL=N/A; TP=N/A; RR=N/A.
@@ -598,15 +661,10 @@ Phân tích VNINDEX (1–4 tuần, 1–6 tháng) và đề xuất danh mục t�
 
 # ======================= MAIN PIPELINE =======================
 def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
-    logger.info("=" * 60)
-    logger.info(f"PHÂN TÍCH MÃ {symbol}")
-    logger.info("=" * 60)
-
     is_index = symbol.upper() == "VNINDEX"
 
     df = get_stock_data(symbol)
     if not validate_dataframe(df):
-        logger.error(f"Thiếu dữ liệu {symbol}")
         return None
 
     financial_data_statement = None
@@ -619,11 +677,16 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
 
     df_processed = preprocess_stock_data(df)
     if not validate_dataframe(df_processed) or len(df_processed) < 100:
-        logger.error(f"Dữ liệu {symbol} không đủ để phân tích")
         return None
 
     trading_signal = plot_stock_analysis(symbol, df_processed)
 
+    # Bổ sung Rev/Profit quý gần nhất & liền kề vào snapshot nếu có BCTC
+    if financial_data_statement is not None:
+        qp = extract_quarter_rev_profit(financial_data_statement)
+        trading_signal.update(qp)
+
+    # Chuẩn bị dữ liệu text cho prompt
     csv_file_path = f"{DATA_DIR}/{symbol}_data.csv"
     infor_csv_file_path = f"{DATA_DIR}/{symbol}_infor.csv"
     market_file_path = f"market_filtered_pe.csv"
@@ -633,8 +696,8 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
             try:
                 df_ = pd.read_csv(path)
                 return df_.tail(2000).to_string(index=False, float_format="{:.2f}".format)
-            except Exception as e:
-                logger.warning(f"Không đọc được '{path}': {e}")
+            except Exception:
+                return fallback
         return fallback
 
     historical_data_str = to_text_if_exists(csv_file_path, "Không có dữ liệu lịch sử.")
@@ -695,11 +758,10 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
 
     with open("prompt.txt", "w", encoding="utf-8-sig") as f:
         f.write(prompt)
-    logger.info("Đã lưu prompt.txt")
 
     gemini_analysis = analyze_with_gemini(symbol)
-    openrouter_analysis = analyze_with_openrouter(symbol)
-
+    # openrouter_analysis = analyze_with_openrouter(symbol)
+    print(gemini_analysis)
     report = {
         "symbol": symbol,
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -731,7 +793,12 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
         "relative_strength_3d": safe_float(trading_signal.get("relative_strength_3d")) if not is_index else None,
         "relative_strength_1m": safe_float(trading_signal.get("relative_strength_1m")) if not is_index else None,
         "relative_strength_3m": safe_float(trading_signal.get("relative_strength_3m")) if not is_index else None,
+        "relative_strength_6m": safe_float(trading_signal.get("relative_strength_6m")) if not is_index else None,
         "relative_strength_1y": safe_float(trading_signal.get("relative_strength_1y")) if not is_index else None,
+        "rev_q0": safe_float(trading_signal.get("rev_q0")),
+        "rev_q_1": safe_float(trading_signal.get("rev_q_1")),
+        "profit_q0": safe_float(trading_signal.get("profit_q0")),
+        "profit_q_1": safe_float(trading_signal.get("profit_q_1")),
         "gemini_analysis": gemini_analysis,
         "openrouter_analysis": openrouter_analysis,
     }
@@ -739,16 +806,13 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
     report_path = f"{DATA_DIR}/{symbol}_report.json"
     with open(report_path, "w", encoding='utf-8-sig') as f:
         json.dump(report, f, ensure_ascii=False, indent=4)
-    logger.info(f"Đã lưu {report_path}")
     return report
 
 # ======================= SCREENER =======================
 def filter_stocks_low_pe_high_cap(min_market_cap: int = 500) -> Optional[pd.DataFrame]:
     try:
-        logger.info("Lọc cổ phiếu nền (P/E thấp, vốn hóa đủ lớn)")
         df = Screener().stock(params={"exchangeName": "HOSE,HNX,UPCOM"}, limit=5000)
         if not validate_dataframe(df):
-            logger.error("Không lấy được danh sách niêm yết")
             return None
         condition1 = df["market_cap"] >= min_market_cap
         condition2_pe = ((df["pe"] > 0) & (df["pe"] < 20)) | pd.isna(df["pe"])
@@ -772,17 +836,14 @@ def filter_stocks_low_pe_high_cap(min_market_cap: int = 500) -> Optional[pd.Data
 
         filtered_df = df[final_condition]
         if filtered_df.empty:
-            logger.warning("Không tìm thấy mã phù hợp.")
             return None
 
         output_csv_file = "market_filtered.csv"
         output_csv_file_pe = "market_filtered_pe.csv"
         filtered_df.to_csv(output_csv_file_pe, index=False, encoding='utf-8-sig')
         df[condition1].to_csv(output_csv_file, index=False, encoding='utf-8-sig')
-        logger.info(f"Đã lưu {output_csv_file_pe} và {output_csv_file}")
         return filtered_df
-    except Exception as e:
-        logger.error(f"Lỗi screener: {e}")
+    except Exception:
         return None
 
 # ======================= CLI =======================

@@ -42,7 +42,7 @@ Phân tích VNINDEX (1–4 tuần, 1–6 tháng) và đề xuất danh mục t�
 - Loại đáy 20% thanh khoản nếu có volume/avg_volume_20d/turnover/value_traded.
 - Tie-break: market_cap lớn hơn.
 ### 7.3) Bảng Top 20 (theo 7.1)
-| Mã | Ngành | P/E | PEGf | Rev 1Y | EPS 1Y | RS1M | RS3M | Luận điểm (≤15 từ) | Entry | SL | TP | RR | Trạng thái |
+| Mã | Ngành | P/E | PEG | Rev 1Y | EPS 1Y | RS1M | RS3M | RS6M | Luận điểm (ngắn gọn) | Entry | SL | TP | RR | Trạng thái |
 - Entry/SL/TP:
   - On: Entry="Mua từng phần"; SL=-7%; TP=+15% (RR≈2).
   - Off hoặc thiếu kỹ thuật: Entry="Theo dõi"; SL=N/A; TP=N/A; RR=N/A.
