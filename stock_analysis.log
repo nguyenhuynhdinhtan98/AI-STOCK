@@ -384,3 +384,24 @@ DBC là một cổ phiếu hội tụ nhiều yếu tố hấp dẫn: một doan
 2025-08-25 09:34:40,240 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
 2025-08-25 09:34:40,243 - ERROR - OpenRouter error: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'deepseek/deepseek-chat-v3-0324:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations', 'provider_name': 'Chutes'}}, 'user_id': 'user_30FfMOpnOYBQ9YyYvXiEgeWHOJM'}
 2025-08-25 09:34:40,245 - INFO - Đã lưu báo cáo vnstocks_data/DBC_report.json
+2025-08-25 09:39:51,249 - INFO - Lọc cổ phiếu P/E thấp & vốn hoá cao...
+2025-08-25 09:39:59,210 - INFO - Đã lưu 65 mã vào market_filtered_pe.csv
+2025-08-25 09:40:04,172 - INFO - ============================================================
+2025-08-25 09:40:04,172 - INFO - PHÂN TÍCH MÃ DBC
+2025-08-25 09:40:04,172 - INFO - ============================================================
+2025-08-25 09:40:04,173 - INFO - Lấy dữ liệu DBC...
+2025-08-25 09:40:05,230 - INFO - Lấy BCTC DBC (quarter)...
+2025-08-25 09:40:11,032 - INFO - Lấy thông tin công ty DBC...
+2025-08-25 09:40:11,574 - INFO - Lấy dữ liệu VNINDEX...
+2025-08-25 09:40:12,226 - INFO - TÍN HIỆU CUỐI CHO DBC (25/08/2025)
+2025-08-25 09:40:12,226 - INFO - Giá hiện tại: 27.50 | Điểm: 20.5/100 | Tín hiệu: BÁN | Đề xuất: BÁN
+2025-08-25 09:40:12,282 - INFO - Đã ghi prompt vào /Users/tannguyen/Desktop/AI-STOCK/prompt.txt
+2025-08-25 09:40:12,282 - INFO - Gửi prompt tới Gemini...
+2025-08-25 09:41:31,611 - INFO - Gửi prompt tới OpenRouter...
+2025-08-25 09:41:35,082 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 09:41:35,083 - INFO - Retrying request to /chat/completions in 0.474619 seconds
+2025-08-25 09:41:38,019 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 09:41:38,020 - INFO - Retrying request to /chat/completions in 0.868000 seconds
+2025-08-25 09:41:41,306 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 09:41:41,309 - ERROR - OpenRouter error: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'deepseek/deepseek-chat-v3-0324:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations', 'provider_name': 'Chutes'}}, 'user_id': 'user_30FfMOpnOYBQ9YyYvXiEgeWHOJM'}
+2025-08-25 09:41:41,310 - INFO - Đã lưu báo cáo vnstocks_data/DBC_report.json

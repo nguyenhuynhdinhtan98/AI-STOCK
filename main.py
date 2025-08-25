@@ -739,7 +739,7 @@ def analyze_symbol(symbol: str) -> Optional[Dict[str, Any]]:
 
     try:
         if hist_path.exists():
-            hist_df = pd.read_csv(hist_path).tail(2000)
+            hist_df = pd.read_csv(hist_path).tail(1000)
             hist_text = hist_df.to_string(index=False, float_format="{:.2f}".format)
         if infor_path.exists():
             inf_df = pd.read_csv(infor_path)
