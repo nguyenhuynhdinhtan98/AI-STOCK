@@ -405,3 +405,299 @@ DBC là một cổ phiếu hội tụ nhiều yếu tố hấp dẫn: một doan
 2025-08-25 09:41:41,306 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
 2025-08-25 09:41:41,309 - ERROR - OpenRouter error: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'deepseek/deepseek-chat-v3-0324:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations', 'provider_name': 'Chutes'}}, 'user_id': 'user_30FfMOpnOYBQ9YyYvXiEgeWHOJM'}
 2025-08-25 09:41:41,310 - INFO - Đã lưu báo cáo vnstocks_data/DBC_report.json
+2025-08-25 10:06:38,746 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 10:06:48,547 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 10:07:34,965 - INFO - ============================================================
+2025-08-25 10:07:34,966 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DBC
+2025-08-25 10:07:34,967 - INFO - ============================================================
+2025-08-25 10:07:34,967 - INFO - Đang lấy dữ liệu cho mã DBC
+2025-08-25 10:07:35,606 - INFO - Đã lưu dữ liệu cho mã DBC vào file vnstocks_data/DBC_data.csv
+2025-08-25 10:07:35,606 - INFO - Đang lấy dữ liệu tài chính cho DBC
+2025-08-25 10:07:39,177 - INFO - Đã lưu dữ liệu tài chính của mã DBC vào file vnstocks_data/DBC_financial_statements.csv
+2025-08-25 10:07:39,177 - INFO - Đang lấy thông tin công ty cho DBC
+2025-08-25 10:07:39,355 - INFO - Đã lấy thông tin công ty DBC thành công
+2025-08-25 10:07:39,360 - INFO - Đang phân tích kỹ thuật cho mã DBC...
+2025-08-25 10:07:39,368 - INFO - Đang lấy dữ liệu VNINDEX
+2025-08-25 10:07:40,109 - INFO - Đã lưu dữ liệu VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 10:07:40,130 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DBC' trong file market_filtered.csv
+2025-08-25 10:07:40,131 - INFO - TÍN HIỆU GIAO DỊCH CUỐI CÙNG CHO DBC (25/08/2025):
+2025-08-25 10:07:40,131 - INFO -  - Giá hiện tại: 27.40 VND
+2025-08-25 10:07:40,131 - INFO -  - Đường trung bình:
+2025-08-25 10:07:40,131 - INFO -  * MA10: 29.33| MA20: 29.63| MA50: 29.24| MA200: 25.43
+2025-08-25 10:07:40,131 - INFO -  - Chỉ báo dao động:
+2025-08-25 10:07:40,131 - INFO -  * RSI (14): 34.99
+2025-08-25 10:07:40,131 - INFO -  * MACD: -0.36| Signal: 0.09| Histogram: -0.45
+2025-08-25 10:07:40,131 - INFO -  * Bollinger Bands: Trên: 32.00| Dưới: 27.26
+2025-08-25 10:07:40,131 - INFO -  - Sức mạnh tương đối (RS):
+2025-08-25 10:07:40,131 - INFO -  * RS: 0.01662712162678787
+2025-08-25 10:07:40,131 - INFO -  * RS_Point: 1320.53
+2025-08-25 10:07:40,132 - INFO -  * RS3D: 28.0
+2025-08-25 10:07:40,132 - INFO -  * RS1M: 22.0
+2025-08-25 10:07:40,132 - INFO -  * RS3M: 57.0
+2025-08-25 10:07:40,132 - INFO -  * RS1y: 53.0
+2025-08-25 10:07:40,132 - INFO -  - Mô hình Ichimoku:
+2025-08-25 10:07:40,132 - INFO -  * Tenkan-sen (Chuyển đổi): 29.62
+2025-08-25 10:07:40,132 - INFO -  * Kijun-sen (Cơ sở): 29.62
+2025-08-25 10:07:40,132 - INFO -  * Senkou Span A (Leading Span A): 29.62
+2025-08-25 10:07:40,132 - INFO -  * Senkou Span B (Leading Span B): 28.96
+2025-08-25 10:07:40,132 - INFO -  * Chikou Span (Trễ): 29.31
+2025-08-25 10:07:40,132 - INFO -  - Khối lượng:
+2025-08-25 10:07:40,132 - INFO -  * Khối lượng hiện tại: 1187900.0
+2025-08-25 10:07:40,132 - INFO -  * MA Khối lượng (20): 11,719,500.70
+2025-08-25 10:07:40,132 - INFO -  * MA Khối lượng (50): 11,456,130.62
+2025-08-25 10:07:40,132 - INFO -  🎯 ĐỀ XUẤT CUỐI CÙNG: BÁN
+2025-08-25 10:07:40,132 - INFO -  📊 TỔNG ĐIỂM PHÂN TÍCH: 32.0/100
+2025-08-25 10:07:40,132 - INFO -  📈 TÍN HIỆU: BÁN
+2025-08-25 10:07:40,155 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DBC_data.csv'
+2025-08-25 10:07:40,164 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DBC_infor.csv'
+2025-08-25 10:07:40,179 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-25 10:07:40,202 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 10:07:40,202 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 10:07:40,202 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 10:09:12,501 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_DBC.txt
+2025-08-25 10:09:12,501 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-25 10:09:12,503 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-25 10:09:15,580 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 10:09:15,581 - INFO - Retrying request to /chat/completions in 0.468164 seconds
+2025-08-25 10:09:18,702 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 10:09:18,704 - INFO - Retrying request to /chat/completions in 0.991287 seconds
+2025-08-25 10:09:22,461 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 10:09:22,464 - ERROR - Lỗi khi phân tích bằng OpenRouter cho DBC: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'deepseek/deepseek-chat-v3-0324:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations', 'provider_name': 'Chutes'}}, 'user_id': 'user_30FfMOpnOYBQ9YyYvXiEgeWHOJM'}
+2025-08-25 10:09:22,464 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DBC ====================
+2025-08-25 10:09:22,464 - INFO - 💰 Giá hiện tại: 27.40 VND
+2025-08-25 10:09:22,464 - INFO - 📈 Tín hiệu: BÁN
+2025-08-25 10:09:22,464 - INFO - 🎯 Đề xuất: BÁN
+2025-08-25 10:09:22,464 - INFO - 📊 Điểm phân tích: 32.00/100
+2025-08-25 10:09:22,464 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-25 10:09:22,465 - INFO - Chào quý nhà đầu tư,
+
+Với vai trò là một chuyên gia phân tích đầu tư, tôi đã tiến hành đánh giá toàn diện mã cổ phiếu DBC của Tập đoàn Dabaco Việt Nam. Báo cáo này kết hợp các phương pháp phân tích kỹ thuật hiện đại (Wyckoff, VSA/VPA, Minervini) và các nguyên tắc đầu tư giá trị, tăng trưởng kinh điển (Buffett, Lynch) để đưa ra một bức tranh tổng thể và khuyến nghị xác đáng nhất.
+
+**Giá hiện tại:** 27.400 VND
+
+---
+
+### **1. Phân tích kỹ thuật (Wyckoff, VSA & VPA)**
+
+**Giai đoạn thị trường (Wyckoff):**
+Dựa trên biểu đồ giá dài hạn, DBC đã trải qua các chu kỳ Wyckoff khá điển hình:
+- **Tăng trưởng (Markup - Giai đoạn E):** Từ cuối năm 2023 đến tháng 7/2024, DBC đã hình thành một xu hướng tăng rõ ràng, tạo ra các đỉnh cao hơn và đáy cao hơn, giá vượt lên trên các đường MA quan trọng.
+- **Phân phối/Tái tích lũy (Phase A-C):** Giai đoạn từ tháng 7/2024 đến nay, giá cổ phiếu đã có sự chững lại và điều chỉnh sau một đợt tăng mạnh. Đỉnh cao nhất được thiết lập quanh vùng 32.000 VND. Cú giảm mạnh gần đây từ đỉnh về vùng giá hiện tại (27.400 VND) có thể được xem là một sự kiện **Shakeout (Rũ bỏ)** trong một pha **Tái tích lũy lớn (Phase C)** hoặc là một **Dấu hiệu Suy yếu (Sign of Weakness - SOW)** bắt đầu cho một pha Phân phối.
+
+**Kết luận giai đoạn:** Hiện tại, DBC đang ở trong một **vùng giao dịch (Trading Range)** sau một xu hướng tăng. Các bằng chứng về khối lượng nghiêng về kịch bản **Tái tích lũy** hơn là Phân phối. Cú giảm giá gần đây mang tính chất rũ bỏ các nhà đầu tư yếu tay.
+
+**Phân tích Giá & Khối lượng (VSA/VPA):**
+- **Quan sát chính:** Đợt giảm giá từ đỉnh 32.000 VND về 27.400 VND diễn ra với **khối lượng giao dịch liên tục sụt giảm và thấp hơn đáng kể so với mức trung bình 20 ngày** (Khối lượng hiện tại chỉ bằng 0.10 lần trung bình).
+- **Diễn giải:**
+    - Theo VSA/VPA, một đợt giảm giá với khối lượng thấp ("No Supply" hoặc "Selling Exhaustion") cho thấy áp lực bán không mạnh và thiếu sự tham gia của "dòng tiền thông minh". Điều này hàm ý rằng đợt điều chỉnh này mang tính kỹ thuật, rũ bỏ chứ không phải là một đợt tháo chạy hoảng loạn.
+    - Những phiên tăng giá trước đó (ví dụ giai đoạn tháng 5-6/2024) thường đi kèm khối lượng lớn, xác nhận cho đà tăng. Ngược lại, những phiên giảm gần đây có khối lượng yếu, cho thấy đà giảm không được xác nhận.
+- **Dấu hiệu:** Có dấu hiệu của việc cạn kiệt nguồn cung ở vùng giá thấp. Tuy nhiên, chưa có tín hiệu "Cầu vào" (Demand coming in) rõ ràng với một phiên tăng giá mạnh kèm khối lượng đột biến.
+
+---
+
+### **2. Phân tích theo phương pháp Mark Minervini**
+
+- **Xu hướng:**
+    - **Dài hạn:** **TĂNG**. Giá hiện tại (27.4) vẫn cao hơn đường MA200 (25.43), một tiêu chí quan trọng của Minervini cho thấy xu hướng dài hạn vẫn được bảo toàn.
+    - **Ngắn & Trung hạn:** **GIẢM/ĐIỀU CHỈNH**. Giá nằm dưới các đường MA10 (29.33), MA20 (29.63), và MA50 (29.24). Các đường MA ngắn hạn đang có xu hướng dốc xuống.
+- **Cấu trúc thị trường:** Cấu trúc tăng giá (đỉnh sau cao hơn đỉnh trước, đáy sau cao hơn đáy trước) đã bị phá vỡ trong ngắn hạn khi giá tạo đỉnh thấp hơn và đang tìm đáy mới. Đây là một cấu trúc điều chỉnh điển hình.
+- **Pivot & Hỗ trợ/Kháng cự:**
+    - **Kháng cự mạnh:** Vùng đỉnh cũ **31.5 - 32.5**.
+    - **Hỗ trợ quan trọng:** Đường MA200 tại **25.43** và vùng đáy cũ gần nhất quanh **25.0 - 25.5**. Đây là vùng "phòng thủ cuối cùng" cho xu hướng tăng dài hạn.
+- **Sức mạnh tương đối (RS):** Rất yếu. Các chỉ số RS 3 ngày (28), 1 tháng (22), 3 tháng (57) đều dưới mức 80-90 mà Minervini yêu cầu. Điều này cho thấy DBC đang yếu hơn so với thị trường chung trong ngắn và trung hạn.
+
+**Kết luận theo Minervini:** DBC không đáp ứng các tiêu chí cho một điểm mua tối ưu ở thời điểm hiện tại do xu hướng ngắn hạn xấu và sức mạnh tương đối yếu. Cổ phiếu đang trong giai đoạn điều chỉnh (Stage 3 hoặc Stage 4 ngắn hạn) bên trong một xu hướng tăng dài hạn (Stage 2 dài hạn).
+
+---
+
+### **3. Phân tích cơ bản (Buffett, Lynch, dữ liệu TCBS)**
+
+- **Chất lượng Doanh thu & Lợi nhuận (Câu chuyện Turnaround của Lynch):**
+    - **Câu chuyện chính:** DBC là một ca **"Turnaround" (Phục hồi) kinh điển**. Sau giai đoạn khó khăn năm 2023 (LNST Q1/2023 âm 320 tỷ), công ty đã có sự lột xác ngoạn mục.
+    - **Dẫn chứng:**
+        - **LNST Q1/2024:** Đạt 72,6 tỷ đồng.
+        - **LNST Q2/2024:** Tăng vọt lên **145,4 tỷ đồng**, tăng **219%** so với cùng kỳ 2023.
+        - **Biên lợi nhuận gộp:** Cải thiện mạnh từ mức âm trong Q1/2023 lên **13.5%** trong Q2/2024.
+    - **Nguyên nhân:** Sự phục hồi mạnh mẽ của giá lợn hơi, kiểm soát tốt chi phí thức ăn chăn nuôi và dịch bệnh (nhờ vaccine). Đây là yếu tố cốt lõi thúc đẩy lợi nhuận.
+- **Hiệu quả Sử dụng Vốn:**
+    - **ROE (Lợi nhuận trên vốn chủ sở hữu):** Đạt **25.1%** (theo TCBS), một con số rất ấn tượng, cho thấy khả năng sinh lời cao trên vốn của cổ đông. Mức ROE này đã cải thiện vượt bậc so với giai đoạn thua lỗ trước đó.
+- **Tình hình Tài chính (Góc nhìn của Buffett):**
+    - **Cơ cấu nợ:** Đây là điểm cần lưu ý. Tỷ lệ **Nợ vay/Vốn chủ sở hữu** (tính toán từ BCTC Q2/2024 là (917 + 5748) / 4885 = **1.36 lần**) ở mức tương đối cao. Điều này làm tăng rủi ro tài chính, đặc biệt khi ngành kinh doanh mang tính chu kỳ.
+    - **Khả năng thanh khoản:** Chỉ số thanh toán hiện hành (Current Ratio) Q2/2024 là **0.92**, dưới mức an toàn (thường là > 1). Tuy nhiên, dòng tiền từ hoạt động kinh doanh đã dương trở lại mạnh mẽ trong 2 quý gần nhất, giúp cải thiện khả năng trả nợ.
+- **Ban lãnh đạo & Nội bộ:**
+    - **Sở hữu lớn:** Chủ tịch HĐQT, ông Nguyễn Như So, nắm giữ tới **23.89%** cổ phần. Đây là một dấu hiệu tích cực ("skin in the game"), cho thấy lợi ích của ban lãnh đạo gắn liền với lợi ích của cổ đông.
+    - **Giao dịch nội bộ:** Gần đây có giao dịch đăng ký bán của TV HĐQT Lê Quốc Đoàn, tuy nhiên số lượng không quá lớn và có thể vì mục đích cá nhân.
+- **Chia cổ tức:** Công ty có lịch sử trả cổ tức đều đặn bằng cả tiền mặt và cổ phiếu, thể hiện chính sách quan tâm đến cổ đông. Gần đây nhất là kế hoạch phát hành cổ phiếu trả cổ tức và chào bán cho cổ đông hiện hữu để huy động vốn, phục vụ cho việc mở rộng quy mô.
+- **Tin tức & Sự kiện:**
+    - **Tích cực:** Tin tức về việc mua lại công ty con chăn nuôi heo ở Thanh Hóa, mở rộng quy mô đàn. Triển vọng từ vaccine dịch tả lợn Châu Phi. Kết quả kinh doanh Q2/2024 vượt trội.
+    - **Tiêu cực/Rủi ro:** Rủi ro về giá heo hơi biến động, dịch bệnh có thể quay trở lại.
+
+---
+
+### **4. Định giá & So sánh ngành**
+
+- **Chỉ số Định giá:**
+    - **P/E:** **6.8** (theo TCBS, dựa trên EPS trượt 4 quý). Đây là mức P/E **rất thấp** so với một doanh nghiệp đang có tốc độ tăng trưởng lợi nhuận hàng trăm phần trăm. Thị trường dường như đang định giá DBC như một công ty hết chu kỳ, trong khi thực tế chu kỳ tăng giá heo hơi có thể vẫn còn tiếp diễn.
+    - **P/B:** **1.4**, hợp lý so với mức ROE >25%.
+    - **EV/EBITDA:** **6.0**, hấp dẫn.
+- **So sánh Ngành:** Trong ngành "Thực phẩm và đồ uống", mức P/E 6.8 của DBC thấp hơn đáng kể so với nhiều doanh nghiệp khác có tốc độ tăng trưởng thấp hơn. Ví dụ, HAG (ngành nông nghiệp) dù lợi nhuận không ổn định bằng vẫn có lúc được định giá cao hơn. So với các công ty cùng ngành trên thế giới, mức định giá này cũng rất cạnh tranh.
+
+**Kết luận định giá:** Dựa trên các chỉ số P/E, P/B và EV/EBITDA, cổ phiếu DBC đang được **định giá rẻ** so với tiềm năng tăng trưởng lợi nhuận trong ngắn và trung hạn.
+
+---
+
+### **5. Nhận định vị thế mua ngắn hạn**
+
+- **Khả năng bật tăng ngắn hạn:** **CAO**. Cổ phiếu đang ở vùng quá bán kỹ thuật (RSI 34.99, giá gần dải Bollinger dưới) và đợt giảm giá có khối lượng thấp. Một cú bật kỹ thuật (technical bounce) là hoàn toàn có thể xảy ra.
+- **Tín hiệu mua/bán gần đây:**
+    - **Tín hiệu BÁN:** Giá phá vỡ các đường MA ngắn hạn, MACD cắt xuống đường tín hiệu.
+    - **Tín hiệu MUA tiềm năng (chưa xuất hiện):** Chờ đợi một nến đảo chiều tăng (Hammer, Bullish Engulfing) tại vùng hỗ trợ kèm khối lượng gia tăng, hoặc khi giá vượt trở lại đường MA20.
+- **Tâm lý thị trường ngắn hạn:** Bi quan và thận trọng sau đợt điều chỉnh mạnh. Tuy nhiên, đây thường là môi trường tốt để dòng tiền lớn bắt đầu tích lũy.
+
+---
+
+### **6. Chiến lược giao dịch & Quản lý rủi ro**
+
+- **Điểm vào (Entry Points):**
+    - **Điểm vào 1 (Bắt đáy thăm dò):** Vùng giá **26.5 - 27.5**. Mua với tỷ trọng thấp (20-30%) để thăm dò.
+    - **Điểm vào 2 (Xác nhận xu hướng):** Khi giá vượt lên trên đường MA20 (quanh 29.6) với khối lượng lớn. Mua gia tăng tỷ trọng.
+- **Dừng lỗ (Stop-loss):** Đặt mức dừng lỗ tuyệt đối nếu giá đóng cửa dưới MA200, cụ thể là dưới **25.0**. Mức lỗ khoảng 8-10% từ điểm vào 1.
+- **Chốt lời (Take-profit):**
+    - **TP1 (Ngắn hạn):** Vùng **31.5 - 32.5** (đỉnh cũ).
+    - **TP2 (Trung hạn):** **35.0 - 38.0** nếu kết quả kinh doanh Q3 tiếp tục khả quan.
+- **Risk/Reward (R/R):**
+    - Nếu vào lệnh ở 27.0, dừng lỗ ở 25.0 (rủi ro 2.0 giá), chốt lời ở 32.0 (lợi nhuận 5.0 giá).
+    - Tỷ lệ **R/R = 5.0 / 2.0 = 2.5:1**. Đây là một tỷ lệ hấp dẫn.
+
+---
+
+### **7. Dự báo xu hướng**
+
+- **Ngắn hạn (1-2 tuần):** Sideways-up. Cổ phiếu có khả năng tạo đáy trong vùng 26.5-27.5 và hồi phục kỹ thuật lên vùng 29.0-29.5.
+- **Trung hạn (1-3 tháng):** **TĂNG**. Với triển vọng lợi nhuận Q3/2024 tiếp tục tích cực nhờ giá heo duy trì ở mức cao, giá cổ phiếu có khả năng sẽ quay lại kiểm tra và vượt đỉnh cũ 32.5.
+- **Dài hạn (3-12 tháng):** **TĂNG**. Chu kỳ ngành và các dự án mở rộng quy mô, đặc biệt là việc tự chủ vaccine, sẽ là động lực tăng trưởng dài hạn. Tuy nhiên, nhà đầu tư cần theo dõi chặt chẽ diễn biến giá heo hơi.
+
+---
+
+### **8. Kết luận & Khuyến nghị cuối cùng**
+
+**Khuyến nghị: MUA**
+
+- **Lý do chính:**
+    1.  **Cơ bản xuất sắc (Turnaround):** Doanh nghiệp đã thoát lỗ và ghi nhận lợi nhuận tăng trưởng đột phá trong 2 quý đầu năm 2024.
+    2.  **Định giá hấp dẫn:** P/E trượt chỉ ở mức 6.8, rất rẻ so với tốc độ tăng trưởng lợi nhuận hiện tại.
+    3.  **Phân tích Kỹ thuật (VSA):** Đợt điều chỉnh gần đây diễn ra với khối lượng rất thấp, cho thấy đây là một đợt rũ bỏ lành mạnh, không phải là tín hiệu phân phối đỉnh.
+    4.  **Rủi ro/Lợi nhuận (R/R) thuận lợi:** Vùng hỗ trợ mạnh (MA200) ở gần, trong khi tiềm năng tăng giá trở lại đỉnh cũ là đáng kể, tạo ra tỷ lệ R/R hấp dẫn.
+
+**Điểm số đánh giá (thang điểm 10): 7.5 / 10**
+(Điểm cao cho cơ bản và định giá, điểm trung bình cho kỹ thuật ngắn hạn và sức khỏe tài chính).
+
+**Tóm tắt ngắn gọn:**
+DBC đang ở trong giai đoạn "thời tiết xấu nhưng ngôi nhà tốt". Nền tảng cơ bản với câu chuyện phục hồi lợi nhuận là cực kỳ vững chắc và định giá đang rất rẻ. Tín hiệu kỹ thuật tiêu cực trong ngắn hạn thực chất là một cơ hội mua vào ở giá chiết khấu, khi áp lực bán đã cạn kiệt.
+
+**Rủi ro chính cần lưu ý:**
+1.  **Rủi ro chu kỳ ngành:** Giá heo hơi có thể giảm trở lại, ảnh hưởng trực tiếp đến biên lợi nhuận.
+2.  **Rủi ro dịch bệnh:** Dịch tả lợn Châu Phi (ASF) vẫn là một nguy cơ tiềm ẩn.
+3.  **Rủi ro tài chính:** Tỷ lệ nợ vay cao có thể tạo áp lực trả lãi lớn nếu kết quả kinh doanh không như kỳ vọng.
+4.  **Rủi ro pha loãng:** Việc phát hành thêm cổ phiếu để huy động vốn có thể gây áp lực pha loãng trong ngắn hạn.
+2025-08-25 10:09:22,466 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-25 10:09:22,466 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-25 10:09:22,466 - INFO - ============================================================
+
+2025-08-25 10:09:22,467 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DBC_report.json'
+2025-08-25 10:09:56,482 - INFO - 🔍 Đang lọc cổ phiếu theo tiêu chí PE & vốn hoá...
+2025-08-25 10:09:56,483 - INFO - Lọc cổ phiếu: P/E<20 & vốn hoá >= 500
+2025-08-25 10:10:04,800 - INFO - Đã lưu list lọc: 65 hàng
+2025-08-25 10:10:04,800 - INFO - Không có mã truyền vào. Ví dụ chạy: python vnstock_refactored.py VCB FPT
+2025-08-25 10:10:34,852 - INFO - 🔍 Đang lọc cổ phiếu theo tiêu chí PE & vốn hoá...
+2025-08-25 10:10:34,853 - INFO - Lọc cổ phiếu: P/E<20 & vốn hoá >= 500
+2025-08-25 10:10:42,727 - INFO - Đã lưu list lọc: 65 hàng
+2025-08-25 10:10:42,727 - INFO - Không có mã truyền vào. Ví dụ chạy: python vnstock_refactored.py VCB FPT
+2025-08-25 10:10:47,010 - INFO - 🔍 Đang lọc cổ phiếu theo tiêu chí PE & vốn hoá...
+2025-08-25 10:10:47,010 - INFO - Lọc cổ phiếu: P/E<20 & vốn hoá >= 500
+2025-08-25 10:10:54,382 - INFO - Đã lưu list lọc: 65 hàng
+2025-08-25 10:10:54,383 - INFO - ============================================================
+2025-08-25 10:10:54,383 - INFO - PHÂN TÍCH MÃ DBC
+2025-08-25 10:10:54,383 - INFO - ============================================================
+2025-08-25 10:10:54,383 - INFO - Lấy dữ liệu DBC
+2025-08-25 10:10:54,699 - INFO - Lấy BCTC DBC (quarter)
+2025-08-25 10:10:57,397 - INFO - Lấy thông tin công ty DBC
+2025-08-25 10:10:57,607 - INFO - Lấy dữ liệu VNINDEX
+2025-08-25 10:12:29,806 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 10:12:29,816 - INFO - Retrying request to /chat/completions in 0.429215 seconds
+2025-08-25 10:12:32,907 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 10:12:32,908 - INFO - Retrying request to /chat/completions in 0.890631 seconds
+2025-08-25 10:12:36,017 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 10:12:36,019 - ERROR - OpenRouter error: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'deepseek/deepseek-chat-v3-0324:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations', 'provider_name': 'Chutes'}}, 'user_id': 'user_30FfMOpnOYBQ9YyYvXiEgeWHOJM'}
+2025-08-25 10:12:36,020 - INFO - Giá: 27.4 | Tín hiệu: BÁN | Điểm: 32.0
+2025-08-25 10:12:36,021 - INFO - Đã lưu báo cáo: vnstocks_data/DBC_report.json
+2025-08-25 10:12:36,021 - INFO - ✅ Hoàn tất. Báo cáo trong thư mục vnstocks_data
+2025-08-25 10:14:12,681 - INFO - 🔍 Đang lọc cổ phiếu theo tiêu chí PE & vốn hoá...
+2025-08-25 10:14:12,681 - INFO - Lọc cổ phiếu: P/E<20 & vốn hoá >= 500
+2025-08-25 10:14:22,356 - INFO - Đã lưu list lọc: 65 hàng
+2025-08-25 10:14:22,357 - INFO - ============================================================
+2025-08-25 10:14:22,357 - INFO - PHÂN TÍCH MÃ DBC
+2025-08-25 10:14:22,357 - INFO - ============================================================
+2025-08-25 10:14:22,357 - INFO - Lấy dữ liệu DBC
+2025-08-25 10:14:23,156 - INFO - Lấy BCTC DBC (quarter)
+2025-08-25 10:14:28,244 - INFO - Lấy thông tin công ty DBC
+2025-08-25 10:14:28,857 - INFO - Lấy dữ liệu VNINDEX
+2025-08-25 10:15:50,013 - INFO - 🔍 Đang lọc cổ phiếu theo tiêu chí PE & vốn hoá...
+2025-08-25 10:15:50,013 - INFO - Lọc cổ phiếu: P/E<20 & vốn hoá >= 500
+2025-08-25 10:15:54,147 - INFO - Đã lưu list lọc: 65 hàng
+2025-08-25 10:15:54,147 - INFO - ============================================================
+2025-08-25 10:15:54,147 - INFO - PHÂN TÍCH MÃ DBC
+2025-08-25 10:15:54,147 - INFO - ============================================================
+2025-08-25 10:15:54,147 - INFO - Lấy dữ liệu DBC
+2025-08-25 10:15:54,796 - INFO - Lấy BCTC DBC (quarter)
+2025-08-25 10:16:01,190 - INFO - Lấy thông tin công ty DBC
+2025-08-25 10:16:01,879 - INFO - Lấy dữ liệu VNINDEX
+2025-08-25 10:16:04,388 - ERROR - Gemini error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. [violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.5-pro"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+  quota_value: 125000
+}
+, links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, retry_delay {
+  seconds: 55
+}
+]
+2025-08-25 10:16:07,670 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 10:16:07,673 - INFO - Retrying request to /chat/completions in 0.447364 seconds
+2025-08-25 10:16:09,668 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 10:16:09,671 - INFO - Retrying request to /chat/completions in 0.910768 seconds
+2025-08-25 10:16:12,602 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 10:16:12,603 - ERROR - OpenRouter error: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'deepseek/deepseek-chat-v3-0324:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations', 'provider_name': 'Chutes'}}, 'user_id': 'user_30FfMOpnOYBQ9YyYvXiEgeWHOJM'}
+2025-08-25 10:16:12,603 - INFO - Giá: 27.3 | Tín hiệu: BÁN | Điểm: 32.0
+2025-08-25 10:16:12,604 - INFO - Đã lưu báo cáo: vnstocks_data/DBC_report.json
+2025-08-25 10:16:12,605 - INFO - ✅ Hoàn tất. Báo cáo trong thư mục vnstocks_data
+2025-08-25 10:16:19,855 - INFO - 🔍 Đang lọc cổ phiếu theo tiêu chí PE & vốn hoá...
+2025-08-25 10:16:19,855 - INFO - Lọc cổ phiếu: P/E<20 & vốn hoá >= 500
+2025-08-25 10:16:23,497 - INFO - Đã lưu list lọc: 65 hàng
+2025-08-25 10:16:23,497 - INFO - ============================================================
+2025-08-25 10:16:23,497 - INFO - PHÂN TÍCH MÃ DBC
+2025-08-25 10:16:23,497 - INFO - ============================================================
+2025-08-25 10:16:23,497 - INFO - Lấy dữ liệu DBC
+2025-08-25 10:16:25,020 - INFO - Lấy BCTC DBC (quarter)
+2025-08-25 10:16:34,141 - INFO - Lấy thông tin công ty DBC
+2025-08-25 10:16:34,676 - INFO - Lấy dữ liệu VNINDEX
+2025-08-25 10:17:27,711 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-25 10:17:27,712 - INFO - Retrying request to /chat/completions in 0.379142 seconds
+2025-08-25 10:17:32,533 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-25 10:17:32,947 - INFO - Giá: 27.35 | Tín hiệu: BÁN | Điểm: 32.0
+2025-08-25 10:17:32,948 - INFO - Đã lưu báo cáo: vnstocks_data/DBC_report.json
+2025-08-25 10:17:32,948 - INFO - ✅ Hoàn tất. Báo cáo trong thư mục vnstocks_data
