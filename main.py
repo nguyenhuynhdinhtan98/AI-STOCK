@@ -747,11 +747,6 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 - Khối lượng hiện tại: {format_value(volume_data.get("current", "N/A"))}
 - Khối lượng trung bình 20 ngày: {format_value(volume_data.get("ma20", "N/A"))}
 - Tỷ lệ khối lượng: {format_value(volume_data.get("current", 0) / volume_data.get("ma20", 1) if volume_data.get("ma20", 0) != 0 else "N/A")} {"(Cao hơn trung bình - Khối lượng tăng mạnh)" if isinstance(volume_data.get("current", None), (int, float)) and isinstance(volume_data.get("ma20", None), (int, float)) and volume_data["current"] > volume_data["ma20"] * 1.5 else "(Thấp hơn trung bình - Khối lượng yếu)"}
-6. SỨC MẠNH TƯƠNG ĐỐI (RS) TỪ DỮ LIỆU THỊ TRƯỜNG:
-- RS 3 ngày: {format_value(rs_value_3d)}
-- RS 1 tháng: {format_value(rs_value_1m)}
-- RS 3 tháng: {format_value(rs_value_3m)}
-- RS 1 năm: {format_value(rs_value_1y)}
 THÔNG TIN DỮ LIỆU LỊCH SỬ:
 {historical_data}
 THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG CÓ PE DƯỚI 20 VÀ TĂNG TRƯỞNG:
