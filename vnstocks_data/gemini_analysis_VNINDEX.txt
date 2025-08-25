@@ -1,182 +1,82 @@
-﻿Chào bạn, với 20 năm kinh nghiệm phân tích thị trường chứng khoán chuyên sâu bằng các phương pháp VSA/VPA, Wyckoff, CANSLIM và Minervini, tôi xin đưa ra phân tích toàn diện về VNINDEX cùng chiến lược và danh sách cổ phiếu tiềm năng dựa trên dữ liệu bạn cung cấp.
+﻿Chào bạn,
+
+Dưới đây là phân tích VNINDEX dựa trên các phương pháp VSA/VPA, Wyckoff, Minervini, CANSLIM, cùng với đề xuất chiến lược và danh sách cổ phiếu tiềm năng.
 
 ---
 
-### **PHÂN TÍCH VNINDEX TOÀN DIỆN (THEO GÓC NHÌN VSA/WYCKOFF)**
+## 1) VSA/VPA chi tiết
+- **2025-08-19 (1654.20)**: Giá tăng nhẹ, Volume 1.93B (cao hơn MA50, dưới MA20). Cho thấy lực cầu duy trì nhưng chưa áp đảo.
+- **2025-08-20 (1664.36)**: Giá tăng mạnh, Volume 2.41B (cao hơn MA20, MA50). Cầu mạnh mẽ, có thể là đỉnh điểm mua (Buying Climax) nếu lực bán xuất hiện sau đó.
+- **2025-08-21 (1688.00)**: Giá tiếp tục tăng, Volume 1.72B (cao hơn MA50, dưới MA20). Tiếp diễn đà tăng nhưng volume đã chững lại.
+- **2025-08-22 (1645.47)**: Giá giảm mạnh (-2.52%), Volume 2.29B (rất cao so với MA20, MA50). Đây là tín hiệu Upthrust Action hoặc Selling Climax rõ ràng, cho thấy áp lực cung cực lớn xuất hiện sau chuỗi tăng giá.
+- **2025-08-25 (1624.33)**: Giá tiếp tục giảm (-1.27%), Volume 1.23B (dưới MA20, MA50). Thanh khoản giảm khi giá giảm cho thấy áp lực bán đã bớt đi, nhưng cũng có thể là do thiếu lực cầu đỡ giá.
+- **Hiện tại (1620.00)**: Giá tiếp tục giảm nhẹ sau phiên 25/08, xác nhận xu hướng giảm trong ngắn hạn sau các tín hiệu cung mạnh.
 
-**Điểm hiện tại:** VNINDEX đang ở mức 1.62K.
+## 2) Wyckoff
+- **Giai đoạn thị trường**: Thị trường có dấu hiệu chuyển từ giai đoạn Đánh dấu (Markup) ngắn hạn sang giai đoạn **Phân phối (Distribution)** sớm.
+- **Dấu hiệu breakout/breakdown**:
+    - **Breakout**: Các phiên tăng giá mạnh trước 22/08 thể hiện nỗ lực đẩy giá lên cao.
+    - **Upthrust Action**: Phiên 22/08 với mức giảm sâu và volume rất lớn sau chuỗi tăng là một Upthrust rõ ràng, báo hiệu lực bán chuyên nghiệp đang chiếm ưu thế và khả năng đảo chiều.
+- **Thời gian tích lũy**: N/A (không có đủ dữ liệu lịch sử chi tiết cho vùng giá gần nhất để xác định rõ giai đoạn tích lũy).
 
-**1. Phân tích Xung Lượng (Momentum Analysis):**
-*   **RSI (14): 61.16** – Chỉ số RSI nằm trên mức 50, cho thấy VNINDEX vẫn đang nằm trong xu hướng tăng giá (bullish momentum). Tuy nhiên, nó chưa đi vào vùng quá mua (>70), cho thấy vẫn còn dư địa tăng trưởng mà không quá nóng.
-*   **MACD: 47.88 | Signal: 49.09 | Histogram: -1.21** – Đường MACD hiện đang cắt xuống dưới đường Signal, và MACD Histogram đã chuyển sang âm. Điều này cho thấy động lượng tăng giá trong ngắn hạn đang suy yếu hoặc đã có tín hiệu phân kỳ âm nhẹ, cảnh báo một nhịp điều chỉnh hoặc đi ngang.
+## 3) Minervini
+- **Xu hướng dài/ngắn hạn**:
+    - **Dài hạn**: Giá (1620.00) nằm trên MA200 (1330.00), cho thấy xu hướng tăng dài hạn vững chắc.
+    - **Ngắn hạn**: Giá (1620.00) đang nằm dưới MA10 (1640.00) nhưng trên MA20 (1590.00) và MA50 (1490.00), thể hiện xu hướng **hỗn hợp/sideways** và sự thiếu động lực rõ ràng.
+- **Sắp xếp MA**: MA200 (1330.00) < MA50 (1490.00) < MA20 (1590.00) < MA10 (1640.00). Đây là trật tự MA của một xu hướng tăng giá hoàn hảo trên khung thời gian dài hơn. Tuy nhiên, việc giá rơi dưới MA10 và gần MA20 cho thấy sự suy yếu ngắn hạn.
+- **Mức hỗ trợ/kháng cự quan trọng**:
+    - **Hỗ trợ gần nhất**: MA20 (1590.00), sau đó là MA50 (1490.00) và dải Bollinger Dưới (1470.00).
+    - **Kháng cự gần nhất**: MA10 (1640.00), sau đó là đỉnh gần nhất (1688.00) và dải Bollinger Trên (1710.00).
 
-**2. Phân tích Đường Trung Bình (Moving Averages - MA):**
-*   **MA10: 1.64K | MA20: 1.59K | MA50: 1.49K | MA200: 1.33K**
-*   **Vị trí giá so với MA:**
-    *   Giá hiện tại (1.62K) đang nằm dưới MA10 (1.64K): Cho thấy áp lực điều chỉnh ngắn hạn.
-    *   Tuy nhiên, giá vẫn nằm trên MA20 (1.59K), MA50 (1.49K) và MA200 (1.33K): Đây là một tín hiệu cực kỳ quan trọng và tích cực về xu hướng trung và dài hạn. Việc các đường MA ngắn hạn nằm trên các đường MA dài hạn (MA10 > MA20 > MA50 > MA200) cho thấy một xu hướng tăng giá mạnh mẽ và bền vững (strong bullish alignment).
-*   **Kết luận MA:** Mặc dù có rung lắc và điều chỉnh nhẹ trong ngắn hạn (dưới MA10), cấu trúc xu hướng của VNINDEX vẫn hoàn toàn là tăng trưởng trong trung và dài hạn.
+## 4) CANSLIM (M) – Định hướng thị trường
+- **Đánh giá môi trường**: **Trung tính**
+    - Mặc dù xu hướng dài hạn vẫn là tích cực, nhưng động lực tăng giá ngắn hạn đã suy yếu rõ rệt sau các tín hiệu phân phối và giảm điểm với volume cao.
+    - MACD histogram âm (-1.20) và RSI (61.18) giảm từ vùng cao, cho thấy động lượng suy giảm.
+    - Vị trí giá hỗn hợp so với các MA ngắn hạn củng cố nhận định thị trường đang trong giai đoạn không rõ ràng.
+- **Điều kiện tham gia (On/Off)**: **OFF**
+    - Cần thận trọng cao độ. Thị trường đang trong giai đoạn điều chỉnh hoặc sideway, rủi ro cao hơn cơ hội.
 
-**3. Phân tích Dải Bollinger (Bollinger Bands):**
-*   **Trên: 1.71K | Dưới: 1.47K**
-*   Giá hiện tại (1.62K) đang nằm ở nửa trên của dải Bollinger, cho thấy thị trường vẫn đang duy trì sức mạnh tương đối. Nó chưa chạm biên trên (quá mua) hay biên dưới (quá bán), cho thấy thị trường đang trong giai đoạn tích lũy hoặc điều chỉnh lành mạnh. Dải Bollinger cũng cho thấy biên độ dao động khá rộng, phản ánh sự biến động đang được kiểm soát.
+## 5) Kịch bản 1–2 tuần (xác suất)
+- **Cơ bản (50%)**: VNINDEX tiếp tục **Sideways tích lũy hoặc điều chỉnh nhẹ** trong vùng **1580 – 1650**.
+    - Giá sẽ dao động quanh MA20, chờ đợi cân bằng cung cầu và xác nhận xu hướng tiếp theo.
+- **Tốt nhất (30%)**: VNINDEX **Hồi phục và vượt MA10** (1640.00), hướng tới vùng đỉnh cũ **1680 – 1700**.
+    - Kịch bản này yêu cầu lực cầu mạnh mẽ trở lại và volume cải thiện trên mức trung bình.
+- **Xấu nhất (20%)**: VNINDEX **Thủng MA20 (1590.00)** với volume lớn, có thể lùi về vùng hỗ trợ MA50 (**1490.00**).
+    - Áp lực bán tiếp diễn, phá vỡ các ngưỡng hỗ trợ quan trọng, kích hoạt lệnh cắt lỗ.
 
-**4. Phân tích Ichimoku Cloud:**
-*   **Tenkan: 1.64K | Kijun: 1.59K | Chikou: 1.50K**
-*   Giá (1.62K) đang nằm giữa Tenkan (1.64K - đường trung bình 9 kỳ) và Kijun (1.59K - đường trung bình 26 kỳ). Điều này thường báo hiệu sự lưỡng lự hoặc tích lũy trong ngắn hạn. Tuy nhiên, Kijun vẫn đang hỗ trợ giá, và nếu Tenkan vẫn trên Kijun (như trường hợp này), thì xu hướng tăng vẫn được bảo lưu. Chikou Span (1.50K) nằm dưới giá hiện tại (1.62K), cho thấy giá đã tăng so với 26 kỳ trước, xác nhận xu hướng tăng.
+## 6) Chiến lược thực thi
+- **Vị thế đề xuất**: **CHỜ**
+    - Ưu tiên quan sát và giữ tỷ trọng tiền mặt cao. Không vội vàng giải ngân trong giai đoạn này.
+    - Chờ đợi các tín hiệu rõ ràng hơn về sự hấp thụ cung và hình thành nền giá mới.
+- **Quy tắc vào/thoát**:
+    - **Vào**: Chỉ xem xét giải ngân khi VNINDEX lấy lại và duy trì trên MA10 (1640.00) với volume thuyết phục và MACD histogram chuyển dương.
+    - **Thoát**: Giảm tỷ trọng/cắt lỗ nếu VNINDEX thủng MA20 (1590.00) với volume lớn.
+- **Lưu ý rủi ro**:
+    - Thị trường đang ở vùng giá cao, áp lực chốt lời và phân phối có thể tiếp diễn.
+    - Thanh khoản hiện tại thấp hơn trung bình (1.23B so với MA20 1.81B) cho thấy sự lưỡng lự của dòng tiền, khó có thể tạo ra sóng tăng mạnh.
 
-**5. Phân tích Khối lượng (Volume Analysis - VSA/VPA):**
-*   **Hiện tại: 1.20B | MA20: 1.81B | MA50: 1.37B**
-*   Khối lượng giao dịch hiện tại (1.20B) đang thấp hơn đáng kể so với trung bình 20 ngày (1.81B) và thấp hơn trung bình 50 ngày (1.37B).
-*   **VSA/Wyckoff Interpretation:** Đây là một tín hiệu cực kỳ quan trọng. Khi giá có nhịp điều chỉnh nhẹ (dưới MA10, MACD giảm) nhưng đi kèm với khối lượng thấp, nó thường cho thấy **thiếu áp lực bán mạnh (Lack of Selling Pressure / No Demand)**. Điều này củng cố kịch bản thị trường đang trong giai đoạn **tái tích lũy (Re-accumulation)** hoặc **rung lắc (Shakeout)** lành mạnh trong một xu hướng tăng tổng thể. Đây không phải là dấu hiệu của phân phối mạnh, mà là dấu hiệu của sự chuẩn bị cho một đợt tăng giá tiếp theo khi lực cầu quay trở lại với khối lượng lớn hơn.
+## 7) TOP 20 MÃ TIỀM NĂNG (từ danh sách P/E<20 & tăng trưởng)
+**Tiêu chí lọc**: P/E < 20, ROE > 15%, Tăng trưởng EPS 1 năm > 0, Tăng trưởng Doanh thu 1 năm > 0 (chấp nhận NaN cho tăng trưởng 5 năm nếu tăng trưởng 1 năm dương). Sắp xếp ưu tiên theo ROE, sau đó là Sức mạnh tương đối (RS 1Y), Xếp hạng cổ phiếu (Stock Rating) và Sức khỏe tài chính (Financial Health).
 
-**Tổng quan theo Wyckoff / VSA:**
-VNINDEX hiện tại đang ở giai đoạn **tái tích lũy (Re-accumulation)** hoặc **pha C/D** của một chu kỳ tăng giá lớn. Sau một giai đoạn tăng trưởng mạnh, việc thị trường đi ngang hoặc điều chỉnh nhẹ với khối lượng thấp là một dấu hiệu tốt, cho thấy các nhà tạo lập đang thu gom cổ phiếu hoặc kiểm tra lại lực cung. Giai đoạn này có thể bao gồm các sự kiện như:
-*   **Secondary Test (ST):** Giá kiểm tra lại vùng hỗ trợ dưới với khối lượng thấp.
-*   **Spring/Shakeout:** Giá có thể có một nhịp giảm sâu đột ngột nhưng phục hồi nhanh chóng với khối lượng lớn, "rũ bỏ" các nhà đầu tư yếu tay trước khi bước vào pha tăng giá mạnh (Phase E).
-Các chỉ báo đều xác nhận xu hướng dài hạn tăng mạnh, các chỉ báo ngắn hạn cho thấy sự chững lại hoặc điều chỉnh nhẹ nhàng.
-
----
-
-### **DỰ BÁO VNINDEX:**
-
-*   **Ngắn hạn (1-2 tuần):** VNINDEX có thể tiếp tục dao động trong biên độ 1.59K (MA20) - 1.64K (MA10/Tenkan) với khối lượng thấp. Nếu có nhịp rũ bỏ sâu hơn, vùng hỗ trợ mạnh tiếp theo là MA50 (1.49K) hoặc thậm chí biên dưới Bollinger (1.47K), nhưng khả năng này thấp nếu khối lượng bán không tăng đột biến. Chúng ta có thể thấy một pha Spring hoặc Shakeout nếu giá giảm mạnh về vùng này và sau đó phục hồi nhanh với khối lượng tăng.
-*   **Trung hạn (1-3 tháng):** Với nền tảng xu hướng tăng vững chắc từ các đường MA dài hạn và tín hiệu thiếu áp lực bán trong giai đoạn điều chỉnh, VNINDEX có khả năng cao sẽ hoàn thành giai đoạn tái tích lũy và bước vào một nhịp tăng giá mới (Phase E). Mục tiêu gần là vùng 1.71K (biên trên Bollinger), và sau đó là chinh phục các đỉnh cao mới.
-*   **Dài hạn (6-12 tháng):** Xu hướng tăng dài hạn của VNINDEX vẫn được duy trì mạnh mẽ. Các nhịp điều chỉnh hiện tại được coi là cơ hội để củng cố nền tảng và chuẩn bị cho sự tăng trưởng bền vững hơn, đặc biệt với sự hỗ trợ từ các yếu tố vĩ mô và tăng trưởng lợi nhuận của các doanh nghiệp.
-
----
-
-### **CHIẾN LƯỢC THỰC TẾ:**
-
-1.  **Giai đoạn hiện tại (Tái tích lũy/Điều chỉnh):**
-    *   **Đối với nhà đầu tư đang nắm giữ:** Tiếp tục nắm giữ các vị thế cốt lõi (core positions) của các cổ phiếu có nền tảng cơ bản tốt và đang trong xu hướng tăng. Sử dụng các đường MA20/MA50 làm điểm chặn lỗ (trailing stop-loss) để bảo vệ lợi nhuận.
-    *   **Đối với nhà đầu tư muốn mua mới/gia tăng:**
-        *   **Thực hiện giải ngân từng phần (Scale-in):** Không mua hết một lần. Chia vốn thành nhiều phần để mua ở các mức giá khác nhau.
-        *   **Canh mua ở các nhịp điều chỉnh về hỗ trợ:** Quan sát các cổ phiếu tiềm năng khi chúng điều chỉnh về gần MA20 (1.59K) hoặc MA50 (1.49K) của VNINDEX hoặc các hỗ trợ quan trọng của từng cổ phiếu riêng lẻ.
-        *   **Tìm kiếm tín hiệu VSA/Wyckoff xác nhận:** Ưu tiên các cổ phiếu có dấu hiệu cạn cung (No Supply / Test for Supply) hoặc Spring/Shakeout (giảm mạnh với khối lượng lớn nhưng phục hồi nhanh) trước khi bật tăng.
-        *   **Mua khi có sự đồng thuận về khối lượng:** Khi giá bắt đầu tăng trở lại từ vùng hỗ trợ với khối lượng giao dịch tăng vọt (đặc biệt là so với khối lượng trung bình), đó là dấu hiệu của lực cầu quay trở lại và có thể là điểm mua sớm (Buying Climax or Sign of Strength).
-    *   **Quản trị rủi ro:** Luôn đặt ra mức cắt lỗ rõ ràng cho mỗi giao dịch. Không sử dụng margin quá cao trong giai đoạn tích lũy này.
-
-2.  **Giai đoạn tăng giá trở lại (Phase E):**
-    *   Khi VNINDEX xác nhận thoát khỏi giai đoạn tích lũy (ví dụ, vượt qua MA10 với khối lượng lớn, MACD histogram chuyển dương và tăng), có thể xem xét tăng tỷ trọng.
-    *   Tiếp tục theo dõi các cổ phiếu dẫn dắt thị trường (leader stocks) theo tiêu chí CANSLIM/Minervini.
-
-3.  **Lưu ý chung:**
-    *   **Theo dõi dòng tiền:** Luôn chú ý đến dòng tiền của khối ngoại và khối tự doanh.
-    *   **Không FOMO (Fear Of Missing Out):** Tránh mua đuổi khi giá đã tăng quá nóng, đặc biệt nếu không có sự xác nhận của khối lượng.
-    *   **Cẩn trọng với những cổ phiếu có tín hiệu phân phối:** Nếu thị trường chung bước vào pha phân phối (Distribution) với các thanh giá giảm mạnh, biên độ rộng và khối lượng lớn, cần chủ động giảm tỷ trọng và bảo vệ vốn.
-
----
-
-### **20 MÃ CỔ PHIẾU TIỀM NĂNG (Sắp xếp giảm dần theo tiềm năng)**
-
-Dựa trên tiêu chí P/E < 20 và có tăng trưởng, kết hợp với các yếu tố về ROE, tăng trưởng doanh thu/EPS, và các tín hiệu kỹ thuật (MA, RSI, MACD, TCBS Recommend), tôi đề xuất 20 mã sau:
-
-1.  **TYA (HSX - Hàng & Dịch vụ Công nghiệp)**
-    *   **Điểm mạnh:** ROE 18.3%, P/E 5.2 (rất tốt), Tăng trưởng doanh thu 1 năm: 7969.58% (ngoạn mục), Tăng trưởng EPS 1 năm: 154.51%.
-    *   **Kỹ thuật:** Giá hiện tại trên tất cả các đường MA (5, 10, 20, 50, 100), RSI 63.6 (mạnh), MACD histogram <0 nhưng đang tăng dần (động lượng cải thiện), TCBS Recommend: Mua.
-    *   **Nhận định:** Kết hợp siêu tăng trưởng và kỹ thuật đang vào form, là ứng cử viên hàng đầu.
-
-2.  **VVS (UPCOM - Ô tô và phụ tùng)**
-    *   **Điểm mạnh:** ROE 35.1% (cao), P/E 6.0 (tốt), Tăng trưởng doanh thu 1 năm: 296.23%, Tăng trưởng EPS 1 năm: 347.24%.
-    *   **Kỹ thuật:** Giá trên MA20, MA50, MA100. RSI 59.0 (mạnh), MACD histogram <0 và giảm dần (cần theo dõi), TCBS Recommend: Trung tính.
-    *   **Nhận định:** Cơ bản rất mạnh, kỹ thuật ổn, tiềm năng lớn.
-
-3.  **ICN (UPCOM - Xây dựng và Vật liệu)**
-    *   **Điểm mạnh:** ROE 70.8% (rất cao), P/E 4.2 (rất thấp), Tăng trưởng doanh thu 1 năm: 267.33%, Tăng trưởng EPS 1 năm: 531.00%.
-    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA200. RSI 38.3 (yếu), MACD histogram <0 và giảm dần, TCBS Recommend: Bán mạnh.
-    *   **Nhận định:** Cơ bản cực kỳ hấp dẫn (giá trị sâu, tăng trưởng vượt trội), nhưng kỹ thuật đang yếu. Phù hợp cho chiến lược tích lũy dài hạn hoặc chờ tín hiệu đảo chiều rõ ràng theo VSA (Spring/Shakeout).
-
-4.  **HGM (HNX - Tài nguyên Cơ bản)**
-    *   **Điểm mạnh:** ROE 120.1% (đột biến), P/E 9.0 (tốt), Tăng trưởng doanh thu 1 năm: 233.91%, Tăng trưởng EPS 1 năm: 350.61%.
-    *   **Kỹ thuật:** Giá dưới MA20. RSI 40.1 (yếu), MACD histogram <0 và giảm dần, TCBS Recommend: Bán.
-    *   **Nhận định:** Tương tự ICN, cơ bản cực mạnh nhưng kỹ thuật đang trong giai đoạn điều chỉnh. Cần kiên nhẫn.
-
-5.  **D2D (HSX - Bất động sản)**
-    *   **Điểm mạnh:** ROE 37.6% (cao), P/E 3.5 (rất thấp), Tăng trưởng EPS 1 năm: 2232.37%.
-    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 35.6 (yếu), MACD histogram <0 và giảm dần, TCBS Recommend: Bán.
-    *   **Nhận định:** EPS tăng trưởng thần tốc, định giá hấp dẫn. Kỹ thuật cần theo dõi để tìm điểm vào.
-
-6.  **TFC (HNX - Thực phẩm và đồ uống)**
-    *   **Điểm mạnh:** ROE 52.6% (cao), P/E 5.9 (rất tốt), Tăng trưởng doanh thu 1 năm: 208.77%, Tăng trưởng EPS 1 năm: 118.03%.
-    *   **Kỹ thuật:** RSI 49.0 (gần trung tính), MACD histogram <0 và giảm dần, TCBS Recommend: NaN.
-    *   **Nhận định:** Cơ bản cực kỳ ấn tượng, định giá thấp. Cần theo dõi tín hiệu kỹ thuật để xác định điểm vào an toàn.
-
-7.  **ANV (HSX - Thực phẩm và đồ uống)**
-    *   **Điểm mạnh:** ROE 16.3%, P/E 13.0, Tăng trưởng EPS 1 năm: 3190.29% (bùng nổ).
-    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 52.5 (ổn định), MACD histogram <0 và giảm dần, TCBS Recommend: Chờ mua.
-    *   **Nhận định:** Tăng trưởng EPS vượt trội, có tín hiệu chờ mua.
-
-8.  **TRC (HSX - Hóa chất)**
-    *   **Điểm mạnh:** ROE 16.2%, P/E 6.6 (tốt), Tăng trưởng doanh thu 1 năm: 227.39%, Tăng trưởng EPS 1 năm: 229.90%.
-    *   **Kỹ thuật:** Giá trên MA20, MA50, MA100. RSI 52.5 (ổn định), MACD histogram >0 nhưng giảm dần (cần theo dõi), TCBS Recommend: Chờ mua.
-    *   **Nhận định:** Tăng trưởng mạnh mẽ, định giá hợp lý, kỹ thuật đang tích cực.
-
-9.  **GSM (UPCOM - Điện, nước & xăng dầu khí đốt)**
-    *   **Điểm mạnh:** ROE 23.2% (tốt), P/E 7.6 (tốt), Tăng trưởng doanh thu 1 năm: 92.10%, Tăng trưởng EPS 1 năm: 216.23%.
-    *   **Kỹ thuật:** Giá trên MA50, MA100. RSI 50.0 (trung tính), MACD histogram <0 nhưng tăng dần (động lượng cải thiện), TCBS Recommend: Trung tính.
-    *   **Nhận định:** Tăng trưởng tốt, có dấu hiệu cải thiện động lượng kỹ thuật.
-
-10. **NCS (UPCOM - Thực phẩm và đồ uống)**
-    *   **Điểm mạnh:** ROE 33.7% (cao), P/E 10.7, Tăng trưởng doanh thu 1 năm: 18.59%, Tăng trưởng EPS 1 năm: 13.43%.
-    *   **Kỹ thuật:** Giá trên MA20, MA50, MA100. RSI 62.9 (mạnh), MACD histogram <0 và giảm dần, TCBS Recommend: Mua.
-    *   **Nhận định:** Cơ bản mạnh, kỹ thuật ổn định và có khuyến nghị mua.
-
-11. **HDM (UPCOM - Hàng cá nhân & Gia dụng)**
-    *   **Điểm mạnh:** ROE 32.3% (cao), P/E 5.3 (rất tốt), Tăng trưởng EPS 1 năm: 40.58%.
-    *   **Kỹ thuật:** Giá dưới MA5, MA20 nhưng trên MA50, MA100. RSI 52.1 (ổn định), MACD histogram <0 và giảm dần, TCBS Recommend: Mua.
-    *   **Nhận định:** ROE cao, P/E thấp, có khuyến nghị mua.
-
-12. **NTP (HNX - Xây dựng và Vật liệu)**
-    *   **Điểm mạnh:** ROE 26.1% (tốt), P/E 11.2, Tăng trưởng doanh thu 1 năm: 31.51%, Tăng trưởng EPS 1 năm: 39.51%.
-    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 35.5 (yếu), MACD histogram <0 nhưng tăng dần (động lượng cải thiện), TCBS Recommend: Chờ mua.
-    *   **Nhận định:** Cơ bản tốt, động lượng kỹ thuật đang cải thiện, chờ tín hiệu xác nhận.
-
-13. **THG (HSX - Xây dựng và Vật liệu)**
-    *   **Điểm mạnh:** ROE 26.1% (tốt), P/E 9.0 (tốt), Tăng trưởng EPS 1 năm: 88.32%.
-    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 34.5 (yếu), MACD histogram <0 nhưng tăng dần (động lượng cải thiện), TCBS Recommend: Bán.
-    *   **Nhận định:** Cơ bản tốt với tăng trưởng EPS ấn tượng, nhưng cần theo dõi kỹ thuật.
-
-14. **NAB (HSX - Ngân hàng)**
-    *   **Điểm mạnh:** ROE 20.2%, P/E 7.6 (tốt), Tăng trưởng doanh thu 1 năm: 37.59%, Tăng trưởng EPS 1 năm: 21.19%.
-    *   **Kỹ thuật:** Giá dưới MA5, MA10 nhưng trên MA20, MA50, MA100. RSI 59.1 (mạnh), MACD histogram >0 nhưng giảm dần, TCBS Recommend: Mua.
-    *   **Nhận định:** Ngân hàng có nền tảng tốt, định giá hợp lý, kỹ thuật đang ở vùng tích lũy và có khuyến nghị mua.
-
-15. **HDB (HSX - Ngân hàng)**
-    *   **Điểm mạnh:** ROE 25.3% (cao), P/E 7.9 (tốt), Tăng trưởng doanh thu 1 năm: 26.73%, Tăng trưởng EPS 1 năm: 18.58%.
-    *   **Kỹ thuật:** Giá dưới MA5, MA10 nhưng trên MA20, MA50, MA100. RSI 63.7 (rất mạnh), MACD histogram >0 nhưng giảm dần, TCBS Recommend: Chờ bán.
-    *   **Nhận định:** Ngân hàng lớn với ROE cao, đang trong nhịp điều chỉnh kỹ thuật nhưng xu hướng chính vẫn tăng.
-
-16. **CTG (HSX - Ngân hàng)**
-    *   **Điểm mạnh:** ROE 20.2%, P/E 9.1 (tốt), Tăng trưởng doanh thu 1 năm: 27.36%, Tăng trưởng EPS 1 năm: 48.29%.
-    *   **Kỹ thuật:** Giá dưới MA5, MA10 nhưng trên MA20, MA50, MA100. RSI 57.9 (mạnh), MACD histogram >0 nhưng giảm dần, TCBS Recommend: Chờ bán.
-    *   **Nhận định:** Ngân hàng hàng đầu, tăng trưởng ổn định, phù hợp tích lũy dài hạn.
-
-17. **PPH (UPCOM - Hàng cá nhân & Gia dụng)**
-    *   **Điểm mạnh:** ROE 22.4% (tốt), P/E 5.1 (rất tốt), Tăng trưởng EPS 1 năm: 36.53%.
-    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 41.5 (yếu), MACD histogram <0 nhưng tăng dần (động lượng cải thiện), TCBS Recommend: Chờ mua.
-    *   **Nhận định:** ROE cao, P/E thấp, MACD cải thiện, có tín hiệu chờ mua.
-
-18. **DCM (HSX - Hóa chất)**
-    *   **Điểm mạnh:** ROE 16.9%, P/E 12.0, Tăng trưởng doanh thu 1 năm: 28.02%, Tăng trưởng EPS 1 năm: 12.65%.
-    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 50.4 (trung tính), MACD histogram <0 và giảm dần, TCBS Recommend: Mua.
-    *   **Nhận định:** Cơ bản ổn định, có khuyến nghị mua.
-
-19. **DDV (UPCOM - Hóa chất)**
-    *   **Điểm mạnh:** ROE 19.6%, P/E 12.4, Tăng trưởng doanh thu 1 năm: 144.05%, Tăng trưởng EPS 1 năm: 120.89%.
-    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 43.3 (yếu), MACD histogram <0 và giảm dần, TCBS Recommend: Chờ mua.
-    *   **Nhận định:** Tăng trưởng ấn tượng, cần theo dõi kỹ thuật để xác định điểm vào.
-
-20. **VAB (HSX - Ngân hàng)**
-    *   **Điểm mạnh:** ROE 11.1%, P/E 11.0, Tăng trưởng doanh thu 1 năm: 16.52%, Tăng trưởng EPS 1 năm: 26.66%.
-    *   **Kỹ thuật:** Giá trên MA20, MA50, MA100. RSI 56.1 (ổn định), MACD histogram <0 và giảm dần, TCBS Recommend: Trung tính.
-    *   **Nhận định:** Ngân hàng nhỏ có tăng trưởng ổn định, kỹ thuật ở vị thế tốt.
-
----
-
-**Lưu ý quan trọng:**
-*   Danh sách này dựa trên các tiêu chí định lượng và tín hiệu kỹ thuật tại thời điểm phân tích. Thị trường luôn biến động, do đó, các quyết định đầu tư cần được cân nhắc kỹ lưỡng, kết hợp với phân tích chi tiết hơn về từng mã cổ phiếu, tình hình kinh doanh, triển vọng ngành và tình hình vĩ mô.
-*   Việc áp dụng phương pháp VSA/Wyckoff đòi hỏi kinh nghiệm thực tiễn trong việc đọc hành động giá và khối lượng trên biểu đồ từng ngày. Hãy luôn thực hành và trau dồi khả năng này để đưa ra quyết định chính xác nhất.
-*   Quản trị vốn và rủi ro là yếu tố then chốt để thành công bền vững trên thị trường chứng khoán.
-
-Chúc bạn đầu tư thành công!
+| Mã   | Lý do ngắn                                                                                                                                                                          | Entry  | SL     | TP     | RR   |
+| :--- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----- | :----- | :----- | :--- |
+| HGM  | P/E=9.00, ROE=120.10%, EPS 1Y: 233.91%, EPS 5Y: 94.64%, Doanh thu 1Y: 86.06%, Doanh thu 5Y: 73.38%, RS 1Y: 99, Rating: 3.0, Financial Health: 4.2                                     | 299.00 | 278.07 | 358.80 | 2.86 |
+| ICN  | P/E=4.20, ROE=70.80%, EPS 1Y: 267.33%, EPS 5Y: 19.11%, Doanh thu 1Y: 56.17%, Doanh thu 5Y: 45.42%, RS 1Y: 84, Rating: 3.3, Financial Health: 5.0                                     | 41.10  | 38.22  | 49.32  | 2.86 |
+| TFC  | P/E=5.90, ROE=52.60%, EPS 1Y: 208.77%, EPS 5Y: 47.78%, Doanh thu 1Y: 27.75%, Doanh thu 5Y: 13.46%, RS 1Y: 97, Rating: 2.9, Financial Health: 4.2                                     | 33.77  | 31.41  | 40.52  | 2.86 |
+| SII  | P/E=2.40, ROE=49.00%, EPS 1Y: 60.29%, EPS 5Y: 7.09%, Doanh thu 1Y: 39.62%, RS 1Y: 66, Rating: 2.9, Financial Health: 4.0                                                               | 48.91  | 45.48  | 58.69  | 2.86 |
+| HTG  | P/E=4.90, ROE=37.90%, EPS 1Y: 63.34%, EPS 5Y: 8.85%, Doanh thu 1Y: 16.51%, Doanh thu 5Y: 9.85%, RS 1Y: 59, Rating: 3.0, Financial Health: 3.8                                     | 47.00  | 43.71  | 56.40  | 2.86 |
+| D2D  | P/E=3.50, ROE=37.60%, EPS 1Y: 242.52%, EPS 5Y: 25.14%, Doanh thu 1Y: 51.21%, Doanh thu 5Y: 37.50%, RS 1Y: 74, Rating: 2.9, Financial Health: 5.0                                     | 35.85  | 33.34  | 43.02  | 2.86 |
+| NFC  | P/E=9.70, ROE=37.40%, EPS 1Y: 58.96%, EPS 5Y: 36.92%, Doanh thu 1Y: 24.44%, Doanh thu 5Y: 7.63%, RS 1Y: 98, Rating: 2.6, Financial Health: 4.2                                     | 53.10  | 49.38  | 63.72  | 2.86 |
+| VVS  | P/E=6.00, ROE=35.10%, EPS 1Y: 296.23%, Doanh thu 1Y: 6.00%, Doanh thu 5Y: 2.65%, RS 1Y: 94, Rating: 2.7, Financial Health: 3.8                                                     | 35.30  | 32.82  | 42.36  | 2.86 |
+| PDN  | P/E=12.90, ROE=34.40%, EPS 1Y: 17.88%, EPS 5Y: 3.26%, Doanh thu 1Y: 37.53%, Doanh thu 5Y: 32.01%, RS 1Y: 63, Rating: 3.0, Financial Health: 5.0                                    | 93.00  | 86.49  | 111.60 | 2.86 |
+| ANT  | P/E=5.40, ROE=34.40%, EPS 1Y: 436.85%, EPS 5Y: 37.19%, Doanh thu 1Y: 27.75%, Doanh thu 5Y: 6.10%, RS 1Y: 0, Rating: NaN, Financial Health: 2.6                                     | 26.70  | 24.83  | 32.04  | 2.86 |
+| TTD  | P/E=12.30, ROE=30.90%, EPS 1Y: 1.45%, EPS 5Y: 1.83%, Doanh thu 1Y: 23.06%, Doanh thu 5Y: 13.04%, RS 1Y: 49, Rating: 2.7, Financial Health: 4.2                                     | 0.41   | 0.38   | 0.49   | 2.86 |
+| TBD  | P/E=18.70, ROE=30.10%, EPS 1Y: 186.58%, EPS 5Y: 4.08%, Doanh thu 1Y: 17.73%, Doanh thu 5Y: 9.68%, RS 1Y: 80, Rating: 2.4, Financial Health: 3.4                                     | 4.54   | 4.22   | 5.45   | 2.86 |
+| MSH  | P/E=7.40, ROE=29.00%, EPS 1Y: 68.69%, EPS 5Y: 16.43%, Doanh thu 1Y: 21.03%, Doanh thu 5Y: 12.27%, RS 1Y: 55, Rating: 2.7, Financial Health: 4.4                                     | 36.00  | 33.48  | 43.20  | 2.86 |
+| DRI  | P/E=5.60, ROE=27.40%, EPS 1Y: 47.98%, EPS 5Y: 21.71%, Doanh thu 1Y: 34.11%, Doanh thu 5Y: 18.55%, RS 1Y: 57, Rating: 2.9, Financial Health: 4.4                                     | 11.70  | 10.88  | 14.04  | 2.86 |
+| THG  | P/E=9.00, ROE=26.10%, EPS 1Y: 21.56%, EPS 5Y: 7.36%, Doanh thu 1Y: 20.96%, Doanh thu 5Y: 6.52%, RS 1Y: 85, Rating: 2.7, Financial Health: 4.0                                     | 51.80  | 48.17  | 62.16  | 2.86 |
+| NTP  | P/E=11.20, ROE=26.10%, EPS 1Y: 31.51%, EPS 5Y: 4.37%, Doanh thu 1Y: 32.04%, Doanh thu 5Y: 16.10%, RS 1Y: 46, Rating: 2.6, Financial Health: 4.4                                     | 61.00  | 56.73  | 73.20  | 2.86 |
+| MNB  | P/E=4.90, ROE=25.70%, EPS 1Y: 186.67%, EPS 5Y: 11.12%, Doanh thu 1Y: 16.80%, Doanh thu 5Y: 1.87%, RS 1Y: 15, Rating: 2.5, Financial Health: 2.6                                     | 28.00  | 26.04  | 33.60  | 2.86 |
+| TCL  | P/E=7.00, ROE=25.40%, EPS 1Y: 8.87%, EPS 5Y: 7.89%, Doanh thu 1Y: 14.96%, Doanh thu 5Y: 9.85%, RS 1Y: 44, Rating: 3.0, Financial Health: 4.8                                     | 34.75  | 32.32  | 41.70  | 2.86 |
+| CTG  | P/E=9.10, ROE=20.20%, EPS 1Y: 27.36%, EPS 5Y: 19.11%, Doanh thu 1Y: 46.62%, RS 1Y: 82, Rating: 3.3, Financial Health: 3.6                                                           | 49.50  | 46.04  | 59.40  | 2.86 |
+| NAB  | P/E=7.60, ROE=20.20%, EPS 1Y: 37.59%, EPS 5Y: 8.08%, Doanh thu 1Y: 38.15%, RS 1Y: 65, Rating: 3.4, Financial Health: 2.2                                                            | 16.10  | 14.97  | 19.32  | 2.86 |

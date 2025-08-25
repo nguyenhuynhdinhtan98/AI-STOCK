@@ -3681,3 +3681,125 @@ Chúc bạn đầu tư thành công!
 2025-08-25 14:15:20,654 - INFO - Đã lưu nội dung prompt vào file prompt.txt
 2025-08-25 14:15:20,654 - INFO - Đang phân tích bằng Gemini...
 2025-08-25 14:15:20,654 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 14:18:26,883 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VNINDEX.txt
+2025-08-25 14:18:26,884 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-25 14:18:26,885 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-25 14:18:28,127 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-08-25 14:18:28,129 - ERROR - Lỗi khi phân tích bằng OpenRouter cho VNINDEX: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+2025-08-25 14:18:28,129 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO MÃ VNINDEX ====================
+2025-08-25 14:18:28,129 - INFO - 💰 Giá hiện tại: 1624.33 VND
+2025-08-25 14:18:28,129 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-25 14:18:28,129 - INFO - Chào bạn,
+
+Dưới đây là phân tích VNINDEX dựa trên các phương pháp VSA/VPA, Wyckoff, Minervini, CANSLIM, cùng với đề xuất chiến lược và danh sách cổ phiếu tiềm năng.
+
+---
+
+## 1) VSA/VPA chi tiết
+- **2025-08-19 (1654.20)**: Giá tăng nhẹ, Volume 1.93B (cao hơn MA50, dưới MA20). Cho thấy lực cầu duy trì nhưng chưa áp đảo.
+- **2025-08-20 (1664.36)**: Giá tăng mạnh, Volume 2.41B (cao hơn MA20, MA50). Cầu mạnh mẽ, có thể là đỉnh điểm mua (Buying Climax) nếu lực bán xuất hiện sau đó.
+- **2025-08-21 (1688.00)**: Giá tiếp tục tăng, Volume 1.72B (cao hơn MA50, dưới MA20). Tiếp diễn đà tăng nhưng volume đã chững lại.
+- **2025-08-22 (1645.47)**: Giá giảm mạnh (-2.52%), Volume 2.29B (rất cao so với MA20, MA50). Đây là tín hiệu Upthrust Action hoặc Selling Climax rõ ràng, cho thấy áp lực cung cực lớn xuất hiện sau chuỗi tăng giá.
+- **2025-08-25 (1624.33)**: Giá tiếp tục giảm (-1.27%), Volume 1.23B (dưới MA20, MA50). Thanh khoản giảm khi giá giảm cho thấy áp lực bán đã bớt đi, nhưng cũng có thể là do thiếu lực cầu đỡ giá.
+- **Hiện tại (1620.00)**: Giá tiếp tục giảm nhẹ sau phiên 25/08, xác nhận xu hướng giảm trong ngắn hạn sau các tín hiệu cung mạnh.
+
+## 2) Wyckoff
+- **Giai đoạn thị trường**: Thị trường có dấu hiệu chuyển từ giai đoạn Đánh dấu (Markup) ngắn hạn sang giai đoạn **Phân phối (Distribution)** sớm.
+- **Dấu hiệu breakout/breakdown**:
+    - **Breakout**: Các phiên tăng giá mạnh trước 22/08 thể hiện nỗ lực đẩy giá lên cao.
+    - **Upthrust Action**: Phiên 22/08 với mức giảm sâu và volume rất lớn sau chuỗi tăng là một Upthrust rõ ràng, báo hiệu lực bán chuyên nghiệp đang chiếm ưu thế và khả năng đảo chiều.
+- **Thời gian tích lũy**: N/A (không có đủ dữ liệu lịch sử chi tiết cho vùng giá gần nhất để xác định rõ giai đoạn tích lũy).
+
+## 3) Minervini
+- **Xu hướng dài/ngắn hạn**:
+    - **Dài hạn**: Giá (1620.00) nằm trên MA200 (1330.00), cho thấy xu hướng tăng dài hạn vững chắc.
+    - **Ngắn hạn**: Giá (1620.00) đang nằm dưới MA10 (1640.00) nhưng trên MA20 (1590.00) và MA50 (1490.00), thể hiện xu hướng **hỗn hợp/sideways** và sự thiếu động lực rõ ràng.
+- **Sắp xếp MA**: MA200 (1330.00) < MA50 (1490.00) < MA20 (1590.00) < MA10 (1640.00). Đây là trật tự MA của một xu hướng tăng giá hoàn hảo trên khung thời gian dài hơn. Tuy nhiên, việc giá rơi dưới MA10 và gần MA20 cho thấy sự suy yếu ngắn hạn.
+- **Mức hỗ trợ/kháng cự quan trọng**:
+    - **Hỗ trợ gần nhất**: MA20 (1590.00), sau đó là MA50 (1490.00) và dải Bollinger Dưới (1470.00).
+    - **Kháng cự gần nhất**: MA10 (1640.00), sau đó là đỉnh gần nhất (1688.00) và dải Bollinger Trên (1710.00).
+
+## 4) CANSLIM (M) – Định hướng thị trường
+- **Đánh giá môi trường**: **Trung tính**
+    - Mặc dù xu hướng dài hạn vẫn là tích cực, nhưng động lực tăng giá ngắn hạn đã suy yếu rõ rệt sau các tín hiệu phân phối và giảm điểm với volume cao.
+    - MACD histogram âm (-1.20) và RSI (61.18) giảm từ vùng cao, cho thấy động lượng suy giảm.
+    - Vị trí giá hỗn hợp so với các MA ngắn hạn củng cố nhận định thị trường đang trong giai đoạn không rõ ràng.
+- **Điều kiện tham gia (On/Off)**: **OFF**
+    - Cần thận trọng cao độ. Thị trường đang trong giai đoạn điều chỉnh hoặc sideway, rủi ro cao hơn cơ hội.
+
+## 5) Kịch bản 1–2 tuần (xác suất)
+- **Cơ bản (50%)**: VNINDEX tiếp tục **Sideways tích lũy hoặc điều chỉnh nhẹ** trong vùng **1580 – 1650**.
+    - Giá sẽ dao động quanh MA20, chờ đợi cân bằng cung cầu và xác nhận xu hướng tiếp theo.
+- **Tốt nhất (30%)**: VNINDEX **Hồi phục và vượt MA10** (1640.00), hướng tới vùng đỉnh cũ **1680 – 1700**.
+    - Kịch bản này yêu cầu lực cầu mạnh mẽ trở lại và volume cải thiện trên mức trung bình.
+- **Xấu nhất (20%)**: VNINDEX **Thủng MA20 (1590.00)** với volume lớn, có thể lùi về vùng hỗ trợ MA50 (**1490.00**).
+    - Áp lực bán tiếp diễn, phá vỡ các ngưỡng hỗ trợ quan trọng, kích hoạt lệnh cắt lỗ.
+
+## 6) Chiến lược thực thi
+- **Vị thế đề xuất**: **CHỜ**
+    - Ưu tiên quan sát và giữ tỷ trọng tiền mặt cao. Không vội vàng giải ngân trong giai đoạn này.
+    - Chờ đợi các tín hiệu rõ ràng hơn về sự hấp thụ cung và hình thành nền giá mới.
+- **Quy tắc vào/thoát**:
+    - **Vào**: Chỉ xem xét giải ngân khi VNINDEX lấy lại và duy trì trên MA10 (1640.00) với volume thuyết phục và MACD histogram chuyển dương.
+    - **Thoát**: Giảm tỷ trọng/cắt lỗ nếu VNINDEX thủng MA20 (1590.00) với volume lớn.
+- **Lưu ý rủi ro**:
+    - Thị trường đang ở vùng giá cao, áp lực chốt lời và phân phối có thể tiếp diễn.
+    - Thanh khoản hiện tại thấp hơn trung bình (1.23B so với MA20 1.81B) cho thấy sự lưỡng lự của dòng tiền, khó có thể tạo ra sóng tăng mạnh.
+
+## 7) TOP 20 MÃ TIỀM NĂNG (từ danh sách P/E<20 & tăng trưởng)
+**Tiêu chí lọc**: P/E < 20, ROE > 15%, Tăng trưởng EPS 1 năm > 0, Tăng trưởng Doanh thu 1 năm > 0 (chấp nhận NaN cho tăng trưởng 5 năm nếu tăng trưởng 1 năm dương). Sắp xếp ưu tiên theo ROE, sau đó là Sức mạnh tương đối (RS 1Y), Xếp hạng cổ phiếu (Stock Rating) và Sức khỏe tài chính (Financial Health).
+
+| Mã   | Lý do ngắn                                                                                                                                                                          | Entry  | SL     | TP     | RR   |
+| :--- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----- | :----- | :----- | :--- |
+| HGM  | P/E=9.00, ROE=120.10%, EPS 1Y: 233.91%, EPS 5Y: 94.64%, Doanh thu 1Y: 86.06%, Doanh thu 5Y: 73.38%, RS 1Y: 99, Rating: 3.0, Financial Health: 4.2                                     | 299.00 | 278.07 | 358.80 | 2.86 |
+| ICN  | P/E=4.20, ROE=70.80%, EPS 1Y: 267.33%, EPS 5Y: 19.11%, Doanh thu 1Y: 56.17%, Doanh thu 5Y: 45.42%, RS 1Y: 84, Rating: 3.3, Financial Health: 5.0                                     | 41.10  | 38.22  | 49.32  | 2.86 |
+| TFC  | P/E=5.90, ROE=52.60%, EPS 1Y: 208.77%, EPS 5Y: 47.78%, Doanh thu 1Y: 27.75%, Doanh thu 5Y: 13.46%, RS 1Y: 97, Rating: 2.9, Financial Health: 4.2                                     | 33.77  | 31.41  | 40.52  | 2.86 |
+| SII  | P/E=2.40, ROE=49.00%, EPS 1Y: 60.29%, EPS 5Y: 7.09%, Doanh thu 1Y: 39.62%, RS 1Y: 66, Rating: 2.9, Financial Health: 4.0                                                               | 48.91  | 45.48  | 58.69  | 2.86 |
+| HTG  | P/E=4.90, ROE=37.90%, EPS 1Y: 63.34%, EPS 5Y: 8.85%, Doanh thu 1Y: 16.51%, Doanh thu 5Y: 9.85%, RS 1Y: 59, Rating: 3.0, Financial Health: 3.8                                     | 47.00  | 43.71  | 56.40  | 2.86 |
+| D2D  | P/E=3.50, ROE=37.60%, EPS 1Y: 242.52%, EPS 5Y: 25.14%, Doanh thu 1Y: 51.21%, Doanh thu 5Y: 37.50%, RS 1Y: 74, Rating: 2.9, Financial Health: 5.0                                     | 35.85  | 33.34  | 43.02  | 2.86 |
+| NFC  | P/E=9.70, ROE=37.40%, EPS 1Y: 58.96%, EPS 5Y: 36.92%, Doanh thu 1Y: 24.44%, Doanh thu 5Y: 7.63%, RS 1Y: 98, Rating: 2.6, Financial Health: 4.2                                     | 53.10  | 49.38  | 63.72  | 2.86 |
+| VVS  | P/E=6.00, ROE=35.10%, EPS 1Y: 296.23%, Doanh thu 1Y: 6.00%, Doanh thu 5Y: 2.65%, RS 1Y: 94, Rating: 2.7, Financial Health: 3.8                                                     | 35.30  | 32.82  | 42.36  | 2.86 |
+| PDN  | P/E=12.90, ROE=34.40%, EPS 1Y: 17.88%, EPS 5Y: 3.26%, Doanh thu 1Y: 37.53%, Doanh thu 5Y: 32.01%, RS 1Y: 63, Rating: 3.0, Financial Health: 5.0                                    | 93.00  | 86.49  | 111.60 | 2.86 |
+| ANT  | P/E=5.40, ROE=34.40%, EPS 1Y: 436.85%, EPS 5Y: 37.19%, Doanh thu 1Y: 27.75%, Doanh thu 5Y: 6.10%, RS 1Y: 0, Rating: NaN, Financial Health: 2.6                                     | 26.70  | 24.83  | 32.04  | 2.86 |
+| TTD  | P/E=12.30, ROE=30.90%, EPS 1Y: 1.45%, EPS 5Y: 1.83%, Doanh thu 1Y: 23.06%, Doanh thu 5Y: 13.04%, RS 1Y: 49, Rating: 2.7, Financial Health: 4.2                                     | 0.41   | 0.38   | 0.49   | 2.86 |
+| TBD  | P/E=18.70, ROE=30.10%, EPS 1Y: 186.58%, EPS 5Y: 4.08%, Doanh thu 1Y: 17.73%, Doanh thu 5Y: 9.68%, RS 1Y: 80, Rating: 2.4, Financial Health: 3.4                                     | 4.54   | 4.22   | 5.45   | 2.86 |
+| MSH  | P/E=7.40, ROE=29.00%, EPS 1Y: 68.69%, EPS 5Y: 16.43%, Doanh thu 1Y: 21.03%, Doanh thu 5Y: 12.27%, RS 1Y: 55, Rating: 2.7, Financial Health: 4.4                                     | 36.00  | 33.48  | 43.20  | 2.86 |
+| DRI  | P/E=5.60, ROE=27.40%, EPS 1Y: 47.98%, EPS 5Y: 21.71%, Doanh thu 1Y: 34.11%, Doanh thu 5Y: 18.55%, RS 1Y: 57, Rating: 2.9, Financial Health: 4.4                                     | 11.70  | 10.88  | 14.04  | 2.86 |
+| THG  | P/E=9.00, ROE=26.10%, EPS 1Y: 21.56%, EPS 5Y: 7.36%, Doanh thu 1Y: 20.96%, Doanh thu 5Y: 6.52%, RS 1Y: 85, Rating: 2.7, Financial Health: 4.0                                     | 51.80  | 48.17  | 62.16  | 2.86 |
+| NTP  | P/E=11.20, ROE=26.10%, EPS 1Y: 31.51%, EPS 5Y: 4.37%, Doanh thu 1Y: 32.04%, Doanh thu 5Y: 16.10%, RS 1Y: 46, Rating: 2.6, Financial Health: 4.4                                     | 61.00  | 56.73  | 73.20  | 2.86 |
+| MNB  | P/E=4.90, ROE=25.70%, EPS 1Y: 186.67%, EPS 5Y: 11.12%, Doanh thu 1Y: 16.80%, Doanh thu 5Y: 1.87%, RS 1Y: 15, Rating: 2.5, Financial Health: 2.6                                     | 28.00  | 26.04  | 33.60  | 2.86 |
+| TCL  | P/E=7.00, ROE=25.40%, EPS 1Y: 8.87%, EPS 5Y: 7.89%, Doanh thu 1Y: 14.96%, Doanh thu 5Y: 9.85%, RS 1Y: 44, Rating: 3.0, Financial Health: 4.8                                     | 34.75  | 32.32  | 41.70  | 2.86 |
+| CTG  | P/E=9.10, ROE=20.20%, EPS 1Y: 27.36%, EPS 5Y: 19.11%, Doanh thu 1Y: 46.62%, RS 1Y: 82, Rating: 3.3, Financial Health: 3.6                                                           | 49.50  | 46.04  | 59.40  | 2.86 |
+| NAB  | P/E=7.60, ROE=20.20%, EPS 1Y: 37.59%, EPS 5Y: 8.08%, Doanh thu 1Y: 38.15%, RS 1Y: 65, Rating: 3.4, Financial Health: 2.2                                                            | 16.10  | 14.97  | 19.32  | 2.86 |
+2025-08-25 14:18:28,129 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-25 14:18:28,129 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-25 14:18:28,129 - INFO - ============================================================
+
+2025-08-25 14:18:28,130 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-25 14:19:55,323 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 14:20:03,842 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 14:20:03,843 - INFO - ============================================================
+2025-08-25 14:20:03,843 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 14:20:03,843 - INFO - ============================================================
+2025-08-25 14:20:03,843 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 14:20:06,332 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 14:20:06,336 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 14:20:06,342 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 14:20:06,342 - INFO -  - Giá hiện tại: 1611.85 VND
+2025-08-25 14:20:06,342 - INFO -  - Đường trung bình:
+2025-08-25 14:20:06,342 - INFO -  * MA10: 1639.08 | MA20: 1590.11 | MA50: 1491.94 | MA200: 1327.62
+2025-08-25 14:20:06,342 - INFO -  - Chỉ báo dao động:
+2025-08-25 14:20:06,342 - INFO -  * RSI(14): 58.11
+ * MACD: 46.89 | Signal: 48.89 | Histogram: -2.00
+2025-08-25 14:20:06,342 - INFO -  * Bollinger Bands: Trên: 1707.36 | Dưới: 1472.86
+2025-08-25 14:20:06,342 - INFO -  - Mô hình Ichimoku:
+2025-08-25 14:20:06,342 - INFO -  * Tenkan-sen: 1639.61 | Kijun-sen: 1585.14 | Chikou: 1497.28
+2025-08-25 14:20:06,343 - INFO -  - Khối lượng:
+2025-08-25 14:20:06,343 - INFO -  * Khối lượng hiện tại: 1294839748.00 | MA20: 1817401953.15 | MA50: 1375982631.74
+2025-08-25 14:20:06,376 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 14:20:06,376 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 14:20:06,376 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 14:21:16,135 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
