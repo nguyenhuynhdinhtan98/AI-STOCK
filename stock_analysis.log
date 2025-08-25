@@ -3803,3 +3803,107 @@ Dưới đây là phân tích VNINDEX dựa trên các phương pháp VSA/VPA, W
 2025-08-25 14:20:06,376 - INFO - Đang phân tích bằng Gemini...
 2025-08-25 14:20:06,376 - INFO - Đang gửi prompt tới Gemini...
 2025-08-25 14:21:16,135 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 14:21:25,138 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 14:21:25,138 - INFO - ============================================================
+2025-08-25 14:21:25,138 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 14:21:25,138 - INFO - ============================================================
+2025-08-25 14:21:25,138 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 14:21:30,996 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 14:21:31,000 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 14:21:31,006 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 14:21:31,006 - INFO -  - Giá hiện tại: 1610.67 VND
+2025-08-25 14:21:31,006 - INFO -  - Đường trung bình:
+2025-08-25 14:21:31,006 - INFO -  * MA10: 1638.96 | MA20: 1590.05 | MA50: 1491.91 | MA200: 1327.62
+2025-08-25 14:21:31,006 - INFO -  - Chỉ báo dao động:
+2025-08-25 14:21:31,006 - INFO -  * RSI(14): 57.83
+ * MACD: 46.80 | Signal: 48.87 | Histogram: -2.07
+2025-08-25 14:21:31,006 - INFO -  * Bollinger Bands: Trên: 1707.26 | Dưới: 1472.84
+2025-08-25 14:21:31,006 - INFO -  - Mô hình Ichimoku:
+2025-08-25 14:21:31,006 - INFO -  * Tenkan-sen: 1639.61 | Kijun-sen: 1585.14 | Chikou: 1497.28
+2025-08-25 14:21:31,006 - INFO -  - Khối lượng:
+2025-08-25 14:21:31,006 - INFO -  * Khối lượng hiện tại: 1325212783.00 | MA20: 1818920604.90 | MA50: 1376590092.44
+2025-08-25 14:21:31,041 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 14:21:31,041 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 14:21:31,042 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 14:22:52,643 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VNINDEX.txt
+2025-08-25 14:22:52,644 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-25 14:22:52,645 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-25 14:22:53,685 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-08-25 14:22:53,686 - ERROR - Lỗi khi phân tích bằng OpenRouter cho VNINDEX: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+2025-08-25 14:22:53,686 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO MÃ VNINDEX ====================
+2025-08-25 14:22:53,686 - INFO - 💰 Giá hiện tại: 1610.67 VND
+2025-08-25 14:22:53,686 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-25 14:22:53,686 - INFO - Dựa trên dữ liệu cung cấp, dưới đây là phân tích VNINDEX:
+
+## 1) VSA/VPA chi tiết
+-   **Phiên 2025-08-19 (Close 1654.20, Vol 1.93B):** Giá đóng cửa trên MA20 (1.59K) và MA50 (1.49K). Khối lượng cao hơn MA20 (1.82B) và MA50 (1.38B), cho thấy lực cầu tốt hỗ trợ đà tăng.
+-   **Phiên 2025-08-20 (Close 1664.36, Vol 2.41B):** Giá tăng mạnh, tạo đỉnh ngắn hạn mới, duy trì trên MA20 và MA50. Khối lượng rất cao, cho thấy động lực mua mạnh mẽ.
+-   **Phiên 2025-08-21 (Close 1688.00, Vol 1.72B):** Giá tiếp tục tăng và tạo đỉnh cao nhất trong 5 phiên, trên MA20 và MA50. Khối lượng xấp xỉ MA20, cho thấy đà tăng có thể đang chững lại về cuối phiên.
+-   **Phiên 2025-08-22 (Close 1645.47, Vol 2.29B):** Giá giảm mạnh sau chuỗi tăng, vẫn duy trì trên MA20 và MA50. Khối lượng rất cao, cho thấy áp lực bán mạnh (tín hiệu Upthrust tiềm năng hoặc Selling Climax ngắn hạn).
+-   **Phiên 2025-08-25 (Close 1610.67, Vol 1.33B):** Giá tiếp tục giảm, cắt xuống dưới MA10 (1.64K) nhưng vẫn trên MA20 (1.59K) và MA50 (1.49K). Khối lượng thấp hơn MA20 và MA50, cho thấy lực bán đã yếu đi nhưng thiếu vắng lực cầu đỡ giá.
+
+## 2) Wyckoff
+-   **Giai đoạn thị trường:** VNINDEX có dấu hiệu chuyển từ giai đoạn Xu hướng tăng (Uptrend) sang giai đoạn Phân phối (Distribution) hoặc điều chỉnh sâu trong xu hướng tăng. Biến động giá mạnh với đỉnh mới nhưng sau đó là giảm sâu với khối lượng cao cho thấy sự dịch chuyển cung-cầu.
+-   **Dấu hiệu breakout/breakdown:** Giai đoạn tăng trước đó là breakout mạnh, tuy nhiên phiên 2025-08-22 có thể là một Upthrust (đẩy giá lên cao sau đó giảm mạnh với vol lớn), báo hiệu sự suy yếu và khả năng đảo chiều. Chưa có breakdown khỏi các hỗ trợ quan trọng.
+-   **Thời gian tích lũy:** N/A (Thị trường đã thoát khỏi giai đoạn tích lũy trước đó và đang trong giai đoạn điều chỉnh/phân phối).
+
+## 3) Minervini
+-   **Xu hướng dài hạn (MA200):** Tăng (Giá hiện tại 1.61K > MA200 1.33K).
+-   **Xu hướng ngắn hạn:** Giá đang điều chỉnh, cắt xuống MA10 (1.64K) nhưng vẫn trên MA20 (1.59K) và MA50 (1.49K). Xu hướng tăng ngắn hạn đang suy yếu.
+-   **Sắp xếp MA:** MA10 (1.64K) > MA20 (1.59K) > MA50 (1.49K) > MA200 (1.33K). Tuy nhiên, giá hiện tại (1.61K) nằm dưới MA10, cho thấy sự phá vỡ cấu trúc tăng ngắn hạn.
+-   **Mức hỗ trợ/kháng cự quan trọng:**
+    -   **Kháng cự:** MA10 (1.64K), đỉnh gần nhất (1.69K), dải Bollinger trên (1.71K).
+    -   **Hỗ trợ:** MA20 (1.59K), MA50 (1.49K), dải Bollinger dưới (1.47K), MA200 (1.33K).
+
+## 4) CANSLIM (M) – Định hướng thị trường
+-   **Đánh giá môi trường:** Trung tính.
+    -   RSI(14): 57.83 (Trung tính, không ở vùng quá mua/quá bán).
+    -   MACD: Đường MACD cắt xuống dưới đường tín hiệu (-2.07), histogram âm và giảm dần, báo hiệu động lượng tiêu cực trong ngắn hạn.
+    -   Volume: Khối lượng giao dịch hiện tại (1.33B) thấp hơn MA20 (1.82B) và MA50 (1.38B), cho thấy sự thiếu hụt dòng tiền lớn tham gia, phản ánh tâm lý thận trọng.
+    -   Vị trí giá so với MA: Giá nằm trên MA20, MA50, MA200 nhưng dưới MA10, cho thấy xu hướng ngắn hạn đang gặp khó khăn.
+-   **Điều kiện tham gia:** OFF (Thị trường đang trong giai đoạn nhạy cảm, cần theo dõi thêm các tín hiệu xác nhận).
+
+## 5) Kịch bản 1–2 tuần (xác suất)
+-   **Cơ bản (50%):** VNINDEX tiếp tục vận động sideway quanh vùng 1.59K - 1.64K, hấp thụ áp lực bán và chờ đợi thông tin mới. Khối lượng duy trì ở mức thấp.
+-   **Tốt nhất (30%):** VNINDEX hồi phục, vượt lên trên MA10 (1.64K) với thanh khoản cải thiện, sau đó hướng tới các vùng kháng cự cao hơn quanh 1.69K.
+-   **Xấu nhất (20%):** VNINDEX phá vỡ hỗ trợ MA20 (1.59K) với khối lượng lớn, có thể kiểm định lại vùng hỗ trợ MA50 (1.49K) hoặc Bollinger Dưới (1.47K).
+
+## 6) Chiến lược thực thi
+-   **Vị thế đề xuất:** CHỜ (Quan sát).
+-   **Quy tắc vào/thoát:**
+    -   **Vào:** Chờ VNINDEX xác nhận vượt lên trên MA10 (1.64K) với khối lượng giao dịch tăng rõ rệt, hoặc khi chỉ số kiểm định thành công vùng hỗ trợ MA20 (1.59K) với nến đảo chiều và khối lượng thấp/trung bình.
+    -   **Thoát:** Giảm tỷ trọng hoặc thoát vị thế nếu VNINDEX phá vỡ dứt khoát hỗ trợ MA20 (1.59K) với khối lượng lớn, báo hiệu sự suy yếu tiếp diễn.
+-   **Lưu ý rủi ro:** Thị trường đang trong giai đoạn điều chỉnh và tích lũy lại sau nhịp tăng. Động lực ngắn hạn đã suy giảm, nhà đầu tư cần ưu tiên quản trị rủi ro và không vội vàng giải ngân.
+
+## 7) TOP 20 MÃ TIỀM NĂNG (từ danh sách P/E<20 & tăng trưởng)
+
+| Mã | Lý do ngắn | Entry (giá tham khảo) | SL (giá cắt lỗ) | TP (giá mục tiêu) | RR (Rủi ro/Phần thưởng) |
+|---|---|---|---|---|---|
+| **GVT** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá cắt lên SMA20, MACD Hist > 0 & tăng dần, RSI trung tính. | 88.00 | 83.60 | 96.80 | 2.00 |
+| **TYA** | PE thấp, ROE tốt, tăng trưởng tốt, Giá cắt lên SMA5 & SMA20, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 17.50 | 16.63 | 19.25 | 2.00 |
+| **ANT** | PE rất thấp, ROE cao, tăng trưởng tốt, Giá cắt lên SMA5, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI ở vùng quá bán. | 26.70 | 25.37 | 29.37 | 2.00 |
+| **GSM** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá cắt lên SMA5, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 30.90 | 29.36 | 33.99 | 2.00 |
+| **NFC** | PE trung bình, ROE cao, tăng trưởng mạnh, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 53.10 | 50.45 | 58.41 | 2.00 |
+| **MNB** | PE thấp, ROE tốt, tăng trưởng tốt, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 28.00 | 26.60 | 30.80 | 2.00 |
+| **MSH** | PE thấp, ROE tốt, tăng trưởng mạnh, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 35.55 | 33.77 | 39.11 | 2.00 |
+| **PDN** | PE trung bình, ROE cao, tăng trưởng mạnh, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI ở vùng quá bán. | 93.00 | 88.35 | 102.30 | 2.00 |
+| **PPH** | PE thấp, ROE tốt, tăng trưởng tốt, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 27.70 | 26.32 | 30.47 | 2.00 |
+| **THG** | PE trung bình, ROE tốt, tăng trưởng mạnh, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI ở vùng quá bán. | 51.80 | 49.21 | 56.98 | 2.00 |
+| **TSA** | PE trung bình, tăng trưởng tốt, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 12.40 | 11.78 | 13.64 | 2.00 |
+| **FOX** | PE trung bình, ROE cao, tăng trưởng mạnh, MACD Hist < 0 & tăng dần (dấu hiệu đảo chiều), RSI trung tính. | 66.70 | 63.37 | 73.37 | 2.00 |
+| **TRC** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá nằm trên SMA20, MACD Hist > 0 & giảm dần, RSI trung tính. | 68.20 | 64.79 | 75.02 | 2.00 |
+| **NCS** | PE trung bình, ROE cao, tăng trưởng mạnh, Giá cắt lên SMA20, MACD Hist < 0 & giảm dần, RSI trung tính. | 37.60 | 35.72 | 41.36 | 2.00 |
+| **VAB** | PE trung bình, ROE tốt, tăng trưởng tốt, Giá nằm trên SMA20, MACD Hist < 0 & giảm dần, RSI trung tính. | 12.60 | 11.97 | 13.86 | 2.00 |
+| **VVS** | PE thấp, ROE cao, tăng trưởng tốt, Giá nằm trên SMA20, MACD Hist < 0 & giảm dần, RSI trung tính. | 35.30 | 33.54 | 38.83 | 2.00 |
+| **HDB** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá cắt xuống SMA5, MACD Hist > 0 & giảm dần, RSI trung tính. | 30.90 | 29.36 | 33.99 | 2.00 |
+| **SHB** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá cắt xuống SMA20, MACD Hist < 0 & giảm dần, RSI trung tính. | 16.30 | 15.49 | 17.93 | 2.00 |
+| **DBC** | PE thấp, ROE tốt, tăng trưởng mạnh, Giá nằm dưới SMA20, MACD Hist < 0 & giảm dần, RSI ở vùng quá bán. | 26.45 | 25.13 | 29.10 | 2.00 |
+| **ICN** | PE rất thấp, ROE rất cao, tăng trưởng mạnh, Giá nằm dưới SMA20, MACD Hist < 0 & giảm dần, RSI ở vùng quá bán. | 41.10 | 39.05 | 45.21 | 2.00 |
+2025-08-25 14:22:53,686 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-25 14:22:53,686 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-25 14:22:53,686 - INFO - ============================================================
+
+2025-08-25 14:22:53,687 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
