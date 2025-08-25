@@ -941,9 +941,6 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
     # Hiển thị kết quả
     logger.info(f"\n{'=' * 20} KẾT QUẢ PHÂN TÍCH CHO Mã {symbol} {'=' * 20}")
     logger.info(f"💰 Giá hiện tại: {trading_signal['current_price']:,.2f} VND")
-    # logger.info(f"📈 Tín hiệu: {trading_signal['signal']}")
-    # logger.info(f"🎯 Đề xuất: {trading_signal['recommendation']}")
-    # logger.info(f"📊 Điểm phân tích: {trading_signal['score']:.2f}/100")
     logger.info(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---")
     logger.info(gemini_analysis)
     logger.info(f"\n--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---")

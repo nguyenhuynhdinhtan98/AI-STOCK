@@ -1609,3 +1609,250 @@ Tiêu chí lựa chọn: PE < 20, ROE >= 15%, EPS Growth 1Y >= 20%, Price vs SMA
 2025-08-25 11:15:33,230 - INFO - Đã lưu nội dung prompt vào file prompt.txt
 2025-08-25 11:15:33,230 - INFO - Đang phân tích bằng Gemini...
 2025-08-25 11:15:33,232 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 12:02:14,047 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 12:02:16,357 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 12:02:16,358 - INFO - ============================================================
+2025-08-25 12:02:16,358 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ DRI
+2025-08-25 12:02:16,358 - INFO - ============================================================
+2025-08-25 12:02:16,358 - INFO - Đang lấy dữ liệu cho mã DRI
+2025-08-25 12:02:16,734 - INFO - Đã lưu dữ liệu cho mã DRI vào file vnstocks_data/DRI_data.csv
+2025-08-25 12:02:16,734 - INFO - Đang lấy dữ liệu tài chính cho DRI
+2025-08-25 12:02:19,694 - INFO - Đã lưu dữ liệu tài chính của mã DRI vào file vnstocks_data/DRI_financial_statements.csv
+2025-08-25 12:02:19,694 - INFO - Đang lấy thông tin công ty cho DRI
+2025-08-25 12:02:20,018 - INFO - Đã lấy thông tin công ty DRI thành công
+2025-08-25 12:02:20,022 - INFO - Đang phân tích kỹ thuật cho mã DRI...
+2025-08-25 12:02:20,043 - INFO - Đã tìm thấy dữ liệu RS cho mã 'DRI' trong file market_filtered.csv
+2025-08-25 12:02:20,043 - INFO - PHÂN TÍCH KỸ THUẬT CHO DRI (25/08/2025):
+2025-08-25 12:02:20,043 - INFO -  - Giá hiện tại: 11.80 VND
+2025-08-25 12:02:20,043 - INFO -  - Đường trung bình:
+2025-08-25 12:02:20,043 - INFO -  * MA10: 12.46| MA20: 12.66| MA50: 12.67| MA200: 12.42
+2025-08-25 12:02:20,043 - INFO -  - Chỉ báo dao động:
+2025-08-25 12:02:20,043 - INFO -  * RSI (14): 30.79
+2025-08-25 12:02:20,043 - INFO -  * MACD: -0.19| Signal: -0.05| Histogram: -0.14
+2025-08-25 12:02:20,043 - INFO -  * Bollinger Bands: Trên: 13.44| Dưới: 11.89
+2025-08-25 12:02:20,043 - INFO -  - Sức mạnh tương đối (RS từ dữ liệu thị trường):
+2025-08-25 12:02:20,043 - INFO -  * RS3D: 26.0
+2025-08-25 12:02:20,044 - INFO -  * RS1M: 6.0
+2025-08-25 12:02:20,044 - INFO -  * RS3M: 41.0
+2025-08-25 12:02:20,044 - INFO -  * RS1Y: 57.0
+2025-08-25 12:02:20,044 - INFO -  - Mô hình Ichimoku:
+2025-08-25 12:02:20,044 - INFO -  * Tenkan-sen (Chuyển đổi): 12.40
+2025-08-25 12:02:20,044 - INFO -  * Kijun-sen (Cơ sở): 12.80
+2025-08-25 12:02:20,044 - INFO -  * Chikou Span (Trễ): 13.21
+2025-08-25 12:02:20,044 - INFO -  - Khối lượng:
+2025-08-25 12:02:20,044 - INFO -  * Khối lượng hiện tại: 133400.0
+2025-08-25 12:02:20,044 - INFO -  * MA Khối lượng (20): 1,303,705.40
+2025-08-25 12:02:20,044 - INFO -  * MA Khối lượng (50): 1,350,767.00
+2025-08-25 12:02:20,064 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/DRI_data.csv'
+2025-08-25 12:02:20,070 - INFO - Đã đọc dữ liệu thông tin từ 'vnstocks_data/DRI_infor.csv'
+2025-08-25 12:02:20,087 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-25 12:02:20,108 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 12:02:20,108 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 12:02:20,110 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 12:03:42,020 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_DRI.txt
+2025-08-25 12:03:42,028 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-25 12:03:42,033 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-25 12:03:43,144 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-08-25 12:03:43,146 - ERROR - Lỗi khi phân tích bằng OpenRouter cho DRI: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+2025-08-25 12:03:43,146 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã DRI ====================
+2025-08-25 12:03:43,146 - INFO - 💰 Giá hiện tại: 11.80 VND
+2025-08-25 12:03:43,146 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-25 12:03:43,146 - INFO - Chào mừng quý nhà đầu tư đến với bản phân tích chuyên sâu mã cổ phiếu DRI. Với vai trò là một chuyên gia phân tích đầu tư, tôi sẽ đánh giá mã DRI một cách toàn diện, kết hợp các phương pháp phân tích kỹ thuật (Wyckoff, Minervini, VSA/VPA) và phân tích cơ bản (Buffett, Lynch), cùng với các chỉ số định giá và thông tin thị trường liên quan.
+
+**Lưu ý quan trọng:** Giá hiện tại của DRI được cung cấp là 11.80 VND. Dựa trên Vốn hóa thị trường (Market Cap) 863.467 tỷ VND và Số lượng cổ phiếu đang lưu hành (Outstanding Share) 73.2 triệu cổ phiếu (từ dữ liệu TCBS và Ratio Summary), giá thực tế tương ứng là khoảng 11.790 VND. Do đó, trong phân tích này, tôi sẽ mặc định giá hiện tại là **11.800 VND** để đảm bảo tính nhất quán với các chỉ số định giá và tình hình tài chính.
+
+---
+
+### **PHÂN TÍCH CHUYÊN SÂU MÃ CỔ PHIẾU DRI**
+
+**MÃ PHÂN TÍCH: DRI**
+**GIÁ HIỆN TẠI (giả định): 11.800 VND**
+
+---
+
+**1. Phân tích kỹ thuật (Wyckoff, VSA & VPA):**
+
+*   **Giai đoạn thị trường (Wyckoff):**
+    *   **Dẫn chứng:** Giá hiện tại 11.800 VND đang nằm dưới tất cả các đường trung bình động quan trọng (MA10: 12.46, MA20: 12.66, MA50: 12.67, MA200: 12.42), cho thấy một xu hướng giảm giá mạnh mẽ đang diễn ra. Chỉ báo Ichimoku Cloud cũng xác nhận xu hướng giảm khi giá nằm dưới đám mây. RSI ở mức 30.79 và giá nằm gần dải Bollinger Band dưới (11.89), cho thấy tình trạng quá bán hoặc gần quá bán. Khối lượng giao dịch hiện tại là 133.40K, chỉ bằng 10% khối lượng trung bình 20 ngày (1.30M), thể hiện khối lượng giao dịch rất yếu.
+    *   **Nhận định:** Dựa trên các dấu hiệu trên, DRI đang ở giai đoạn **Suy thoái (Decline Phase)**. Giá liên tục tạo các đỉnh và đáy thấp hơn, và không có dấu hiệu rõ ràng của một pha tích lũy (Accumulation) hay tăng trưởng (Mark-up). Tình trạng quá bán có thể báo hiệu một đợt phục hồi kỹ thuật ngắn hạn, nhưng chưa đủ để đảo chiều xu hướng chính.
+*   **Phân tích Giá & Khối lượng (VSA/VPA):**
+    *   **Dẫn chứng:** Trong những phiên gần đây, giá DRI đã giảm mạnh từ mức đỉnh gần đây (ví dụ, từ 14.08 vào 2025-02-17 xuống 11.80 hiện tại). Khối lượng giao dịch hiện tại rất thấp so với trung bình, cho thấy sự thiếu quan tâm của nhà đầu tư.
+        *   Ngày 2025-07-29, giá đóng cửa là 13.000 VND (theo tin tức), sau đó đã giảm xuống 11.800 VND vào ngày 2025-08-25. Điều đáng chú ý là sự sụt giảm này diễn ra *sau* khi có tin tức tích cực về lợi nhuận quý 2/2025 tăng mạnh. Điều này cho thấy thị trường không chấp nhận (hoặc đang chiết khấu) tin tức tích cực này.
+        *   Khối lượng yếu trong đợt giảm giá gần đây (133.40K so với trung bình 1.3M) có thể được hiểu là áp lực bán không quá mạnh (thiếu người bán), nhưng cũng có thể là do thiếu người mua (không có lực cầu bắt đáy).
+    *   **Nhận định:** Không có dấu hiệu tích lũy mạnh mẽ. Sự sụt giảm giá sau tin tốt với khối lượng thấp không cho thấy sự hấp thụ mạnh mẽ từ phía "smart money" mà có thể là dấu hiệu của sự thờ ơ hoặc niềm tin yếu kém của thị trường vào triển vọng bền vững của công ty, bất chấp kết quả kinh doanh ngắn hạn. Đây có thể là một dấu hiệu của **phân phối ngầm** hoặc đơn giản là sự thiếu vắng nhu cầu.
+
+---
+
+**2. Phân tích theo phương pháp Mark Minervini:**
+
+*   **Xu hướng:**
+    *   **Xu hướng chính (dài hạn):** Giá nằm dưới MA200 (12.42), xác nhận xu hướng giảm dài hạn. Nhìn vào dữ liệu lịch sử giá, DRI đã có một chu kỳ tăng giá mạnh mẽ từ vùng 3-4 VND lên đỉnh khoảng 17-18 VND vào đầu năm 2022, sau đó đã bước vào giai đoạn điều chỉnh và giảm giá kéo dài.
+    *   **Xu hướng phụ (ngắn hạn):** Giá nằm dưới MA10 (12.46), MA20 (12.66), MA50 (12.67), cho thấy xu hướng giảm ngắn hạn rất rõ ràng.
+*   **Cấu trúc thị trường:**
+    *   **Dẫn chứng:** Từ dữ liệu lịch sử giá, các đỉnh và đáy gần đây đang được tạo ở mức thấp hơn. Ví dụ, sau đỉnh 14.08 vào 2025-02-17, giá đã liên tục giảm và tạo các đáy thấp hơn, đến mức 11.80 hiện tại.
+    *   **Nhận định:** Cấu trúc thị trường hiện tại là giảm giá (lower highs, lower lows). Theo Minervini, đây không phải là cấu trúc phù hợp để tìm kiếm cơ hội mua vì ông chỉ tập trung vào các cổ phiếu trong xu hướng tăng trưởng rõ ràng (Uptrend).
+*   **Pivot & Hỗ trợ/Kháng cự:**
+    *   **Dẫn chứng:**
+        *   Hỗ trợ gần nhất: Vùng giá hiện tại 11.80, trùng với đáy gần nhất vào ngày 2025-08-25 (11.80) và gần dải Bollinger Band dưới (11.89).
+        *   Kháng cự gần nhất: Các đường trung bình động MA10 (12.46), MA20 (12.66), MA50 (12.67), MA200 (12.42) đều đóng vai trò là kháng cự mạnh ở phía trên. Ichimoku Tenkan-sen (12.40) và Kijun-sen (12.80) cũng là các ngưỡng kháng cự.
+    *   **Nhận định:** DRI đang giao dịch ở vùng hỗ trợ quan trọng, nhưng có nhiều kháng cự mạnh ở phía trên.
+*   **Sức mạnh tương đối (RS):**
+    *   **Dẫn chứng:**
+        *   RS 3 ngày: 26.00 (Yếu)
+        *   RS 1 tháng: 6.00 (Rất yếu)
+        *   RS 3 tháng: 41.00 (Yếu)
+        *   RS 1 năm: 57.00 (Trung bình yếu)
+    *   **Nhận định:** Chỉ số RS của DRI rất thấp so với thị trường chung. Điều này cho thấy DRI là một cổ phiếu kém hiệu quả (laggard) và không phải là "người dẫn đầu" (leader) theo tiêu chí của Minervini. Minervini khuyến nghị tránh xa các cổ phiếu có RS thấp.
+
+---
+
+**3. Phân tích cơ bản (Buffett, Lynch, dữ liệu TCBS):**
+
+*   **Chất lượng Doanh thu & Lợi nhuận:**
+    *   **Dẫn chứng:**
+        *   Doanh thu (Revenue): Biến động mạnh qua các năm (2020: 144.7 tỷ -> 2021: 200.5 tỷ -> 2022: 155.2 tỷ -> 2023: 147.5 tỷ -> 2024: 147.6 tỷ). Báo cáo tài chính Q2/2025 cho thấy Doanh thu 6 tháng đầu năm 2025 đạt 318.4 tỷ VND, tăng 76.7% so với cùng kỳ 2024.
+        *   Lợi nhuận ròng (Net Profit): Cũng biến động lớn. Q2/2025 Lợi nhuận sau thuế lũy kế 6 tháng đầu năm 2025 đạt 76.8 tỷ đồng, gấp 2.5 lần cùng kỳ 2024 (tăng 122.1% YoY theo TCBS `eps_growth_1y`). Biên lợi nhuận gộp (Gross Profit Margin) đạt 34.11% và Biên lợi nhuận ròng (Net Profit Margin) đạt 18.55% (Ratio Summary 2025 Q2), là mức khá tốt.
+    *   **Nhận định:** Công ty có lịch sử doanh thu và lợi nhuận không ổn định, nhưng đang cho thấy sự phục hồi mạnh mẽ trong quý gần nhất (Q2/2025). Mặc dù có những yếu tố bất lợi về thời tiết, ban lãnh đạo vẫn ghi nhận kết quả kinh doanh tốt hơn nhiều năm trước và đảm bảo tiến độ đầu tư. Đây là một điểm sáng về mặt cơ bản, cho thấy khả năng xoay chuyển tình thế của doanh nghiệp.
+*   **Hiệu quả Sử dụng Vốn:**
+    *   **Dẫn chứng:**
+        *   ROE (Return on Equity): 27.40% (TCBS Summary).
+        *   ROA (Return on Assets): 21.70% (TCBS Summary).
+        *   ROIC (Return on Invested Capital): 26.27% (Ratio Summary 2025 Q2).
+    *   **Nhận định:** Các chỉ số này đều ở mức **rất cao và xuất sắc**, cho thấy công ty đang sử dụng vốn của cổ đông và tài sản một cách cực kỳ hiệu quả để tạo ra lợi nhuận. Theo triết lý của Buffett và Lynch, đây là dấu hiệu của một doanh nghiệp chất lượng với lợi thế cạnh tranh nhất định.
+*   **Tình hình Tài chính:**
+    *   **Dẫn chứng:**
+        *   Tỷ lệ Nợ/Vốn chủ sở hữu (Debt/Equity): 0.25875 (Ratio Summary 2025 Q2) – rất thấp.
+        *   Tỷ lệ Nợ vay ngắn hạn và dài hạn/Vốn chủ sở hữu ((ST+LT borrowings)/Equity): 0.056323 (Ratio Summary 2025 Q2) – rất thấp, cho thấy công ty ít phụ thuộc vào nợ vay.
+        *   Tỷ lệ Thanh toán hiện hành (Current Ratio): 1.738304 (Ratio Summary 2025 Q2) – tốt (trên 1.5).
+        *   Tiền và các khoản tương đương tiền: Hơn 115.3 tỷ VND (Q2/2025, theo tin tức), tăng 42.1%.
+    *   **Nhận định:** Tình hình tài chính của DRI rất lành mạnh, với cơ cấu nợ thấp, khả năng thanh toán tốt và dòng tiền dồi dào. Điều này cho thấy công ty có khả năng chống chịu tốt trước các biến động thị trường và có tiềm lực để đầu tư phát triển.
+*   **Ban lãnh đạo & Nội bộ:**
+    *   **Dẫn chứng:** Công ty Cổ phần Cao su Đắk Lắk (Dakruco) nắm giữ 45% cổ phần. Các thành viên ban lãnh đạo như Bùi Quang Ninh, Nguyễn Kim Hoa, Nguyễn Viết Tượng cũng có tỷ lệ sở hữu nhất định, tuy không quá cao (0.002% - 0.00169%). Tin tức Q2/2025 có đề cập "việc tổ chức đầu tư vườn cây và xây dựng cơ bản đảm bảo tiến độ", cho thấy sự quản lý chủ động.
+    *   **Nhận định:** Sự tham gia của công ty mẹ với tỷ lệ sở hữu lớn cho thấy sự ổn định trong quản trị. Mặc dù tỷ lệ sở hữu cá nhân của các lãnh đạo không quá cao, không có thông tin tiêu cực về ban lãnh đạo.
+*   **Chia cổ tức:**
+    *   **Dẫn chứng:** DRI có lịch sử chi trả cổ tức bằng tiền mặt đều đặn hàng năm (400-500 VND/CP). Gần đây nhất, công ty đã thông báo trả cổ tức Đợt 1 năm 2024 bằng tiền 400 VND/cổ phiếu và Đợt 2 năm 2024 bằng tiền 500 VND/cổ phiếu, đồng thời Đợt 1 năm 2025 cũng là 500 VND/cổ phiếu. Tỷ suất cổ tức (Dividend Yield) là 7.4% (TCBS Summary), là mức rất hấp dẫn.
+    *   **Nhận định:** Việc duy trì chi trả cổ tức bằng tiền mặt, thậm chí với tỷ suất cao, là một điểm cộng lớn, thể hiện sự quan tâm đến cổ đông và dòng tiền ổn định của doanh nghiệp.
+*   **Tin tức & Internet:**
+    *   **Dẫn chứng:** Tin tức nổi bật nhất là Báo cáo tài chính quý 2/2025 hợp nhất và công ty mẹ cho thấy Lợi nhuận sau thuế lũy kế 6 tháng đầu năm 2025 đạt 76.8 tỷ đồng, gấp 2.5 lần cùng kỳ năm 2024. Điều này được công bố vào ngày 30/07/2025.
+    *   **Nhận định:** Tin tức cơ bản rất tích cực, cho thấy sự tăng trưởng lợi nhuận mạnh mẽ. Tuy nhiên, như đã phân tích ở phần kỹ thuật, giá cổ phiếu lại tiếp tục giảm sau khi tin này được công bố (từ 13.000 VND xuống 11.800 VND), tạo ra một sự mâu thuẫn lớn giữa thông tin cơ bản và phản ứng của thị trường.
+
+---
+
+**4. Phân tích CANSLIM (IBD):**
+
+*   **C - Current Earnings (Lợi nhuận hiện tại):**
+    *   **Dẫn chứng:** EPS quý gần nhất (EPS recently) là 2122 VND (TCBS Summary). EPS TTM là 2122.00 VND. Tăng trưởng lợi nhuận ròng 1 năm (Net Profit Growth 1Y) là 122.1% (TCBS Summary).
+    *   **Nhận định:** Rất mạnh mẽ. DRI đáp ứng tiêu chí này một cách xuất sắc.
+*   **A - Annual Earnings (Lợi nhuận hàng năm):**
+    *   **Dẫn chứng:** EPS tăng trưởng 5 năm (EPS growth 5y) là 167.2% (TCBS Summary).
+    *   **Nhận định:** Ấn tượng. Mặc dù các số liệu lợi nhuận từng quý/năm trong báo cáo tài chính gốc có sự biến động, nhưng con số tăng trưởng EPS 5 năm từ TCBS cho thấy xu hướng cải thiện dài hạn.
+*   **N - New Products, New Management, New Highs (Sản phẩm mới, Ban lãnh đạo mới, Giá mới):**
+    *   **Dẫn chứng:** Không có thông tin về sản phẩm/dịch vụ mới đột phá hay sự thay đổi lớn trong ban lãnh đạo được cung cấp. Giá cổ phiếu đang trong xu hướng giảm mạnh, cách xa các mức đỉnh cao mới (New Highs).
+    *   **Nhận định:** Không đáp ứng được tiêu chí này.
+*   **S - Supply and Demand (Cung và Cầu - Khối lượng):**
+    *   **Dẫn chứng:** Khối lượng giao dịch hiện tại thấp (133.40K) so với trung bình 20 ngày (1.30M), tỷ lệ là 0.10. Tỷ lệ sở hữu của khối ngoại là 0.85%, khối ngoại mua bán ròng 20 phiên gần nhất là 1.00 (neutral).
+    *   **Nhận định:** Khối lượng yếu cho thấy sự thiếu vắng nhu cầu. Không có dấu hiệu rõ ràng của sự tích lũy mạnh từ tổ chức hay dòng tiền lớn.
+*   **L - Leader or Laggard (Người dẫn đầu hay kẻ chậm chân):**
+    *   **Dẫn chứng:** Chỉ số sức mạnh tương đối (RS) rất yếu (3 ngày: 26, 1 tháng: 6). `rel_strength_1y` là 57.00 (TCBS).
+    *   **Nhận định:** DRI là một cổ phiếu kém hiệu quả (laggard) so với thị trường.
+*   **I - Institutional Sponsorship (Sự bảo trợ của tổ chức):**
+    *   **Dẫn chứng:** "Quỹ Đầu tư Cổ phiếu Triển vọng Bảo Việt" và "Quỹ Đầu tư Trái phiếu Bảo Việt" mỗi quỹ nắm 0.68% cổ phần, với ngày cập nhật không quá gần đây (2020, 2024). Tỷ lệ sở hữu của khối ngoại thấp.
+    *   **Nhận định:** Mức độ bảo trợ của tổ chức rất yếu, không có sự tham gia đáng kể của các quỹ đầu tư lớn.
+*   **M - Market Direction (Xu hướng thị trường):**
+    *   **Dẫn chứng:** Xu hướng riêng của DRI là giảm mạnh. Thông tin về xu hướng VNINDEX không được cung cấp trực tiếp, nhưng với tình trạng của DRI, môi trường thị trường không thuận lợi cho việc mua cổ phiếu đang giảm giá.
+    *   **Nhận định:** Xu hướng thị trường (ít nhất đối với DRI) là Tiêu cực.
+
+---
+
+**5. Định giá & So sánh ngành:**
+
+*   **Chỉ số Định giá:**
+    *   **Dẫn chứng:**
+        *   P/E: 5.60 (TCBS Summary). Lịch sử P/E: 48.19 (2020 Q3), 28.20 (2020 Q4), 12.72 (2021 Q1), 10.40 (2021 Q2), 10.70 (2021 Q3), 15.69 (2021 Q4), 10.91 (2022 Q1), 7.43 (2022 Q2), 10.04 (2022 Q3), 6.80 (2022 Q4), 11.94 (2023 Q1), 10.11 (2023 Q2), 7.40 (2023 Q3), 12.26 (2023 Q4), 11.92 (2024 Q1), 11.91 (2024 Q2), 8.48 (2024 Q3), 6.80 (2024 Q4), 6.58 (2025 Q1), 5.55 (2025 Q2).
+        *   P/B: 1.30 (TCBS Summary).
+        *   P/S: 1.40 (TCBS Summary).
+        *   EV/EBITDA: 3.40 (TCBS Summary).
+    *   **Nhận định:** P/E hiện tại là 5.60, P/B là 1.30, EV/EBITDA là 3.40. Các chỉ số này đang ở mức **rất thấp** so với lịch sử của chính DRI và thị trường chung. Đặc biệt, P/E và EV/EBITDA cho thấy DRI có vẻ bị định giá thấp đáng kể nếu nhìn vào lợi nhuận gần đây và hiệu quả hoạt động.
+*   **So sánh Ngành (dựa trên danh sách cổ phiếu PE dưới 20 và tăng trưởng):**
+    *   **Dẫn chứng:** Trong danh sách các mã có P/E dưới 20 và tăng trưởng, các mã ngành Hóa chất khác có P/E dao động từ 6.60 (TRC) đến 12.40 (DDV). ROE của các mã này cũng đa dạng, ví dụ DCM (16.9%), DDV (19.6%), HVT (23.2%), NFC (37.4%). ROE của DRI là 27.4% nằm trong top cao của nhóm ngành.
+    *   **Nhận định:** DRI có P/E (5.60) thấp nhất trong các mã ngành Hóa chất trong danh sách so sánh, và chỉ đứng thứ hai về EPS Growth 1Y (122.1%) sau ANV (436.85%), nhưng ROE (27.4%) lại rất cao. Điều này càng củng cố nhận định về việc DRI đang bị **định giá thấp** so với hiệu quả kinh doanh mà nó mang lại, đặc biệt là sự phục hồi mạnh mẽ gần đây.
+
+---
+
+**6. Nhận định vị thế mua ngắn hạn:**
+
+*   **Khả năng bật tăng ngắn hạn:**
+    *   **Dẫn chứng:** RSI (14) 30.79 và giá gần dải Bollinger Band dưới (11.89) cho thấy cổ phiếu đang ở vùng quá bán.
+    *   **Nhận định:** Có thể có một đợt phục hồi kỹ thuật (technical bounce) trong ngắn hạn do điều kiện quá bán. Tuy nhiên, khối lượng giao dịch yếu và xu hướng giảm mạnh chi phối có thể làm cho đợt phục hồi này không bền vững hoặc không đáng kể.
+*   **Các tín hiệu mua/bán gần đây:**
+    *   **Dẫn chứng:** Các chỉ báo kỹ thuật như MA, MACD, Ichimoku đều cho tín hiệu BÁN/GIẢM GIÁ. TCBS cũng đưa ra khuyến nghị "Bán mạnh".
+    *   **Nhận định:** Không có tín hiệu mua kỹ thuật đáng tin cậy nào xuất hiện. Các tín hiệu bán đang chiếm ưu thế.
+*   **Tâm lý thị trường ngắn hạn:**
+    *   **Dẫn chứng:** Giá đóng cửa giảm -3.31% (trước đó là 12.200 VND), khối lượng thấp. TCBS `active_buy_pct` 27.8%, `strong_buy_pct` 35.9%, `tcbs_buy_sell_signal` là "Bán mạnh". `num_decrease_continuous_day` là 4 (giảm liên tiếp 4 phiên).
+    *   **Nhận định:** Tâm lý thị trường ngắn hạn đối với DRI là **tiêu cực và bi quan**. Mặc dù có tin tốt về lợi nhuận, giá vẫn tiếp tục giảm, cho thấy niềm tin của nhà đầu tư vào cổ phiếu này đang rất thấp hoặc có những lo ngại khác không được thể hiện trong dữ liệu công khai.
+
+---
+
+**7. Chiến lược giao dịch & Quản lý rủi ro:**
+
+*   **Điểm vào:**
+    *   **Nhận định:** Hiện tại, không có điểm vào lệnh an toàn và rõ ràng theo các phương pháp kỹ thuật được khuyến nghị (Minervini, Wyckoff). Xu hướng giảm mạnh đang là chủ đạo. Mua tại vùng quá bán (RSI ~30, Bollinger dưới) là chiến lược "bắt đáy" rất rủi ro. Đối với nhà đầu tư giá trị, việc mua vào một cổ phiếu đang giảm giá sau tin tức tích cực có thể là hấp dẫn, nhưng cần có sự kiên nhẫn và khả năng chấp nhận rủi ro cao.
+    *   **Đề xuất:** Cần chờ đợi các tín hiệu xác nhận đảo chiều rõ ràng hơn:
+        *   Giá vượt lên trên các đường MA ngắn hạn (MA10, MA20) và giữ vững.
+        *   Xuất hiện các mẫu hình nến đảo chiều mạnh mẽ (ví dụ: Hammer, Engulfing Bullish) với khối lượng tăng đột biến, cho thấy sự tích lũy của dòng tiền lớn.
+        *   Chỉ báo MACD cắt lên đường Signal và Histogram chuyển dương.
+        *   Chỉ số RS bắt đầu cải thiện và vượt trên mức 70.
+*   **Stop-loss & Take-profit:**
+    *   **Nhận định:** Không thể xác định chính xác các điểm này do không có điểm vào phù hợp. Tuy nhiên, nếu một nhà đầu tư mạo hiểm quyết định mua vào ở vùng giá hiện tại 11.800 VND (giả định là đáy ngắn hạn), thì:
+        *   **Stop-loss:** Nên đặt chặt chẽ dưới đáy gần nhất, ví dụ ở mức 11.500 VND hoặc 11.000 VND, để giới hạn rủi ro nếu giá tiếp tục rơi.
+        *   **Take-profit:** Các mức kháng cự gần nhất như MA10 (12.46), MA20 (12.66) và MA50 (12.67) có thể là mục tiêu lợi nhuận ngắn hạn.
+*   **Risk/Reward:**
+    *   **Nhận định:** Với tình hình hiện tại, tỷ lệ rủi ro/lợi nhuận cho một vị thế mua trong ngắn hạn là **không hấp dẫn**. Rủi ro giá tiếp tục giảm là cao, trong khi tiềm năng tăng giá bị giới hạn bởi nhiều ngưỡng kháng cự và tâm lý thị trường tiêu cực.
+
+---
+
+**8. Dự báo xu hướng:**
+
+*   **Ngắn hạn (1-2 tuần):**
+    *   **Dẫn chứng:** Các chỉ báo kỹ thuật (MA, MACD, Ichimoku) cho thấy xu hướng giảm giá vẫn chiếm ưu thế. Khối lượng yếu. Thị trường đã phản ứng tiêu cực với tin tức lợi nhuận tốt.
+    *   **Dự báo:** Tiếp tục xu hướng giảm nhẹ hoặc sideway trong biên độ hẹp ở vùng đáy. Khả năng phục hồi kỹ thuật có thể xảy ra nhưng không mạnh mẽ và không bền vững.
+*   **Trung hạn (1-3 tháng):**
+    *   **Dẫn chứng:** Sự mâu thuẫn lớn giữa fundamentals rất mạnh (ROE, ROA, ROIC cao, P/E thấp, tăng trưởng lợi nhuận Q2/2025 ấn tượng) và kỹ thuật tiêu cực (downtrend, laggard).
+    *   **Dự báo:** Xu hướng sẽ phụ thuộc vào việc liệu thị trường có bắt đầu "nhận ra" giá trị của công ty và hấp thụ các thông tin cơ bản tích cực hay không. Nếu lợi nhuận tốt tiếp tục được duy trì và có thêm chất xúc tác, giá có thể bắt đầu quá trình tạo đáy và tích lũy. Tuy nhiên, quá trình này cần thời gian và bằng chứng cụ thể về sự thay đổi trong hành vi giá/khối lượng. Dự báo **Trung tính đến Cải thiện dần** nếu có dòng tiền lớn tham gia.
+*   **Dài hạn (3-12 tháng):**
+    *   **Dẫn chứng:** Công ty có hiệu quả sử dụng vốn rất tốt (ROE > 27%), P/E, P/B, EV/EBITDA thấp kỷ lục, và tăng trưởng lợi nhuận gần đây rất mạnh. Ngành cao su và cây ăn quả có thể có triển vọng tốt nếu giá hàng hóa thuận lợi.
+    *   **Dự báo:** Triển vọng dài hạn là **Tích cực**. Nếu công ty có thể duy trì được đà tăng trưởng lợi nhuận như Q2/2025, và thị trường bắt đầu định giá lại cổ phiếu theo giá trị nội tại, DRI có thể mang lại lợi nhuận hấp dẫn. Tuy nhiên, nhà đầu tư cần kiên nhẫn và theo dõi chặt chẽ sự bền vững của lợi nhuận và các diễn biến về giá hàng hóa.
+
+---
+
+**9. Kết luận & Khuyến nghị cuối cùng:**
+
+DRI đang đứng trước một tình huống rất phức tạp với sự mâu thuẫn rõ rệt giữa cơ bản vững chắc (lợi nhuận phục hồi mạnh mẽ, hiệu quả sử dụng vốn xuất sắc, định giá rẻ) và bức tranh kỹ thuật bi quan (xu hướng giảm mạnh, sức mạnh tương đối yếu, thị trường phản ứng tiêu cực với tin tốt).
+
+*   Các tín hiệu kỹ thuật và tâm lý thị trường ngắn hạn đều cho thấy xu hướng giảm và rủi ro cao.
+*   Tuy nhiên, các chỉ số tài chính cơ bản và định giá đang ở mức cực kỳ hấp dẫn, đặc biệt là với kết quả kinh doanh Q2/2025 đột biến.
+
+Quyết định ở đây là cân nhắc giữa rủi ro ngắn hạn từ xu hướng giá và cơ hội dài hạn từ giá trị nội tại. Việc thị trường "bán tháo" hoặc thờ ơ sau tin tức lợi nhuận tốt là một dấu hiệu cảnh báo mạnh mẽ, cho thấy nhà đầu tư tổ chức chưa sẵn sàng tham gia hoặc có những lo ngại khác.
+
+**Khuyến nghị cuối cùng: GIỮ**
+
+**Điểm số đánh giá (1-10): 6.5/10** (Giá trị cơ bản cao nhưng bị trừ điểm mạnh do kỹ thuật và tâm lý thị trường tiêu cực).
+
+**Tóm tắt ngắn gọn:**
+DRI có nền tảng cơ bản mạnh mẽ với lợi nhuận phục hồi ấn tượng và định giá rất rẻ, nhưng cổ phiếu đang trong xu hướng giảm mạnh và bị thị trường phản ứng tiêu cực ngay cả với tin tốt. Khuyến nghị "GIỮ" dành cho nhà đầu tư đang nắm giữ, chờ đợi các tín hiệu kỹ thuật xác nhận đảo chiều rõ ràng hơn trước khi xem xét tích lũy thêm.
+
+**Rủi ro chính:**
+1.  **Rủi ro "Value Trap":** Mặc dù các chỉ số định giá hấp dẫn, giá cổ phiếu có thể tiếp tục giảm nếu thị trường không tin vào sự bền vững của tăng trưởng lợi nhuận hoặc có những yếu tố rủi ro tiềm ẩn chưa được công bố.
+2.  **Rủi ro Xu hướng giảm:** Xu hướng giảm giá kỹ thuật mạnh mẽ có thể tiếp diễn, gây thua lỗ cho các vị thế mua mới hoặc đang nắm giữ.
+3.  **Rủi ro thanh khoản:** Khối lượng giao dịch thấp có thể khiến việc mua/bán với số lượng lớn trở nên khó khăn, đặc biệt trong các giai đoạn biến động mạnh.
+4.  **Rủi ro ngành và hoạt động tại Lào:** Tính chu kỳ của ngành cao su và các yếu tố địa chính trị, thời tiết tại Lào có thể ảnh hưởng đến hoạt động kinh doanh dài hạn.
+
+**Đối với nhà đầu tư chưa có vị thế:** Nên tránh mua vào tại thời điểm hiện tại khi xu hướng giá vẫn là giảm và không có tín hiệu tích lũy rõ ràng. Chờ đợi sự ổn định giá và các tín hiệu đảo chiều kỹ thuật được xác nhận.
+2025-08-25 12:03:43,147 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-25 12:03:43,148 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-25 12:03:43,148 - INFO - ============================================================
+
+2025-08-25 12:03:43,149 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DRI_report.json'
