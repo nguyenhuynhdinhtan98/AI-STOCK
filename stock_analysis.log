@@ -2078,3 +2078,38 @@ DRI hiện tại cho thấy sự phục hồi mạnh mẽ về lợi nhuận và
 2025-08-25 12:16:45,125 - INFO - ============================================================
 
 2025-08-25 12:16:45,126 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/DRI_report.json'
+2025-08-25 12:22:02,037 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 12:22:04,285 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 12:22:04,286 - INFO - ============================================================
+2025-08-25 12:22:04,286 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 12:22:04,286 - INFO - ============================================================
+2025-08-25 12:22:04,286 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 12:22:04,933 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 12:22:04,933 - INFO - Đang lấy dữ liệu tài chính cho VNINDEX
+2025-08-25 12:22:04,933 - ERROR - Lỗi khi lấy BCTC cho VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-25 12:22:04,933 - INFO - Đang lấy thông tin công ty cho VNINDEX
+2025-08-25 12:22:04,933 - ERROR - Lỗi khi lấy thông tin công ty VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-25 12:22:04,938 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 12:22:04,955 - WARNING - Không tìm thấy dữ liệu cho mã cổ phiếu 'VNINDEX' trong file.
+2025-08-25 12:22:04,955 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 12:22:04,955 - INFO -  - Giá hiện tại: 1,632.11 VND
+2025-08-25 12:22:04,955 - INFO -  - Đường trung bình:
+2025-08-25 12:22:04,955 - INFO -  * MA10: 1,641.10| MA20: 1,591.12| MA50: 1,492.34| MA200: 1,327.72
+2025-08-25 12:22:04,955 - INFO -  - Chỉ báo dao động:
+2025-08-25 12:22:04,955 - INFO -  * RSI (14): 63.27
+2025-08-25 12:22:04,955 - INFO -  * MACD: 48.51| Signal: 49.21| Histogram: -0.71
+2025-08-25 12:22:04,955 - INFO -  * Bollinger Bands: Trên: 1,709.45| Dưới: 1,472.79
+2025-08-25 12:22:04,955 - INFO -  - Mô hình Ichimoku:
+2025-08-25 12:22:04,955 - INFO -  * Tenkan-sen (Chuyển đổi): 1639.61
+2025-08-25 12:22:04,955 - INFO -  * Kijun-sen (Cơ sở): 1585.14
+2025-08-25 12:22:04,955 - INFO -  * Chikou Span (Trễ): 1497.28
+2025-08-25 12:22:04,955 - INFO -  - Khối lượng:
+2025-08-25 12:22:04,955 - INFO -  * Khối lượng hiện tại: 656918905.0
+2025-08-25 12:22:04,956 - INFO -  * MA Khối lượng (20): 1,785,505,911.00
+2025-08-25 12:22:04,956 - INFO -  * MA Khối lượng (50): 1,363,224,214.88
+2025-08-25 12:22:04,974 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/VNINDEX_data.csv'
+2025-08-25 12:22:04,991 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-25 12:22:04,999 - WARNING - Không tìm thấy dữ liệu cho mã cổ phiếu 'VNINDEX' trong file.
+2025-08-25 12:22:05,000 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 12:22:05,000 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 12:22:05,003 - INFO - Đang gửi prompt tới Gemini...
