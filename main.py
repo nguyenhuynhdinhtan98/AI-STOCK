@@ -716,7 +716,7 @@ def generate_vnindex_analysis_prompt(
     prompt = f"""
 BẠN LÀ CHUYÊN GIA PHÂN TÍCH THỊ TRƯỜNG HÀNG ĐẦU VỚI CHUYÊN MÔN VSA/VPA & WYCKOFF
 Kinh nghiệm: 20+ năm phân tích thị trường chứng khoán
-Chuyên môn: Volume Spread Analysis, Volume Price Analysis, Wyckoff Method, CANSLIM, Minervini
+Chuyên môn: Volume Spread Analysis, Volume Price Analysis, Wyckoff Method, Canslim, Minervini
 🎯 **NHIỆM VỤ:** Phân tích VNINDEX toàn diện + Dự báo chính xác + Chiến lược thực tế
 **DỮ LIỆU THỰC TẾ:**
 CHỈ SỐ PHÂN TÍCH: {symbol.upper()}
@@ -817,7 +817,7 @@ THÔNG TIN TOÀN BỘ CỔ PHIẾU THỊ TRƯỜNG CÓ PE DƯỚI 20 VÀ TĂNG T
 ✅ Ưu tiên chất lượng hơn số lượng
 ✅ Trả lời ngắn gọn, thực tế, có thể áp dụng
 ✅ Dùng bảng biểu khi liệt kê danh sách
-✅ Tập trung vào VSA/VPA, Wyckoff Method và CANSLIM
+✅ Tập trung vào VSA/VPA & WYCKOFF & CANSLIM & MINERVINI
 """
     return prompt
 
