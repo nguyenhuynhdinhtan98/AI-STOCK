@@ -613,7 +613,7 @@ BẠN LÀ CHUYÊN GIA PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM (Wyckoff, VSA/VPA, M
 - MA10/20/50/200: {_fmt(ma.get('ma10','N/A'))} / {_fmt(ma.get('ma20','N/A'))} / {_fmt(ma.get('ma50','N/A'))} / {_fmt(ma.get('ma200','N/A'))}
 - Vị trí giá vs MA: {"Trên tất cả MA (uptrend)" if above_all else ("Dưới tất cả MA (downtrend)" if below_all else "Hỗn hợp/sideways")}
 - Bollinger: Trên {_fmt(bb.get('upper','N/A'))} | Dưới {_fmt(bb.get('lower','N/A'))}
-- Ichimoku: Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))}
+- Ichimoku: Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))} | Senkou Span A {_fmt(ich.get('senkou_a','N/A'))} | Senkou Span B {_fmt(ich.get('senkou_b','N/A'))}
 - Volume: hiện tại {_fmt(vol.get('current','N/A'))} | MA20 {_fmt(vol.get('ma20','N/A'))} | MA50 {_fmt(vol.get('ma50','N/A'))}
 - RS: 3D {_fmt(trading_signal.get('relative_strength_3d','N/A'))} | 1M {_fmt(trading_signal.get('relative_strength_1m','N/A'))} | 3M {_fmt(trading_signal.get('relative_strength_3m','N/A'))} | 1Y {_fmt(trading_signal.get('relative_strength_1y','N/A'))}
 
@@ -697,7 +697,7 @@ BẠN LÀ CHUYÊN GIA PHÂN TÍCH THỊ TRƯỜNG VIỆT NAM (VSA/VPA, Wyckoff, 
 - MA10/20/50/200: {_fmt(ma.get('ma10','N/A'))} / {_fmt(ma.get('ma20','N/A'))} / {_fmt(ma.get('ma50','N/A'))} / {_fmt(ma.get('ma200','N/A'))}
 - Vị trí giá vs MA: {"Trên tất cả MA (uptrend)" if above_all else ("Dưới tất cả MA (downtrend)" if below_all else "Hỗn hợp/sideways")}
 - Bollinger: Trên {_fmt(bb.get('upper','N/A'))} | Dưới {_fmt(bb.get('lower','N/A'))}
-- Ichimoku: Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))}
+- Ichimoku: Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))} | Senkou Span A {_fmt(ich.get('senkou_a','N/A'))} | Senkou Span B {_fmt(ich.get('senkou_b','N/A'))}
 - Volume: hiện tại {_fmt(vol.get('current','N/A'))} | MA20 {_fmt(vol.get('ma20','N/A'))} | MA50 {_fmt(vol.get('ma50','N/A'))}
 
 # NHIỆM VỤ
