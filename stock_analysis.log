@@ -3228,3 +3228,456 @@ Dựa trên dữ liệu 3 phiên giao dịch gần nhất (giả định phiên 
 2025-08-25 13:24:25,701 - INFO - ============================================================
 
 2025-08-25 13:24:25,703 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-25 14:04:36,345 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 14:04:43,838 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 14:04:43,839 - INFO - ============================================================
+2025-08-25 14:04:43,839 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 14:04:43,839 - INFO - ============================================================
+2025-08-25 14:04:43,839 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 14:04:44,571 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 14:04:44,575 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 14:04:44,589 - WARNING - Không tìm thấy dữ liệu cho mã 'VNINDEX' trong file.
+2025-08-25 14:04:44,589 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 14:04:44,589 - INFO -  - Giá hiện tại: 1624.60 VND
+2025-08-25 14:04:44,589 - INFO -  - Đường trung bình:
+2025-08-25 14:04:44,589 - INFO -  * MA10: 1640.35 | MA20: 1590.75 | MA50: 1492.19 | MA200: 1327.68
+2025-08-25 14:04:44,589 - INFO -  - Chỉ báo dao động:
+2025-08-25 14:04:44,589 - INFO -  * RSI(14): 61.25
+ * MACD: 47.91 | Signal: 49.09 | Histogram: -1.18
+2025-08-25 14:04:44,589 - INFO -  * Bollinger Bands: Trên: 1708.60 | Dưới: 1472.89
+2025-08-25 14:04:44,589 - INFO -  - Mô hình Ichimoku:
+2025-08-25 14:04:44,589 - INFO -  * Tenkan-sen: 1639.61 | Kijun-sen: 1585.14 | Chikou: 1497.28
+2025-08-25 14:04:44,589 - INFO -  - Khối lượng:
+2025-08-25 14:04:44,589 - INFO -  * Khối lượng hiện tại: 1179385224.00 | MA20: 1811629226.95 | MA50: 1373673541.26
+2025-08-25 14:04:44,622 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 14:04:44,622 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 14:04:44,622 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 14:07:18,415 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VNINDEX.txt
+2025-08-25 14:07:18,415 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-25 14:07:18,417 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-25 14:07:19,593 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-08-25 14:07:19,594 - ERROR - Lỗi khi phân tích bằng OpenRouter cho VNINDEX: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+2025-08-25 14:07:19,595 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO MÃ VNINDEX ====================
+2025-08-25 14:07:19,595 - INFO - 💰 Giá hiện tại: 1624.60 VND
+2025-08-25 14:07:19,595 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-25 14:07:19,595 - INFO - Chào mừng quý nhà đầu tư,
+
+Với hơn 20 năm kinh nghiệm trên thị trường chứng khoán, tôi sẽ cung cấp một cái nhìn sâu sắc và chiến lược hành động dựa trên các phương pháp VSA/VPA, Wyckoff, Canslim và Minervini.
+
+---
+
+### I. PHÂN TÍCH VNINDEX HIỆN TẠI (Điểm hiện tại: 1.62K)
+
+**1. Phân tích Xu hướng dài hạn & Trung hạn (Wyckoff & MA):**
+*   **MA200 (1.33K) & MA50 (1.49K):** Giá hiện tại (1.62K) đang nằm trên cả MA200 và MA50, cho thấy một xu hướng tăng dài hạn và trung hạn rất mạnh mẽ và ổn định. Điều này báo hiệu thị trường đang trong giai đoạn **Up-trend** vững chắc theo chu kỳ Wyckoff.
+*   **VSA Perspective:** Nền tảng vững chắc này là dấu hiệu của dòng tiền thông minh (Smart Money) đã và đang ở trong thị trường, hỗ trợ cho các đợt tăng giá tiếp theo.
+
+**2. Phân tích Xu hướng ngắn hạn & Động lực (MA, RSI, MACD, Ichimoku):**
+*   **MA10 (1.64K) & MA20 (1.59K):** Giá hiện tại (1.62K) đang nằm dưới MA10 nhưng trên MA20. Điều này được mô tả là "Hỗn hợp - Đi ngang". Đây là một tín hiệu quan trọng cho thấy thị trường đang ở trong giai đoạn **củng cố (consolidation) hoặc tái tích lũy (re-accumulation)** sau một đợt tăng giá.
+*   **RSI (14): 61.25:** Chỉ số RSI nằm trên mức 50 nhưng chưa vào vùng quá mua, xác nhận lực mua vẫn chiếm ưu thế nhưng đà tăng đang chậm lại, phù hợp với trạng thái đi ngang.
+*   **MACD (47.91 | Signal: 49.09 | Histogram: -1.18):** MACD đã cắt xuống đường tín hiệu và Histogram âm, cho thấy động lực tăng ngắn hạn đang suy yếu hoặc đảo chiều nhẹ sang tiêu cực trong ngắn hạn. Tuy nhiên, nếu giá không giảm sâu và MACD sớm cắt lên lại, đây chỉ là một sự điều chỉnh lành mạnh.
+*   **Ichimoku Cloud (Tenkan: 1.64K | Kijun: 1.59K | Chikou: 1.50K):** Giá nằm giữa Tenkan và Kijun, cho thấy sự cân bằng trong ngắn hạn. Chikou Span nằm trên giá 26 phiên trước đó, xác nhận xu hướng tăng chung vẫn được duy trì.
+
+**3. Phân tích Khối lượng (Volume Spread Analysis - VSA):**
+*   **Khối lượng hiện tại (1.18B) so với MA20 (1.81B) & MA50 (1.37B):** Khối lượng giao dịch hiện tại thấp hơn đáng kể so với cả MA20 và MA50.
+*   **VSA Interpretation:** Đây là một tín hiệu **cực kỳ quan trọng**. Trong một giai đoạn đi ngang hoặc điều chỉnh nhẹ, khối lượng thấp cho thấy **thiếu áp lực bán mạnh (lack of selling pressure)** từ các nhà đầu tư lớn (Smart Money). Điều này củng cố kịch bản rằng thị trường đang trong giai đoạn tái tích lũy, nơi các nhà đầu tư tổ chức đang hấp thụ cổ phiếu mà không gây biến động giá lớn, chuẩn bị cho đợt tăng giá tiếp theo. Nếu có phân phối, khối lượng sẽ rất cao kèm spread rộng.
+
+**4. Dải Bollinger:**
+*   **Trên: 1.71K | Dưới: 1.47K:** Giá 1.62K nằm ở nửa trên của dải Bollinger, cho thấy xu hướng tăng vẫn còn tiềm năng. Dải Bollinger rộng cũng phản ánh khả năng biến động trong thời gian tới.
+
+---
+
+### II. DỰ BÁO VNINDEX
+
+Dựa trên phân tích tổng thể:
+
+*   **Ngắn hạn (1-3 tuần):** VNINDEX khả năng cao sẽ tiếp tục dao động trong biên độ hẹp, có thể kiểm định lại vùng hỗ trợ quanh MA20 (1.59K) hoặc thậm chí sâu hơn là vùng 1.55K-1.57K (nửa dưới của kênh tích lũy) với khối lượng thấp. Đây là giai đoạn thị trường "rũ bỏ" nhà đầu tư yếu tay và dòng tiền thông minh tiếp tục gom hàng.
+*   **Trung hạn (1-3 tháng):** Sau giai đoạn củng cố này, với nền tảng uptrend vững chắc, VNINDEX có xác suất rất cao sẽ **phá vỡ vùng kháng cự hiện tại (1.64K - 1.71K)** với khối lượng gia tăng mạnh mẽ. Mục tiêu tiếp theo của thị trường có thể là vùng **1.75K - 1.80K**, thậm chí cao hơn trong kịch bản tích cực.
+
+**Kịch bản tiêu cực (Low Probability):** Nếu VNINDEX phá vỡ vùng hỗ trợ mạnh 1.49K (MA50) với khối lượng lớn, đặc biệt là dưới 1.47K (Bollinger dưới), điều đó sẽ báo hiệu một sự thay đổi cấu trúc thị trường sang downtrend hoặc điều chỉnh sâu hơn. Tuy nhiên, các tín hiệu hiện tại chưa ủng hộ kịch bản này.
+
+---
+
+### III. CHIẾN LƯỢC THỰC TẾ
+
+1.  **Giai đoạn hiện tại là "cơ hội vàng" cho việc tích lũy:** Với các tín hiệu tái tích lũy mạnh mẽ từ VSA/Wyckoff, nhà đầu tư nên tận dụng các nhịp điều chỉnh trong biên độ hẹp với khối lượng thấp để tích lũy dần các cổ phiếu tiềm năng.
+2.  **Tập trung vào Cổ phiếu dẫn dắt (Leader Stocks):** Áp dụng triết lý Canslim/Minervini, ưu tiên các cổ phiếu có:
+    *   **Tăng trưởng mạnh mẽ:** EPS và Doanh thu quý gần nhất và hàng năm tăng trưởng vượt trội (tối thiểu 20-25%).
+    *   **ROE cao:** Hiệu quả sử dụng vốn tốt.
+    *   **Sức mạnh tương đối (Relative Strength - RS) cao:** Cho thấy cổ phiếu đang mạnh hơn thị trường chung.
+    *   **Cơ bản vững chắc:** Mô hình kinh doanh tốt, sức khỏe tài chính lành mạnh.
+    *   **Biên lợi nhuận cao và cải thiện.**
+3.  **Điểm mua tối ưu (Buy Points):**
+    *   **Mua breakout:** Khi cổ phiếu phá vỡ các vùng kháng cự với khối lượng lớn và spread rộng.
+    *   **Mua khi test hỗ trợ:** Mua tại các vùng hỗ trợ quan trọng (MA20, MA50) hoặc các điểm spring/shakeout (trong Wyckoff) với khối lượng thấp và có dấu hiệu cầu vào (No Supply Test, Demand Bar).
+    *   **Tránh mua đuổi:** Không mua khi giá đã tăng mạnh liên tục hoặc khi khối lượng cao nhưng giá không tăng (Upthrust/Buying Climax).
+4.  **Quản lý Rủi ro:**
+    *   **Luôn đặt cắt lỗ (Stop-loss):** Đây là nguyên tắc sống còn. Mức cắt lỗ nên từ 5-8% từ điểm mua.
+    *   **Quản lý vị thế:** Không dồn quá nhiều vốn vào một cổ phiếu. Phân bổ hợp lý.
+    *   **Giữ một phần tiền mặt:** Để sẵn sàng cho các cơ hội mới hoặc đối phó với những biến động bất ngờ của thị trường.
+
+---
+
+### IV. 20 MÃ CỔ PHIẾU TIỀM NĂNG (Xếp hạng giảm dần)
+
+Dựa trên tiêu chí P/E < 20, tăng trưởng mạnh mẽ (EPS, Doanh thu), ROE cao, sức mạnh tương đối tốt và cấu trúc kỹ thuật tiềm năng (ưu tiên những mã có Price Action tích cực hoặc đang trong vùng tích lũy tiềm năng), đây là 20 mã cổ phiếu tôi đánh giá cao trong giai đoạn hiện tại:
+
+1.  **VVS (UPCOM - Ô tô và phụ tùng):**
+    *   **Điểm nổi bật:** ROE vượt trội (35.1%), tăng trưởng EPS 1 năm rất cao (296.23%), tăng trưởng Doanh thu 1 năm (375.00%) và 5 năm (210.00%) ấn tượng. P/E thấp (6.00). Sức mạnh tương đối (RS) cực cao (99.00 - 1 năm, 94.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá nằm trên SMA20 và SMA50, RSI ở mức 59.00 (tức là đã có đà tăng, chưa quá nóng). Có dấu hiệu "Mua" theo TCBS Recommend.
+    *   **Tiềm năng:** Mã này thể hiện một sự kết hợp mạnh mẽ giữa tăng trưởng kinh doanh đột phá, định giá hấp dẫn và được thị trường đánh giá cao về sức mạnh tương đối. Đây là một ứng cử viên dẫn dắt tiềm năng.
+
+2.  **TYA (HSX - Hàng & Dịch vụ Công nghiệp):**
+    *   **Điểm nổi bật:** Tăng trưởng EPS 1 năm bùng nổ (7969.58% - có thể là một cú turnaround ấn tượng), ROE tốt (18.3%). P/E cực thấp (5.20). Sức mạnh tương đối (RS) khá (70.00 - 1 năm, 53.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá vừa cắt lên SMA5, SMA20 và nằm trên SMA50, RSI 63.60, MACD Histogram đang tăng dần (từ dưới 0 lên). Tín hiệu này cho thấy một sự thay đổi tích cực trong động lực giá sau một giai đoạn khó khăn.
+    *   **Tiềm năng:** Đây là một mã có câu chuyện turnaround mạnh mẽ, nếu tăng trưởng EPS là bền vững, có thể mang lại lợi nhuận lớn. Cần theo dõi chặt chẽ để xác nhận đà tăng.
+
+3.  **NAB (HSX - Ngân hàng):**
+    *   **Điểm nổi bật:** ROE cao (20.2%), tăng trưởng EPS 1 năm (37.59%). P/E thấp (7.60). Sức mạnh tương đối (RS) rất mạnh (98.00 - 1 năm, 65.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá nằm trên SMA20 và SMA50, RSI 59.10. TCBS Recommend là "Mua".
+    *   **Tiềm năng:** Một mã ngân hàng có nền tảng vững chắc và được dòng tiền lớn quan tâm, thể hiện qua RS cao. Tiềm năng tăng trưởng ổn định.
+
+4.  **VPB (HSX - Ngân hàng):**
+    *   **Điểm nổi bật:** Tăng trưởng EPS 1 năm mạnh (58.20%). Sức mạnh tương đối (RS) cực kỳ cao (99.00 - 1 năm, 93.00 - 3 tháng). P/E (16.40) vẫn dưới 20.
+    *   **Kỹ thuật:** Giá nằm trên SMA20 và SMA50, RSI 64.10.
+    *   **Tiềm năng:** Là một trong những mã dẫn dắt của ngành ngân hàng với RS ấn tượng, phù hợp cho chiến lược mua tích lũy khi thị trường điều chỉnh.
+
+5.  **TRC (HSX - Hóa chất):**
+    *   **Điểm nổi bật:** Tăng trưởng EPS 1 năm (227.39%), tăng trưởng Doanh thu 1 năm (172.20%) và 5 năm (357.70%) rất mạnh. P/E thấp (6.60), ROE tốt (16.2%). Sức mạnh tương đối (RS) 3 tháng rất cao (91.00).
+    *   **Kỹ thuật:** Giá nằm trên SMA20 và SMA50, RSI 52.50.
+    *   **Tiềm năng:** Một mã hóa chất có tăng trưởng mạnh mẽ, định giá hấp dẫn và kỹ thuật đang ở trạng thái tích cực.
+
+6.  **HGM (HNX - Tài nguyên Cơ bản):**
+    *   **Điểm nổi bật:** ROE cực kỳ cao (120.10%), tăng trưởng EPS 1 năm (365.42%) và 5 năm (1000.44%) vượt trội, tăng trưởng Doanh thu 1 năm (310.20%) và 5 năm (441.20%) rất ấn tượng. P/E thấp (9.00). Sức mạnh tương đối (RS) cực cao (100.00 - 1 năm, 99.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá nằm dưới SMA20 và SMA50, RSI 40.10. Đang trong giai đoạn điều chỉnh/tái tích lũy sâu hơn.
+    *   **Tiềm năng:** Dù kỹ thuật đang điều chỉnh, nhưng với các chỉ số cơ bản và RS vượt trội, đây là một cổ phiếu dẫn dắt tiềm năng trong trung và dài hạn. Canh mua khi có dấu hiệu kiệt cung hoặc quay đầu tăng trở lại.
+
+7.  **ICN (UPCOM - Xây dựng và Vật liệu):**
+    *   **Điểm nổi bật:** ROE rất cao (70.80%), tăng trưởng EPS 1 năm (267.33%), tăng trưởng Doanh thu 1 năm (3849.50%) cực khủng. P/E rất thấp (4.20). Sức mạnh tương đối (RS) cao (84.00 - 1 năm, 84.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá nằm dưới SMA20 và SMA50, RSI 38.30.
+    *   **Tiềm năng:** Tiềm năng đột phá nhờ tăng trưởng doanh thu và lợi nhuận khổng lồ. Yêu cầu kiên nhẫn chờ đợi tín hiệu phục hồi rõ ràng trên biểu đồ giá.
+
+8.  **TFC (HNX - Thực phẩm và đồ uống):**
+    *   **Điểm nổi bật:** ROE rất cao (52.60%), tăng trưởng EPS 1 năm (208.77%) và 5 năm (47.78%) mạnh mẽ. Tăng trưởng Doanh thu 1 năm (1072.60%). P/E thấp (5.90). Sức mạnh tương đối (RS) rất cao (90.00 - 1 năm, 97.00 - 3 tháng).
+    *   **Kỹ thuật:** RSI 49.00 (gần trung tính).
+    *   **Tiềm năng:** Một cổ phiếu có tăng trưởng và RS xuất sắc, là ứng viên mạnh cho sự tăng trưởng tiếp theo.
+
+9.  **DBC (HSX - Thực phẩm và đồ uống):**
+    *   **Điểm nổi bật:** ROE cao (25.1%), tăng trưởng EPS 1 năm (2975.45% - cần xác minh tính bền vững, nhưng rất ấn tượng), tăng trưởng Doanh thu 1 năm (248.60%) và 5 năm (600.00%) rất mạnh. P/E thấp (6.80).
+    *   **Kỹ thuật:** Giá nằm dưới SMA20 và SMA50, RSI 32.80.
+    *   **Tiềm năng:** Dù đang điều chỉnh, nhưng nếu tăng trưởng EPS 1 năm là thật và bền vững, đây là một mã có tiềm năng tăng giá mạnh mẽ khi thị trường hồi phục.
+
+10. **DDV (UPCOM - Hóa chất):**
+    *   **Điểm nổi bật:** ROE tốt (19.6%), tăng trưởng EPS 1 năm (144.05%) và 5 năm (97.14%) ổn định, tăng trưởng Doanh thu 1 năm (138.80%) và 5 năm (361.80%) rất tốt. P/E thấp (12.40). Sức mạnh tương đối (RS) cao (81.00 - 1 năm, 87.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá vừa cắt lên SMA50, RSI 42.70.
+    *   **Tiềm năng:** Mã có sự tăng trưởng vững chắc, RS tốt và tín hiệu phục hồi kỹ thuật.
+
+11. **KLB (UPCOM - Ngân hàng):**
+    *   **Điểm nổi bật:** ROE tốt (17.7%), tăng trưởng EPS 1 năm (54.62%) và 5 năm (67.32%) mạnh mẽ. Tăng trưởng Doanh thu 1 năm (67.70%) và 5 năm (66.80%). P/E thấp (7.30). Sức mạnh tương đối (RS) cực cao (97.00 - 1 năm, 93.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá nằm trên SMA50, RSI 47.50.
+    *   **Tiềm năng:** Một ngân hàng có tăng trưởng và RS rất ấn tượng, hứa hẹn sẽ bứt phá khi thị trường chung tăng trở lại.
+
+12. **SHB (HSX - Ngân hàng):**
+    *   **Điểm nổi bật:** ROE tốt (18.3%), tăng trưởng EPS 1 năm (27.27%), tăng trưởng Doanh thu 1 năm (57.80%). P/E thấp (7.20). Sức mạnh tương đối (RS) rất cao (94.00 - 1 năm, 91.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá nằm trên SMA50, RSI 54.40.
+    *   **Tiềm năng:** Mã ngân hàng với RS mạnh mẽ, phù hợp cho chiến lược mua tích lũy.
+
+13. **ANV (HSX - Thực phẩm và đồ uống):**
+    *   **Điểm nổi bật:** ROE tốt (16.3%), tăng trưởng EPS 1 năm (28.17%) và 5 năm (19.28%) ổn định. P/E thấp (13.00). Sức mạnh tương đối (RS) cao (95.00 - 1 năm, 83.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá vừa cắt lên SMA20, RSI 52.90.
+    *   **Tiềm năng:** Một mã có tăng trưởng và RS tốt, tín hiệu kỹ thuật cải thiện, có thể xem xét tích lũy.
+
+14. **HAH (HSX - Hàng & Dịch vụ Công nghiệp):**
+    *   **Điểm nổi bật:** ROE cao (31.5%), tăng trưởng EPS 1 năm (69.00%), tăng trưởng Doanh thu 1 năm (223.40%) và 5 năm (293.70%) rất mạnh. P/E thấp (8.80). Sức mạnh tương đối (RS) 3 tháng cao (89.00).
+    *   **Kỹ thuật:** Giá nằm dưới SMA20 và cắt xuống SMA50, RSI 42.00.
+    *   **Tiềm năng:** Một doanh nghiệp có nền tảng vững chắc và tăng trưởng mạnh. Cần chờ đợi sự ổn định hơn về giá và tín hiệu phục hồi rõ ràng.
+
+15. **VAB (HSX - Ngân hàng):**
+    *   **Điểm nổi bật:** ROE tốt (11.1%), tăng trưởng EPS 1 năm (16.52%) và 5 năm (17.91%) ổn định. P/E thấp (11.00). Sức mạnh tương đối (RS) rất cao (94.00 - 1 năm, 94.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá nằm trên SMA20 và SMA50, RSI 56.10.
+    *   **Tiềm năng:** Một mã ngân hàng khác với RS mạnh và giá đang duy trì trên các đường MA quan trọng.
+
+16. **HDB (HSX - Ngân hàng):**
+    *   **Điểm nổi bật:** ROE cao (25.3%), tăng trưởng EPS 1 năm (26.73%) và 5 năm (15.08%) ổn định. P/E thấp (7.90). Sức mạnh tương đối (RS) cao (71.00 - 1 năm, 80.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá nằm trên SMA20 và SMA50, RSI 65.00.
+    *   **Tiềm năng:** Mã ngân hàng lớn với cơ bản tốt và RS mạnh, là lựa chọn an toàn trong ngành.
+
+17. **DCM (HSX - Hóa chất):**
+    *   **Điểm nổi bật:** ROE tốt (16.9%), tăng trưởng EPS 1 năm (28.02%) và 5 năm (27.21%) ổn định. Tăng trưởng Doanh thu 1 năm (20.55%) và 5 năm (13.02%) tốt. P/E thấp (12.00).
+    *   **Kỹ thuật:** Giá nằm trên SMA50, RSI 50.20.
+    *   **Tiềm năng:** Doanh nghiệp ổn định với tăng trưởng nhất quán, phù hợp để tích lũy cho tầm nhìn trung hạn.
+
+18. **MSH (HSX - Hàng cá nhân & Gia dụng):**
+    *   **Điểm nổi bật:** ROE cao (29.0%), tăng trưởng EPS 1 năm (68.69%), tăng trưởng Doanh thu 1 năm (108.30%) và 5 năm (61.40%) mạnh mẽ. P/E thấp (7.40).
+    *   **Kỹ thuật:** Giá nằm dưới SMA20 và SMA50, RSI 39.90.
+    *   **Tiềm năng:** Một doanh nghiệp có tăng trưởng vượt trội và định giá hấp dẫn. Cần chờ đợi giá ổn định hơn để tham gia.
+
+19. **HTG (HSX - Hàng cá nhân & Gia dụng):**
+    *   **Điểm nổi bật:** ROE rất cao (37.9%), tăng trưởng EPS 1 năm (63.34%), tăng trưởng Doanh thu 1 năm (84.30%) và 5 năm (24.50%) tốt. P/E rất thấp (4.90).
+    *   **Kỹ thuật:** Giá nằm trên SMA50, RSI 49.50.
+    *   **Tiềm năng:** Hiệu suất ROE và tăng trưởng lợi nhuận ấn tượng, định giá hấp dẫn.
+
+20. **GVT (UPCOM - Tài nguyên Cơ bản):**
+    *   **Điểm nổi bật:** ROE rất cao (17.3%), tăng trưởng EPS 1 năm (134.45%). P/E cực thấp (3.80). Sức mạnh tương đối (RS) cực cao (100.00 - 1 năm, 65.00 - 3 tháng).
+    *   **Kỹ thuật:** Giá nằm trên SMA50, RSI 57.30.
+    *   **Tiềm năng:** Mặc dù doanh thu 1 năm không tăng trưởng mạnh, nhưng EPS tăng trưởng ấn tượng và RS cao cho thấy đây là một mã có tiềm năng lớn trong chu kỳ.
+
+---
+
+Chúc quý nhà đầu tư giao dịch thành công! Hãy nhớ rằng, mọi quyết định đầu tư đều cần được nghiên cứu kỹ lưỡng và phù hợp với khẩu vị rủi ro của bản thân.
+
+Trân trọng,
+Chuyên gia phân tích thị trường.
+2025-08-25 14:07:19,595 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-25 14:07:19,595 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-25 14:07:19,596 - INFO - ============================================================
+
+2025-08-25 14:07:19,596 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-25 14:09:10,282 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 14:09:18,119 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 14:09:18,120 - INFO - ============================================================
+2025-08-25 14:09:18,120 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 14:09:18,120 - INFO - ============================================================
+2025-08-25 14:09:18,120 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 14:09:18,555 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 14:09:18,559 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 14:09:18,584 - WARNING - Không tìm thấy dữ liệu cho mã 'VNINDEX' trong file.
+2025-08-25 14:09:18,584 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 14:09:18,584 - INFO -  - Giá hiện tại: 1624.25 VND
+2025-08-25 14:09:18,584 - INFO -  - Đường trung bình:
+2025-08-25 14:09:18,584 - INFO -  * MA10: 1640.32 | MA20: 1590.73 | MA50: 1492.19 | MA200: 1327.68
+2025-08-25 14:09:18,584 - INFO -  - Chỉ báo dao động:
+2025-08-25 14:09:18,585 - INFO -  * RSI(14): 61.16
+ * MACD: 47.88 | Signal: 49.09 | Histogram: -1.21
+2025-08-25 14:09:18,585 - INFO -  * Bollinger Bands: Trên: 1708.57 | Dưới: 1472.89
+2025-08-25 14:09:18,585 - INFO -  - Mô hình Ichimoku:
+2025-08-25 14:09:18,585 - INFO -  * Tenkan-sen: 1639.61 | Kijun-sen: 1585.14 | Chikou: 1497.28
+2025-08-25 14:09:18,585 - INFO -  - Khối lượng:
+2025-08-25 14:09:18,585 - INFO -  * Khối lượng hiện tại: 1199723831.00 | MA20: 1812646157.30 | MA50: 1374080313.40
+2025-08-25 14:09:18,620 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 14:09:18,620 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 14:09:18,620 - INFO - Đang gửi prompt tới Gemini...
+2025-08-25 14:10:27,114 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VNINDEX.txt
+2025-08-25 14:10:27,114 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-25 14:10:27,115 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-25 14:10:28,336 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-08-25 14:10:28,339 - ERROR - Lỗi khi phân tích bằng OpenRouter cho VNINDEX: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+2025-08-25 14:10:28,339 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO MÃ VNINDEX ====================
+2025-08-25 14:10:28,339 - INFO - 💰 Giá hiện tại: 1624.25 VND
+2025-08-25 14:10:28,339 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-25 14:10:28,339 - INFO - Chào bạn, với 20 năm kinh nghiệm phân tích thị trường chứng khoán chuyên sâu bằng các phương pháp VSA/VPA, Wyckoff, CANSLIM và Minervini, tôi xin đưa ra phân tích toàn diện về VNINDEX cùng chiến lược và danh sách cổ phiếu tiềm năng dựa trên dữ liệu bạn cung cấp.
+
+---
+
+### **PHÂN TÍCH VNINDEX TOÀN DIỆN (THEO GÓC NHÌN VSA/WYCKOFF)**
+
+**Điểm hiện tại:** VNINDEX đang ở mức 1.62K.
+
+**1. Phân tích Xung Lượng (Momentum Analysis):**
+*   **RSI (14): 61.16** – Chỉ số RSI nằm trên mức 50, cho thấy VNINDEX vẫn đang nằm trong xu hướng tăng giá (bullish momentum). Tuy nhiên, nó chưa đi vào vùng quá mua (>70), cho thấy vẫn còn dư địa tăng trưởng mà không quá nóng.
+*   **MACD: 47.88 | Signal: 49.09 | Histogram: -1.21** – Đường MACD hiện đang cắt xuống dưới đường Signal, và MACD Histogram đã chuyển sang âm. Điều này cho thấy động lượng tăng giá trong ngắn hạn đang suy yếu hoặc đã có tín hiệu phân kỳ âm nhẹ, cảnh báo một nhịp điều chỉnh hoặc đi ngang.
+
+**2. Phân tích Đường Trung Bình (Moving Averages - MA):**
+*   **MA10: 1.64K | MA20: 1.59K | MA50: 1.49K | MA200: 1.33K**
+*   **Vị trí giá so với MA:**
+    *   Giá hiện tại (1.62K) đang nằm dưới MA10 (1.64K): Cho thấy áp lực điều chỉnh ngắn hạn.
+    *   Tuy nhiên, giá vẫn nằm trên MA20 (1.59K), MA50 (1.49K) và MA200 (1.33K): Đây là một tín hiệu cực kỳ quan trọng và tích cực về xu hướng trung và dài hạn. Việc các đường MA ngắn hạn nằm trên các đường MA dài hạn (MA10 > MA20 > MA50 > MA200) cho thấy một xu hướng tăng giá mạnh mẽ và bền vững (strong bullish alignment).
+*   **Kết luận MA:** Mặc dù có rung lắc và điều chỉnh nhẹ trong ngắn hạn (dưới MA10), cấu trúc xu hướng của VNINDEX vẫn hoàn toàn là tăng trưởng trong trung và dài hạn.
+
+**3. Phân tích Dải Bollinger (Bollinger Bands):**
+*   **Trên: 1.71K | Dưới: 1.47K**
+*   Giá hiện tại (1.62K) đang nằm ở nửa trên của dải Bollinger, cho thấy thị trường vẫn đang duy trì sức mạnh tương đối. Nó chưa chạm biên trên (quá mua) hay biên dưới (quá bán), cho thấy thị trường đang trong giai đoạn tích lũy hoặc điều chỉnh lành mạnh. Dải Bollinger cũng cho thấy biên độ dao động khá rộng, phản ánh sự biến động đang được kiểm soát.
+
+**4. Phân tích Ichimoku Cloud:**
+*   **Tenkan: 1.64K | Kijun: 1.59K | Chikou: 1.50K**
+*   Giá (1.62K) đang nằm giữa Tenkan (1.64K - đường trung bình 9 kỳ) và Kijun (1.59K - đường trung bình 26 kỳ). Điều này thường báo hiệu sự lưỡng lự hoặc tích lũy trong ngắn hạn. Tuy nhiên, Kijun vẫn đang hỗ trợ giá, và nếu Tenkan vẫn trên Kijun (như trường hợp này), thì xu hướng tăng vẫn được bảo lưu. Chikou Span (1.50K) nằm dưới giá hiện tại (1.62K), cho thấy giá đã tăng so với 26 kỳ trước, xác nhận xu hướng tăng.
+
+**5. Phân tích Khối lượng (Volume Analysis - VSA/VPA):**
+*   **Hiện tại: 1.20B | MA20: 1.81B | MA50: 1.37B**
+*   Khối lượng giao dịch hiện tại (1.20B) đang thấp hơn đáng kể so với trung bình 20 ngày (1.81B) và thấp hơn trung bình 50 ngày (1.37B).
+*   **VSA/Wyckoff Interpretation:** Đây là một tín hiệu cực kỳ quan trọng. Khi giá có nhịp điều chỉnh nhẹ (dưới MA10, MACD giảm) nhưng đi kèm với khối lượng thấp, nó thường cho thấy **thiếu áp lực bán mạnh (Lack of Selling Pressure / No Demand)**. Điều này củng cố kịch bản thị trường đang trong giai đoạn **tái tích lũy (Re-accumulation)** hoặc **rung lắc (Shakeout)** lành mạnh trong một xu hướng tăng tổng thể. Đây không phải là dấu hiệu của phân phối mạnh, mà là dấu hiệu của sự chuẩn bị cho một đợt tăng giá tiếp theo khi lực cầu quay trở lại với khối lượng lớn hơn.
+
+**Tổng quan theo Wyckoff / VSA:**
+VNINDEX hiện tại đang ở giai đoạn **tái tích lũy (Re-accumulation)** hoặc **pha C/D** của một chu kỳ tăng giá lớn. Sau một giai đoạn tăng trưởng mạnh, việc thị trường đi ngang hoặc điều chỉnh nhẹ với khối lượng thấp là một dấu hiệu tốt, cho thấy các nhà tạo lập đang thu gom cổ phiếu hoặc kiểm tra lại lực cung. Giai đoạn này có thể bao gồm các sự kiện như:
+*   **Secondary Test (ST):** Giá kiểm tra lại vùng hỗ trợ dưới với khối lượng thấp.
+*   **Spring/Shakeout:** Giá có thể có một nhịp giảm sâu đột ngột nhưng phục hồi nhanh chóng với khối lượng lớn, "rũ bỏ" các nhà đầu tư yếu tay trước khi bước vào pha tăng giá mạnh (Phase E).
+Các chỉ báo đều xác nhận xu hướng dài hạn tăng mạnh, các chỉ báo ngắn hạn cho thấy sự chững lại hoặc điều chỉnh nhẹ nhàng.
+
+---
+
+### **DỰ BÁO VNINDEX:**
+
+*   **Ngắn hạn (1-2 tuần):** VNINDEX có thể tiếp tục dao động trong biên độ 1.59K (MA20) - 1.64K (MA10/Tenkan) với khối lượng thấp. Nếu có nhịp rũ bỏ sâu hơn, vùng hỗ trợ mạnh tiếp theo là MA50 (1.49K) hoặc thậm chí biên dưới Bollinger (1.47K), nhưng khả năng này thấp nếu khối lượng bán không tăng đột biến. Chúng ta có thể thấy một pha Spring hoặc Shakeout nếu giá giảm mạnh về vùng này và sau đó phục hồi nhanh với khối lượng tăng.
+*   **Trung hạn (1-3 tháng):** Với nền tảng xu hướng tăng vững chắc từ các đường MA dài hạn và tín hiệu thiếu áp lực bán trong giai đoạn điều chỉnh, VNINDEX có khả năng cao sẽ hoàn thành giai đoạn tái tích lũy và bước vào một nhịp tăng giá mới (Phase E). Mục tiêu gần là vùng 1.71K (biên trên Bollinger), và sau đó là chinh phục các đỉnh cao mới.
+*   **Dài hạn (6-12 tháng):** Xu hướng tăng dài hạn của VNINDEX vẫn được duy trì mạnh mẽ. Các nhịp điều chỉnh hiện tại được coi là cơ hội để củng cố nền tảng và chuẩn bị cho sự tăng trưởng bền vững hơn, đặc biệt với sự hỗ trợ từ các yếu tố vĩ mô và tăng trưởng lợi nhuận của các doanh nghiệp.
+
+---
+
+### **CHIẾN LƯỢC THỰC TẾ:**
+
+1.  **Giai đoạn hiện tại (Tái tích lũy/Điều chỉnh):**
+    *   **Đối với nhà đầu tư đang nắm giữ:** Tiếp tục nắm giữ các vị thế cốt lõi (core positions) của các cổ phiếu có nền tảng cơ bản tốt và đang trong xu hướng tăng. Sử dụng các đường MA20/MA50 làm điểm chặn lỗ (trailing stop-loss) để bảo vệ lợi nhuận.
+    *   **Đối với nhà đầu tư muốn mua mới/gia tăng:**
+        *   **Thực hiện giải ngân từng phần (Scale-in):** Không mua hết một lần. Chia vốn thành nhiều phần để mua ở các mức giá khác nhau.
+        *   **Canh mua ở các nhịp điều chỉnh về hỗ trợ:** Quan sát các cổ phiếu tiềm năng khi chúng điều chỉnh về gần MA20 (1.59K) hoặc MA50 (1.49K) của VNINDEX hoặc các hỗ trợ quan trọng của từng cổ phiếu riêng lẻ.
+        *   **Tìm kiếm tín hiệu VSA/Wyckoff xác nhận:** Ưu tiên các cổ phiếu có dấu hiệu cạn cung (No Supply / Test for Supply) hoặc Spring/Shakeout (giảm mạnh với khối lượng lớn nhưng phục hồi nhanh) trước khi bật tăng.
+        *   **Mua khi có sự đồng thuận về khối lượng:** Khi giá bắt đầu tăng trở lại từ vùng hỗ trợ với khối lượng giao dịch tăng vọt (đặc biệt là so với khối lượng trung bình), đó là dấu hiệu của lực cầu quay trở lại và có thể là điểm mua sớm (Buying Climax or Sign of Strength).
+    *   **Quản trị rủi ro:** Luôn đặt ra mức cắt lỗ rõ ràng cho mỗi giao dịch. Không sử dụng margin quá cao trong giai đoạn tích lũy này.
+
+2.  **Giai đoạn tăng giá trở lại (Phase E):**
+    *   Khi VNINDEX xác nhận thoát khỏi giai đoạn tích lũy (ví dụ, vượt qua MA10 với khối lượng lớn, MACD histogram chuyển dương và tăng), có thể xem xét tăng tỷ trọng.
+    *   Tiếp tục theo dõi các cổ phiếu dẫn dắt thị trường (leader stocks) theo tiêu chí CANSLIM/Minervini.
+
+3.  **Lưu ý chung:**
+    *   **Theo dõi dòng tiền:** Luôn chú ý đến dòng tiền của khối ngoại và khối tự doanh.
+    *   **Không FOMO (Fear Of Missing Out):** Tránh mua đuổi khi giá đã tăng quá nóng, đặc biệt nếu không có sự xác nhận của khối lượng.
+    *   **Cẩn trọng với những cổ phiếu có tín hiệu phân phối:** Nếu thị trường chung bước vào pha phân phối (Distribution) với các thanh giá giảm mạnh, biên độ rộng và khối lượng lớn, cần chủ động giảm tỷ trọng và bảo vệ vốn.
+
+---
+
+### **20 MÃ CỔ PHIẾU TIỀM NĂNG (Sắp xếp giảm dần theo tiềm năng)**
+
+Dựa trên tiêu chí P/E < 20 và có tăng trưởng, kết hợp với các yếu tố về ROE, tăng trưởng doanh thu/EPS, và các tín hiệu kỹ thuật (MA, RSI, MACD, TCBS Recommend), tôi đề xuất 20 mã sau:
+
+1.  **TYA (HSX - Hàng & Dịch vụ Công nghiệp)**
+    *   **Điểm mạnh:** ROE 18.3%, P/E 5.2 (rất tốt), Tăng trưởng doanh thu 1 năm: 7969.58% (ngoạn mục), Tăng trưởng EPS 1 năm: 154.51%.
+    *   **Kỹ thuật:** Giá hiện tại trên tất cả các đường MA (5, 10, 20, 50, 100), RSI 63.6 (mạnh), MACD histogram <0 nhưng đang tăng dần (động lượng cải thiện), TCBS Recommend: Mua.
+    *   **Nhận định:** Kết hợp siêu tăng trưởng và kỹ thuật đang vào form, là ứng cử viên hàng đầu.
+
+2.  **VVS (UPCOM - Ô tô và phụ tùng)**
+    *   **Điểm mạnh:** ROE 35.1% (cao), P/E 6.0 (tốt), Tăng trưởng doanh thu 1 năm: 296.23%, Tăng trưởng EPS 1 năm: 347.24%.
+    *   **Kỹ thuật:** Giá trên MA20, MA50, MA100. RSI 59.0 (mạnh), MACD histogram <0 và giảm dần (cần theo dõi), TCBS Recommend: Trung tính.
+    *   **Nhận định:** Cơ bản rất mạnh, kỹ thuật ổn, tiềm năng lớn.
+
+3.  **ICN (UPCOM - Xây dựng và Vật liệu)**
+    *   **Điểm mạnh:** ROE 70.8% (rất cao), P/E 4.2 (rất thấp), Tăng trưởng doanh thu 1 năm: 267.33%, Tăng trưởng EPS 1 năm: 531.00%.
+    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA200. RSI 38.3 (yếu), MACD histogram <0 và giảm dần, TCBS Recommend: Bán mạnh.
+    *   **Nhận định:** Cơ bản cực kỳ hấp dẫn (giá trị sâu, tăng trưởng vượt trội), nhưng kỹ thuật đang yếu. Phù hợp cho chiến lược tích lũy dài hạn hoặc chờ tín hiệu đảo chiều rõ ràng theo VSA (Spring/Shakeout).
+
+4.  **HGM (HNX - Tài nguyên Cơ bản)**
+    *   **Điểm mạnh:** ROE 120.1% (đột biến), P/E 9.0 (tốt), Tăng trưởng doanh thu 1 năm: 233.91%, Tăng trưởng EPS 1 năm: 350.61%.
+    *   **Kỹ thuật:** Giá dưới MA20. RSI 40.1 (yếu), MACD histogram <0 và giảm dần, TCBS Recommend: Bán.
+    *   **Nhận định:** Tương tự ICN, cơ bản cực mạnh nhưng kỹ thuật đang trong giai đoạn điều chỉnh. Cần kiên nhẫn.
+
+5.  **D2D (HSX - Bất động sản)**
+    *   **Điểm mạnh:** ROE 37.6% (cao), P/E 3.5 (rất thấp), Tăng trưởng EPS 1 năm: 2232.37%.
+    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 35.6 (yếu), MACD histogram <0 và giảm dần, TCBS Recommend: Bán.
+    *   **Nhận định:** EPS tăng trưởng thần tốc, định giá hấp dẫn. Kỹ thuật cần theo dõi để tìm điểm vào.
+
+6.  **TFC (HNX - Thực phẩm và đồ uống)**
+    *   **Điểm mạnh:** ROE 52.6% (cao), P/E 5.9 (rất tốt), Tăng trưởng doanh thu 1 năm: 208.77%, Tăng trưởng EPS 1 năm: 118.03%.
+    *   **Kỹ thuật:** RSI 49.0 (gần trung tính), MACD histogram <0 và giảm dần, TCBS Recommend: NaN.
+    *   **Nhận định:** Cơ bản cực kỳ ấn tượng, định giá thấp. Cần theo dõi tín hiệu kỹ thuật để xác định điểm vào an toàn.
+
+7.  **ANV (HSX - Thực phẩm và đồ uống)**
+    *   **Điểm mạnh:** ROE 16.3%, P/E 13.0, Tăng trưởng EPS 1 năm: 3190.29% (bùng nổ).
+    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 52.5 (ổn định), MACD histogram <0 và giảm dần, TCBS Recommend: Chờ mua.
+    *   **Nhận định:** Tăng trưởng EPS vượt trội, có tín hiệu chờ mua.
+
+8.  **TRC (HSX - Hóa chất)**
+    *   **Điểm mạnh:** ROE 16.2%, P/E 6.6 (tốt), Tăng trưởng doanh thu 1 năm: 227.39%, Tăng trưởng EPS 1 năm: 229.90%.
+    *   **Kỹ thuật:** Giá trên MA20, MA50, MA100. RSI 52.5 (ổn định), MACD histogram >0 nhưng giảm dần (cần theo dõi), TCBS Recommend: Chờ mua.
+    *   **Nhận định:** Tăng trưởng mạnh mẽ, định giá hợp lý, kỹ thuật đang tích cực.
+
+9.  **GSM (UPCOM - Điện, nước & xăng dầu khí đốt)**
+    *   **Điểm mạnh:** ROE 23.2% (tốt), P/E 7.6 (tốt), Tăng trưởng doanh thu 1 năm: 92.10%, Tăng trưởng EPS 1 năm: 216.23%.
+    *   **Kỹ thuật:** Giá trên MA50, MA100. RSI 50.0 (trung tính), MACD histogram <0 nhưng tăng dần (động lượng cải thiện), TCBS Recommend: Trung tính.
+    *   **Nhận định:** Tăng trưởng tốt, có dấu hiệu cải thiện động lượng kỹ thuật.
+
+10. **NCS (UPCOM - Thực phẩm và đồ uống)**
+    *   **Điểm mạnh:** ROE 33.7% (cao), P/E 10.7, Tăng trưởng doanh thu 1 năm: 18.59%, Tăng trưởng EPS 1 năm: 13.43%.
+    *   **Kỹ thuật:** Giá trên MA20, MA50, MA100. RSI 62.9 (mạnh), MACD histogram <0 và giảm dần, TCBS Recommend: Mua.
+    *   **Nhận định:** Cơ bản mạnh, kỹ thuật ổn định và có khuyến nghị mua.
+
+11. **HDM (UPCOM - Hàng cá nhân & Gia dụng)**
+    *   **Điểm mạnh:** ROE 32.3% (cao), P/E 5.3 (rất tốt), Tăng trưởng EPS 1 năm: 40.58%.
+    *   **Kỹ thuật:** Giá dưới MA5, MA20 nhưng trên MA50, MA100. RSI 52.1 (ổn định), MACD histogram <0 và giảm dần, TCBS Recommend: Mua.
+    *   **Nhận định:** ROE cao, P/E thấp, có khuyến nghị mua.
+
+12. **NTP (HNX - Xây dựng và Vật liệu)**
+    *   **Điểm mạnh:** ROE 26.1% (tốt), P/E 11.2, Tăng trưởng doanh thu 1 năm: 31.51%, Tăng trưởng EPS 1 năm: 39.51%.
+    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 35.5 (yếu), MACD histogram <0 nhưng tăng dần (động lượng cải thiện), TCBS Recommend: Chờ mua.
+    *   **Nhận định:** Cơ bản tốt, động lượng kỹ thuật đang cải thiện, chờ tín hiệu xác nhận.
+
+13. **THG (HSX - Xây dựng và Vật liệu)**
+    *   **Điểm mạnh:** ROE 26.1% (tốt), P/E 9.0 (tốt), Tăng trưởng EPS 1 năm: 88.32%.
+    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 34.5 (yếu), MACD histogram <0 nhưng tăng dần (động lượng cải thiện), TCBS Recommend: Bán.
+    *   **Nhận định:** Cơ bản tốt với tăng trưởng EPS ấn tượng, nhưng cần theo dõi kỹ thuật.
+
+14. **NAB (HSX - Ngân hàng)**
+    *   **Điểm mạnh:** ROE 20.2%, P/E 7.6 (tốt), Tăng trưởng doanh thu 1 năm: 37.59%, Tăng trưởng EPS 1 năm: 21.19%.
+    *   **Kỹ thuật:** Giá dưới MA5, MA10 nhưng trên MA20, MA50, MA100. RSI 59.1 (mạnh), MACD histogram >0 nhưng giảm dần, TCBS Recommend: Mua.
+    *   **Nhận định:** Ngân hàng có nền tảng tốt, định giá hợp lý, kỹ thuật đang ở vùng tích lũy và có khuyến nghị mua.
+
+15. **HDB (HSX - Ngân hàng)**
+    *   **Điểm mạnh:** ROE 25.3% (cao), P/E 7.9 (tốt), Tăng trưởng doanh thu 1 năm: 26.73%, Tăng trưởng EPS 1 năm: 18.58%.
+    *   **Kỹ thuật:** Giá dưới MA5, MA10 nhưng trên MA20, MA50, MA100. RSI 63.7 (rất mạnh), MACD histogram >0 nhưng giảm dần, TCBS Recommend: Chờ bán.
+    *   **Nhận định:** Ngân hàng lớn với ROE cao, đang trong nhịp điều chỉnh kỹ thuật nhưng xu hướng chính vẫn tăng.
+
+16. **CTG (HSX - Ngân hàng)**
+    *   **Điểm mạnh:** ROE 20.2%, P/E 9.1 (tốt), Tăng trưởng doanh thu 1 năm: 27.36%, Tăng trưởng EPS 1 năm: 48.29%.
+    *   **Kỹ thuật:** Giá dưới MA5, MA10 nhưng trên MA20, MA50, MA100. RSI 57.9 (mạnh), MACD histogram >0 nhưng giảm dần, TCBS Recommend: Chờ bán.
+    *   **Nhận định:** Ngân hàng hàng đầu, tăng trưởng ổn định, phù hợp tích lũy dài hạn.
+
+17. **PPH (UPCOM - Hàng cá nhân & Gia dụng)**
+    *   **Điểm mạnh:** ROE 22.4% (tốt), P/E 5.1 (rất tốt), Tăng trưởng EPS 1 năm: 36.53%.
+    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 41.5 (yếu), MACD histogram <0 nhưng tăng dần (động lượng cải thiện), TCBS Recommend: Chờ mua.
+    *   **Nhận định:** ROE cao, P/E thấp, MACD cải thiện, có tín hiệu chờ mua.
+
+18. **DCM (HSX - Hóa chất)**
+    *   **Điểm mạnh:** ROE 16.9%, P/E 12.0, Tăng trưởng doanh thu 1 năm: 28.02%, Tăng trưởng EPS 1 năm: 12.65%.
+    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 50.4 (trung tính), MACD histogram <0 và giảm dần, TCBS Recommend: Mua.
+    *   **Nhận định:** Cơ bản ổn định, có khuyến nghị mua.
+
+19. **DDV (UPCOM - Hóa chất)**
+    *   **Điểm mạnh:** ROE 19.6%, P/E 12.4, Tăng trưởng doanh thu 1 năm: 144.05%, Tăng trưởng EPS 1 năm: 120.89%.
+    *   **Kỹ thuật:** Giá dưới MA20 nhưng trên MA50, MA100. RSI 43.3 (yếu), MACD histogram <0 và giảm dần, TCBS Recommend: Chờ mua.
+    *   **Nhận định:** Tăng trưởng ấn tượng, cần theo dõi kỹ thuật để xác định điểm vào.
+
+20. **VAB (HSX - Ngân hàng)**
+    *   **Điểm mạnh:** ROE 11.1%, P/E 11.0, Tăng trưởng doanh thu 1 năm: 16.52%, Tăng trưởng EPS 1 năm: 26.66%.
+    *   **Kỹ thuật:** Giá trên MA20, MA50, MA100. RSI 56.1 (ổn định), MACD histogram <0 và giảm dần, TCBS Recommend: Trung tính.
+    *   **Nhận định:** Ngân hàng nhỏ có tăng trưởng ổn định, kỹ thuật ở vị thế tốt.
+
+---
+
+**Lưu ý quan trọng:**
+*   Danh sách này dựa trên các tiêu chí định lượng và tín hiệu kỹ thuật tại thời điểm phân tích. Thị trường luôn biến động, do đó, các quyết định đầu tư cần được cân nhắc kỹ lưỡng, kết hợp với phân tích chi tiết hơn về từng mã cổ phiếu, tình hình kinh doanh, triển vọng ngành và tình hình vĩ mô.
+*   Việc áp dụng phương pháp VSA/Wyckoff đòi hỏi kinh nghiệm thực tiễn trong việc đọc hành động giá và khối lượng trên biểu đồ từng ngày. Hãy luôn thực hành và trau dồi khả năng này để đưa ra quyết định chính xác nhất.
+*   Quản trị vốn và rủi ro là yếu tố then chốt để thành công bền vững trên thị trường chứng khoán.
+
+Chúc bạn đầu tư thành công!
+2025-08-25 14:10:28,341 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-25 14:10:28,341 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-25 14:10:28,341 - INFO - ============================================================
+
+2025-08-25 14:10:28,342 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-25 14:15:11,855 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-25 14:15:19,795 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-25 14:15:19,796 - INFO - ============================================================
+2025-08-25 14:15:19,796 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-25 14:15:19,796 - INFO - ============================================================
+2025-08-25 14:15:19,796 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-25 14:15:20,610 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-25 14:15:20,614 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-25 14:15:20,621 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-25 14:15:20,621 - INFO -  - Giá hiện tại: 1624.33 VND
+2025-08-25 14:15:20,621 - INFO -  - Đường trung bình:
+2025-08-25 14:15:20,621 - INFO -  * MA10: 1640.32 | MA20: 1590.73 | MA50: 1492.19 | MA200: 1327.68
+2025-08-25 14:15:20,621 - INFO -  - Chỉ báo dao động:
+2025-08-25 14:15:20,621 - INFO -  * RSI(14): 61.18
+ * MACD: 47.89 | Signal: 49.09 | Histogram: -1.20
+2025-08-25 14:15:20,621 - INFO -  * Bollinger Bands: Trên: 1708.57 | Dưới: 1472.89
+2025-08-25 14:15:20,621 - INFO -  - Mô hình Ichimoku:
+2025-08-25 14:15:20,621 - INFO -  * Tenkan-sen: 1639.61 | Kijun-sen: 1585.14 | Chikou: 1497.28
+2025-08-25 14:15:20,621 - INFO -  - Khối lượng:
+2025-08-25 14:15:20,621 - INFO -  * Khối lượng hiện tại: 1227064989.00 | MA20: 1814013215.20 | MA50: 1374627136.56
+2025-08-25 14:15:20,654 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-25 14:15:20,654 - INFO - Đang phân tích bằng Gemini...
+2025-08-25 14:15:20,654 - INFO - Đang gửi prompt tới Gemini...
