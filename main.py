@@ -1,20 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-VN-Stock AI Analyzer — Refactored
----------------------------------
-Điểm chính:
-- Tách rõ cấu hình, xử lý lỗi, logging.
-- Chuẩn hoá tính chỉ báo (ta) dùng API lớp để tránh lệch phiên bản.
-- Cache dữ liệu VNINDEX để không gọi lặp lại.
-- Sửa lỗi .fillna không gán, kiểm tra None an toàn, ép kiểu an toàn.
-- Chấm điểm (scoring) minh bạch với rubric 100 điểm (chi tiết dưới).
-- Prompt builder tối ưu, ngắn gọn, có **SCORING_RUBRIC** cho AI.
-- Lưu mọi artefacts vào thư mục `vnstocks_data/`.
-
-Yêu cầu thư viện: vnstock, ta, pandas, numpy, openpyxl, python-dotenv, google-generativeai, openrouter-compatible openai
-"""
-
 from __future__ import annotations
 import os
 import json
