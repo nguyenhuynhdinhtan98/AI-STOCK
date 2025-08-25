@@ -2403,8 +2403,6 @@ ticker exchange                      industry  market_cap    roe  stock_rating  
 - **Take Profit:** Mức chốt lời?
 - **Risk/Reward:** Tỷ lệ thưởng/trừng phạt?
 ⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA & WYCKOFF & CANSLIM & MINERVINI) ĐƯỢC SẮP XẾP THEO TIỀM NĂNG GIẢM DẦN:**
--**Ưu tiên lựa chọn các mã trong nền hoặc mới vượt nền giá.**
--**Ưu tiên lựa chọn các mã có chỉ số tài chính và kỹ thuật tốt.**
 | Mã | Lý do chọn (VSA/VPA & WYCKOFF & CANSLIM & MINERVINI) | Entry | SL | TP | RR |
 |----|---------------------|-------|----|----|----|
 |    |                     |       |    |    |    |
