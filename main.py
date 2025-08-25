@@ -906,10 +906,10 @@ def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
             technical_indicators=technical_indicators,
             historical_data=historical_data_str,
             market_data_str=market_data_str,
-            rs_value_3d=rs_value_3d, # Truyền tham số
-            rs_value_1m=rs_value_1m, # Truyền tham số
-            rs_value_3m=rs_value_3m, # Truyền tham số
-            rs_value_1y=rs_value_1y  # Truyền tham số
+            rs_value_3d=rs_value_3d,
+            rs_value_1m=rs_value_1m,
+            rs_value_3m=rs_value_3m,
+            rs_value_1y=rs_value_1y
         )
     else:
         prompt = generate_advanced_stock_analysis_prompt(
