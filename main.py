@@ -596,7 +596,7 @@ def generate_vnindex_analysis_prompt(
     vol = technical_indicators.get("volume", {}) or {}
 
     prompt = f"""
-Bạn là chuyên gia phân tích thị trường Việt Nam (VSA/VPA, Wyckoff, CANSLIM, Minervini).
+Bạn là chuyên gia phân tích thị trường Việt Nam (VSA/VPA, Wyckoff).
 
 # QUY TẮC
 - Tiếng Việt, có cấu trúc; làm tròn 2 chữ số.
@@ -621,16 +621,12 @@ Phân tích VNINDEX (1–4 tuần, 1–6 tháng) và đề xuất danh mục t�
 - 3–5 phiên: biến động giá so với MA20/MA50; test/upthrust/spring/climax (nếu có).
 ## 2) Wyckoff
 - Giai đoạn + tín hiệu breakout/breakdown; thời gian tích lũy (nếu có).
-## 3) Minervini
-- Xu hướng dài/ngắn; sắp xếp MA; hỗ trợ/kháng cự.
-## 4) CANSLIM (M)
-- On nếu (VNINDEX > MA50 và MACD>Signal); ngược lại Off.
-## 5) Kịch bản 1–2 tuần (kèm xác suất)
+## 3) Kịch bản 1–2 tuần (kèm xác suất)
 - Cơ bản / Tốt nhất / Xấu nhất (mô tả ngắn + vùng điểm).
-## 6) Chiến lược
+## 4) Chiến lược
 - Vị thế: MUA/GIỮ/BÁN/CHỜ; quy tắc vào/thoát; rủi ro chính.
 
-## 7) ĐỀ XUẤT MÃ 20 MÃ CÓ TIỀM NĂNG GIẢM DẦN (chỉ từ MARKET_SCREEN)
+## 5) ĐỀ XUẤT MÃ 20 MÃ CÓ TIỀM NĂNG GIẢM DẦN (chỉ từ MARKET_SCREEN)
 
 
 # DỮ LIỆU
