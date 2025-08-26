@@ -1,0 +1,32 @@
+{
+  "overview": {
+    "symbol": "VNINDEX",
+    "price": "1614.03"
+  },
+  "vsa": [
+    {
+      "date": "2025-08-21",
+      "pattern": "Test",
+      "volume_vs_ma20": "0.94x",
+      "note": "Biên độ hẹp, volume thấp"
+    }
+  ],
+  "wyckoff": {
+    "phase_1_4w": "Xu hướng tăng",
+    "phase_1_6m": "Xu hướng tăng",
+    "last_breakout": {
+      "level": "N/A",
+      "date": "N/A",
+      "vol_confirmed": false
+    }
+  },
+  "scenarios_1_2w": [],
+  "strategy": {
+    "stance": "N/A",
+    "entries": [],
+    "exits": [],
+    "key_risks": []
+  },
+  "picks": [],
+  "ai_analysis": "[AI] Không thể tạo phân tích lúc này."
+}
