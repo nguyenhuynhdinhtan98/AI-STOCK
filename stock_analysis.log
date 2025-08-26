@@ -5554,3 +5554,170 @@ Trong bối cảnh thị trường chung có dấu hiệu điều chỉnh, việ
 2025-08-26 07:41:44,391 - INFO - ============================================================
 
 2025-08-26 07:41:44,391 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
+2025-08-26 07:51:21,658 - INFO - Đang lọc cổ phiếu theo tiêu chí P/E thấp và vốn hóa cao
+2025-08-26 07:51:30,188 - INFO - Đã lưu danh sách cổ phiếu được lọc (65 mã) vào 'market_filtered_pe.csv'
+2025-08-26 07:51:30,189 - INFO - ============================================================
+2025-08-26 07:51:30,189 - INFO - PHÂN TÍCH TOÀN DIỆN MÃ VNINDEX
+2025-08-26 07:51:30,189 - INFO - ============================================================
+2025-08-26 07:51:30,189 - INFO - Đang lấy dữ liệu cho mã VNINDEX
+2025-08-26 07:51:30,764 - INFO - Đã lưu dữ liệu cho mã VNINDEX vào file vnstocks_data/VNINDEX_data.csv
+2025-08-26 07:51:30,765 - INFO - Đang lấy dữ liệu tài chính cho VNINDEX
+2025-08-26 07:51:30,765 - ERROR - Lỗi khi lấy BCTC cho VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-26 07:51:30,765 - INFO - Đang lấy thông tin công ty cho VNINDEX
+2025-08-26 07:51:30,765 - ERROR - Lỗi khi lấy thông tin công ty VNINDEX: Mã chứng khoán không hợp lệ. Chỉ cổ phiếu mới có thông tin.
+2025-08-26 07:51:30,771 - INFO - Đang phân tích kỹ thuật cho mã VNINDEX...
+2025-08-26 07:51:30,814 - WARNING - Không tìm thấy dữ liệu cho mã cổ phiếu 'VNINDEX' trong file.
+2025-08-26 07:51:30,814 - INFO - PHÂN TÍCH KỸ THUẬT CHO VNINDEX (25/08/2025):
+2025-08-26 07:51:30,814 - INFO -  - Giá hiện tại: 1,614.03 VND
+2025-08-26 07:51:30,814 - INFO -  - Đường trung bình:
+2025-08-26 07:51:30,814 - INFO -  * MA10: 1,639.29| MA20: 1,590.22| MA50: 1,491.98| MA200: 1,327.63
+2025-08-26 07:51:30,814 - INFO -  - Chỉ báo dao động:
+2025-08-26 07:51:30,814 - INFO -  * RSI (14): 58.62
+2025-08-26 07:51:30,815 - INFO -  * MACD: 47.07| Signal: 48.92| Histogram: -1.86
+2025-08-26 07:51:30,815 - INFO -  * Bollinger Bands: Trên: 1,707.56| Dưới: 1,472.88
+2025-08-26 07:51:30,815 - INFO -  - Mô hình Ichimoku:
+2025-08-26 07:51:30,815 - INFO -  * Tenkan-sen (Chuyển đổi): 1639.61
+2025-08-26 07:51:30,815 - INFO -  * Kijun-sen (Cơ sở): 1585.14
+2025-08-26 07:51:30,815 - INFO -  * Senkou Span A (Leading Span A): 1612.38
+2025-08-26 07:51:30,815 - INFO -  * Senkou Span B (Leading Span B): 1498.90
+2025-08-26 07:51:30,815 - INFO -  * Chikou Span (Trễ): 1497.28
+2025-08-26 07:51:30,815 - INFO -  - Khối lượng:
+2025-08-26 07:51:30,815 - INFO -  * Khối lượng hiện tại: 1524727856.0
+2025-08-26 07:51:30,815 - INFO -  * MA Khối lượng (20): 1,828,896,358.55
+2025-08-26 07:51:30,815 - INFO -  * MA Khối lượng (50): 1,380,580,393.90
+2025-08-26 07:51:30,846 - INFO - Đã đọc dữ liệu lịch sử từ 'vnstocks_data/VNINDEX_data.csv'
+2025-08-26 07:51:30,870 - INFO - Đã đọc dữ liệu thông tin từ 'market_filtered_pe.csv'
+2025-08-26 07:51:30,871 - INFO - Đã lưu nội dung prompt vào file prompt.txt
+2025-08-26 07:51:30,872 - INFO - Đang phân tích bằng Gemini...
+2025-08-26 07:51:30,873 - INFO - Đang gửi prompt tới Gemini...
+2025-08-26 07:52:57,345 - INFO - Đã lưu phân tích Gemini vào vnstocks_data/gemini_analysis_VNINDEX.txt
+2025-08-26 07:52:57,353 - INFO - Đang phân tích bằng OpenRouter...
+2025-08-26 07:52:57,359 - INFO - Đang gửi prompt tới OpenRouter...
+2025-08-26 07:52:58,423 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-08-26 07:52:58,433 - ERROR - Lỗi khi phân tích bằng OpenRouter cho VNINDEX: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+2025-08-26 07:52:58,433 - INFO - 
+==================== KẾT QUẢ PHÂN TÍCH CHO Mã VNINDEX ====================
+2025-08-26 07:52:58,433 - INFO - 💰 Giá hiện tại: 1,614.03 VND
+2025-08-26 07:52:58,433 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ GEMINI ---
+2025-08-26 07:52:58,433 - INFO - Chào bạn, là một chuyên gia phân tích thị trường với hơn 20 năm kinh nghiệm áp dụng VSA/VPA và Wyckoff, tôi xin đưa ra phân tích toàn diện về VNINDEX, dự báo và chiến lược cụ thể dựa trên dữ liệu hiện có.
+
+---
+
+🔍 **1. PHÂN TÍCH VSA/VPA CHI TIẾT (Volume Spread Analysis):**
+
+Chúng ta sẽ phân tích 3 phiên gần nhất dựa trên dữ liệu lịch sử và giả định phiên 2025-08-25 là phiên giao dịch hiện tại được cung cấp:
+
+*   **Phiên 1 (2025-08-25):**
+    *   **Giá thay đổi:** Giảm 31.44 điểm (-1.91%), đóng cửa tại 1614.03.
+    *   **Volume so với trung bình:** 1.52B, thấp hơn đáng kể so với khối lượng trung bình 20 ngày (1.83B).
+    *   **Mô hình VSA:** **Down-bar, Wide Spread, Below Average Volume (No Demand/Weakness).** Giá giảm mạnh với biên độ rộng nhưng khối lượng dưới trung bình. Điều này cho thấy lực bán không quá dồn dập nhưng đồng thời cũng không có lực cầu đủ mạnh để đỡ giá. Đây là dấu hiệu của sự thiếu vắng nhu cầu mua, tiếp tục xác nhận xu hướng yếu của thị trường sau phiên giảm trước.
+
+*   **Phiên 2 (2025-08-22):**
+    *   **Giá thay đổi:** Giảm 42.53 điểm (-2.52%), đóng cửa tại 1645.47.
+    *   **Volume so với trung bình:** 2.29B, cao hơn **rất nhiều** so với khối lượng trung bình 20 ngày (1.83B).
+    *   **Mô hình VSA:** **Down-bar, Very Wide Spread, Very High Volume (Selling Climax/Sign of Weakness - SOW).** Giá giảm rất mạnh với biên độ cực rộng và khối lượng bùng nổ vượt trội. Đây là một tín hiệu cực kỳ tiêu cực, cho thấy áp lực bán tháo lớn và có thể là sự khởi đầu của một giai đoạn phân phối hoặc điều chỉnh sâu. Trong bối cảnh thị trường đang ở vùng đỉnh, đây thường là một "Change of Character" mạnh mẽ (thay đổi tính chất xu hướng) từ tăng sang giảm.
+
+*   **Phiên 3 (2025-08-21):**
+    *   **Giá thay đổi:** Tăng 13.24 điểm (+0.79%), đóng cửa tại 1688.00.
+    *   **Volume so với trung bình:** 1.71B, hơi thấp hơn khối lượng trung bình 20 ngày (1.83B).
+    *   **Mô hình VSA:** **Up-bar, Wide Spread, Slightly Below Average Volume (Weakness on Up-bar/Potential Upthrust).** Giá tăng với biên độ khá nhưng khối lượng lại thấp hơn mức trung bình. Điều này cho thấy sự thiếu xác nhận của lực cầu đối với đà tăng. Khi một phiên tăng giá không đi kèm với khối lượng mạnh, nó thường là dấu hiệu của sự yếu kém nội tại, hoặc một nỗ lực đẩy giá lên để phân phối thêm hàng (Upthrust) trước khi bị đạp xuống. Phiên này đặt nền tảng cho sự sụt giảm mạnh mẽ ở phiên tiếp theo.
+
+*   **Volume Confirmation:**
+    *   Khối lượng đang **XÁC NHẬN MẠNH MẼ** xu hướng giá giảm. Đặc biệt, phiên giảm mạnh vào ngày 2025-08-22 với khối lượng cao hơn nhiều so với trung bình đã phát đi tín hiệu bán tháo rõ ràng và một sự "thay đổi tính chất" của thị trường. Phiên giảm tiếp theo với khối lượng dưới trung bình củng cố cho việc thiếu hụt cầu.
+
+*   **Supply/Demand Analysis:**
+    *   **Supply:** Lực cung đang áp đảo và thể hiện rõ rệt. Phiên 2025-08-22 là một minh chứng mạnh mẽ cho sự xuất hiện của lực bán lớn, có tổ chức, dẫn đến sự suy yếu đột ngột của thị trường.
+    *   **Demand:** Lực cầu đang rất yếu. Điều này được thể hiện qua khối lượng dưới trung bình trong phiên giảm gần nhất (2025-08-25) và khối lượng thấp trong phiên tăng trước đó (2025-08-21). Người mua đang đứng ngoài quan sát hoặc không đủ sức hấp thụ lượng cung hiện có.
+
+📊 **2. PHÂN TÍCH WYCKOFF - Giai đoạn thị trường:**
+
+*   **Giai đoạn hiện tại:** Dựa trên các tín hiệu VSA và hành động giá ở vùng đỉnh lịch sử, thị trường đang trong giai đoạn **PHÂN PHỐI SỚM (Preliminary Distribution/Buying Climax)** và đã có dấu hiệu rõ ràng của **THAY ĐỔI TÍNH CHẤT (Change of Character - CHoCH)**, báo hiệu khả năng chuyển sang giai đoạn **SUY THOÁI (Markdown)**.
+
+*   **Dẫn chứng Wyckoff:**
+    *   VNINDEX đã trải qua một giai đoạn tăng trưởng mạnh mẽ kéo dài, đưa chỉ số lên vùng đỉnh lịch sử (quanh 1.68K - 1.69K).
+    *   **Spring/Upthrust gần nhất:** Phiên 2025-08-21 (tăng nhẹ, volume dưới trung bình) sau một chuỗi tăng là dấu hiệu của **Buying Climax** yếu hoặc **Upthrust** giả, cố gắng kéo giá lên để xả hàng.
+    *   **Volume tại các điểm quan trọng:**
+        *   Phiên 2025-08-22 với cây nến giảm mạnh (-2.52%) và khối lượng **rất cao** (2.29B, vượt trội so với trung bình) là một dấu hiệu cực kỳ mạnh của **Selling Climax (SC)** hoặc **Sign of Weakness (SOW)**. Đây là một **CHoCH** điển hình, cho thấy lực bán đã hoàn toàn chiếm ưu thế.
+        *   Phiên 2025-08-25 tiếp tục giảm với khối lượng dưới trung bình cho thấy sự thiếu vắng của lực cầu, xác nhận sự yếu kém của thị trường sau SOW.
+    *   **Thời gian tích lũy:** Không có dấu hiệu tích lũy trong giai đoạn hiện tại. Thị trường vừa trải qua một đợt tăng giá mạnh mẽ, và các tín hiệu hiện tại cho thấy sự đảo chiều.
+
+*   **Wyckoff Signal:** Có dấu hiệu **Breakdown** rõ ràng. Sự giảm điểm mạnh mẽ của phiên 2025-08-22 đã phá vỡ các ngưỡng hỗ trợ ngắn hạn và đường xu hướng tăng trước đó, xác nhận giai đoạn điều chỉnh đã bắt đầu.
+
+🔮 **3. DỰ BÁO CỤ THỂ (1-2 tuần) - Xác suất:**
+
+Dựa trên phân tích VSA/Wyckoff, VNINDEX đang đối mặt với áp lực điều chỉnh mạnh.
+
+*   **Kịch bản CƠ BẢN (Xác suất 60%):** VNINDEX sẽ tiếp tục điều chỉnh, kiểm định các mức hỗ trợ thấp hơn. Giá có thể dao động trong khoảng **1550 - 1600**. Hỗ trợ quan trọng là MA20 (1.59K) và Kijun-sen (1.59K). Nếu các mức này bị phá vỡ, vùng 1550 là mục tiêu tiếp theo.
+*   **Kịch bản TỐT NHẤT (Xác suất 20%):** VNINDEX tìm được lực cầu hồi phục kỹ thuật tại vùng 1600-1610, bật tăng trở lại nhưng sẽ gặp kháng cự mạnh tại MA10 (1.64K) và Tenkan-sen (1.64K). Chỉ số có thể phục hồi nhẹ lên vùng **1630 - 1650** trước khi tiếp tục xu hướng chính (điều chỉnh).
+*   **Kịch bản XẤU NHẤT (Xác suất 20%):** Nếu áp lực bán tiếp tục gia tăng mạnh, VNINDEX có thể phá vỡ các ngưỡng hỗ trợ quan trọng như MA20 (1.59K) và Senkou Span B (1.50K) với khối lượng lớn, giảm sâu về vùng **1470 - 1520** (gần Bollinger Lower Band 1.47K và MA50 1.49K).
+
+💰 **4. CHIẾN LƯỢC ĐẦU TƯ THỰC TẾ:**
+
+*   **Vị thế hiện tại:** **GIẢM TỶ TRỌNG CỔ PHIẾU, CHỜ ĐỢI CƠ HỘI MỚI.** Ưu tiên bảo toàn vốn trong giai đoạn thị trường tiềm ẩn rủi ro điều chỉnh và phân phối.
+*   **Entry Point:** **KHÔNG MUA MỚI NGẮN HẠN.** Chờ đợi VNINDEX hình thành các mô hình tích lũy Wyckoff rõ ràng ở các mức giá thấp hơn hoặc xuất hiện các tín hiệu "No Supply" hay "Test" thành công với khối lượng thấp và giá bật tăng mạnh mẽ.
+*   **Stop Loss:** Đối với các vị thế đang nắm giữ:
+    *   Nếu VNINDEX đóng cửa dứt khoát dưới **1580** (gần MA20/Kijun-sen) với khối lượng lớn, cân nhắc cắt lỗ phần lớn.
+    *   Mức cắt lỗ toàn bộ có thể đặt dưới **1550** nếu diễn biến xấu.
+*   **Take Profit:** KHÔNG CÓ MỨC CHỐT LỜI cho vị thế mua mới. Đối với các vị thế hiện có nếu thị trường có nhịp hồi kỹ thuật, xem xét chốt lời một phần tại các mức kháng cự như MA10 (1.64K) hoặc Tenkan-sen (1.64K).
+*   **Risk/Reward:** Hiện tại, tỷ lệ Risk/Reward không hấp dẫn cho vị thế mua mới do rủi ro giảm giá cao hơn nhiều so với tiềm năng tăng giá trong ngắn hạn.
+
+---
+
+⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA & WYCKOFF & CANSLIM & MINERVINI) ĐƯỢC SẮP XẾP THEO TIỀM NĂNG GIẢM DẦN:**
+
+Trong bối cảnh thị trường chung có dấu hiệu điều chỉnh, các mã cổ phiếu được chọn sẽ là những mã có sức mạnh nội tại vượt trội (tăng trưởng EPS/doanh thu mạnh mẽ, ROE cao), được dòng tiền lớn (nước ngoài/tổ chức) quan tâm, có mô hình VSA/Wyckoff cho thấy khả năng tích lũy hoặc giữ giá tốt, và có sức mạnh tương đối cao (Minervini/Canslim).
+
+| Mã  | Lý do chọn (VSA/VPA & WYCKOFF) (ngắn gọn dưới 25 từ)                                        | Entry      | SL    | TP    | RR      |
+| :-- | :------------------------------------------------------------------------------------------ | :--------- | :---- | :---- | :------ |
+| **1. HDB** | Tăng trưởng mạnh, ROE cao, dòng tiền ngoại vào. Giá giữ vững trên các MA dài hạn.       | 31.0-31.5  | 29.5  | 35.0  | ~1.5:1  |
+| **2. NAB** | Tăng trưởng EPS/Doanh thu ấn tượng, dòng tiền ngoại tích cực, xu hướng giá khỏe.          | 15.5-15.8  | 14.5  | 18.0  | ~1.5:1  |
+| **3. VPB** | Nền tảng cơ bản vững, sức mạnh tương đối cao, giữ vững vùng hỗ trợ MA dài hạn.           | 20.0-20.5  | 18.8  | 23.5  | ~1.5:1  |
+| **4. TYA** | Tăng trưởng EPS đột biến, sức mạnh tương đối vượt trội, có tín hiệu mua.                 | 17.0-17.5  | 16.0  | 20.0  | ~2:1    |
+| **5. VVS** | Tăng trưởng mạnh mẽ, xu hướng giá tốt trên các MA quan trọng, dòng tiền ổn định.        | 34.0-34.5  | 32.0  | 40.0  | ~2:1    |
+| **6. DCM** | Tăng trưởng ổn định dài hạn, giữ vững trên các MA trung dài hạn, khả năng phục hồi.      | 36.0-36.5  | 34.0  | 40.0  | ~1.5:1  |
+| **7. DDV** | Tăng trưởng EPS ấn tượng, xu hướng giá bền vững, cho thấy khả năng duy trì đà tăng.      | 29.0-29.5  | 27.5  | 33.0  | ~1.5:1  |
+| **8. NFC** | Sức mạnh nội tại vượt trội, tăng trưởng EPS đột biến, tiềm năng phục hồi mạnh.            | 50.0-51.0  | 47.0  | 58.0  | ~2:1    |
+| **9. TFC** | Tăng trưởng doanh thu/lợi nhuận tốt, "heating up" cho thấy dòng tiền quay lại.         | 32.0-33.0  | 30.0  | 38.0  | ~1.5:1  |
+| **10. TRC** | Lợi nhuận tăng trưởng cao, duy trì tốt trên các đường trung bình, có dòng tiền hỗ trợ. | 65.0-66.0  | 62.0  | 72.0  | ~1.5:1  |
+| **11. GVT** | Sức mạnh tương đối nổi bật, có khuyến nghị "Mua mạnh", xu hướng giá tích cực.             | 85.0-86.0  | 80.0  | 95.0  | ~1.5:1  |
+| **12. THG** | Sức mạnh thị trường mạnh mẽ, lợi nhuận tốt, giữ vững các ngưỡng hỗ trợ quan trọng.        | 48.0-49.0  | 45.0  | 55.0  | ~1.5:1  |
+| **13. HTI** | Lợi nhuận ổn định, giá giữ được trên các MA trung dài hạn, tiềm năng phục hồi.           | 21.0-21.5  | 19.5  | 25.0  | ~1.5:1  |
+| **14. MSH** | Doanh nghiệp có kết quả kinh doanh tốt, giá giữ được trên MA dài hạn, tiềm năng.         | 35.0-35.5  | 33.0  | 40.0  | ~2:1    |
+| **15. KLB** | Tăng trưởng lợi nhuận đột biến dài hạn, có khả năng hấp thụ lực bán và đi lên.            | 20.0-20.5  | 19.0  | 23.0  | ~1.5:1  |
+| **16. TNG** | Doanh thu/lợi nhuận tăng trưởng ổn định, giữ được xu hướng dài hạn.                       | 18.5-19.0  | 17.0  | 22.0  | ~1.5:1  |
+| **17. AME** | Tăng trưởng lợi nhuận bền vững, giá duy trì trên các MA ngắn hạn cho thấy đà tăng.     | 8.5-8.8    | 7.8   | 10.5  | ~1.5:1  |
+| **18. NCS** | Doanh nghiệp có lợi nhuận ổn định, tín hiệu mua mạnh từ TCBS, giữ vững xu hướng.        | 37.0-37.5  | 35.0  | 42.0  | ~1.5:1  |
+| **19. VAB** | Tăng trưởng EPS dài hạn mạnh mẽ, giữ được trên các MA, tiềm năng tiếp tục tăng.         | 12.0-12.3  | 11.0  | 14.0  | ~1.5:1  |
+| **20. HDM** | Sức mạnh thị trường đáng chú ý, lợi nhuận tốt, có tín hiệu mua, duy trì trên MA dài hạn. | 35.0-35.5  | 33.0  | 40.0  | ~1.5:1  |
+
+---
+
+⚠️ **8. RỦI RO & ĐIỂM CẦN THEO DÕI:**
+
+*   **Rủi ro kỹ thuật:**
+    *   **Phân kỳ âm/Suy yếu động lượng:** MACD Histogram đang âm và giảm (-1.86), cho thấy động lượng suy yếu rõ rệt. RSI (58.62) đang giảm, xác nhận áp lực bán gia tăng.
+    *   **Mất hỗ trợ MA quan trọng:** VNINDEX đã phá vỡ MA10 (1.64K) và đang tiệm cận MA20 (1.59K) và Kijun-sen (1.59K). Việc phá vỡ các ngưỡng này sẽ kích hoạt lực bán tháo mạnh hơn.
+    *   **Dấu hiệu phân phối Wyckoff:** Các phiên giảm mạnh với khối lượng lớn sau giai đoạn tăng trưởng dài là cảnh báo về giai đoạn phân phối.
+*   **Rủi ro vĩ mô:**
+    *   **Chính sách tiền tệ:** Bất kỳ thay đổi nào trong chính sách tiền tệ của các ngân hàng trung ương lớn (Fed, ECB) hoặc Ngân hàng Nhà nước Việt Nam (tăng lãi suất, thắt chặt tín dụng) có thể ảnh hưởng tiêu cực đến dòng tiền vào thị trường.
+    *   **Lạm phát:** Áp lực lạm phát có thể dẫn đến việc thắt chặt chính sách, làm giảm sức hấp dẫn của kênh đầu tư chứng khoán.
+    *   **Kinh tế toàn cầu và địa chính trị:** Tăng trưởng kinh tế toàn cầu chậm lại, các cuộc xung đột địa chính trị, hay căng thẳng thương mại có thể ảnh hưởng đến tâm lý nhà đầu tư và dòng vốn ngoại.
+*   **Rủi ro tâm lý:**
+    *   **Tâm lý FOMO chuyển sang FUD:** Sau một giai đoạn tăng nóng, tâm lý "sợ bỏ lỡ" (FOMO) có thể nhanh chóng chuyển thành "sợ hãi, không chắc chắn, nghi ngờ" (FUD) khi thị trường điều chỉnh, dẫn đến bán tháo hoảng loạn.
+    *   **Niềm tin nhà đầu tư:** Nếu thị trường tiếp tục giảm sâu, niềm tin của nhà đầu tư có thể suy yếu, khiến quá trình phục hồi trở nên khó khăn hơn.
+*   **Các mức quan trọng cần theo dõi:**
+    *   **Hỗ trợ:** 1.59K (MA20/Kijun-sen), 1.50K (Senkou Span B), 1.49K (MA50), 1.47K (Bollinger Lower Band).
+    *   **Kháng cự:** 1.64K (MA10/Tenkan-sen), 1.71K (Bollinger Upper Band).
+
+🎯 **9. KHUYẾN NGHỊ CUỐI CÙNG:**
+
+*   **KHUYẾN NGHỊ:** **GIẢM TỶ TRỌNG VÀ CHỜ ĐỢI CƠ HỘI MỚI.**
+*   **LÝ DO CHÍNH:** Thị trường đang cho thấy các dấu hiệu phân phối rõ ràng theo Wyckoff và VSA với áp lực bán mạnh trên khối lượng lớn. Các chỉ báo động lượng suy yếu và VNINDEX đã mất các ngưỡng hỗ trợ ngắn hạn, cho thấy rủi ro điều chỉnh sâu đang hiện hữu, không khuyến khích tham gia mua mới.
+*   **ĐIỂM SỐ ĐÁNH GIÁ:** **4/10** (Thị trường đang trong giai đoạn rủi ro cao, tiềm năng giảm giá lớn hơn nhiều so với tiềm năng tăng giá trong ngắn hạn).
+2025-08-26 07:52:58,436 - INFO - 
+--- PHÂN TÍCH TỔNG HỢP TỪ OPENROUTER ---
+2025-08-26 07:52:58,437 - INFO - Không thể tạo phân tích bằng OpenRouter tại thời điểm này.
+2025-08-26 07:52:58,437 - INFO - ============================================================
+
+2025-08-26 07:52:58,441 - INFO - Đã lưu báo cáo phân tích vào file 'vnstocks_data/VNINDEX_report.json'
