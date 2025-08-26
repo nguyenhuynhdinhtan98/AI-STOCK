@@ -660,6 +660,7 @@ Bạn phải chọn MỘT trong 5 khuyến nghị sau và giải thích rõ lý 
 - Luôn đưa ra dẫn chứng cụ thể từ dữ liệu đã cung cấp.
 - Kết hợp cả phân tích định lượng và định tính.
 - Ưu tiên chất lượng, độ sâu và tính chính xác.
+- Phân tích thêm thông tin vĩ mô cổ phiếu đảm bảo lợi nhuận đột biến tương lai.
 # DỮ LIỆU
 <<<HISTORICAL_DATA_START>>>
 {historical_data}
@@ -763,7 +764,8 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 - **Risk/Reward:** Tỷ lệ thưởng/trừng phạt?
 ⭐ **7. TOP 20 MÃ CỔ PHIẾU TIỀM NĂNG (Dựa trên VSA/VPA & WYCKOFF & CANSLIM & MINERVINI) ĐƯỢC SẮP XẾP THEO TIỀM NĂNG GIẢM DẦN:**
 - **Bắt buộc lấy từ MARKET_SCREEN_START**
-| Mã | Lý do chọn (VSA/VPA & WYCKOFF) (ngắn gọn) | Entry | SL | TP | RR |
+- **Phân tích thêm thông tin vĩ mô cổ phiếu đảm bảo lợi nhuận đột biến tương lai**
+| Mã | Lý do chọn (VSA/VPA & WYCKOFF) (ngắn gọn dưới 30 từ) | Entry | SL | TP | RR |
 |----|---------------------|-------|----|----|----|
 |    |                     |       |    |    |    |
 ⚠️  **8. RỦI RO & ĐIỂM CẦN THEO DÕI:**
