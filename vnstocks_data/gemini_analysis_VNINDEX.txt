@@ -1,92 +1,113 @@
-﻿Chào mừng quý nhà đầu tư đến với bản phân tích thị trường chi tiết. Dưới đây là đánh giá về VNINDEX và danh mục cổ phiếu tiềm năng dựa trên các phương pháp VSA/VPA, Wyckoff, Minervini, và CANSLIM.
+﻿Chào bạn,
 
-## Phân tích VNINDEX
+Dưới đây là phân tích VNINDEX và đề xuất danh mục cổ phiếu theo yêu cầu:
 
-### 1) VSA/VPA
+## 1) VSA/VPA (Phân tích VNINDEX)
+**Snapshot hiện tại:** VNINDEX đang ở mức 1610.00 điểm.
+- RSI(14): 58.62 (trung tính)
+- MACD: Đường MACD (47.07) đã cắt xuống dưới đường Signal (48.92), với Histogram âm (-1.86), cho thấy động lượng giảm ngắn hạn.
+- MA10/20/50/200: 1640.00/1590.00/1490.00/1330.00
+- Bollinger: Giá đang nằm dưới biên trên (1710.00) nhưng trên biên dưới (1470.00).
+- Ichimoku: Giá đang nằm giữa Tenkan (1640.00) và Kijun (1590.00). Chikou Span (1500.00) nằm dưới giá và Kijun, Senkou Span A (1610.00) nằm trên Senkou Span B (1500.00).
+- Volume: 1.52B, thấp hơn MA20 (1.83B) nhưng cao hơn MA50 (1.38B).
 
-*   **3–5 phiên gần nhất (phân tích tương đối dựa trên Snapshot):**
-    *   VNINDEX hiện tại ở mức 1610.00 điểm. Giá hiện tại nằm dưới MA10 (1640.00) nhưng trên MA20 (1590.00), cho thấy áp lực bán ngắn hạn đã xuất hiện sau một giai đoạn tăng giá, đẩy chỉ số xuống dưới ngưỡng trung bình động 10 ngày.
-    *   So với MA50 (1490.00), VNINDEX vẫn giữ vững xu hướng tăng trung hạn.
-    *   **Volume:** Khối lượng giao dịch hiện tại (1.52B) thấp hơn khối lượng trung bình 20 phiên (1.83B), cho thấy sự suy giảm về động lực mua/bán chung của thị trường trong ngắn hạn. Tuy nhiên, khối lượng này vẫn cao hơn MA50 (1.38B), điều này có thể cho thấy một sự điều chỉnh lành mạnh hoặc một giai đoạn cạn kiệt nguồn cung tạm thời trước khi thị trường tìm được hướng đi mới.
-    *   **Tín hiệu VSA đặc biệt:** Không có tín hiệu rõ ràng về `test/upthrust/spring/climax` chỉ từ dữ liệu snapshot.
+**Phân tích 3–5 phiên gần đây:**
+- **Biến động giá so với MA20/MA50:** Giá (1610.00) hiện đang nằm dưới MA10 (1640.00), nhưng vẫn duy trì trên các đường MA quan trọng hơn như MA20 (1590.00), MA50 (1490.00) và MA200 (1330.00). Điều này cho thấy xu hướng tăng dài hạn vẫn được giữ vững, tuy nhiên đang có dấu hiệu điều chỉnh hoặc chững lại trong ngắn hạn.
+- **Test/Upthrust/Spring/Climax (nếu có):**
+    - Động lượng MACD tiêu cực cùng với việc giá giảm xuống dưới MA10 cho thấy áp lực bán đã xuất hiện trong ngắn hạn, nhưng không quá mạnh khi RSI vẫn trung tính và giá vẫn giữ được trên MA20.
+    - Thanh khoản hiện tại (1.52B) thấp hơn mức trung bình 20 phiên (1.83B) trong khi giá đang điều chỉnh có thể là một tín hiệu "Test" nhu cầu, cho thấy lực cung không quá áp đảo và thị trường có thể tìm điểm cân bằng mới. Tuy nhiên, chưa có dấu hiệu rõ ràng của "Spring" hay "Upthrust".
 
-### 2) Wyckoff
+## 2) Wyckoff (Phân tích VNINDEX)
+- **Giai đoạn:** Dựa trên việc giá duy trì tốt trên các đường MA dài hạn (MA50, MA200) và xu hướng tăng kéo dài, VNINDEX đang trong **Giai đoạn Tăng giá (Markup Phase)**. Tuy nhiên, các tín hiệu kỹ thuật ngắn hạn (MACD tiêu cực, giá dưới MA10) cho thấy thị trường đang ở trong một **Giai đoạn điều chỉnh/tích lũy lại (Re-accumulation/Consolidation)** trong xu hướng tăng.
+- **Tín hiệu breakout/breakdown:** Hiện tại, không có tín hiệu breakout hay breakdown rõ ràng. Giá đang có xu hướng chững lại sau một nhịp tăng, tìm kiếm điểm cân bằng mới. Việc giá giảm dưới MA10 nhưng vẫn trên MA20 có thể là một phản ứng tự nhiên sau đợt tăng, chứ không phải một sự thay đổi xu hướng lớn.
+- **Thời gian tích lũy:** N/A.
 
-*   **Giai đoạn:** Dựa trên các chỉ báo, VNINDEX có thể đang ở giai đoạn **Tái phân phối (Re-distribution)** hoặc một phần của **Giai đoạn Tái tích lũy (Re-accumulation)** sau một đợt tăng giá. Giá hiện tại nằm dưới MA10 và MACD histogram âm cho thấy áp lực bán ngắn hạn đang chiếm ưu thế, nhưng việc giữ được trên MA20 và MA50 cho thấy vẫn có lực đỡ.
-*   **Tín hiệu breakout/breakdown:** Hiện tại không có tín hiệu breakout (phá vỡ kháng cự) hoặc breakdown (phá vỡ hỗ trợ) rõ ràng. Giá nằm trong khoảng giữa của Bollinger Bands (trên 1710.00, dưới 1470.00) và quanh Senkou Span A của Ichimoku (1610.00), cho thấy thị trường đang trong vùng cân bằng hoặc thiếu động lực mạnh.
-*   **Thời gian tích lũy:** N/A (Không đủ dữ liệu lịch sử chi tiết để xác định các pha Wyckoff và thời gian tích lũy).
+## 3) Kịch bản 1–2 tuần (kèm xác suất)
+- **Cơ bản (50%): Điều chỉnh hoặc tích lũy quanh vùng hỗ trợ.**
+    - VNINDEX nhiều khả năng sẽ tiếp tục đi ngang hoặc điều chỉnh nhẹ trong biên độ 1590.00 (MA20) – 1640.00 (MA10). Thanh khoản có thể duy trì ở mức trung bình thấp khi thị trường tìm kiếm điểm cân bằng. MACD histogram có thể tiếp tục âm nhưng không giảm sâu thêm.
+    - Vùng điểm: 1590.00 – 1640.00.
+- **Tốt nhất (30%): Phục hồi và tiếp tục xu hướng tăng.**
+    - Nếu dòng tiền tích cực quay trở lại và động lực MACD cải thiện (MACD histogram chuyển dương hoặc tăng dần), VNINDEX có thể vượt qua MA10 (1640.00) và hướng tới vùng 1680.00 - 1710.00 (kháng cự Bollinger trên) với thanh khoản gia tăng.
+    - Vùng điểm: 1640.00 – 1710.00.
+- **Xấu nhất (20%): Phá vỡ hỗ trợ ngắn hạn.**
+    - Nếu áp lực bán gia tăng mạnh hơn, VNINDEX có thể phá vỡ vùng hỗ trợ MA20 (1590.00) và kiểm định các vùng hỗ trợ thấp hơn như 1550.00 – 1570.00 (giữa MA20 và MA50). Kịch bản này xảy ra khi MACD histogram giảm sâu và thanh khoản bán tháo tăng đột biến.
+    - Vùng điểm: 1550.00 – 1590.00.
 
-### 3) Minervini
+## 4) Chiến lược
+- **Vị thế:** GIỮ các vị thế hiện có. CHỜ các tín hiệu xác nhận rõ ràng hơn để mua mới hoặc gia tăng tỷ trọng.
+- **Quy tắc vào/thoát:**
+    - **Vào:**
+        - Mua thăm dò (accumulate) nếu VNINDEX kiểm định thành công vùng hỗ trợ MA20 (1590.00) với thanh khoản cạn kiệt, đồng thời MACD histogram cho tín hiệu chuyển dương hoặc tăng dần.
+        - Mua gia tăng (add on) khi VNINDEX bứt phá vượt qua MA10 (1640.00) một cách thuyết phục, đi kèm với thanh khoản cao hơn mức trung bình 20 phiên.
+    - **Thoát:**
+        - Cắt lỗ (stop loss) nếu VNINDEX đóng cửa dưới vùng hỗ trợ MA20 (1590.00) với thanh khoản lớn, xác nhận phá vỡ cấu trúc tăng ngắn hạn.
+        - Xem xét giảm tỷ trọng (take profit) nếu VNINDEX tiếp cận vùng kháng cự Bollinger trên (1710.00) mà không có sự đồng thuận của thanh khoản và động lực tăng giá.
+- **Rủi ro chính:**
+    - MACD histogram duy trì và giảm sâu hơn cho thấy động lực giảm giá tiếp tục mạnh lên.
+    - Thanh khoản giảm sút liên tục trong các phiên tăng điểm và tăng đột biến trong các phiên giảm điểm.
+    - Các yếu tố vĩ mô bất lợi hoặc tin tức tiêu cực có thể ảnh hưởng đến tâm lý thị trường, gây ra các nhịp giảm đột ngột và mạnh.
 
-*   **Xu hướng dài/ngắn:**
-    *   **Xu hướng dài hạn:** VNINDEX (1610.00) đang giao dịch trên MA200 (1330.00) và MA50 (1490.00), xác nhận xu hướng tăng dài hạn vẫn đang được duy trì.
-    *   **Xu hướng ngắn hạn:** VNINDEX (1610.00) đang giao dịch dưới MA10 (1640.00) nhưng vẫn trên MA20 (1590.00), cho thấy một sự điều chỉnh hoặc chững lại trong đà tăng ngắn hạn.
-*   **Sắp xếp MA:** MA200 (1330.00) < MA50 (1490.00) < MA20 (1590.00) < MA10 (1640.00). Mặc dù các đường MA vẫn duy trì trật tự tăng giá, việc giá hiện tại nằm dưới MA10 là một dấu hiệu suy yếu ngắn hạn cần chú ý.
-*   **Hỗ trợ/Kháng cự:**
-    *   **Hỗ trợ gần nhất:**
-        *   MA20: 1590.00 điểm
-        *   Kijun (Ichimoku): 1590.00 điểm
-        *   MA50: 1490.00 điểm
-        *   Senkou Span B (Ichimoku): 1500.00 điểm
-        *   Biên dưới Bollinger Band: 1470.00 điểm
-    *   **Kháng cự gần nhất:**
-        *   MA10: 1640.00 điểm
-        *   Tenkan (Ichimoku): 1640.00 điểm
-        *   Biên trên Bollinger Band: 1710.00 điểm
+## 5) ĐỀ XUẤT MÃ 20 MÃ CÓ TIỀM NĂNG GIẢM DẦN (chỉ từ MARKET_SCREEN)
 
-### 4) CANSLIM (M)
+Dựa trên các tiêu chí về sức khỏe tài chính, tăng trưởng kinh doanh, định giá hợp lý và tín hiệu kỹ thuật tích cực (ưu tiên các mã có tín hiệu mua rõ ràng, MACD chuyển biến tích cực, giá vượt lên các đường MA quan trọng), dưới đây là 20 mã cổ phiếu có tiềm năng giảm dần:
 
-*   **Trạng thái:** **Off**
-    *   VNINDEX (1610.00) > MA50 (1490.00) → Điều kiện này ĐÚNG.
-    *   MACD Line (47.07) < Signal Line (48.92) → Điều kiện này SAI (MACD Line nằm dưới Signal Line, thể hiện tín hiệu tiêu cực).
-    *   Do một trong các điều kiện không được thỏa mãn, chiến lược CANSLIM (M) hiện đang ở trạng thái **OFF**, khuyến nghị sự thận trọng.
-
-### 5) Kịch bản 1–2 tuần (kèm xác suất)
-
-*   **Kịch bản Cơ bản (50%): Điều chỉnh nhẹ và đi ngang trong vùng 1580–1630 điểm.**
-    *   Mô tả: Thị trường có khả năng tiếp tục củng cố quanh ngưỡng hiện tại. Áp lực bán ngắn hạn (giá dưới MA10, MACD histogram âm) có thể khiến chỉ số tìm kiếm hỗ trợ tại MA20 (1590.00). Thanh khoản thấp hơn MA20 phiên cho thấy tâm lý chờ đợi.
-*   **Kịch bản Tốt nhất (30%): Phục hồi và hướng tới vùng 1650–1680 điểm.**
-    *   Mô tả: Nếu có dòng tiền mạnh mẽ quay trở lại, đẩy VNINDEX vượt qua MA10 (1640.00) và Tenkan (1640.00) với khối lượng tăng, chỉ số có thể lấy lại đà tăng và kiểm tra các ngưỡng kháng cự cao hơn, tiềm năng chạm vùng 1680.00 trước khi tiếp cận biên trên Bollinger.
-*   **Kịch bản Xấu nhất (20%): Giảm sâu về vùng 1540–1570 điểm.**
-    *   Mô tả: Nếu VNINDEX không giữ được ngưỡng hỗ trợ quan trọng tại MA20 (1590.00) và Kijun (1590.00) với khối lượng lớn, lực bán có thể gia tăng, đẩy chỉ số về các vùng hỗ trợ thấp hơn như MA50 (1490.00) hoặc sâu hơn là khu vực 1540-1570, gần Senkou Span B.
-
-### 6) Chiến lược
-
-*   **Vị thế:** **CHỜ**
-    *   Mặc dù xu hướng dài hạn vẫn tích cực, các tín hiệu kỹ thuật ngắn hạn (giá dưới MA10, MACD histogram âm, khối lượng dưới trung bình 20 phiên) và trạng thái "OFF" của CANSLIM (M) cho thấy sự thận trọng là cần thiết.
-*   **Quy tắc vào/thoát:**
-    *   **Vào lệnh:** Chỉ xem xét MUA khi VNINDEX lấy lại đà tăng rõ ràng, đóng cửa trên MA10 (1640.00) với khối lượng giao dịch tăng đáng kể (vượt trên MA20 volume) và MACD histogram chuyển sang dương hoặc cho tín hiệu cắt lên.
-    *   **Thoát lệnh:** CÂN NHẮC BÁN/GIẢM TỶ TRỌNG nếu VNINDEX phá vỡ hỗ trợ MA20 (1590.00) với khối lượng lớn, đặc biệt nếu tiếp tục giảm xuống dưới MA50 (1490.00).
-*   **Rủi ro chính:**
-    *   Sự thiếu quyết đoán của dòng tiền và thanh khoản thấp có thể khiến thị trường dễ bị tác động bởi các yếu tố bên ngoài.
-    *   Đà giảm ngắn hạn có thể tiếp diễn nếu các ngưỡng hỗ trợ quan trọng bị phá vỡ.
-    *   Các yếu tố vĩ mô bất lợi hoặc tin tức tiêu cực có thể gây ra đợt bán tháo bất ngờ.
-
----
-
-## 7) ĐỀ XUẤT MÃ 20 MÃ CÓ TIỀM NĂNG GIẢM DẦN (chỉ từ MARKET_SCREEN)
-
-Để xếp hạng "tiềm năng", tôi đã tính toán một điểm tổng hợp cho mỗi mã cổ phiếu dựa trên các tiêu chí về sức khỏe tài chính, khả năng sinh lời (ROE), tăng trưởng doanh thu/lợi nhuận, các chỉ báo kỹ thuật (MA, MACD, RSI, sức mạnh tương đối), và khuyến nghị từ TCBS. Các mã được ưu tiên có sức khỏe tài chính tốt, tăng trưởng ổn định, tín hiệu kỹ thuật tích cực và khuyến nghị mua/chờ mua.
-
-Dưới đây là 20 mã cổ phiếu có tiềm năng giảm dần (từ cao nhất đến thấp nhất trong danh sách lựa chọn):
-
-1.  **D2D** (Bất động sản, HSX)
-2.  **DDV** (Hóa chất, UPCOM)
-3.  **TRC** (Hóa chất, HSX)
-4.  **TFC** (Thực phẩm và đồ uống, HNX)
-5.  **HGM** (Tài nguyên Cơ bản, HNX)
-6.  **GSM** (Điện, nước & xăng dầu khí đốt, UPCOM)
-7.  **PDN** (Hàng & Dịch vụ Công nghiệp, HSX)
-8.  **NFC** (Hóa chất, HNX)
-9.  **MSH** (Hàng cá nhân & Gia dụng, HSX)
-10. **HTI** (Xây dựng và Vật liệu, HSX)
-11. **TYA** (Hàng & Dịch vụ Công nghiệp, HSX)
-12. **TCL** (Hàng & Dịch vụ Công nghiệp, HSX)
-13. **PPH** (Hàng cá nhân & Gia dụng, UPCOM)
-14. **MVC** (Xây dựng và Vật liệu, UPCOM)
-15. **GVT** (Tài nguyên Cơ bản, UPCOM)
-16. **NTP** (Xây dựng và Vật liệu, HNX)
-17. **ANV** (Thực phẩm và đồ uống, HSX)
-18. **CTG** (Ngân hàng, HSX)
-19. **HDB** (Ngân hàng, HSX)
-20. **VAB** (Ngân hàng, HSX)
+1.  **NCS (Thực phẩm và đồ uống)**
+    *   **Vĩ mô:** Ngành thực phẩm và đồ uống ổn định, ít bị ảnh hưởng bởi chu kỳ kinh tế, có tiềm năng tăng trưởng bền vững theo thu nhập và dân số.
+    *   **Phân tích:** ROE 33.70% rất cao, Stock Rating 2.40. Tín hiệu mua mạnh từ TCBS. MACD Histogram đang âm nhưng có xu hướng tăng dần. Giá đã cắt lên SMA(5) và SMA(20), nằm trên SMA(50) và SMA(100), cho thấy động lực tăng ngắn hạn và xu hướng tích cực dài hạn. Relative Strength 1m, 3m, 1y đều cao (80.00, 85.00, 44.00).
+2.  **GVT (Tài nguyên Cơ bản)**
+    *   **Vĩ mô:** Ngành tài nguyên cơ bản có thể hưởng lợi từ sự phục hồi kinh tế và nhu cầu tiêu thụ.
+    *   **Phân tích:** ROE 17.30% tốt, Stock Rating 2.50. Tín hiệu mua mạnh từ TCBS. MACD Histogram dương và tăng dần, cho thấy động lực tăng giá đang mạnh lên. Giá đã cắt lên SMA(20) và nằm trên SMA(50), SMA(100). Relative Strength 1m, 3m, 1y đều rất cao (90.00, 65.00, 66.00).
+3.  **TYA (Hàng & Dịch vụ Công nghiệp)**
+    *   **Vĩ mô:** Ngành dịch vụ công nghiệp có thể tăng trưởng nhờ các dự án đầu tư và hoạt động sản xuất.
+    *   **Phân tích:** ROE 18.30% tốt, Stock Rating 1.90. Tín hiệu mua từ TCBS. MACD Histogram âm nhưng có xu hướng tăng dần. Giá đã cắt lên SMA(5), SMA(10) và SMA(20), nằm trên SMA(50) và SMA(100). Relative Strength 1m, 3m, 1y đều cao (80.00, 70.00, 53.00).
+4.  **AME (Hàng & Dịch vụ Công nghiệp)**
+    *   **Vĩ mô:** Tương tự TYA, hưởng lợi từ sự phát triển của ngành công nghiệp.
+    *   **Phân tích:** ROE 4.00% thấp nhưng các tín hiệu kỹ thuật rất mạnh. Tín hiệu mua từ TCBS. MACD Histogram âm nhưng có xu hướng tăng dần. Giá đã cắt lên SMA(5), SMA(10) và SMA(20), nằm trên SMA(50) và SMA(100). Relative Strength 1m, 3m, 1y đều tốt (26.00, 10.00, 50.00).
+5.  **NAB (Ngân hàng)**
+    *   **Vĩ mô:** Ngành ngân hàng hưởng lợi từ sự ổn định kinh tế và chính sách tiền tệ.
+    *   **Phân tích:** ROE 20.20% rất tốt, Stock Rating 3.80. Tín hiệu mua từ TCBS. MACD Histogram dương nhưng có xu hướng giảm dần, cho thấy động lực tăng đang chững lại nhưng vẫn tích cực. Giá nằm trên SMA(20), SMA(50) và SMA(100). Relative Strength 1m, 3m, 1y đều cao (75.00, 60.00, 63.00).
+6.  **HDB (Ngân hàng)**
+    *   **Vĩ mô:** Ngành ngân hàng tiếp tục xu hướng tăng trưởng lợi nhuận.
+    *   **Phân tích:** ROE 25.30% rất tốt, Stock Rating 2.80. Tín hiệu mua từ TCBS. MACD Histogram dương nhưng có xu hướng giảm dần. Giá nằm trên SMA(20), SMA(50) và SMA(100). Relative Strength 1m, 3m, 1y đều cao (87.00, 89.00, 78.00).
+7.  **CTG (Ngân hàng)**
+    *   **Vĩ mô:** Một trong những ngân hàng lớn, có nền tảng vững chắc.
+    *   **Phân tích:** ROE 20.20% rất tốt, Stock Rating 2.50. Tín hiệu mua từ TCBS. MACD Histogram dương nhưng có xu hướng giảm dần. Giá nằm trên SMA(20), SMA(50) và SMA(100). Tuy nhiên, RSI 70.00 đã ở vùng quá mua, cần thận trọng. Relative Strength 1m, 3m, 1y đều rất cao (78.00, 77.00, 79.00).
+8.  **MSH (Hàng cá nhân & Gia dụng)**
+    *   **Vĩ mô:** Ngành tiêu dùng có thể phục hồi khi thu nhập và tiêu dùng cá nhân tăng lên.
+    *   **Phân tích:** ROE 29.00% rất tốt, Stock Rating 1.60. Tín hiệu chờ mua từ TCBS. MACD Histogram âm nhưng có xu hướng tăng dần, cho thấy động lực cải thiện. Giá nằm dưới SMA(20) và SMA(50) nhưng trên SMA(100). Relative Strength 1m, 3m, 1y đều tốt (19.00, 28.00, 58.00).
+9.  **PPH (Hàng cá nhân & Gia dụng)**
+    *   **Vĩ mô:** Tương tự MSH, hưởng lợi từ sự tăng trưởng của nhu cầu tiêu dùng.
+    *   **Phân tích:** ROE 22.40% tốt, Stock Rating 1.90. Tín hiệu chờ mua từ TCBS. MACD Histogram âm nhưng có xu hướng tăng dần. Giá nằm dưới SMA(20) và SMA(50) nhưng trên SMA(100). Relative Strength 1m, 3m, 1y đều tốt (34.00, 44.00, 37.00).
+10. **MNB (Hàng cá nhân & Gia dụng)**
+    *   **Vĩ mô:** Tiềm năng tăng trưởng từ thị trường nội địa.
+    *   **Phân tích:** ROE 25.70% tốt, Stock Rating 1.40. Tín hiệu trung tính từ TCBS. MACD Histogram âm nhưng có xu hướng tăng dần. Giá nằm dưới SMA(20) nhưng trên SMA(50) và SMA(100). Relative Strength 1m, 3m, 1y đều ở mức trung bình (82.00, 15.00, 15.00).
+11. **DDV (Hóa chất)**
+    *   **Vĩ mô:** Ngành hóa chất có thể hưởng lợi từ sự gia tăng sản xuất công nghiệp và nông nghiệp.
+    *   **Phân tích:** ROE 19.60% tốt, Stock Rating 1.90. Tín hiệu chờ mua từ TCBS. MACD Histogram âm và có xu hướng giảm dần. Giá nằm dưới SMA(20) nhưng đã cắt lên SMA(50) và nằm trên SMA(100). Relative Strength 1m, 3m, 1y đều tốt (49.00, 81.00, 89.00).
+12. **TRC (Hóa chất)**
+    *   **Vĩ mô:** Tương tự DDV, có triển vọng tích cực khi nhu cầu nguyên liệu tăng.
+    *   **Phân tích:** ROE 16.20% tốt, Stock Rating 1.90. Tín hiệu chờ mua từ TCBS. MACD Histogram dương nhưng có xu hướng giảm dần. Giá nằm trên SMA(20), SMA(50) và SMA(100). Relative Strength 1m, 3m, 1y đều tốt (25.00, 48.00, 93.00).
+13. **DCM (Hóa chất)**
+    *   **Vĩ mô:** Ngành hóa chất, đặc biệt là phân bón, có thể hưởng lợi từ giá nông sản và nhu cầu tiêu thụ.
+    *   **Phân tích:** ROE 16.90% tốt, Stock Rating 1.80. Tín hiệu mua từ TCBS. MACD Histogram âm và có xu hướng giảm dần. Giá nằm dưới SMA(20) nhưng trên SMA(50) và SMA(100). Relative Strength 1m, 3m, 1y đều tốt (76.00, 62.00, 47.00).
+14. **SLD (Bất động sản)**
+    *   **Vĩ mô:** Ngành bất động sản có thể có những tín hiệu tích cực từ chính sách hỗ trợ và lãi suất giảm.
+    *   **Phân tích:** ROE 4.40% thấp, Stock Rating 1.40. Tín hiệu mua từ TCBS. MACD Histogram N/A. Giá đã cắt lên SMA(5). Mặc dù có tín hiệu mua, nhưng thiếu dữ liệu MACD và ROE thấp cho thấy rủi ro cao hơn.
+15. **NTP (Xây dựng và Vật liệu)**
+    *   **Vĩ mô:** Ngành vật liệu xây dựng hưởng lợi từ đầu tư công và sự phục hồi của thị trường bất động sản.
+    *   **Phân tích:** ROE 26.10% tốt, Stock Rating 1.20. Tín hiệu chờ mua từ TCBS. MACD Histogram âm và có xu hướng tăng dần. Giá đã cắt lên SMA(5), nhưng nằm dưới SMA(20), SMA(50) và SMA(100). Relative Strength 1m, 3m, 1y đều thấp (6.00, 15.00, 52.00).
+16. **VAB (Ngân hàng)**
+    *   **Vĩ mô:** Ngân hàng cỡ nhỏ có thể có đột phá nếu có chiến lược đúng.
+    *   **Phân tích:** ROE 11.10% ở mức chấp nhận được, Stock Rating 2.50. Tín hiệu trung tính từ TCBS. MACD Histogram âm và có xu hướng giảm dần. Giá nằm trên SMA(20), SMA(50) và SMA(100). Relative Strength 1m, 3m, 1y đều cao (94.00, 87.00, 94.00).
+17. **BVB (Ngân hàng)**
+    *   **Vĩ mô:** Tương tự VAB.
+    *   **Phân tích:** ROE 2.40% rất thấp, Stock Rating 2.60. Tín hiệu mua từ TCBS. MACD Histogram dương nhưng có xu hướng giảm dần. Giá nằm trên SMA(20), SMA(50) và SMA(100), nhưng dưới SMA(5) và SMA(10). Relative Strength 1m, 3m, 1y đều cao (76.00, 75.00, 74.00). Rủi ro từ ROE thấp.
+18. **MZG (Tài nguyên Cơ bản)**
+    *   **Vĩ mô:** Ngành tài nguyên cơ bản.
+    *   **Phân tích:** ROE 7.60% thấp, Stock Rating 2.50. Tín hiệu mua từ TCBS. MACD Histogram dương nhưng có xu hướng giảm dần. Giá nằm trên SMA(20), SMA(50) và SMA(100). Tuy nhiên, RSI 76.00 đã ở vùng quá mua. Relative Strength 1m, 3m, 1y đều cao (98.00, 98.00, N/A).
+19. **ANV (Thực phẩm và đồ uống)**
+    *   **Vĩ mô:** Thủy sản có thể hưởng lợi từ xuất khẩu.
+    *   **Phân tích:** ROE 16.30% tốt, Stock Rating 2.00. Tín hiệu chờ mua từ TCBS. MACD Histogram âm và có xu hướng giảm dần. Giá nằm dưới SMA(20) nhưng trên SMA(50) và SMA(100). RSI 69.00 gần vùng quá mua. Relative Strength 1m, 3m, 1y đều cao (78.00, 97.00, 85.00).
+20. **HHV (Xây dựng và Vật liệu)**
+    *   **Vĩ mô:** Ngành xây dựng hưởng lợi từ đầu tư công.
+    *   **Phân tích:** ROE 5.30% thấp, Stock Rating 2.40. Tín hiệu chờ bán từ TCBS. MACD Histogram âm và có xu hướng giảm dần. Giá nằm trên SMA(20), SMA(50) và SMA(100). Relative Strength 1m, 3m, 1y đều tốt (84.00, 72.00, 66.00). Tín hiệu chờ bán và ROE thấp cho thấy tiềm năng rủi ro cao hơn.

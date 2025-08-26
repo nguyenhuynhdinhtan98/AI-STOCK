@@ -1,17 +1,51 @@
-import warnings
-warnings.filterwarnings("ignore", message=".*pkg_resources.*deprecated", category=UserWarning)
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+VNStock + AI Analyzer — v2
+Author: ChatGPT (GPT-5 Thinking)
+Date: 2025-08-26 (Asia/Ho_Chi_Minh)
+
+Major upgrades vs your original script:
+- Modular architecture with type hints & docstrings
+- Safer I/O, explicit retry/backoff, optional caching
+- Deterministic feature engineering (ATR, swings) & VSA/VPA detectors
+- Wyckoff phase heuristics & 1–2w scenario generator with probabilities
+- 0–100 scoring framework for stock picks (only from MARKET_SCREEN)
+- Clean prompt builders (VNINDEX + Single Ticker) aligned with your spec
+- AI client abstraction (Gemini / OpenRouter) with graceful fallbacks
+- CLI via argparse with subcommands (screen/analyze/index)
+- Consistent JSON/Markdown/CSV outputs under ./vnstocks_data
+
+Dependencies (same or fewer than before):
+- python-dotenv, numpy, pandas, ta, vnstock, google-generativeai, openai
+
+Usage examples:
+  $ python vnstock_ai_analyzer_v2.py screen --min-cap 500
+  $ python vnstock_ai_analyzer_v2.py analyze VCB FPT HPG
+  $ python vnstock_ai_analyzer_v2.py index          # analyze VNINDEX
+  $ python vnstock_ai_analyzer_v2.py analyze VNM --provider gemini
+
+Environment:
+  - GOOGLE_API_KEY, OPEN_ROUTER_API_KEY in a .env file or environment
+Outputs:
+  - ./vnstocks_data/<SYMBOL>_*.json|.md|.csv|.txt
+"""
+from __future__ import annotations
 
 import os
 import re
-import json
-import logging
 import sys
-from typing import Dict, List, Optional, Tuple, Any
+import json
+import time
+import math
+import logging
+import argparse
+from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
-from datetime import datetime, timedelta
-
 from dotenv import load_dotenv
 
 # TA libs
@@ -24,37 +58,32 @@ from ta.trend import IchimokuIndicator
 from vnstock.explorer.vci import Quote, Finance, Company
 from vnstock import Screener
 
-# AI SDKs (yêu cầu API key trong .env)
-import google.generativeai as genai
-from openai import OpenAI
+# AI SDKs (optional)
+import google.generativeai as genai  # type: ignore
+from openai import OpenAI  # type: ignore
 
-# ======================= LOGGING =======================
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler("stock_analysis.log", encoding='utf-8'),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger(__name__)
-
-# ======================= GLOBAL CONFIG =======================
+# ------------------------ Global & Logging ------------------------
 load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-OPEN_ROUTER_API_KEY = os.getenv("OPEN_ROUTER_API_KEY")
-if not GOOGLE_API_KEY or not OPEN_ROUTER_API_KEY:
-    raise ValueError("Vui lòng đặt GOOGLE_API_KEY và OPEN_ROUTER_API_KEY trong file .env")
-
-genai.configure(api_key=GOOGLE_API_KEY)
-client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=OPEN_ROUTER_API_KEY)
-
-GLOBAL_START_DATE = (datetime.today() - timedelta(days=365 * 15)).strftime("%Y-%m-%d")
-GLOBAL_END_DATE = datetime.today().strftime("%Y-%m-%d")
+TZ = timezone(timedelta(hours=7))  # Asia/Ho_Chi_Minh
+TODAY = datetime.now(TZ)
 DATA_DIR = "vnstocks_data"
 os.makedirs(DATA_DIR, exist_ok=True)
 
-# ======================= HELPERS =======================
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+    handlers=[
+        logging.FileHandler(os.path.join(DATA_DIR, "vnstock_ai.log"), encoding="utf-8"),
+        logging.StreamHandler(sys.stdout),
+    ],
+)
+logger = logging.getLogger("vnstock_ai")
+
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+OPEN_ROUTER_API_KEY = os.getenv("OPEN_ROUTER_API_KEY")
+
+# ------------------------ Utilities ------------------------
+
 def safe_float(val: Any) -> Optional[float]:
     try:
         if val is None:
@@ -63,458 +92,503 @@ def safe_float(val: Any) -> Optional[float]:
             if np.isnan(val) or np.isinf(val):
                 return None
             return float(val)
-        s = str(val).replace(',', '').strip()
+        s = str(val).replace(",", "").strip()
         if s == "":
             return None
-        num = float(s)
-        return None if (np.isnan(num) or np.isinf(num)) else num
+        f = float(s)
+        if np.isnan(f) or np.isinf(f):
+            return None
+        return f
     except Exception:
         return None
 
-def safe_format(val: Any, fmt: str = ".2f") -> str:
-    num = safe_float(val)
-    return f"{num:{fmt}}" if num is not None else "N/A"
 
-def format_large_value(value: Any) -> str:
-    num = safe_float(value)
+def fmt2(val: Any) -> str:
+    num = safe_float(val)
+    return f"{num:.2f}" if num is not None else "N/A"
+
+
+def fmt_big(val: Any) -> str:
+    num = safe_float(val)
     if num is None:
         return "N/A"
-    abs_value = abs(num)
-    if abs_value >= 1e9:
-        return f"{num / 1e9:.2f}B"
-    if abs_value >= 1e6:
-        return f"{num / 1e6:.2f}M"
-    if abs_value >= 1e3:
-        return f"{num / 1e3:.2f}K"
+    a = abs(num)
+    if a >= 1e9:
+        return f"{num/1e9:.2f}B"
+    if a >= 1e6:
+        return f"{num/1e6:.2f}M"
+    if a >= 1e3:
+        return f"{num/1e3:.2f}K"
     return f"{num:.2f}"
 
-def validate_dataframe(df: Optional[pd.DataFrame], required_columns: List[str] = None) -> bool:
+
+def ensure_df(df: Optional[pd.DataFrame], required: Optional[List[str]] = None) -> bool:
     if df is None or df.empty:
         return False
-    if required_columns:
-        return all(col in df.columns for col in required_columns)
+    if required:
+        return all(c in df.columns for c in required)
     return True
 
-# ======================= FETCHERS =======================
-def get_stock_data(symbol: str) -> Optional[pd.DataFrame]:
+
+def write_text(path: str, text: str) -> None:
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
+
+
+def write_json(path: str, obj: Any) -> None:
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=2)
+
+
+# ------------------------ Data Layer ------------------------
+@dataclass
+class PriceData:
+    df: pd.DataFrame
+
+    @property
+    def last(self) -> pd.Series:
+        return self.df.iloc[-1]
+
+
+def fetch_history(symbol: str, start: Optional[str] = None, end: Optional[str] = None) -> Optional[PriceData]:
+    """Fetch daily OHLCV with caching to CSV. Returns None on failure."""
     try:
-        stock = Quote(symbol=symbol)
-        df = stock.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
-        if not validate_dataframe(df, ['time', 'open', 'high', 'low', 'close', 'volume']):
+        start = start or (TODAY - timedelta(days=365 * 15)).strftime("%Y-%m-%d")
+        end = end or TODAY.strftime("%Y-%m-%d")
+        cache = os.path.join(DATA_DIR, f"{symbol.upper()}_data.csv")
+        # Try cache first
+        if os.path.exists(cache):
+            try:
+                df = pd.read_csv(cache)
+                if ensure_df(df, ["Date", "Open", "High", "Low", "Close", "Volume"]):
+                    df["Date"] = pd.to_datetime(df["Date"])
+                    df.set_index("Date", inplace=True)
+                    df.sort_index(inplace=True)
+                    return PriceData(df=df)
+            except Exception:
+                pass
+        q = Quote(symbol=symbol)
+        raw = q.history(start=start, end=end, interval="1D")
+        if not ensure_df(raw, ["time", "open", "high", "low", "close", "volume"]):
             return None
-        df = df.rename(columns={
+        df = raw.rename(columns={
             "time": "Date", "open": "Open", "high": "High", "low": "Low",
             "close": "Close", "volume": "Volume"
         })
         df["Date"] = pd.to_datetime(df["Date"])
         df.set_index("Date", inplace=True)
         df.sort_index(inplace=True)
-        csv_path = f"{DATA_DIR}/{symbol}_data.csv"
-        df.to_csv(csv_path, index=True, encoding="utf-8-sig")
-        df.to_csv("data.csv", index=True, encoding="utf-8-sig")
-        return df
-    except Exception:
+        df.to_csv(cache, index=True, encoding="utf-8")
+        return PriceData(df=df)
+    except Exception as e:
+        logger.exception(f"fetch_history failed for {symbol}: {e}")
         return None
 
-def _flatten(df: Optional[pd.DataFrame]) -> Optional[pd.DataFrame]:
-    if df is None:
-        return df
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = ['_'.join([c for c in col if c]).strip() for col in df.columns.values]
-    return df
 
-def _std_cols(df: Optional[pd.DataFrame]) -> Optional[pd.DataFrame]:
-    if df is None:
-        return df
-    mapping = {
-        "Meta_ticker": "ticker",
-        "Meta_yearReport": "yearReport",
-        "Meta_lengthReport": "lengthReport",
-        "meta_ticker": "ticker",
-        "meta_yearReport": "yearReport",
-        "meta_lengthReport": "lengthReport",
-    }
-    cols = {k: v for k, v in mapping.items() if k in df.columns}
-    if cols:
-        df = df.rename(columns=cols)
-    for col in ["ticker", "yearReport", "lengthReport"]:
-        if col not in df.columns:
-            df[col] = np.nan
-    return df
-
-def get_company_info(symbol: str) -> str:
+def fetch_financials(symbol: str) -> Optional[pd.DataFrame]:
     try:
-        company = Company(symbol)
-        info_sections = {
-            "OVERVIEW": company.overview(),
-            "SHAREHOLDERS": company.shareholders(),
-            "OFFICERS": company.officers(filter_by='working'),
-            "EVENTS": company.events(),
-            "NEWS": company.news(),
-            "REPORTS": company.reports(),
-            "TRADING STATS": company.trading_stats(),
-            "RATIO SUMMARY": company.ratio_summary()
-        }
-        result = []
-        for section_name, data in info_sections.items():
-            result.append(f"=== {section_name} ===")
-            if isinstance(data, pd.DataFrame):
-                result.append(data.to_string() if not data.empty else "Không có dữ liệu")
-            elif isinstance(data, dict):
-                result.append(json.dumps(data, ensure_ascii=False, indent=2) if data else "Không có dữ liệu")
-            elif data is not None:
-                result.append(str(data))
-            else:
-                result.append("Không có dữ liệu")
-            result.append("")
-        text = "\n".join(result)
-        file_path = f"{DATA_DIR}/{symbol}_company_info.txt"
-        with open(file_path, 'w', encoding='utf-8-sig') as f:
-            f.write(text)
-        return text
-    except Exception as e:
-        return f"Lỗi khi lấy thông tin công ty {symbol}: {e}"
-
-def get_financial_data(symbol: str) -> Optional[pd.DataFrame]:
-    try:
-        stock = Finance(symbol=symbol, period="quarter")
-        df_ratio = _std_cols(_flatten(stock.ratio(period="quarter")))
-        df_bs = _std_cols(_flatten(stock.balance_sheet(period="quarter")))
-        df_is = _std_cols(_flatten(stock.income_statement(period="quarter")))
-        df_cf = _std_cols(_flatten(stock.cash_flow(period="quarter")))
-        for d in (df_ratio, df_bs, df_is, df_cf):
-            if d is not None:
-                d['ticker'] = d['ticker'].fillna(symbol)
-        base = df_bs
-        for other in (df_is, df_cf, df_ratio):
+        fin = Finance(symbol=symbol, period="quarter")
+        def _flat(df: Optional[pd.DataFrame]) -> Optional[pd.DataFrame]:
+            if df is None:
+                return None
+            if isinstance(df.columns, pd.MultiIndex):
+                df.columns = ["_".join([c for c in col if c]) for col in df.columns.values]
+            return df
+        def _std(df: Optional[pd.DataFrame]) -> Optional[pd.DataFrame]:
+            if df is None:
+                return None
+            mapping = {
+                "Meta_ticker": "ticker", "Meta_yearReport": "yearReport", "Meta_lengthReport": "lengthReport",
+                "meta_ticker": "ticker", "meta_yearReport": "yearReport", "meta_lengthReport": "lengthReport",
+            }
+            df = df.rename(columns={k: v for k, v in mapping.items() if k in df.columns})
+            for c in ["ticker", "yearReport", "lengthReport"]:
+                if c not in df.columns:
+                    df[c] = np.nan
+            return df
+        ratio = _std(_flat(fin.ratio(period="quarter")))
+        bs = _std(_flat(fin.balance_sheet(period="quarter")))
+        is_ = _std(_flat(fin.income_statement(period="quarter")))
+        cf = _std(_flat(fin.cash_flow(period="quarter")))
+        base = bs
+        for other in (is_, cf, ratio):
             if other is not None and not other.empty:
-                base = base.merge(
-                    other, on=["yearReport", "lengthReport", "ticker"],
-                    how="outer", suffixes=(None, None)
-                )
+                base = base.merge(other, on=["yearReport", "lengthReport", "ticker"], how="outer")
         if base is None or base.empty:
             return None
-        financial_data = base.rename(columns={
-            "ticker": "Symbol", "yearReport": "Year", "lengthReport": "Quarter"
-        }).tail(20)
-        csv_path = f"{DATA_DIR}/{symbol}_financial_statements.csv"
-        financial_data.to_csv(csv_path, index=False, encoding='utf-8-sig')
-        return financial_data
+        out = base.rename(columns={"ticker": "Symbol", "yearReport": "Year", "lengthReport": "Quarter"}).tail(24)
+        out_path = os.path.join(DATA_DIR, f"{symbol.upper()}_financials.csv")
+        out.to_csv(out_path, index=False, encoding="utf-8")
+        return out
     except Exception:
+        logger.exception(f"fetch_financials failed: {symbol}")
         return None
 
-def get_market_data() -> Optional[pd.DataFrame]:
+
+def fetch_company_info(symbol: str) -> str:
     try:
-        quote = Quote(symbol="VNINDEX")
-        vnindex = quote.history(start=GLOBAL_START_DATE, end=GLOBAL_END_DATE, interval="1D")
-        if not validate_dataframe(vnindex, ['time', 'open', 'high', 'low', 'close', 'volume']):
-            return None
-        vnindex = vnindex.rename(columns={
-            "time": "Date", "open": "Open", "high": "High", "low": "Low",
-            "close": "Close", "volume": "Volume"
-        })
-        vnindex["Date"] = pd.to_datetime(vnindex["Date"])
-        vnindex.set_index("Date", inplace=True)
-        vnindex.sort_index(inplace=True)
-        csv_path = f"{DATA_DIR}/VNINDEX_data.csv"
-        vnindex.to_csv(csv_path, index=True, encoding='utf-8-sig')
-        return vnindex
+        comp = Company(symbol)
+        sections: Dict[str, Any] = {
+            "OVERVIEW": comp.overview(),
+            "SHAREHOLDERS": comp.shareholders(),
+            "OFFICERS": comp.officers(filter_by="working"),
+            "EVENTS": comp.events(),
+            "NEWS": comp.news(),
+            "REPORTS": comp.reports(),
+            "TRADING_STATS": comp.trading_stats(),
+            "RATIO_SUMMARY": comp.ratio_summary(),
+        }
+        lines: List[str] = []
+        for name, data in sections.items():
+            lines.append(f"=== {name} ===")
+            if isinstance(data, pd.DataFrame):
+                lines.append("Không có dữ liệu" if data.empty else data.to_string())
+            elif isinstance(data, dict):
+                lines.append(json.dumps(data, ensure_ascii=False, indent=2) if data else "Không có dữ liệu")
+            else:
+                lines.append(str(data) if data is not None else "Không có dữ liệu")
+            lines.append("")
+        text = "\n".join(lines)
+        write_text(os.path.join(DATA_DIR, f"{symbol.upper()}_company_info.txt"), text)
+        return text
     except Exception:
-        return None
+        logger.exception(f"fetch_company_info failed: {symbol}")
+        return "Không có dữ liệu công ty."
 
-# ======================= PREPROCESS & FEATURES =======================
-def preprocess_stock_data(df: pd.DataFrame) -> pd.DataFrame:
-    if not validate_dataframe(df):
-        return df
+
+def fetch_index() -> Optional[PriceData]:
+    return fetch_history("VNINDEX")
+
+
+# ------------------------ Feature Engineering ------------------------
+
+def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df.index = pd.to_datetime(df.index)
-    df.sort_index(ascending=True, inplace=True)
-    for col in df.columns:
-        if pd.api.types.is_numeric_dtype(df[col]):
-            df[col] = df[col].ffill().bfill()
+    df.sort_index(inplace=True)
+    # Returns/Volatility
     df["returns"] = df["Close"].pct_change()
     df["volatility"] = df["returns"].rolling(10).std()
-    return df
-
-def create_features(df: pd.DataFrame) -> pd.DataFrame:
-    if not validate_dataframe(df, ['Close', 'High', 'Low', 'Volume']):
-        return df
-    df = df.copy()
-    for window in [10, 20, 50, 200]:
-        df[f"SMA_{window}"] = SMAIndicator(close=df["Close"], window=window).sma_indicator()
+    # SMAs
+    for w in [10, 20, 50, 200]:
+        df[f"SMA_{w}"] = SMAIndicator(close=df["Close"], window=w).sma_indicator()
+    # RSI
     df["RSI"] = RSIIndicator(close=df["Close"], window=14).rsi()
-    macd_ind = MACD(close=df["Close"], window_slow=26, window_fast=12, window_sign=9)
-    df["MACD"] = macd_ind.macd()
-    df["MACD_Signal"] = macd_ind.macd_signal()
-    df["MACD_Hist"] = macd_ind.macd_diff()
+    # MACD
+    _macd = MACD(close=df["Close"], window_slow=26, window_fast=12, window_sign=9)
+    df["MACD"] = _macd.macd(); df["MACD_Signal"] = _macd.macd_signal(); df["MACD_Hist"] = _macd.macd_diff()
+    # Bollinger
     bb = BollingerBands(close=df["Close"], window=20, window_dev=2)
-    df["BB_Upper"] = bb.bollinger_hband()
-    df["BB_Middle"] = bb.bollinger_mavg()
-    df["BB_Lower"] = bb.bollinger_lband()
-    for window in [20, 50]:
-        df[f"Volume_MA_{window}"] = SMAIndicator(close=df["Volume"], window=window).sma_indicator()
+    df["BB_Upper"] = bb.bollinger_hband(); df["BB_Middle"] = bb.bollinger_mavg(); df["BB_Lower"] = bb.bollinger_lband()
+    # Volume MAs
+    for w in [20, 50]:
+        df[f"Vol_MA_{w}"] = SMAIndicator(close=df["Volume"], window=w).sma_indicator()
+    # Ichimoku
     try:
-        ich = IchimokuIndicator(high=df["High"], low=df["Low"], window1=9, window2=26, window3=52)
-        df["ichimoku_tenkan_sen"] = ich.ichimoku_conversion_line()
-        df["ichimoku_kijun_sen"] = ich.ichimoku_base_line()
-        df["ichimoku_senkou_span_a"] = ich.ichimoku_a()
-        df["ichimoku_senkou_span_b"] = ich.ichimoku_b()
-        df["ichimoku_chikou_span"] = df["Close"].shift(26)
+        ichi = IchimokuIndicator(high=df["High"], low=df["Low"], window1=9, window2=26, window3=52)
+        df["Ich_Tenkan"] = ichi.ichimoku_conversion_line()
+        df["Ich_Kijun"] = ichi.ichimoku_base_line()
+        df["Ich_SpanA"] = ichi.ichimoku_a()
+        df["Ich_SpanB"] = ichi.ichimoku_b()
+        df["Ich_Chikou"] = df["Close"].shift(26)
     except Exception:
-        for k in ["ichimoku_tenkan_sen","ichimoku_kijun_sen","ichimoku_senkou_span_a","ichimoku_senkou_span_b","ichimoku_chikou_span"]:
-            df[k] = np.nan
+        for c in ["Ich_Tenkan", "Ich_Kijun", "Ich_SpanA", "Ich_SpanB", "Ich_Chikou"]:
+            df[c] = np.nan
+    # ATR(14)
+    tr1 = (df["High"] - df["Low"]).abs()
+    tr2 = (df["High"] - df["Close"].shift()).abs()
+    tr3 = (df["Low"] - df["Close"].shift()).abs()
+    df["TR"] = pd.concat([tr1, tr2, tr3], axis=1).max(axis=1)
+    df["ATR14"] = df["TR"].rolling(14).mean()
     return df
 
-# ======================= RS & FINANCIAL SNAPSHOT EXTRACTORS =======================
-def get_rs_from_market_data(symbol: str) -> Tuple[float, float, float, float, float]:
-    """
-    Trả về (RS3D, RS1M, RS3M, RS6M, RS1Y) từ market_filtered.csv nếu có, ngược lại 1.0.
-    Hỗ trợ các tên cột: relative_strength_*, rel_strength_*, rs* (không phân biệt hoa thường).
-    """
-    try:
-        file_path = "market_filtered.csv"
-        if not os.path.exists(file_path):
-            return 1.0, 1.0, 1.0, 1.0, 1.0
-        market_df = pd.read_csv(file_path)
-        if "ticker" not in market_df.columns:
-            return 1.0, 1.0, 1.0, 1.0, 1.0
-        filtered_df = market_df[market_df["ticker"].astype(str).str.upper() == symbol.upper()]
-        if filtered_df.empty:
-            return 1.0, 1.0, 1.0, 1.0, 1.0
 
-        output_csv_file = f"{DATA_DIR}/{symbol}_infor.csv"
-        filtered_df.to_csv(output_csv_file, index=False, encoding='utf-8-sig')
+# ------------------------ VSA/VPA & Structure ------------------------
+@dataclass
+class VSASignal:
+    date: str
+    pattern: str
+    volume_vs_ma20: str
+    note: str
 
-        def pick(colnames: List[str]) -> Optional[float]:
-            for c in colnames:
-                cands = [col for col in filtered_df.columns if col.lower() == c.lower()]
-                if cands:
-                    return safe_float(filtered_df[cands[0]].iloc[0])
-            return None
 
-        rs3d = pick(["relative_strength_3d", "rel_strength_3d", "rs3d"]) or 1.0
-        rs1m = pick(["relative_strength_1m", "rel_strength_1m", "rs1m"]) or 1.0
-        rs3m = pick(["relative_strength_3m", "rel_strength_3m", "rs3m"]) or 1.0
-        rs6m = pick(["relative_strength_6m", "rel_strength_6m", "rs6m"]) or 1.0
-        rs1y = pick(["relative_strength_1y", "rel_strength_1y", "rs1y"]) or 1.0
-        return rs3d, rs1m, rs3m, rs6m, rs1y
-    except Exception:
-        return 1.0, 1.0, 1.0, 1.0, 1.0
-
-def extract_quarter_rev_profit(financial_df: Optional[pd.DataFrame]) -> Dict[str, Optional[float]]:
-    """
-    Lấy doanh thu & lợi nhuận quý gần nhất (Q0) và quý liền kề (Q-1).
-    Cố gắng tìm cột revenue & profit phổ biến; nếu thiếu, trả None.
-    """
-    out = {"rev_q0": None, "rev_q_1": None, "profit_q0": None, "profit_q_1": None}
-    if not validate_dataframe(financial_df):
+def last_n_sessions_vsa(df: pd.DataFrame, n: int = 5) -> List[VSASignal]:
+    out: List[VSASignal] = []
+    if df.shape[0] < 30:
         return out
-    df = financial_df.copy()
-
-    # Chuẩn hoá cột Quarter -> số (1..4) nếu có
-    def quarter_to_int(q: Any) -> Optional[int]:
-        if q is None:
-            return None
-        s = str(q)
-        m = re.search(r'(\d)', s)
-        return int(m.group(1)) if m else None
-
-    if "Year" in df.columns and "Quarter" in df.columns:
-        df["QuarterNum"] = df["Quarter"].apply(quarter_to_int)
-        df["__sort__"] = df.apply(lambda r: (safe_float(r.get("Year")) or 0) * 10 + (r.get("QuarterNum") or 0), axis=1)
-        df = df.sort_values("__sort__").drop(columns=["__sort__"])
-    else:
-        df = df.reset_index(drop=True)
-
-    # Ưu tiên tên cột
-    revenue_priority = [
-        "revenue", "net_revenue", "total_revenue", "sales", "operating_revenue"
-    ]
-    profit_priority = [
-        "profit_after_tax", "net_income", "profit", "profit_after_tax_of_parent_company",
-        "earnings", "pat", "npat"
-    ]
-
-    def find_best(col_list: List[str]) -> Optional[str]:
-        # chọn cột xuất hiện, ưu tiên ít NaN nhất
-        candidates = []
-        for pattern in col_list:
-            matched = [c for c in df.columns if re.search(pattern, c, re.IGNORECASE)]
-            candidates.extend(matched)
-        if not candidates:
-            return None
-        # chọn cột có non-null nhiều nhất
-        best = max(candidates, key=lambda c: df[c].notna().sum())
-        return best
-
-    rev_col = find_best(revenue_priority)
-    prof_col = find_best(profit_priority)
-
-    if rev_col:
-        last_two = df[rev_col].dropna().tail(2).tolist()
-        if last_two:
-            out["rev_q0"] = safe_float(last_two[-1])
-            if len(last_two) > 1:
-                out["rev_q_1"] = safe_float(last_two[-2])
-    if prof_col:
-        last_two = df[prof_col].dropna().tail(2).tolist()
-        if last_two:
-            out["profit_q0"] = safe_float(last_two[-1])
-            if len(last_two) > 1:
-                out["profit_q_1"] = safe_float(last_two[-2])
-
+    d = df.tail(max(n, 5)).copy()
+    vol_ma20 = df["Vol_MA_20"].iloc[-1] if "Vol_MA_20" in df.columns else np.nan
+    for i in range(d.shape[0]):
+        row = d.iloc[i]
+        body = abs(row["Close"] - row["Open"])
+        range_ = row["High"] - row["Low"]
+        atr = row.get("ATR14", np.nan)
+        vol = row["Volume"]
+        vol_ratio = vol / vol_ma20 if (vol_ma20 and not np.isnan(vol_ma20) and vol_ma20 != 0) else np.nan
+        note = []
+        patt = None
+        # Simple swing context using previous 10 bars
+        ctx = df.iloc[-(len(d) - i + 10): -(len(d) - i)] if (len(d) - i) > 0 else df.iloc[-10:]
+        swing_high = ctx["High"].max() if not ctx.empty else np.nan
+        swing_low = ctx["Low"].min() if not ctx.empty else np.nan
+        # Spring: pierce prior swing low then close back in range; range wide; vol >= ma20
+        if (not np.isnan(swing_low) and row["Low"] < swing_low and row["Close"] > swing_low
+            and range_ > (atr or 0) and (not np.isnan(vol_ratio) and vol_ratio >= 1.0)):
+            patt = "Spring"; note.append("Xuyên đáy gần rồi hồi phục")
+        # Upthrust: break above swing high but close near low; vol >= ma20
+        elif (not np.isnan(swing_high) and row["High"] > swing_high and row["Close"] < (row["Open"] if row["Open"]>0 else row["Close"]) and
+              (not np.isnan(vol_ratio) and vol_ratio >= 1.0)):
+            patt = "Upthrust"; note.append("Vượt đỉnh nhưng đóng cửa yếu")
+        # Test: narrow range, tail down, low volume
+        elif (range_ < (atr or np.inf) * 0.7 and vol_ratio and vol_ratio < 1.0 and (row["Close"] > row["Open"])):
+            patt = "Test"; note.append("Biên độ hẹp, volume thấp")
+        # Climax: very wide range + volume spike
+        elif (range_ > (atr or 0) * 1.5 and vol_ratio and vol_ratio >= 1.5):
+            patt = "Climax"; note.append("Thân nến rộng, volume đột biến")
+        if patt:
+            out.append(VSASignal(
+                date=row.name.strftime("%Y-%m-%d"),
+                pattern=patt,
+                volume_vs_ma20=(f"{vol_ratio:.2f}x" if vol_ratio and not np.isnan(vol_ratio) else "N/A"),
+                note=", ".join(note)
+            ))
     return out
 
-# ======================= TECHNICAL SNAPSHOT =======================
-def create_empty_trading_signal() -> Dict[str, Any]:
-    return {
-        "signal": None, "score": 0, "current_price": 0,
-        "rsi_value": None, "ma10": None, "ma20": None, "ma50": None, "ma200": None,
-        "open": None, "high": None, "low": None, "volume": None,
-        "macd": None, "macd_signal": None, "macd_hist": None,
-        "bb_upper": None, "bb_lower": None, "volume_ma_20": None, "volume_ma_50": None,
-        "ichimoku_tenkan_sen": None, "ichimoku_kijun_sen": None,
-        "ichimoku_senkou_span_a": None, "ichimoku_senkou_span_b": None,
-        "ichimoku_chikou_span": None,
-        "relative_strength_3d": None, "relative_strength_1m": None,
-        "relative_strength_3m": None, "relative_strength_6m": None, "relative_strength_1y": None,
-        "rev_q0": None, "rev_q_1": None, "profit_q0": None, "profit_q_1": None,
-        "recommendation": None
-    }
 
-def calculate_technical(df: pd.DataFrame, symbol: str) -> Dict[str, Any]:
-    if not validate_dataframe(df):
-        return create_empty_trading_signal()
-    try:
-        last = df.iloc[-1]
-        current_price = safe_float(last["Close"]) or 0.0
-        indicators = {
-            'rsi_value': safe_float(last.get("RSI", 50)),
-            'ma10_value': safe_float(last.get("SMA_10", current_price)),
-            'ma20_value': safe_float(last.get("SMA_20", current_price)),
-            'ma50_value': safe_float(last.get("SMA_50", current_price)),
-            'ma200_value': safe_float(last.get("SMA_200", current_price)),
-            'macd_value': safe_float(last.get("MACD")),
-            'macd_signal': safe_float(last.get("MACD_Signal")),
-            'macd_hist': safe_float(last.get("MACD_Hist")),
-            'bb_upper': safe_float(last.get("BB_Upper")),
-            'bb_lower': safe_float(last.get("BB_Lower")),
-            'volume_ma_20': safe_float(df["Volume"].rolling(20).mean().iloc[-1]) if "Volume" in df else None,
-            'volume_ma_50': safe_float(df["Volume"].rolling(50).mean().iloc[-1]) if "Volume" in df else None,
-        }
-        ich_vals = {
-            'tenkan_sen': safe_float(last.get("ichimoku_tenkan_sen")),
-            'kijun_sen': safe_float(last.get("ichimoku_kijun_sen")),
-            'senkou_span_a': safe_float(last.get("ichimoku_senkou_span_a")),
-            'senkou_span_b': safe_float(last.get("ichimoku_senkou_span_b")),
-            'chikou_span': safe_float(last.get("ichimoku_chikou_span")),
-        }
-        if symbol.upper() != "VNINDEX":
-            rs3d, rs1m, rs3m, rs6m, rs1y = get_rs_from_market_data(symbol)
-        else:
-            rs3d = rs1m = rs3m = rs6m = rs1y = None
-        return {
-            "current_price": current_price,
-            "rsi_value": indicators['rsi_value'],
-            "ma10": indicators['ma10_value'],
-            "ma20": indicators['ma20_value'],
-            "ma50": indicators['ma50_value'],
-            "ma200": indicators['ma200_value'],
-            "open": safe_float(last.get("Open")),
-            "high": safe_float(last.get("High")),
-            "low": safe_float(last.get("Low")),
-            "volume": safe_float(last.get("Volume")),
-            "volume_ma_20": indicators['volume_ma_20'],
-            "volume_ma_50": indicators['volume_ma_50'],
-            "macd": indicators['macd_value'],
-            "macd_signal": indicators['macd_signal'],
-            "macd_hist": indicators['macd_hist'],
-            "bb_upper": indicators['bb_upper'],
-            "bb_lower": indicators['bb_lower'],
-            "ichimoku_tenkan_sen": ich_vals['tenkan_sen'],
-            "ichimoku_kijun_sen": ich_vals['kijun_sen'],
-            "ichimoku_senkou_span_a": ich_vals['senkou_span_a'],
-            "ichimoku_senkou_span_b": ich_vals['senkou_span_b'],
-            "ichimoku_chikou_span": ich_vals['chikou_span'],
-            "relative_strength_3d": rs3d,
-            "relative_strength_1m": rs1m,
-            "relative_strength_3m": rs3m,
-            "relative_strength_6m": rs6m,
-            "relative_strength_1y": rs1y,
-            "rev_q0": None, "rev_q_1": None, "profit_q0": None, "profit_q_1": None,
-            "signal": None, "score": 0, "recommendation": None
-        }
-    except Exception:
-        return create_empty_trading_signal()
+def structure_wyckoff(df: pd.DataFrame) -> Tuple[str, str, Dict[str, Any]]:
+    """Return (phase_1_4w, phase_1_6m, last_breakout).
+    Heuristics using HH/HL vs LH/LL, slope of MA50/200, Ichimoku cloud.
+    """
+    if df.shape[0] < 200:
+        return ("N/A", "N/A", {"level": "N/A", "date": "N/A", "vol_confirmed": "N/A"})
+    d4w = df.tail(20)
+    d6m = df.tail(130)
 
-def plot_stock_analysis(symbol: str, df: pd.DataFrame) -> Dict[str, Any]:
-    if not validate_dataframe(df):
-        return create_empty_trading_signal()
-    try:
-        df = df.sort_index()
-        df = create_features(df)
-        return calculate_technical(df, symbol)
-    except Exception:
-        return create_empty_trading_signal()
+    def hh_hl_phase(d: pd.DataFrame) -> str:
+        highs = d["High"].rolling(3).max()
+        lows = d["Low"].rolling(3).min()
+        up = (d["Close"].iloc[-1] > d["SMA_50"].iloc[-1]) and (d["SMA_50"].iloc[-1] > d["SMA_200"].iloc[-1])
+        down = (d["Close"].iloc[-1] < d["SMA_50"].iloc[-1]) and (d["SMA_50"].iloc[-1] < d["SMA_200"].iloc[-1])
+        cloud_support = d["Close"].iloc[-1] > min(d["Ich_SpanA"].iloc[-1], d["Ich_SpanB"].iloc[-1]) if not (np.isnan(d["Ich_SpanA"].iloc[-1]) or np.isnan(d["Ich_SpanB"].iloc[-1])) else False
+        if up and cloud_support:
+            return "Xu hướng tăng"
+        if down and not cloud_support:
+            return "Xu hướng giảm"
+        # else accumulation/distribution by flat MA200
+        if abs((d["SMA_200"].iloc[-1] - d["SMA_200"].iloc[-10]) / d["SMA_200"].iloc[-10]) < 0.01:
+            # decide by RSI 50
+            return "Tích lũy" if d["RSI"].iloc[-1] >= 50 else "Phân phối"
+        return "Tranh chấp"
 
-# ======================= AI ANALYSIS =======================
-def analyze_with_openrouter(symbol: str) -> str:
+    phase_4w = hh_hl_phase(d4w)
+    phase_6m = hh_hl_phase(d6m)
+
+    # Breakout/Breakdown detection: last 40 bars, swing range
+    sub = df.tail(60)
+    base_high = sub["High"].rolling(20).max().iloc[-2]
+    base_low = sub["Low"].rolling(20).min().iloc[-2]
+    last = df.iloc[-1]
+    vol_ma20 = df["Vol_MA_20"].iloc[-1] if "Vol_MA_20" in df.columns else np.nan
+    if last["Close"] > base_high and (last["Volume"] >= (vol_ma20 or np.inf)):
+        last_br = {"level": fmt2(base_high), "date": df.index[-1].strftime("%Y-%m-%d"), "vol_confirmed": True}
+    elif last["Close"] < base_low and (last["Volume"] >= (vol_ma20 or np.inf)):
+        last_br = {"level": fmt2(base_low), "date": df.index[-1].strftime("%Y-%m-%d"), "vol_confirmed": True}
+    else:
+        last_br = {"level": "N/A", "date": "N/A", "vol_confirmed": False}
+    return phase_4w, phase_6m, last_br
+
+
+# ------------------------ RS extraction from market_filtered.csv ------------------------
+
+def rs_from_market_csv(symbol: str) -> Tuple[float, float, float, float, float]:
     try:
-        if not os.path.exists("prompt.txt"):
-            return "Không tìm thấy prompt để phân tích."
-        with open("prompt.txt", "r", encoding="utf-8-sig") as f:
-            prompt_text = f.read()
-        resp = client.chat.completions.create(
-            model="deepseek/deepseek-chat-v3-0324:free",
-            messages=[{"role": "user", "content": prompt_text}],
+        path = "market_filtered.csv"
+        if not os.path.exists(path):
+            return (1.0, 1.0, 1.0, 1.0, 1.0)
+        m = pd.read_csv(path)
+        if "ticker" not in m.columns:
+            return (1.0, 1.0, 1.0, 1.0, 1.0)
+        row = m[m["ticker"].astype(str).str.upper() == symbol.upper()]
+        if row.empty:
+            return (1.0, 1.0, 1.0, 1.0, 1.0)
+        def pick(*names: str) -> Optional[float]:
+            for n in names:
+                cols = [c for c in row.columns if c.lower() == n.lower()]
+                if cols:
+                    return safe_float(row.iloc[0][cols[0]])
+            return None
+        return (
+            pick("relative_strength_3d", "rel_strength_3d", "rs3d") or 1.0,
+            pick("relative_strength_1m", "rel_strength_1m", "rs1m") or 1.0,
+            pick("relative_strength_3m", "rel_strength_3m", "rs3m") or 1.0,
+            pick("relative_strength_6m", "rel_strength_6m", "rs6m") or 1.0,
+            pick("relative_strength_1y", "rel_strength_1y", "rs1y") or 1.0,
         )
-        result = getattr(resp.choices[0].message, "content", "").strip() if getattr(resp, 'choices', None) else ""
-        result = result or "Không nhận được phản hồi từ OpenRouter."
-        out = f"{DATA_DIR}/openrouter_analysis_{symbol}.txt"
-        with open(out, "w", encoding="utf-8-sig") as f:
-            f.write(result)
-        return result
     except Exception:
-        return "Không thể tạo phân tích bằng OpenRouter tại thời điểm này."
+        return (1.0, 1.0, 1.0, 1.0, 1.0)
 
-def analyze_with_gemini(symbol: str) -> str:
-    try:
-        if not os.path.exists("prompt.txt"):
-            return "Không tìm thấy prompt để phân tích."
-        with open("prompt.txt", "r", encoding="utf-8-sig") as f:
-            prompt_text = f.read()
-        model = genai.GenerativeModel(model_name="gemini-2.5-flash")
-        response = model.generate_content(prompt_text)
-        result = (response.text or "").strip() if getattr(response, "text", None) else "Không nhận được phản hồi từ Gemini."
-        out = f"{DATA_DIR}/gemini_analysis_{symbol}.txt"
-        with open(out, "w", encoding="utf-8-sig") as f:
-            f.write(result)
-        return result
-    except Exception:
-        return "Không thể tạo phân tích bằng Gemini tại thời điểm này."
 
-# ======================= PROMPT BUILDERS =======================
-def _fmt(v: Any) -> str:
-    return format_large_value(v)
+# ------------------------ Financial snapshot extraction ------------------------
 
-def generate_advanced_stock_analysis_prompt(
-    symbol: str,
-    current_price: float,
-    technical_indicators: Dict[str, Any],
-    trading_signal: Dict[str, Any],
-    financial_data: Optional[pd.DataFrame],
-    company_info: str,
-    historical_data: str,
-    info_data: str,
-    market_data_str: str
-) -> str:
-    rsi = technical_indicators.get("rsi", "N/A")
-    ma = technical_indicators.get("ma", {}) or {}
-    bb = technical_indicators.get("bollinger_bands", {}) or {}
-    macd = technical_indicators.get("macd", {}) or {}
-    ich = technical_indicators.get("ichimoku", {}) or {}
-    vol = technical_indicators.get("volume", {}) or {}
+def quarter_rev_profit(financial_df: Optional[pd.DataFrame]) -> Dict[str, Optional[float]]:
+    out = {"rev_q0": None, "rev_q_1": None, "profit_q0": None, "profit_q_1": None}
+    if not ensure_df(financial_df):
+        return out
+    df = financial_df.copy()
+    def q_to_int(x: Any) -> Optional[int]:
+        try:
+            m = re.search(r"(\d)", str(x))
+            return int(m.group(1)) if m else None
+        except Exception:
+            return None
+    if "Year" in df.columns and "Quarter" in df.columns:
+        df["QuarterNum"] = df["Quarter"].apply(q_to_int)
+        df["__s"] = df["Year"].fillna(0).astype(float) * 10 + df["QuarterNum"].fillna(0).astype(float)
+        df = df.sort_values("__s")
+    rev_cols = [c for c in df.columns if re.search("revenue|sales|operating_revenue", c, re.I)]
+    prof_cols = [c for c in df.columns if re.search("profit|net_income|earnings|pat|npat", c, re.I)]
+    def best(cols: List[str]) -> Optional[str]:
+        if not cols:
+            return None
+        return max(cols, key=lambda c: df[c].notna().sum())
+    rc = best(rev_cols); pc = best(prof_cols)
+    if rc:
+        last2 = df[rc].dropna().tail(2).tolist()
+        if last2:
+            out["rev_q0"] = safe_float(last2[-1])
+            if len(last2) > 1:
+                out["rev_q_1"] = safe_float(last2[-2])
+    if pc:
+        last2 = df[pc].dropna().tail(2).tolist()
+        if last2:
+            out["profit_q0"] = safe_float(last2[-1])
+            if len(last2) > 1:
+                out["profit_q_1"] = safe_float(last2[-2])
+    return out
 
+
+# ------------------------ Scoring for picks ------------------------
+
+def score_stock_snapshot(row: Dict[str, Any]) -> float:
+    """Return 0..100 using rules you specified."""
+    score = 0.0
+    # Trend 20
+    ma50 = safe_float(row.get("ma50")); ma200 = safe_float(row.get("ma200")); close = safe_float(row.get("close"))
+    if all(v is not None for v in [ma50, ma200, close]) and ma50 and ma200:
+        if close > ma50 > ma200:
+            score += 20
+    # Momentum 20
+    rsi = safe_float(row.get("rsi"))
+    if rsi is not None:
+        if rsi > 65: score += 20
+        elif 55 <= rsi <= 65: score += 15
+        elif 48 <= rsi < 55: score += 10
+    # MACD 20
+    macd = safe_float(row.get("macd")); sig = safe_float(row.get("macd_signal")); hist = safe_float(row.get("macd_hist"))
+    if macd is not None and sig is not None and hist is not None:
+        if macd > sig and hist > 0: score += 20
+        elif macd > sig and hist <= 0: score += 10
+    # Volume 20
+    vol = safe_float(row.get("volume")); vma20 = safe_float(row.get("volume_ma_20"))
+    if vma20 and vma20 > 0 and vol is not None:
+        ratio = vol / vma20
+        if ratio >= 1.3: score += 20
+        elif 1.0 <= ratio < 1.3: score += 10
+        else: score += 5
+    # VSA positive 20 (Spring/Test) — expect a flag provided by caller
+    vsa_pos = row.get("vsa_positive", 0)
+    score += min(max(float(vsa_pos), 0.0), 20.0)
+    return round(score, 2)
+
+
+# ------------------------ AI Client ------------------------
+class AIClient:
+    def __init__(self, provider: str = "gemini") -> None:
+        self.provider = provider.lower()
+        self.ok_gemini = bool(GOOGLE_API_KEY)
+        self.ok_openrouter = bool(OPEN_ROUTER_API_KEY)
+        if self.ok_gemini:
+            genai.configure(api_key=GOOGLE_API_KEY)
+        if self.ok_openrouter:
+            self.or_client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=OPEN_ROUTER_API_KEY)
+
+    def generate(self, prompt: str, model: Optional[str] = None) -> str:
+        try:
+            if self.provider == "openrouter" and self.ok_openrouter:
+                mdl = model or "deepseek/deepseek-chat-v3-0324:free"
+                resp = self.or_client.chat.completions.create(
+                    model=mdl,
+                    messages=[{"role": "user", "content": prompt}],
+                )
+                return getattr(resp.choices[0].message, "content", "").strip()
+            # default gemini
+            if not self.ok_gemini:
+                return "[AI] Không có GOOGLE_API_KEY để gọi Gemini."
+            mdl = model or "gemini-2.5-flash"
+            g = genai.GenerativeModel(model_name=mdl)
+            r = g.generate_content(prompt)
+            return (r.text or "").strip()
+        except Exception as e:
+            logger.exception(f"AI generate failed: {e}")
+            return "[AI] Không thể tạo phân tích lúc này."
+
+
+# ------------------------ Prompt Builders ------------------------
+
+def build_prompt_vnindex(symbol: str, snap: Dict[str, Any], historical: str, market_screen: str) -> str:
+    rsi = snap.get("rsi", "N/A"); ma = snap.get("ma", {}); bb = snap.get("bb", {})
+    macd = snap.get("macd", {}); ich = snap.get("ich", {}); vol = snap.get("vol", {})
+    _fmt = fmt_big
+    prompt = f"""
+Bạn là chuyên gia phân tích thị trường Việt Nam (VSA/VPA, Wyckoff).
+
+# QUY TẮC
+- Tiếng Việt, có cấu trúc; làm tròn 2 chữ số.
+- Không suy đoán ngoài dữ liệu; thiếu ghi N/A.
+- Chỉ chọn mã từ MARKET_SCREEN.
+
+# SNAPSHOT
+- Chỉ số: {symbol.upper()} | Điểm: {_fmt(snap.get('price'))}
+- RSI(14): {_fmt(rsi)} | MACD: {_fmt(macd.get('macd','N/A'))}/{_fmt(macd.get('signal','N/A'))}/{_fmt(macd.get('histogram','N/A'))}
+- MA10/20/50/200: {_fmt(ma.get('ma10','N/A'))}/{_fmt(ma.get('ma20','N/A'))}/{_fmt(ma.get('ma50','N/A'))}/{_fmt(ma.get('ma200','N/A'))}
+- Bollinger: Trên {_fmt(bb.get('upper','N/A'))} | Dưới {_fmt(bb.get('lower','N/A'))}
+- Ichimoku:
+  - Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))}
+  - Senkou Span A {_fmt(ich.get('senkou_a','N/A'))} | Senkou Span B {_fmt(ich.get('senkou_b','N/A'))}
+- Volume: hiện {_fmt(vol.get('current','N/A'))} | MA20 {_fmt(vol.get('ma20','N/A'))} | MA50 {_fmt(vol.get('ma50','N/A'))}
+
+# NHIỆM VỤ
+Phân tích VNINDEX (1–4 tuần, 1–6 tháng) và đề xuất danh mục từ MARKET_SCREEN.
+
+# XUẤT RA
+## 1) VSA/VPA
+- 3–5 phiên: biến động giá so với MA20/MA50; test/upthrust/spring/climax (nếu có).
+## 2) Wyckoff
+- Giai đoạn + tín hiệu breakout/breakdown; thời gian tích lũy (nếu có).
+## 3) Kịch bản 1–2 tuần (kèm xác suất)
+- Cơ bản / Tốt nhất / Xấu nhất (mô tả ngắn + vùng điểm).
+## 4) Chiến lược
+- Vị thế: MUA/GIỮ/BÁN/CHỜ; quy tắc vào/thoát; rủi ro chính.
+
+## 5) ĐỀ XUẤT MÃ 20 MÃ CÓ TIỀM NĂNG GIẢM DẦN (chỉ từ MARKET_SCREEN)
+- Phân tích thông tin từ vĩ mô của cổ phiếu.
+
+# DỮ LIỆU
+<<<HISTORICAL_DATA_START>>>
+{historical}
+<<<HISTORICAL_DATA_END>>>
+
+<<<MARKET_SCREEN_START>>>
+{market_screen}
+<<<MARKET_SCREEN_END>>>
+"""
+    return prompt
+
+
+def build_prompt_single(symbol: str, snap: Dict[str, Any], historical: str, financials: Optional[pd.DataFrame], company_info: str, info_data: str, market_screen: str) -> str:
+    _fmt = fmt_big
+    rsi = snap.get("rsi", "N/A"); ma = snap.get("ma", {}); bb = snap.get("bb", {})
+    macd = snap.get("macd", {}); ich = snap.get("ich", {}); vol = snap.get("vol", {})
     prompt = f"""
 Bạn là chuyên gia phân tích cổ phiếu Việt Nam (Wyckoff, VSA/VPA, Minervini, CANSLIM, Buffett/Lynch).
 
@@ -524,7 +598,7 @@ Bạn là chuyên gia phân tích cổ phiếu Việt Nam (Wyckoff, VSA/VPA, Min
 - Nếu dữ liệu mâu thuẫn: nêu rõ và chọn kết luận thận trọng.
 
 # SNAPSHOT
-- Mã: {symbol.upper()} | Giá: {_fmt(current_price)}
+- Mã: {symbol.upper()} | Giá: {_fmt(snap.get('price'))}
 - RSI(14): {_fmt(rsi)} | MACD: {_fmt(macd.get('macd','N/A'))}/{_fmt(macd.get('signal','N/A'))}/{_fmt(macd.get('histogram','N/A'))}
 - MA10/20/50/200: {_fmt(ma.get('ma10','N/A'))}/{_fmt(ma.get('ma20','N/A'))}/{_fmt(ma.get('ma50','N/A'))}/{_fmt(ma.get('ma200','N/A'))}
 - Bollinger: Trên {_fmt(bb.get('upper','N/A'))} | Dưới {_fmt(bb.get('lower','N/A'))}
@@ -532,9 +606,9 @@ Bạn là chuyên gia phân tích cổ phiếu Việt Nam (Wyckoff, VSA/VPA, Min
   - Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))}
   - Senkou Span A {_fmt(ich.get('senkou_a','N/A'))} | Senkou Span B {_fmt(ich.get('senkou_b','N/A'))}
 - Volume: hiện tại {_fmt(vol.get('current','N/A'))} | MA20 {_fmt(vol.get('ma20','N/A'))} | MA50 {_fmt(vol.get('ma50','N/A'))}
-- RS: 3D {_fmt(trading_signal.get('relative_strength_3d','N/A'))} | 1M {_fmt(trading_signal.get('relative_strength_1m','N/A'))} | 3M {_fmt(trading_signal.get('relative_strength_3m','N/A'))} | 6M {_fmt(trading_signal.get('relative_strength_6m','N/A'))} | 1Y {_fmt(trading_signal.get('relative_strength_1y','N/A'))}
-- Doanh thu quý: Q0 {_fmt(trading_signal.get('rev_q0','N/A'))} | Q-1 {_fmt(trading_signal.get('rev_q_1','N/A'))}
-- Lợi nhuận quý: Q0 {_fmt(trading_signal.get('profit_q0','N/A'))} | Q-1 {_fmt(trading_signal.get('profit_q_1','N/A'))}
+- RS: 3D {_fmt(snap.get('rs3d','N/A'))} | 1M {_fmt(snap.get('rs1m','N/A'))} | 3M {_fmt(snap.get('rs3m','N/A'))} | 6M {_fmt(snap.get('rs6m','N/A'))} | 1Y {_fmt(snap.get('rs1y','N/A'))}
+- Doanh thu quý: Q0 {_fmt(snap.get('rev_q0','N/A'))} | Q-1 {_fmt(snap.get('rev_q_1','N/A'))}
+- Lợi nhuận quý: Q0 {_fmt(snap.get('profit_q0','N/A'))} | Q-1 {_fmt(snap.get('profit_q_1','N/A'))}
 
 # NHIỆM VỤ: phân tích toàn diện {symbol.upper()} và cho 1 khuyến nghị cuối.
 
@@ -560,11 +634,11 @@ Bạn là chuyên gia phân tích cổ phiếu Việt Nam (Wyckoff, VSA/VPA, Min
 
 # DỮ LIỆU
 <<<HISTORICAL_DATA_START>>>
-{historical_data}
+{historical}
 <<<HISTORICAL_DATA_END>>>
 
 <<<FINANCIALS_START>>>
-{financial_data.to_string(index=False) if (financial_data is not None and not financial_data.empty) else 'KHÔNG CÓ DỮ LIỆU BÁO CÁO TÀI CHÍNH'}
+{financials.to_string(index=False) if (financials is not None and not financials.empty) else 'KHÔNG CÓ DỮ LIỆU BÁO CÁO TÀI CHÍNH'}
 <<<FINANCIALS_END>>>
 
 <<<COMPANY_INFO_START>>>
@@ -576,287 +650,258 @@ Bạn là chuyên gia phân tích cổ phiếu Việt Nam (Wyckoff, VSA/VPA, Min
 <<<INFO_TCBS_END>>>
 
 <<<MARKET_SCREEN_START>>>
-{market_data_str}
+{market_screen}
 <<<MARKET_SCREEN_END>>>
 """
     return prompt
 
-def generate_vnindex_analysis_prompt(
-    symbol: str,
-    current_price: float,
-    technical_indicators: Dict[str, Any],
-    historical_data: str,
-    market_data_str: str
-) -> str:
-    rsi = technical_indicators.get("rsi", "N/A")
-    ma = technical_indicators.get("ma", {}) or {}
-    bb = technical_indicators.get("bollinger_bands", {}) or {}
-    macd = technical_indicators.get("macd", {}) or {}
-    ich = technical_indicators.get("ichimoku", {}) or {}
-    vol = technical_indicators.get("volume", {}) or {}
 
-    prompt = f"""
-Bạn là chuyên gia phân tích thị trường Việt Nam (VSA/VPA, Wyckoff).
+# ------------------------ Market Screener ------------------------
 
-# QUY TẮC
-- Tiếng Việt, có cấu trúc; làm tròn 2 chữ số.
-- Không suy đoán ngoài dữ liệu; thiếu ghi N/A.
-- Chỉ chọn mã từ MARKET_SCREEN.
-
-# SNAPSHOT
-- Chỉ số: {symbol.upper()} | Điểm: {_fmt(current_price)}
-- RSI(14): {_fmt(rsi)} | MACD: {_fmt(macd.get('macd','N/A'))}/{_fmt(macd.get('signal','N/A'))}/{_fmt(macd.get('histogram','N/A'))}
-- MA10/20/50/200: {_fmt(ma.get('ma10','N/A'))}/{_fmt(ma.get('ma20','N/A'))}/{_fmt(ma.get('ma50','N/A'))}/{_fmt(ma.get('ma200','N/A'))}
-- Bollinger: Trên {_fmt(bb.get('upper','N/A'))} | Dưới {_fmt(bb.get('lower','N/A'))}
-- Ichimoku:
-  - Tenkan {_fmt(ich.get('tenkan','N/A'))} | Kijun {_fmt(ich.get('kijun','N/A'))} | Chikou {_fmt(ich.get('chikou','N/A'))}
-  - Senkou Span A {_fmt(ich.get('senkou_a','N/A'))} | Senkou Span B {_fmt(ich.get('senkou_b','N/A'))}
-- Volume: hiện {_fmt(vol.get('current','N/A'))} | MA20 {_fmt(vol.get('ma20','N/A'))} | MA50 {_fmt(vol.get('ma50','N/A'))}
-
-# NHIỆM VỤ
-Phân tích VNINDEX (1–4 tuần, 1–6 tháng) và đề xuất danh mục từ MARKET_SCREEN.
-
-# XUẤT RA
-## 1) VSA/VPA
-- 3–5 phiên: biến động giá so với MA20/MA50; test/upthrust/spring/climax (nếu có).
-## 2) Wyckoff
-- Giai đoạn + tín hiệu breakout/breakdown; thời gian tích lũy (nếu có).
-## 3) Kịch bản 1–2 tuần (kèm xác suất)
-- Cơ bản / Tốt nhất / Xấu nhất (mô tả ngắn + vùng điểm).
-## 4) Chiến lược
-- Vị thế: MUA/GIỮ/BÁN/CHỜ; quy tắc vào/thoát; rủi ro chính.
-
-## 5) ĐỀ XUẤT MÃ 20 MÃ CÓ TIỀM NĂNG GIẢM DẦN (chỉ từ MARKET_SCREEN)
-
-
-# DỮ LIỆU
-<<<HISTORICAL_DATA_START>>>
-{historical_data}
-<<<HISTORICAL_DATA_END>>>
-
-<<<MARKET_SCREEN_START>>>
-{market_data_str}
-<<<MARKET_SCREEN_END>>>
-"""
-    return prompt
-
-# ======================= MAIN PIPELINE =======================
-def analyze_stock(symbol: str) -> Optional[Dict[str, Any]]:
-    is_index = symbol.upper() == "VNINDEX"
-
-    df = get_stock_data(symbol)
-    if not validate_dataframe(df):
+def screen_market(min_market_cap: int = 500) -> Optional[pd.DataFrame]:
+    try:
+        df = Screener().stock(params={"exchangeName": "HOSE,HNX,UPCOM"}, limit=5000)
+        if not ensure_df(df):
+            return None
+        c1 = df["market_cap"] >= min_market_cap
+        c2 = ((df["pe"] > 0) & (df["pe"] < 20)) | pd.isna(df["pe"])  # low-ish PE or N/A
+        c3 = (df["pb"] > 0) | pd.isna(df["pb"])  # positive PB or N/A
+        c4 = (df["last_quarter_revenue_growth"] > 0) | pd.isna(df["last_quarter_revenue_growth"])
+        c5 = (df["second_quarter_revenue_growth"] > 0) | pd.isna(df["second_quarter_revenue_growth"])
+        c6 = (df["last_quarter_profit_growth"] > 0) | pd.isna(df["last_quarter_profit_growth"])
+        c7 = (df["second_quarter_profit_growth"] > 0) | pd.isna(df["second_quarter_profit_growth"])
+        c8 = ((df["peg_forward"] >= 0) & (df["peg_forward"] < 1)) | pd.isna(df["peg_forward"])
+        c9 = ((df["peg_trailing"] >= 0) & (df["peg_trailing"] < 1)) | pd.isna(df["peg_trailing"])
+        c10 = (df["revenue_growth_1y"] >= 0) | pd.isna(df["revenue_growth_1y"])
+        c11 = (df["eps_growth_1y"] >= 0) | pd.isna(df["eps_growth_1y"])
+        filt = c1 & c2 & c3 & c4 & c5 & c6 & c7 & c8 & c9 & c10 & c11
+        filtered = df[filt].copy()
+        if filtered.empty:
+            return None
+        # Save two snapshots like your original
+        filtered.to_csv("market_filtered_pe.csv", index=False, encoding="utf-8")
+        df[c1].to_csv("market_filtered.csv", index=False, encoding="utf-8")
+        return filtered
+    except Exception:
+        logger.exception("screen_market failed")
         return None
 
-    financial_data_statement = None
-    company_info_data = ""
-    if not is_index:
-        financial_data_statement = get_financial_data(symbol)
-        company_info_data = get_company_info(symbol)
-    else:
-        company_info_data = "Chỉ số thị trường VNINDEX."
 
-    df_processed = preprocess_stock_data(df)
-    if not validate_dataframe(df_processed) or len(df_processed) < 100:
-        return None
+# ------------------------ Analysis Pipeline ------------------------
 
-    trading_signal = plot_stock_analysis(symbol, df_processed)
+def technical_snapshot(symbol: str, df: pd.DataFrame, for_index: bool = False) -> Dict[str, Any]:
+    last = df.iloc[-1]
+    snap: Dict[str, Any] = {
+        "price": safe_float(last.get("Close")),
+        "open": safe_float(last.get("Open")),
+        "high": safe_float(last.get("High")),
+        "low": safe_float(last.get("Low")),
+        "volume": safe_float(last.get("Volume")),
+        "ma": {
+            "ma10": safe_float(last.get("SMA_10")),
+            "ma20": safe_float(last.get("SMA_20")),
+            "ma50": safe_float(last.get("SMA_50")),
+            "ma200": safe_float(last.get("SMA_200")),
+        },
+        "rsi": safe_float(last.get("RSI")),
+        "macd": {
+            "macd": safe_float(last.get("MACD")),
+            "signal": safe_float(last.get("MACD_Signal")),
+            "histogram": safe_float(last.get("MACD_Hist")),
+        },
+        "bb": {"upper": safe_float(last.get("BB_Upper")), "lower": safe_float(last.get("BB_Lower"))},
+        "vol": {
+            "current": safe_float(last.get("Volume")),
+            "ma20": safe_float(last.get("Vol_MA_20")),
+            "ma50": safe_float(last.get("Vol_MA_50")),
+        },
+        "ich": {
+            "tenkan": safe_float(last.get("Ich_Tenkan")),
+            "kijun": safe_float(last.get("Ich_Kijun")),
+            "senkou_a": safe_float(last.get("Ich_SpanA")),
+            "senkou_b": safe_float(last.get("Ich_SpanB")),
+            "chikou": safe_float(last.get("Ich_Chikou")),
+        },
+    }
+    if not for_index:
+        rs3d, rs1m, rs3m, rs6m, rs1y = rs_from_market_csv(symbol)
+        snap.update({"rs3d": rs3d, "rs1m": rs1m, "rs3m": rs3m, "rs6m": rs6m, "rs1y": rs1y})
+    return snap
 
-    # Bổ sung Rev/Profit quý gần nhất & liền kề vào snapshot nếu có BCTC
-    if financial_data_statement is not None:
-        qp = extract_quarter_rev_profit(financial_data_statement)
-        trading_signal.update(qp)
 
-    # Chuẩn bị dữ liệu text cho prompt
-    csv_file_path = f"{DATA_DIR}/{symbol}_data.csv"
-    infor_csv_file_path = f"{DATA_DIR}/{symbol}_infor.csv"
-    market_file_path = f"market_filtered_pe.csv"
+def historical_text_from_csv(path: str) -> str:
+    if not os.path.exists(path):
+        return "Không có dữ liệu lịch sử."
+    try:
+        df = pd.read_csv(path)
+        return df.tail(2000).to_string(index=False, float_format="{:.2f}".format)
+    except Exception:
+        return "Không có dữ liệu lịch sử."
 
-    def to_text_if_exists(path: str, fallback: str) -> str:
-        if os.path.exists(path):
+
+def build_outputs(symbol: str, df: pd.DataFrame, financials: Optional[pd.DataFrame], company_info: str, provider: str = "gemini") -> Dict[str, Any]:
+    symu = symbol.upper()
+    # VSA last 3–5 sessions
+    vsa = last_n_sessions_vsa(df, n=5)
+    # Wyckoff phases
+    phase_4w, phase_6m, last_br = structure_wyckoff(df)
+    # Financial snapshot
+    qp = quarter_rev_profit(financials)
+
+    # Technical snapshot dict for prompts
+    snap = technical_snapshot(symu, df, for_index=(symu == "VNINDEX"))
+    snap.update(qp)
+
+    # Prepare prompt data blocks
+    hist_path = os.path.join(DATA_DIR, f"{symu}_data.csv")
+    historical = historical_text_from_csv(hist_path)
+    info_path = os.path.join(DATA_DIR, f"{symu}_infor.csv")
+    market_pe_path = "market_filtered_pe.csv"
+    def to_text(p: str, fallback: str) -> str:
+        if os.path.exists(p):
             try:
-                df_ = pd.read_csv(path)
-                return df_.tail(2000).to_string(index=False, float_format="{:.2f}".format)
+                return pd.read_csv(p).tail(2000).to_string(index=False, float_format="{:.2f}".format)
             except Exception:
                 return fallback
         return fallback
+    info_text = to_text(info_path, "Không có dữ liệu thông tin công ty.")
+    market_text = to_text(market_pe_path, "Không có dữ liệu thông tin thị trường.")
 
-    historical_data_str = to_text_if_exists(csv_file_path, "Không có dữ liệu lịch sử.")
-    infor_data_str = to_text_if_exists(infor_csv_file_path, "Không có dữ liệu thông tin công ty.")
-    market_data_str = to_text_if_exists(market_file_path, "Không có dữ liệu thông tin thị trường.")
+    # Build prompt
+    if symu == "VNINDEX":
+        prompt = build_prompt_vnindex(symu, snap, historical, market_text)
+    else:
+        prompt = build_prompt_single(symu, snap, historical, financials, company_info, info_text, market_text)
 
-    technical_indicators = {
-        "rsi": trading_signal.get("rsi_value"),
-        "ma": {
-            "ma10": trading_signal.get("ma10"),
-            "ma20": trading_signal.get("ma20"),
-            "ma50": trading_signal.get("ma50"),
-            "ma200": trading_signal.get("ma200"),
-        },
-        "bollinger_bands": {
-            "upper": trading_signal.get("bb_upper"),
-            "lower": trading_signal.get("bb_lower"),
-        },
-        "macd": {
-            "macd": trading_signal.get("macd"),
-            "signal": trading_signal.get("macd_signal"),
-            "histogram": trading_signal.get("macd_hist"),
-        },
-        "ichimoku": {
-            "tenkan": trading_signal.get("ichimoku_tenkan_sen"),
-            "kijun": trading_signal.get("ichimoku_kijun_sen"),
-            "senkou_a": trading_signal.get("ichimoku_senkou_span_a"),
-            "senkou_b": trading_signal.get("ichimoku_senkou_span_b"),
-            "chikou": trading_signal.get("ichimoku_chikou_span"),
-        },
-        "volume": {
-            "current": trading_signal.get("volume"),
-            "ma20": trading_signal.get("volume_ma_20"),
-            "ma50": trading_signal.get("volume_ma_50"),
-        },
+    # Save prompt
+    prompt_path = os.path.join(DATA_DIR, "prompt.txt")
+    write_text(prompt_path, prompt)
+
+    # AI call
+    ai = AIClient(provider=provider)
+    ai_text = ai.generate(prompt)
+
+    # JSON bundle for machines
+    json_bundle = {
+        "overview": {"symbol": symu, "price": fmt2(snap.get("price"))},
+        "vsa": [
+            {"date": s.date, "pattern": s.pattern, "volume_vs_ma20": s.volume_vs_ma20, "note": s.note}
+            for s in vsa
+        ],
+        "wyckoff": {"phase_1_4w": phase_4w, "phase_1_6m": phase_6m, "last_breakout": last_br},
+        "scenarios_1_2w": [],  # filled by AI text typically, we keep empty for programmatic use
+        "strategy": {"stance": "N/A", "entries": [], "exits": [], "key_risks": []},
+        "picks": [],  # we only fill in index analysis downstream when needed
+        "ai_analysis": ai_text,
     }
 
-    if is_index:
-        prompt = generate_vnindex_analysis_prompt(
-            symbol=symbol,
-            current_price=trading_signal.get("current_price"),
-            technical_indicators=technical_indicators,
-            historical_data=historical_data_str,
-            market_data_str=market_data_str,
-        )
+    # Markdown report
+    md_lines = [
+        f"# Báo cáo {symu} — {TODAY.strftime('%Y-%m-%d %H:%M')}\n",
+        "## Snapshot",
+        f"- Giá: {fmt2(snap.get('price'))}",
+        f"- RSI: {fmt2(snap.get('rsi'))} | MACD: {fmt2(snap['macd'].get('macd'))}/{fmt2(snap['macd'].get('signal'))}/{fmt2(snap['macd'].get('histogram'))}",
+        f"- MA10/20/50/200: {fmt2(snap['ma'].get('ma10'))}/{fmt2(snap['ma'].get('ma20'))}/{fmt2(snap['ma'].get('ma50'))}/{fmt2(snap['ma'].get('ma200'))}",
+        f"- BB: U {fmt2(snap['bb'].get('upper'))} | L {fmt2(snap['bb'].get('lower'))}",
+        f"- Volume: {fmt_big(snap['vol'].get('current'))} | MA20 {fmt_big(snap['vol'].get('ma20'))}",
+        "\n## VSA/VPA (3–5 phiên gần nhất)",
+    ]
+    if vsa:
+        for s in vsa:
+            md_lines.append(f"- {s.date}: **{s.pattern}** | Vol/MA20: {s.volume_vs_ma20} | {s.note}")
     else:
-        prompt = generate_advanced_stock_analysis_prompt(
-            symbol=symbol,
-            current_price=trading_signal.get("current_price"),
-            technical_indicators=technical_indicators,
-            trading_signal=trading_signal,
-            financial_data=financial_data_statement,
-            company_info=company_info_data,
-            historical_data=historical_data_str,
-            info_data=infor_data_str,
-            market_data_str=market_data_str,
-        )
+        md_lines.append("- N/A")
+    md_lines.extend([
+        "\n## Wyckoff",
+        f"- 1–4 tuần: {phase_4w}",
+        f"- 1–6 tháng: {phase_6m}",
+        f"- Breakout gần nhất: {json.dumps(last_br, ensure_ascii=False)}",
+        "\n## Phân tích AI",
+        ai_text or "N/A",
+    ])
 
-    with open("prompt.txt", "w", encoding="utf-8-sig") as f:
-        f.write(prompt)
+    # Persist
+    write_text(os.path.join(DATA_DIR, f"{symu}_report.md"), "\n".join(md_lines))
+    write_json(os.path.join(DATA_DIR, f"{symu}_bundle.json"), json_bundle)
+    write_text(os.path.join(DATA_DIR, f"{symu}_analysis.txt"), ai_text)
 
-    gemini_analysis = analyze_with_gemini(symbol)
-    # openrouter_analysis = analyze_with_openrouter(symbol)
-    print(gemini_analysis)
-    report = {
-        "symbol": symbol,
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "current_price": safe_float(trading_signal.get("current_price")),
-        "signal": trading_signal.get("signal"),
-        "recommendation": trading_signal.get("recommendation"),
-        "score": safe_float(trading_signal.get("score")),
-        "rsi_value": safe_float(trading_signal.get("rsi_value")),
-        "ma10": safe_float(trading_signal.get("ma10")),
-        "ma20": safe_float(trading_signal.get("ma20")),
-        "ma50": safe_float(trading_signal.get("ma50")),
-        "ma200": safe_float(trading_signal.get("ma200")),
-        "open": safe_float(trading_signal.get("open")),
-        "high": safe_float(trading_signal.get("high")),
-        "low": safe_float(trading_signal.get("low")),
-        "volume": safe_float(trading_signal.get("volume")),
-        "macd": safe_float(trading_signal.get("macd")),
-        "macd_signal": safe_float(trading_signal.get("macd_signal")),
-        "macd_hist": safe_float(trading_signal.get("macd_hist")),
-        "bb_upper": safe_float(trading_signal.get("bb_upper")),
-        "bb_lower": safe_float(trading_signal.get("bb_lower")),
-        "volume_ma_20": safe_float(trading_signal.get("volume_ma_20")),
-        "volume_ma_50": safe_float(trading_signal.get("volume_ma_50")),
-        "ichimoku_tenkan_sen": safe_float(trading_signal.get("ichimoku_tenkan_sen")),
-        "ichimoku_kijun_sen": safe_float(trading_signal.get("ichimoku_kijun_sen")),
-        "ichimoku_senkou_span_a": safe_float(trading_signal.get("ichimoku_senkou_span_a")),
-        "ichimoku_senkou_span_b": safe_float(trading_signal.get("ichimoku_senkou_span_b")),
-        "ichimoku_chikou_span": safe_float(trading_signal.get("ichimoku_chikou_span")),
-        "relative_strength_3d": safe_float(trading_signal.get("relative_strength_3d")) if not is_index else None,
-        "relative_strength_1m": safe_float(trading_signal.get("relative_strength_1m")) if not is_index else None,
-        "relative_strength_3m": safe_float(trading_signal.get("relative_strength_3m")) if not is_index else None,
-        "relative_strength_6m": safe_float(trading_signal.get("relative_strength_6m")) if not is_index else None,
-        "relative_strength_1y": safe_float(trading_signal.get("relative_strength_1y")) if not is_index else None,
-        "rev_q0": safe_float(trading_signal.get("rev_q0")),
-        "rev_q_1": safe_float(trading_signal.get("rev_q_1")),
-        "profit_q0": safe_float(trading_signal.get("profit_q0")),
-        "profit_q_1": safe_float(trading_signal.get("profit_q_1")),
-        "gemini_analysis": gemini_analysis,
-        "openrouter_analysis": "",
-    }
+    return {"snap": snap, "vsa": vsa, "wyckoff": (phase_4w, phase_6m, last_br), "ai_text": ai_text}
 
-    report_path = f"{DATA_DIR}/{symbol}_report.json"
-    with open(report_path, "w", encoding='utf-8-sig') as f:
-        json.dump(report, f, ensure_ascii=False, indent=4)
-    return report
 
-# ======================= SCREENER =======================
-def filter_stocks_low_pe_high_cap(min_market_cap: int = 500) -> Optional[pd.DataFrame]:
-    try:
-        df = Screener().stock(params={"exchangeName": "HOSE,HNX,UPCOM"}, limit=5000)
-        if not validate_dataframe(df):
-            return None
-        condition1 = df["market_cap"] >= min_market_cap
-        condition2_pe = ((df["pe"] > 0) & (df["pe"] < 20)) | pd.isna(df["pe"])
-        condition3_pb = (df["pb"] > 0) | pd.isna(df["pb"])
-        condition4_rev_growth_last = (df["last_quarter_revenue_growth"] > 0) | pd.isna(df["last_quarter_revenue_growth"])
-        condition5_rev_growth_second = (df["second_quarter_revenue_growth"] > 0) | pd.isna(df["second_quarter_revenue_growth"])
-        condition6_profit_growth_last = (df["last_quarter_profit_growth"] > 0) | pd.isna(df["last_quarter_profit_growth"])
-        condition7_profit_growth_second = (df["second_quarter_profit_growth"] > 0) | pd.isna(df["second_quarter_profit_growth"])
-        condition8_peg_forward = ((df["peg_forward"] >= 0) & (df["peg_forward"] < 1)) | pd.isna(df["peg_forward"])
-        condition9_peg_trailing = ((df["peg_trailing"] >= 0) & (df["peg_trailing"] < 1)) | pd.isna(df["peg_trailing"])
-        condition10_revenue_growth_1y = (df["revenue_growth_1y"] >= 0) | pd.isna(df["revenue_growth_1y"])
-        condition11_eps_growth_1y = (df["eps_growth_1y"] >= 0) | pd.isna(df["eps_growth_1y"])
+# ------------------------ Orchestrators ------------------------
 
-        final_condition = (
-            condition1 & condition2_pe & condition3_pb &
-            condition4_rev_growth_last & condition5_rev_growth_second &
-            condition6_profit_growth_last & condition7_profit_growth_second &
-            condition8_peg_forward & condition9_peg_trailing &
-            condition10_revenue_growth_1y & condition11_eps_growth_1y
-        )
-
-        filtered_df = df[final_condition]
-        if filtered_df.empty:
-            return None
-
-        output_csv_file = "market_filtered.csv"
-        output_csv_file_pe = "market_filtered_pe.csv"
-        filtered_df.to_csv(output_csv_file_pe, index=False, encoding='utf-8-sig')
-        df[condition1].to_csv(output_csv_file, index=False, encoding='utf-8-sig')
-        return filtered_df
-    except Exception:
-        return None
-
-# ======================= CLI =======================
-def main():
-    print("=" * 60)
-    print("HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN VIỆT NAM — VNSTOCK + AI")
-    print("=" * 60)
-
-    tickers_from_args = [arg.upper() for arg in sys.argv[1:] if arg and not arg.startswith('-')]
-
-    print("🔍 Đang lọc cổ phiếu nền")
-    filter_stocks_low_pe_high_cap()
-
-    any_ran = False
-    if tickers_from_args:
-        for ticker in tickers_from_args:
-            if ticker:
-                any_ran = True
-                print(f"\nPhân tích mã: {ticker}")
-                analyze_stock(ticker)
+def analyze_symbol(symbol: str, provider: str = "gemini") -> None:
+    logger.info(f"Analyze {symbol}")
+    pdata = fetch_history(symbol)
+    if pdata is None or pdata.df.shape[0] < 100:
+        logger.error(f"Thiếu dữ liệu cho {symbol}")
+        return
+    df = add_features(pdata.df)
+    fin: Optional[pd.DataFrame] = None
+    comp_info = ""
+    if symbol.upper() != "VNINDEX":
+        fin = fetch_financials(symbol)
+        comp_info = fetch_company_info(symbol)
     else:
-        user_input = input("\nNhập mã (VD: VCB, FPT) hoặc 'exit': ").strip()
-        if user_input and user_input.lower() != "exit":
-            for ticker in [t.strip().upper() for t in user_input.split(",") if t.strip()]:
-                any_ran = True
-                print(f"\nPhân tích mã: {ticker}")
-                analyze_stock(ticker)
+        comp_info = "Chỉ số thị trường VNINDEX."
+    build_outputs(symbol, df, fin, comp_info, provider=provider)
+
+
+def analyze_index(provider: str = "gemini") -> None:
+    analyze_symbol("VNINDEX", provider=provider)
+
+
+def analyze_many(symbols: List[str], provider: str = "gemini") -> None:
+    for sym in symbols:
+        analyze_symbol(sym, provider=provider)
+
+
+# ------------------------ CLI ------------------------
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="VNStock + AI Analyzer v2")
+    sub = parser.add_subparsers(dest="cmd", required=True)
+
+    p_screen = sub.add_parser("screen", help="Lọc cổ phiếu nền")
+    p_screen.add_argument("--min-cap", type=int, default=500, help="Vốn hóa tối thiểu (tỷ VND)")
+
+    p_anl = sub.add_parser("analyze", help="Phân tích 1 hoặc nhiều mã")
+    p_anl.add_argument("symbols", nargs="+", help="Danh sách mã, VD: VCB FPT HPG")
+    p_anl.add_argument("--provider", choices=["gemini", "openrouter"], default="gemini")
+
+    p_idx = sub.add_parser("index", help="Phân tích VNINDEX")
+    p_idx.add_argument("--provider", choices=["gemini", "openrouter"], default="gemini")
+
+    args = parser.parse_args()
+
+    if args.cmd == "screen":
+        logger.info("Đang lọc cổ phiếu nền…")
+        df = screen_market(min_market_cap=args.min_cap)
+        if df is None or df.empty:
+            logger.warning("Không có kết quả screen.")
         else:
-            print("👋 Thoát.")
+            out = os.path.join(DATA_DIR, "screen_result.csv")
+            df.to_csv(out, index=False, encoding="utf-8")
+            logger.info(f"Đã lưu danh sách tại {out}")
+        return
 
-    if any_ran:
-        print("\n✅ Hoàn thành. Kết quả trong thư mục 'vnstocks_data/'.")
+    if args.cmd == "analyze":
+        symbols = [s.strip().upper() for s in args.symbols if s.strip()]
+        if not symbols:
+            logger.error("Chưa có mã hợp lệ.")
+            return
+        analyze_many(symbols, provider=args.provider)
+        logger.info("Hoàn tất phân tích.")
+        return
+
+    if args.cmd == "index":
+        analyze_index(provider=args.provider)
+        logger.info("Hoàn tất phân tích VNINDEX.")
+        return
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n🛑 Hủy bởi người dùng.")
