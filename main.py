@@ -766,7 +766,7 @@ DỮ LIỆU KỸ THUẬT CHI TIẾT:
 - **Bắt buộc lấy từ MARKET_SCREEN_START**
 - **Cổ phiếu bắt buộc giá hiện tại trên thị trường mua được**
 - **Phân tích thêm thông tin vĩ mô cổ phiếu đảm bảo lợi nhuận đột biến tương lai**
-| Mã | Lý do chọn (VSA/VPA & WYCKOFF) (ngắn gọn dưới 20 từ) | Entry | SL | TP | RR |
+| Mã | Lý do chọn (VSA/VPA & WYCKOFF) (ngắn gọn dưới 25 từ) | Entry | SL | TP | RR |
 |----|---------------------|-------|----|----|----|
 |    |                     |       |    |    |    |
 ⚠️  **8. RỦI RO & ĐIỂM CẦN THEO DÕI:**
